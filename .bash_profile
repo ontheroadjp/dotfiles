@@ -48,10 +48,11 @@ alias desk='cdla ${HOME}/Desktop'
 alias doc='cdla ${HOME}/Documents'
 alias down='cdla ${HOME}/Downloads'
 
-alias gdrive='cdla ${HOME}/Google Drive'
+alias gdrive='cdla ${HOME}/Google\ Drive'
 alias odrive='cdla ${HOME}/OneDrive'
 alias dbox='cdla ${HOME}/Dropbox'
 
+alias text='cdla ${HOME}/Dropbox/アプリ/PlainText\ 2/INBOX'
 alias mroot='cdla ${HOME}/MAMP_ROOT'
 #-------------------------------------------------
 # WordPress - http://dev.ontheroad.jp
