@@ -4,10 +4,10 @@
 #-------------------------------------------------
 
 #現在のディレクトリをファインダーで開く
-alias openfinder='open .'
+alias finder='open .'
 
 #現在のファインダーをTerminal.appで開く
-openterminal(){
+terminal(){
 	target=`osascript -e 'tell application "Finder" to if(count of Finder windows) > 0 then get POSIX path of(target of front Finder window as text)'`
 	if [ "$target" != "" ]
 	then
@@ -16,6 +16,24 @@ openterminal(){
 	else
 		echo 'No Finder window found' >&2
 	fi
+}
+
+
+#ブラウザで開く
+dev(){
+	open -a "/Applications/Google Chrome.app"/ http://dev.localhost.jp
+}
+
+devadmin(){
+	open -a "/Applications/Google Chrome.app"/ http://dev.localhost.jp/wp-login.php
+}
+
+you(){
+	open -a "/Applications/Google Chrome.app"/ http://you.localhost.jp
+}
+
+coteditor(){
+	open -a "/Applications/CotEditor.app"/ $1
 }
 
 #-------------------------------------------------
@@ -43,17 +61,17 @@ alias bashprofile='vim ${HOME}/.bash_profile'
 alias vimrc='vim ${HOME}/.vimrc'
 
 #エイリアス
-alias home='cdla ${HOME}'
-alias desk='cdla ${HOME}/Desktop'
-alias doc='cdla ${HOME}/Documents'
-alias down='cdla ${HOME}/Downloads'
+alias gohome='cdla ${HOME}'
+alias godesktop='cdla ${HOME}/Desktop'
+alias godocuments='cdla ${HOME}/Documents'
+alias godownload='cdla ${HOME}/Downloads'
 
-alias gdrive='cdla ${HOME}/Google\ Drive'
-alias odrive='cdla ${HOME}/OneDrive'
-alias dbox='cdla ${HOME}/Dropbox'
+alias gogoogledrive='cdla ${HOME}/Google\ Drive'
+alias goonedrive='cdla ${HOME}/OneDrive'
+alias godropbox='cdla ${HOME}/Dropbox'
 
-alias text='cdla ${HOME}/Dropbox/アプリ/PlainText\ 2/INBOX'
-alias mroot='cdla ${HOME}/MAMP_ROOT'
+alias gotext='cdla ${HOME}/Dropbox/アプリ/PlainText\ 2/INBOX'
+alias gomamproot='cdla ${HOME}/MAMP_ROOT'
 #-------------------------------------------------
 # WordPress - http://dev.ontheroad.jp
 #-------------------------------------------------
@@ -61,8 +79,7 @@ alias mroot='cdla ${HOME}/MAMP_ROOT'
 export TARGET=dev
 
 #基本設定
-export DOCUMENTROOT=${HOME}/DocumentRoot
-
+export DOCUMENTROOT=${HOME}/MAMP_ROOT
 export WPROOT=${DOCUMENTROOT}/${TARGET}
 export WPTHEME=${WPROOT}/wp-content/themes/channel
 export WPPLUGIN=${WPROOT}/wp-content/plugins
@@ -73,14 +90,15 @@ alias wptheme='cdla $WPTHEME'
 alias wpplugin='cdla $WPPLUGIN'
 
 #エイリアス（編集用）
-alias vimwpconf='vim ${WPROOT}/wp-config.php'
-alias vimheader='vim ${WPTHEME}/header.php'
-alias vimhome='vim ${WPTHEME}/home.php'
-alias vimsingle='vim ${WPTHEME}/single.php'
-alias vimarchive='vim ${WPTHEME}/archive.php'
-alias vimsidebar='vim ${WPTHEME}/sidebar.php'
-alias vimstyle='vim ${WPTHEME}/style.css'
-alias vimfunctions='vim ${WPTHEME}/functions.php'
+alias wp-config='vim ${WPROOT}/wp-config.php'
+alias header='vim ${WPTHEME}/header.php'
+alias wphome='vim ${WPTHEME}/home.php'
+alias wpindex='vim ${WPTHEME}/index.php'
+alias single='vim ${WPTHEME}/single.php'
+alias archive='vim ${WPTHEME}/archive.php'
+alias sidebar='vim ${WPTHEME}/sidebar.php'
+alias style='vim ${WPTHEME}/style.css'
+alias functions='vim ${WPTHEME}/functions.php'
 
 #ファイルのバックアップ
 makebk() {
@@ -93,17 +111,6 @@ makebk() {
 	fi
 }
 
-#ブラウザで開く
-dev(){
-	open -a "/Applications/Google Chrome.app"/ http://dev.localhost.jp
-}
-
-devadmin(){
-	open -a "/Applications/Google Chrome.app"/ http://dev.localhost.jp/wp-login.php
-}
-
-alias finder='open .'
-
 #-------------------------------------------------
 # ネットワーク
 #-------------------------------------------------
@@ -112,10 +119,10 @@ alias hosts='sudo vim /etc/hosts'
 #-------------------------------------------------
 # MAMP
 #-------------------------------------------------
-
 export MAMPROOT=/Applications/MAMP
 export PATH=$PATH:${MAMPROOT}/bin
 export PATH=$PATH:${MAMPROOT}/bin/php/php5.5.14/bin
+export PATH=$PATH:${MAMPROOT}/Library/bin
 
 #Apache
 alias httpdconf='vim ${MAMPROOT}/conf/apache/httpd.conf'
