@@ -46,9 +46,9 @@ set smartindent
 """"""""""""""""""""""""""""
 " 自動的に閉じ括弧を入力
 """"""""""""""""""""""""""""
-imap { {}<LEFT>
-imap [ []<LEFT>
-imap ( ()<LEFT>
+"imap { {}<LEFT>
+"imap [ []<LEFT>
+"imap ( ()<LEFT>
 """"""""""""""""""""""""""""
 
 "-------------------------
@@ -74,6 +74,8 @@ nnoremap <S-l> <C-w>l
 " 行頭、行末への移動
 nnoremap <Space>h ^
 nnoremap <Space>l $
+vnoremap <Space>h ^
+vnoremap <Space>l $
 
 "-------------------------
 " NeoVundle の設定

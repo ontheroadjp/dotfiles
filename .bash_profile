@@ -72,6 +72,7 @@ alias godropbox='cdla ${HOME}/Dropbox'
 
 alias gotext='cdla ${HOME}/Dropbox/アプリ/PlainText\ 2/INBOX'
 alias gomamproot='cdla ${HOME}/MAMP_ROOT'
+
 #-------------------------------------------------
 # WordPress - http://dev.ontheroad.jp
 #-------------------------------------------------
@@ -127,4 +128,10 @@ export PATH=$PATH:${MAMPROOT}/Library/bin
 #Apache
 alias httpdconf='vim ${MAMPROOT}/conf/apache/httpd.conf'
 alias vhosts='vim ${MAMPROOT}/conf/apache/extra/httpd-vhosts.conf'
+
+#-------------------------------------------------
+# Laravel
+#-------------------------------------------------
+alias golaravelhome='cd ~/Vagrant/Laravel4-Vagrant/www'
+
 
