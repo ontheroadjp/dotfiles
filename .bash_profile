@@ -5,6 +5,7 @@
 
 #現在のディレクトリをファインダーで開く
 alias finder='open .'
+alias chrome='open -a "/Applications/Google Chrome.app"' 
 
 #現在のファインダーをTerminal.appで開く
 terminal(){
