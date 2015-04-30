@@ -179,5 +179,11 @@ nnoremap <silent> ,vr :UniteResume<CR>
 " filetypeの自動検出(最後の方に書いた方がいいらしい)
 filetype on
 
+" Dash.app 連携
+" Dash integration for objc and nimrod.
+command! DashNim silent !open -g dash://nimrod:"<cword>"
+command! DashDef silent !open -g dash://"<cword>"
+nmap K :DashDef<CR>\|:redraw!<CR>
+au FileType nim  nmap K :DashNim<CR>\|:redraw!<CR>
 
 
