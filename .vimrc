@@ -1,10 +1,28 @@
 
-set number
-
 "-------------------------
 "基本
 "-------------------------
+set number
+
 inoremap <silent> jj <esc>
+
+" ESCキーを2回押すと終了する
+au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
+au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
+
+"-------------------------
+"PHP 設定 :help 参照のこと
+"-------------------------
+let php_sql_query = 1
+let php_baselib = 1
+let php_htmlInStrings = 1
+let php_noShortTags = 1
+let php_parent_error_close = 1
+
+"-------------------------
+"DB 設定
+"-------------------------
+let g:sql_type_default='mysql'
 
 "-------------------------
 "バックアップ
@@ -54,12 +72,7 @@ set smartindent
 "imap { {}<LEFT>
 "imap [ []<LEFT>
 "imap ( ()<LEFT>
-""""""""""""""""""""""""""""
 
-"-------------------------
-" DB 設定
-"-------------------------
-let g:sql_type_default='mysql'
 
 "-------------------------
 " キーバインドの設定
@@ -71,10 +84,10 @@ nnoremap <S-Up> <C-w>-<CR> "動かない？
 nnoremap <S-Down> <C-w>+<CR> "動かない？
 
 " Ctrl + hjkl でウインドウ間を移動
-nnoremap <S-h> <C-w>h
-nnoremap <S-j> <C-w>j
-nnoremap <S-k> <C-w>k
-nnoremap <S-l> <C-w>l
+"nnoremap <S-h> <C-w>h
+"nnoremap <S-j> <C-w>j
+"nnoremap <S-k> <C-w>k
+"nnoremap <S-l> <C-w>l
 
 " 行頭、行末への移動
 nnoremap <Space>h ^
@@ -104,6 +117,7 @@ NeoBundle 'Shougo/vimproc'
 "NeoBundle 'jpalardy/vim-slime'
 "NeoBundle 'scrooloose/syntastic'
 
+
 filetype plugin indent on
 filetype indent on
 syntax on
@@ -111,8 +125,14 @@ syntax on
 " プラグインのインストール .vimrc に記述のち、:$NeoBundleInstall を実行
 " プラグインのアンインストール .vimrc の記述を削除したのち、:NeoBundleClean を実行
 
+"PHP マニュアルの閲覧
+NeoBundle 'thinca/vim-ref'
+
+let g:ref_phpmanual_path = $HOME.'/.vim/ref/php-chunked-xhtml'
+
 "ファイルオープンを便利に
 NeoBundle 'Shougo/unite.vim'
+
 "Unite.vimで最近使ったファイルを表示できるようにする
 NeoBundle 'Shougo/neomru.vim'
 "
@@ -123,27 +143,12 @@ NeoBundle 'Shougo/neomru.vim'
 "" 入力モードで開始する
 let g:unite_enable_start_insert=1
 
-"" バッファ一覧
-"noremap <C-P> :Unite buffer<CR>
-
-"" ファイル一覧
-"noremap <C-N> :Unite -buffer-name=file file<CR>
-
-"" 最近使ったファイルの一覧
-"noremap <C-Z> :Unite file_mru<CR>
-
-"" sourcesを「今開いているファイルのディレクトリ」とする
-"noremap :uff :<C-u>UniteWithBufferDir file -buffer-name=file<CR>
-
 "" ウィンドウを分割して開く
 "au FileType unite nnoremap <silent> <buffer> <expr> <C-J> unite#do_action('split')
 "au FileType unite inoremap <silent> <buffer> <expr> <C-J> unite#do_action('split')
 
 "" ウィンドウを縦に分割して開く
 
-"" ESCキーを2回押すと終了する
-au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
-au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
 """""""""""""""""""""""""""""""
 "" unite.vim {{{
 "The prefix key.
@@ -151,13 +156,12 @@ nnoremap    [unite]   <Nop>
 nmap    <Leader>f [unite]
   
 " unite.vim keymap
-"https://github.com/alwei/dotfiles/blob/3760650625663f3b08f24bc75762ec843ca7e112/.vimrc
 nnoremap [unite]u  :<C-u>Unite -no-split<Space>
 nnoremap <silent> [unite]f :<C-u>Unite<Space>file<CR>
 nnoremap <silent> [unite]b :<C-u>Unite<Space>buffer<CR>
 nnoremap <silent> [unite]m :<C-u>Unite<Space>bookmark<CR>
 nnoremap <silent> [unite]r :<C-u>Unite<Space>file_mru<CR>
-nnoremap <silent> [unite]l :<C-u>UniteWithBufferDir file<CR>
+nnoremap <silent> [unite]v :<C-u>UniteWithBufferDir file<CR>
 nnoremap <silent> ,vr :UniteResume<CR>
 
 """"""""""""""""""""""""""""""
@@ -174,16 +178,23 @@ nnoremap <silent> ,vr :UniteResume<CR>
 "\}
 
 """"""""""""""""""""""""""""""
+" Dash.app 連携
+""""""""""""""""""""""""""""""
+"command! DashNim silent !open -g dash://nimrod:"<cword>"
+"command! DashDef silent !open -g dash://"<cword>"
+"nmap K :DashDef<CR>\|:redraw!<CR>
+"au FileType nim  nmap K :DashNim<CR>\|:redraw!<CR>
 
 
+
+
+
+
+
+""""""""""""""""""""""""""""""
 " filetypeの自動検出(最後の方に書いた方がいいらしい)
 filetype on
 
-" Dash.app 連携
-" Dash integration for objc and nimrod.
-command! DashNim silent !open -g dash://nimrod:"<cword>"
-command! DashDef silent !open -g dash://"<cword>"
-nmap K :DashDef<CR>\|:redraw!<CR>
-au FileType nim  nmap K :DashNim<CR>\|:redraw!<CR>
+
 
 
