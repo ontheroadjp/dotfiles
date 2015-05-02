@@ -128,7 +128,36 @@ syntax on
 "PHP マニュアルの閲覧
 NeoBundle 'thinca/vim-ref'
 
-let g:ref_phpmanual_path = $HOME.'/.vim/ref/php-chunked-xhtml'
+let g:ref_phpmanual_path = '/Users/hideaki/.vim/vim-ref/php-chunked-xhtml'
+
+"lynx.cfg の場所
+"
+""Homebrew でlynx をインストールした場合
+"/usr/local/Cellar/lynx/2.8.7/etc/lynx.cfg
+"
+"MacPorts で lynx をインストールした場合
+"/opt/local/etc/lynx.cfg
+
+" :Ref man ls
+" :Ref phpmanual echo
+
+""" ref.vim
+"Ref webdictでalcを使う設定
+let g:ref_source_webdict_cmd = 'lynx -dump -nonumbers %s'
+let g:ref_source_webdict_use_cache = 1
+let g:ref_source_webdict_sites = {
+            \ 'alc' : {
+            \   'url' : 'http://eow.alc.co.jp/%s/UTF-8/'
+            \   }
+            \ }
+function! g:ref_source_webdict_sites.alc.filter(output)
+	return join(split(a:output, "\n")[29 :], "\n")
+endfunction
+
+			cnoremap aa Ref webdict alc<Space>
+
+""""""""""""""""""""""""""""""""
+
 
 "ファイルオープンを便利に
 NeoBundle 'Shougo/unite.vim'
