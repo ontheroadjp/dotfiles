@@ -10,3 +10,7 @@ ln -s ~/dotfiles/.atom ~/.atom
 #ln -s ~/dotfiles/.bash_history ~/.bash_history
 #ln -s ~/dotfiles/.gitconfig ~/.gitconfig
 #ln -s ~/dotfiles/.gitignore_global ~/.gitignore_global
+
+source ~/.bash_profile
+
+
