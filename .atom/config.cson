@@ -1,0 +1,14 @@
+"*":
+  "exception-reporting":
+    userId: "b4e3f08f-a935-74f4-2765-ab93f600e333"
+  welcome:
+    showOnStartup: false
+  core:
+    themes: [
+      "atom-dark-ui"
+      "base16-tomorrow-dark-theme"
+    ]
+  editor:
+    invisibles:
+      {}
+    fontSize: 13

@@ -122,7 +122,7 @@ filetype plugin indent on
 filetype indent on
 syntax on
 
-" プラグインのインストール .vimrc に記述のち、:$NeoBundleInstall を実行
+" プラグインのインストール .vimrc に記述のち、:NeoBundleInstall を実行
 " プラグインのアンインストール .vimrc の記述を削除したのち、:NeoBundleClean を実行
 
 "PHP マニュアルの閲覧
