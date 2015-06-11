@@ -1,0 +1,13 @@
+﻿.vimrc
+
+# Esc を jj にバインド
+
+inoremap <silent> jj <esc>
+
+# Dash の設定
+
+" Dash integration for objc and nimrod.
+command! DashNim silent !open -g dash://nimrod:"<cword>"
+command! DashDef silent !open -g dash://"<cword>"
+nmap K :DashDef<CR>\|:redraw!<CR>
+au FileType nim  nmap K :DashNim<CR>\|:redraw!<CR>

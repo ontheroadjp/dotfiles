@@ -1,0 +1,9 @@
+
+#!/bin/sh
+
+echo "exec mysqldump"
+ssh xiaozhe@xiaozhe.xsrv.jp -p 10022 "mysqldump -u xiaozhe_wpdev -pbunnta0421 -h mysql9.xserver.jp --all-databases | gzip > ./ontheroad.jp/devsql.gz"
+
+echo "downloading devsql.gz"
+sftp -i ~/.ssh/id_rsa -P 10022 -b ./get_devsql.bat xiaozhe@sv80.xserver.jp
+

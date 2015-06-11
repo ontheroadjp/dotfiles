@@ -1,0 +1,85 @@
+
+DROP TABLE IF EXISTS rss_feeds;
+DROP TABLE IF EXISTS rss_articles;
+
+CREATE TABLE rss_feeds (
+	rss_feed_id MEDIUMINT NOT NULL AUTO_INCREMENT,
+	url TEXT NOT NULL,
+	name TEXT NOT NULL,
+	category INT NOT NULL,
+	last_update DATE NOT NULL,
+	PRIMARY KEY ( rss_feed_id )
+);
+
+CREATE TABLE rss_articles (
+	rss_feed_id MEDIUMINT NOT NULL,
+	link TEXT NOT NULL,
+	title TEXT NOT NULL,
+	title_md5 TEXT NOT NULL,
+	description TEXT NOT NULL,
+	post_time DATE NOT NULL
+);
+
+
+
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("http://www.jetro.go.jp/rss/us.xml","JETRO（通商弘報）（アメリカ）",1,"");
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("http://www.jetro.go.jp/rss/ca.xml","JETRO（通商弘報）（カナダ）",2,"");
+
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("http://www.jetro.go.jp/rss/at.xml","JETRO（通商弘報）（オーストリア）",3,"");
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("http://www.jetro.go.jp/rss/be.xml","JETRO（通商弘報）（ベルギー）",4,"");
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("http://www.jetro.go.jp/rss/dk.xml","JETRO（通商弘報）（デンマーク）",5,"");
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("http://www.jetro.go.jp/rss/fi.xml","JETRO（通商弘報）（フィンランド）",6,"");
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("http://www.jetro.go.jp/rss/fr.xml","JETRO（通商弘報）（フランス）",7,"");
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("http://www.jetro.go.jp/rss/de.xml","JETRO（通商弘報）（ドイツ）",8,"");
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("http://www.jetro.go.jp/rss/gr.xml","JETRO（通商弘報）（ギリシャ）",9,"");
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("http://www.jetro.go.jp/rss/ie.xml","JETRO（通商弘報）（アイルランド）",10,"");
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("http://www.jetro.go.jp/rss/it.xml","JETRO（通商弘報）（イタリア）",11,"");
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("http://www.jetro.go.jp/rss/nl.xml","JETRO（通商弘報）（オランダ）",12,"");
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("http://www.jetro.go.jp/rss/no.xml","JETRO（通商弘報）（ノルウェー）",13,"");
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("http://www.jetro.go.jp/rss/pt.xml","JETRO（通商弘報）（ポルトガル）",14,"");
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("http://www.jetro.go.jp/rss/es.xml","JETRO（通商弘報）（スペイン）",15,"");
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("http://www.jetro.go.jprrss/se.xml","JETRO（通商弘報）（スウェーデン）",16,"");
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("http://www.jetro.go.jp/rss/ch.xml","JETRO（通商弘報）（スイス）",17,"");
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("http://www.jetro.go.jp/rss/uk.xml","JETRO（通商弘報）（イギリス）",18,"");
+
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("http://www.jetro.go.jp/rss/au.xml","JETRO（通商弘報）（オーストラリア）",19,"");
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("http://www.jetro.go.jp/rss/nz.xml","JETRO（通商弘報）（ニュージーランド）",20,"");
+
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("http://www.jetro.go.jp/rss/hk.xml","JETRO（通商弘報）（香港）",21,"");
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("http://www.jetro.go.jp/rss/sg.xml","JETRO（通商弘報）（シンガポール）",22,"");
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("","JETRO（通商弘報）（日本）",23,"");
+
+
+
+
+
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("http://www.jetro.go.jp/world/cs_america/ar/feed.xml","JETRO（通商弘報）（アルゼンチン）",24,"");
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("http://www.jetro.go.jp/world/cs_america/br/feed.xml","JETRO（通商弘報）（ブラジル）",25,"");
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("http://www.jetro.go.jp/world/cs_america/cl/feed.xml","JETRO（通商弘報）（チリ）",26,"");
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("http://www.jetro.go.jp/world/cs_america/co/feed.xml","JETRO（通商弘報）（コロンビア）",27,"");
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("http://www.jetro.go.jp/world/cs_america/mx/feed.xml","JETRO（通商弘報）（メキシコ）",28,"");
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("http://www.jetro.go.jp/world/cs_america/pe/feed.xml","JETRO（通商弘報）（ペルー）",29,"");
+
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("http://www.jetro.go.jp/world/europe/cz/feed.xml","JETRO（通商弘報）（チェコ共和国）",30,"");
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("http://www.jetro.go.jp/world/europe/hu/feed.xml","JETRO（通商弘報）（ハンガリー）",31,"");
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("http://www.jetro.go.jp/world/europe/pl/feed.xml","JETRO（通商弘報）（ポーランド）",32,"");
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("http://www.jetro.go.jp/world/russia_cis/ru/feed.xml","JETRO（通商弘報）（ロシア）",33,"");
+
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("http://www.jetro.go.jp/world/middle_east/tr/feed.xml","JETRO（通商弘報）（トルコ）",34,"");
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("http://www.jetro.go.jp/world/africa/eg/feed.xml","JETRO（通商弘報）（エジプト）",35,"");
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("http://www.jetro.go.jp/world/middle_east/il/feed.xml","JETRO（通商弘報）（イスラエル）",36,"");
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("","JETRO（通商弘報）（ヨルダン）",37,"");
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("","JETRO（通商弘報）（モロッコ）",38,"");
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("http://www.jetro.go.jp/world/africa/za/feed.xml","JETRO（通商弘報）（南アフリカ）",39,"");
+
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("http://www.jetro.go.jp/world/asia/cn/feed.xml","JETRO（通商弘報）（中国）",40,"");
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("http://www.jetro.go.jp/world/asia/idn/feed.xml","JETRO（通商弘報）（インドネシア）",41,"");
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("http://www.jetro.go.jp/world/asia/kr/feed.xml","JETRO（通商弘報）（韓国）",42,"");
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("http://www.jetro.go.jp/world/asia/my/feed.xml","JETRO（通商弘報）（マレーシア）",43,"");
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("http://www.jetro.go.jp/world/asia/ph/feed.xml","JETRO（通商弘報）（フィリピン）",44,"");
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("http://www.jetro.go.jp/world/asia/tw/feed.xml","JETRO（通商弘報）（台湾）",45,"");
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("http://www.jetro.go.jp/world/asia/th/feed.xml","JETRO（通商弘報）（タイ）",46,"");
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("http://www.jetro.go.jp/world/asia/in/feed.xml","JETRO（通商弘報）（インド）",47,"");
+INSERT INTO rss_feeds(url,name,category,last_update) VALUES ("http://www.jetro.go.jp/world/asia/pk/feed.xml","JETRO（通商弘報）（パキスタン）",48,"");
+
+

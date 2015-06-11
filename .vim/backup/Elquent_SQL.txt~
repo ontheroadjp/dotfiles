@@ -1,0 +1,48 @@
+
+
+//PK参照
+$records = Calendar::find(1);
+
+//条件参照
+$records = Calendar::where('area_name', 'tokyo')->get();
+
+//条件参照（比較演算子）
+$records = Calendar::where('id', '<=', 2)->get();
+
+//条件参照(LIKE)
+$records = Calendar::where('area_name', 'LIKE', "%kyo%")->get();
+
+//条件参照(IN)
+$records = Calendar::whereIn('area_name', array('tokyo', 'aomori'))->get();
+
+//条件参照(OR)
+$records = Calendar::whereOr('area_name', array('tokyo', 'aomori'))->get();
+
+//Order
+$records = Calendar::where('area_name', 'tokyo')->orderBy('id', 'DESC')->get();
+
+//Where 最初とは限らない
+$records = Calendar::groupBy('area_name')->get();
+
+//OR 句のネストだとこうなる（ちょっと複雑にしてみた）
+//select `id` from `calendar`	where `calendar`.`deleted_at` is null	and (`id` <= ? or `id` >= ?) and `area_name` = ? order by `id` desc 
+
+$records =	Calendar::select('id')
+			->where(function($query)	
+			{
+					$query->where('id',	'<=',	10);
+					$query->orWhere('id',	'>=',	50);
+			})
+			->where('area_name', 'tokyo')
+			->orderBy('id',	"DESC")
+			->get();
+
+
+//クエリログを確認する
+var_dump(DB::getQueryLog());
+
+//JSON形式で表示
+var_dump(Response::json($records));
+
+
+参考URL: http://befool.co.jp/blog/raharu/eloquent-orm-select/

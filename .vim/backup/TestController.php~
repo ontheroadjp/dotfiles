@@ -1,0 +1,13 @@
+<?php
+	class TestController extends BaseController {
+		public function getIndex(){
+			$id = Input::get('id');
+			$message = Input::get('message');
+			return View::make('test_view', array('id' => $id, 'message' => $message ) );
+		}
+	}
+?>
+
+
+
+

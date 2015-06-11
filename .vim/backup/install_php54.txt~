@@ -1,0 +1,17 @@
+
+
+
+// PHP のバージョンを確認する
+$php -v
+
+// add-apt-repository コマンドが利用できるようにする
+sudo apt-get install python-software-properties
+
+// リポジトリの追加
+sudo -add-apt-repository ppa:ondrej/php5
+sudo apt-get update
+
+// PHP のアンインストール ＆インストール
+sudo apt-get autoremove php5
+sudo apt-get install php5
+

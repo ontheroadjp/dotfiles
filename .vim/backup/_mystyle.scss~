@@ -1,0 +1,77 @@
+// mystyle
+
+.maru {
+	width: 200px;
+	height: 100px;
+	-webkit-border-radius: 100px;
+	-webkit-box-shadow: 0 3px 3px rgba(0,0,0,0.2);
+}
+
+.l-globalheader {
+	background-color: #83d6ce;
+	color: #fff;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 100;
+	width: 100%;
+	padding: 10px 0 5px;
+	transition: all .2s;
+}
+
+.l-globalheader-box {
+	display: table;
+	width: 100%;
+	table-layout: fixed;
+}
+
+.l-globalheader-box .l-globalheader-left {
+	display: table-cell;
+	vertical-align: middle;
+	font-size: 120%;
+	width: 30%;
+}
+
+.l-globalheader-box .l-globalheader-right {
+	display: table-cell;
+	text-align: right;
+	vertical-align: middle;
+}
+
+.navbar-ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.navbar-ul li {
+	display: inline-block;
+}
+
+
+.btn.btn-tw {
+	color: #fff;
+	background-color: #55acee;
+	border-color: transparent;
+}
+
+
+.btn.btn-fb {
+	color: #fff;
+	background-color: #3b5998;
+	border-color: transparent;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,185 @@
+
+<?php
+require_once( "./HTTP/Request.php" );
+
+// 対象ディレクトリの作成
+echo '$info[\'img_dir\'] = '.$info['img_dir'].'<br>';
+if( !is_dir( $info['img_dir'] ) ) {
+	makeDir( $info['img_dir'] );
+}
+
+// 各カウンタの初期化
+$page_count		= 0;
+$oppai_count	= 0;
+$newimgcount	= 0;
+
+$accountKey = '0lg92hbP93ZoCA2h1lSX/iUnnE2OjFYX0VIVLLHugZw=';
+// https://datamarket.azure.com/ > マイアカウント
+ 
+ 
+// $req = new HTTP_Request("https://api.datamarket.azure.com/Bing/Search/Image");
+$fp_new = fopen( $info['img_dir'].'/new.txt', "w" );
+
+while( $page_count <= $info['number'] ) {	 // 1ページあたり 50 枚
+	$offset = $page_count * 50;
+	$url = "https://api.datamarket.azure.com/Bing/Search/Image?"
+//					.'&Version=2.2'
+//					.'&Sources=Image'
+					."Query='".urlencode( $info['q'] ) . "'"
+					."&Market='".$info['region']."'"
+					."&Adult='off'"
+					."&\$format=json"
+					."&\$top=50&\$skip=" . $offset;
+		
+	// リクエストの発行
+    $context = stream_context_create(array('http' => array(
+                'request_fulluri' => true,
+                'header' => "Authorization: Basic " . base64_encode( $accountKey . ":" . $accountKey )
+                )
+            ));
+ 
+    $res = file_get_contents( $url, 0, $context );
+    $ref = json_decode( $res );
+    $arr = $ref -> d -> results;
+    if ( !isset( $arr ) ) { // Resultsが定義されていない場合
+        break;
+    }
+
+	// リクエスト URL の表示
+	if( is_mobile() ) {
+		$echocount = 60;
+	} else {
+		$echocount = 100;
+	}
+	for( $n=0; $n < $echocount; $n++ ) { echo '-'; }
+	echo '<br>'."\n";
+	if( is_mobile() ) {
+		echo '$url = <a href="'.$url.'">リクエスト URL</a><br>'."\n";
+	} else {
+		echo '$url = <a href="'.$url.'">'.$url.'</a><br>'."\n";
+	}
+	for( $n=0; $n < $echocount; $n++ ) { echo '-'; }
+	echo '<br>'."\n";
+
+    // JSON からの取得処理
+    $targeturls = array();
+    foreach ( $arr as $entry ) {
+        $img_url = $entry -> MediaUrl;
+
+        $oppai_count++;
+//		$filename = md5(utf8_encode( $img_url ) ) . '.jpg';
+        $filepath = $info['img_dir'] . '/' . basename( $img_url );
+
+        
+		// JPEG ファイルじゃない場合
+		if ( !is_jpeg( $img_url ) ) {
+        	echo $oppai_count.': JPEG じゃありません<br>'."\n";
+            continue;
+
+        // 既に同名のファイルが存在する場合
+		} else if( file_exists( $filepath ) ) { 
+	        echo $oppai_count.' : 取得済み<br>' . "\n" ;
+            continue;
+        
+        // 削除済みファイルの場合
+        } else if( file_exists( $info['img_dir'].'/deleted.txt' ) ) {
+			$is_deleted = 0;
+			$buff = file_get_contents( $info['img_dir'].'/deleted.txt' );
+			if( stristr( $buff, basename( $img_url ) ) ) {	
+		        echo $oppai_count . ' : 削除<br>' . "\n";
+				continue;
+			}
+		}
+		
+		// 新規取得する画像 URL
+        echo $oppai_count . ' : DL...（保留）<br>' . "\n";			
+		array_push( $targeturls, $img_url );
+		$newimgcount++;
+	}
+	echo '<br>'."\n";
+	echo '＜Dowonload 実行（'.count( $targeturls ).' 件）＞<br>'."\n";
+	getimages( $targeturls, $info['img_dir'], $fp_new );
+	echo '<br>'."\n";
+    $page_count++;
+} 
+
+// 最終行に最終更新日を書き込み
+fwrite( $fp_new,  date( "m/d, Y" )."\n" );
+fclose( $fp_new );
+
+?>
+<br />
+
+「<?= $info['img_dir'] ?>」の取得が完了しました。（新規取得枚数：<?= $newimgcount ?>）<br>
+<br>
+「<a href="./you.php?q=<?= $info['q']; ?>&m=view"><?= $info['q'] ?></a>」を見る<br>
+
+<br />
+
+<?php
+function getimages( $urls, $savedir, $fp, $timeout = 0, &$errorUrls = array() ) {
+
+	// ハンドルの作成
+	$mh = curl_multi_init();
+
+	foreach ( $urls as $key => $url ) {
+	
+		// cURL リソースの作成
+		$conn[$key] = curl_init( $url );
+		
+		// オプションの設定
+//		curl_setopt( $conn[$key], CURLOPT_FAILONERROR, 1 );
+//		curl_setopt( $conn[$key], CURLOPT_FOLLOWLOCATION, 1 );
+//		curl_setopt( $conn[$key], CURLOPT_MAXREDIRS, 3 );
+
+		curl_setopt( $conn[$key], CURLOPT_RETURNTRANSFER, 1 );
+		curl_setopt( $conn[$key], CURLOPT_USERPWD, $accountKey.':'.$accountKey );
+		if( $timeout ) { curl_setopt( $conn[$key], CURLOPT_TIMEOUT, $timeout ); }
+
+		// ハンドルの追加
+		curl_multi_add_handle( $mh, $conn[$key] );
+	}
+
+	// ハンドルの実行
+	$active = null;
+	do {
+		$mrc = curl_multi_exec( $mh, $active );
+	} while ( $mrc == CURLM_CALL_MULTI_PERFORM );
+	
+	while( $active and $mrc == CURLM_OK ) {
+		if (curl_multi_select($mh) != -1) {
+			do {
+				$mrc = curl_multi_exec( $mh, $active );
+			} while ($mrc == CURLM_CALL_MULTI_PERFORM);
+		} 
+	}
+
+	//データを取得
+	$count = 0;
+	foreach ( $urls as $key => $url ) {
+		$count++;
+		echo $count.'. ';
+		if( ( $err = curl_error( $conn[$key] ) ) == '' ) {
+//			$res[$key] = curl_multi_getcontent( $conn[$key] );
+			if( is_mobile() ) {
+				echo '（OK）<a href="'.$url.'">画像 URL</a><br>';
+			} else {
+				echo '（OK）'.$url.'<br>';
+			}			
+			$filename = str_replace( ',', '', basename( $url ) );
+	        file_put_contents( $savedir.'/'.$filename, curl_multi_getcontent( $conn[$key] ) );		// 画像保存
+       		fwrite( $fp, $filename."\n" );
+
+		} else {
+			$errorUrls[$key] = $urls[$key];
+			echo '（失敗）<br>';
+		}
+		curl_multi_remove_handle( $mh, $conn[$key] ); 
+		curl_close( $conn[$key] );
+	}
+	curl_multi_close( $mh );
+	
+//	return $res;
+}
+
+?>

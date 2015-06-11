@@ -1,0 +1,9 @@
+ag.vim
+neobundle.vim
+neomru.vim
+open-browser.vim
+unite.vim
+vim-markdown
+vim-quickrun
+vim-ref
+vimproc

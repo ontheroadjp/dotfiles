@@ -1,0 +1,41 @@
+
+@extends('layouts.default')
+
+<?php
+$fetched = $results['fetched'];
+$added = $results['added'];
+$not_added = $results['not_added'];
+?>
+
+@section('title')
+
+<h2>取得結果</h2>
+<div>
+Fetch 画像数：{{ count($fetched) }}<br>
+うち、DB保存数：{{ count($added) }}<br>
+うち、既に取得済み画像：{{ count($not_added) }}<br>
+うち、削除済み画像数：<br>
+</div>
+
+<h2>「{{$album->name}}」の画像一覧</h2>
+
+<h3>新規取得画像({{count($added)}}件)</h3>
+
+<div class="js-masonry">
+@for($n=0; $n<count($added); $n++)	
+	<div class="item">	
+		<img src="{{ $added[$n]['media_url'] }}" width="200"/>
+	</div>
+@endfor
+
+<h3>取得済み画像({{count($not_added)}}件)</h3>
+@for($n=0; $n<count($not_added); $n++)
+	<div class="item">
+		<img src="{{ $not_added[$n]['media_url'] }}" width="85"/>
+	</div>
+@endfor
+</div>
+	
+@stop
+
+

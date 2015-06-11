@@ -1,0 +1,7 @@
+
+
+$curl -sS https://getcomposer.org/installer | php
+$sudo mv composer.phar /usr/local/bin/composer
+$cd /usr/local/bin
+$sudo ./composer create-project laravel-ja/laravel ~/Laravel --prefer-dist
+

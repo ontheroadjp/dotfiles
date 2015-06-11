@@ -1,0 +1,17 @@
+
+
+// ルートキャッシュのクリア
+pup artisan route:cache
+
+
+
+
+// スキーマビルダー
+// 参考：http://laravel.com/docs/5.0/schema
+
+// database/maigrations フォルダに作成される
+php artisan make:migration create_articles_table
+
+php artisan make:migration create_articles_table --create=articles
+
+

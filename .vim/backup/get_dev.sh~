@@ -1,0 +1,8 @@
+
+#!/bin/sh
+echo "update zip"
+ssh xiaozhe@xiaozhe.xsrv.jp -p 10022 "zip -ru ./ontheroad.jp/dev.zip ./ontheroad.jp/public_html/dev"
+
+echo "downloading zip"
+sftp -i ~/.ssh/id_rsa -P 10022 -b ./get_dev.bat xiaozhe@sv80.xserver.jp
+

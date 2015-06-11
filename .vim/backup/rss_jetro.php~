@@ -1,0 +1,90 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>RSS TEST</title>
+</head>
+<body>
+
+
+<h3>DB から取得して表示</h3>
+<?php
+$db = DBConnection::get()->handle();
+$app = new FeedList( $db );
+$feeds = $app->get_feeds();
+
+foreach($feeds as $feed) {
+
+	$feed_name		= $feed->get_value('name');
+	$last_update	= strtotime( $feed->get_value('last_update') );
+	$articles		= $feed->get_articles();
+
+//	echo '<!-- ';
+	echo '<h3>'.$feed_name.'</h3>';
+	echo '<p>（最終更新日：'.date( 'Y年m月d日 H時i分', $last_update ).')</p>';
+	echo '<ol>';
+
+	$n=0;
+	foreach( $articles as $article ) {
+		if( $n>=3 ) continue;
+		$link		= $article['link'];
+		$title		= $article['title'];
+		$post_time	= $article['post_time'];
+		$desc		= $article['description'];
+		echo '<li><a href="'.$link.'" title="'.$title.'">'.$title.'</a>'.$post_time.'<p>'.$desc.'</p></li>'."\n";
+		$n++;
+	}
+	echo '</ol>';
+//	echo '-->';
+}
+$db = null;
+
+?>
+
+
+<br />
+<hr size="1">
+<br />
+
+
+<h3>直接 RSS から取得して直接表示</h3>
+<?php
+
+$url = "http://feeds.feedburner.com/hatena/b/hotentry";
+$url = "http://rss.dailynews.yahoo.co.jp/fc/rss.xml";
+$url = "http://www.jetro.go.jp/world/russia_cis/ru/feed.xml";
+
+$xmlstr = file_get_contents($url);
+mb_convert_encoding($xmlstr,"UTF-8");
+$rss = simplexml_load_string($xmlstr);
+
+//$rss = simplexml_load_file( $url );
+//var_dump($rss);
+
+
+$channel = $rss->channel;
+$feed_title = $channel->title;
+echo '<h3>'.$feed_title.'</h3>';
+echo '<ol>';
+	foreach ($channel->item as $item) {
+		$link = $item->link;
+		$title = $item->title;
+		$date = $item->pubDate;
+		$description = $item->description;
+		echo "<li><a href=\"$link\" title=\"$title\">$title</a>$date</li>\n";
+	}
+
+	foreach ($rss->item as $item) {
+		//$dc = $item->children('http://purl.org/dc/elements/1.1/');
+		$link = $item->link;
+		$title = $item->title;
+		$date = $dc->date;
+		$description =$item->description;
+		echo "<li><a href=\"$link\" title=\"$title\">$title</a>$date<p>$description</p></li>\n";
+	}
+echo '</ol>';
+?>
+
+
+
+</body>
+</html>

@@ -1,0 +1,759 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>RSS TEST</title>
+</head>
+<body>
+
+<?php
+
+// 初期設定
+mb_language('Japanese');
+mb_internal_encoding('UTF-8');
+
+// --------------------------------------------------------------
+// class DBConnection
+// --------------------------------------------------------------
+class DBConnection {
+
+	private $_handle = null;
+
+	public static function get() {
+		static $db = null;
+		if ( $db == null ) $db = new DBConnection();
+		return $db;
+	}
+	private function __construct() {
+		echo 'start constructor of class DBConnection';
+		try {
+			echo ' - create DB Connection!!<br>'."\n";
+		    $this->_handle =& new PDO("mysql:host=mysql9.xserver.jp; dbname=xiaozhe_wpworld", "xiaozhe_wpworld", "bunnta0421");
+//		    $this->_handle =& new PDO( $db_sttr );
+		} catch(PDOException $e){
+			echo $e->getMessage().'<br>'."\n";
+		    var_dump($e->getMessage());
+		}
+	}
+	public function handle() {
+		return $this->_handle;
+	}
+}
+
+// --------------------------------------------------------------
+// class FeedList
+// --------------------------------------------------------------
+class FeedList {
+
+	public function FeedList( $db ) {
+
+		try {
+			$stmt = $db->prepare( "SELECT * FROM rss_feeds" );
+			$stmt->execute();
+			$feeds = $stmt->fetchAll();
+			foreach( $feeds as $feed ) {
+				$this->feeds[] = new Feed(	$db, 
+											$feed['rss_feed_id'],
+											$feed['url'],
+											$feed['name'],
+											$feed['last_update']
+								 );
+			}
+		} catch ( PDOException $e ){
+			var_dump( $e->getMessage() );
+		}
+	}
+
+	public function get_feeds() {
+		return $this->feeds;
+	}
+
+	public function fetch( $db ) {
+		foreach( $this->feeds as $feed ) {
+			$last_post_date = $feed->fetch( $db );
+			if( $last_post_date != '' && strtotime( $last_post_date ) > strtotime( $last_update ) ) {
+//				echo 'START FeedList::UPDATE_last_update()';
+					$stmt = $db->prepare( "UPDATE `rss_feeds` SET `last_update` = :time WHERE `rss_feed_id` = :rss_feed_id" );
+			        $stmt->bindValue(':time', date('Y-m-d H:i:s', strtotime($last_post_date) ) );
+			        $stmt->bindValue(':rss_feed_id', $feed->get_value('rss_feed_id') );
+					$stmt->execute();
+//				echo '　　OK<br>'."\n";
+			}
+		}
+	}
+}
+
+// --------------------------------------------------------------
+// class Feed
+// --------------------------------------------------------------
+class Feed {
+
+	function Feed( $db, $id, $url, $name, $last_update ) {
+
+		if( !isset($db) || !isset($id) || !isset($name) || !isset($last_update) ) {
+			echo 'err';
+			die;
+		}
+
+		$this->table_name = 'rss_articles';
+		$this->articles = null;
+
+		$this->columns = array(
+			'rss_feed_id' => $id
+			, 'url' => $url
+			, 'name' => $name
+			, 'last_update' => $last_update
+		);
+
+		// Article の取得
+		$sql = 'SELECT * FROM `'.$this->table_name.'` WHERE `rss_feed_id` = :id ORDER BY `post_time`';
+		try {
+			$stmt = $db->prepare( $sql );
+	        $stmt->bindValue(':id', $id);
+			$stmt->execute();
+			$this->articles = $stmt->fetchAll();
+		} catch ( PDOException $e ){
+			var_dump( $e->getMessage() );
+		}
+	}
+
+	public function get_value($key) {
+		return $this->columns[$key];
+	}
+
+	public function get_articles() {
+		return $this->articles;
+	}
+
+	public function fetch( $db ) {
+
+		$rss_feed_id = $this->columns['rss_feed_id'];
+		$url = $this->columns['url'];
+		$last_update = $this->columns['last_update'];
+		echo '$rss_fetch_url = '.$url.'<br>'."\n";
+
+		$rss = simplexml_load_file( $url );
+
+		if( !empty( $rss ) || $rss <> '' ) {
+			$channel = $rss->channel;
+			$last_post_date = '';
+
+			foreach ($channel->item as $item) {
+				$article = null;
+				$article['rss_feed_id']	= $rss_feed_id;
+				$article['link']	= mb_convert_encoding( $item->link, "UTF-8", "auto" );
+				$article['title']	= mb_convert_encoding( $item->title, "UTF-8", "auto" );
+				$article['title_md5'] = md5( mb_convert_encoding( $item->title, "UTF-8", "auto" ) );
+				$article['description']	= mb_convert_encoding( $item->description, "UTF-8", "auto" );
+				$article['post_time']	= get_formatted_time($item->pubDate);
+
+				$debug = 1;
+
+				if( $debug == 1 ) {
+					echo '=====================================================<br>'."\n";
+					echo '$article[\'rss_feed_id\']	= '.$rss_feed_id.'<br>'."\n";
+					echo '$article[\'link\']	= '.$item->link.'<br>'."\n";
+					echo '$article[\'title\']	= '.$item->title.'<br>'."\n";
+					echo '$article[\'title_md5\'] = '.md5( $item->title ).'<br>'."\n";
+					echo '$article[\'date\']	= '.$item->pubDate.'<br>'."\n";
+					echo '$article[\'description\']	= '.$item->description.'<br>'."\n";
+					echo '$article[\'post_time\']	= '.get_formatted_time($item->pubDate).'<br>'."\n";
+					echo '-----------------------------------------------------<br>'."\n";
+					echo 'posted_time = '.$article['post_time'].'('.strtotime($article['post_time']).')<br>'."\n";
+				}
+
+				if( strtotime($last_update) < strtotime($article['post_time']) ) {
+
+					global $mode;
+
+					if( $this->not_repeated( $db, $article['title_md5'] ) ) {
+
+						// DB へ追加
+						if( $this->insert_db( $db, $article ) ) {
+							if( $last_post_date == '' || strtotime($last_post_date) < strtotime($article['post_time']) ) {
+								$last_post_date = $article['post_time'];
+							}
+						} else {
+							echo 'DB Article の insert に失敗しました。';
+						}
+
+						// 記事の投稿
+						if( $this->post_article( $article ) ) {
+							echo '記事を投稿しました<br>';
+						} else {
+							echo '記事の投稿に失敗しました<br>';
+						}
+
+					}
+
+				} else {
+					echo 'doesn\'t insert_db()<br>'."\n";
+				}
+			}
+			return $last_post_date;
+
+		} else {
+			echo 'RSS の取得に失敗しました。<br>'."\n";
+			echo 'RSS URL = '.$url.'<br>'."\n";
+			return;
+		}
+	}
+
+
+	private function not_repeated( $db, $md5 ) {
+
+		$sql = 'SELECT `title` FROM `rss_articles` WHERE `title_md5` = "'.$md5.'"'; // md5 sample: 4f50212e5adeb8f17f442027133e0e95
+		try {
+			$stmt = $db->prepare( $sql );
+			$stmt->execute();
+			$result = $stmt->fetchAll();
+
+			$debug = 0;
+			if( $debug == 1 ) {
+				echo '$sql = '.$sql.'<br>';
+				var_dump( $result );
+			}
+
+			if( is_array($result[0]) ) {
+				return false;
+			} else {
+				return true;
+			}
+		} catch ( PDOException $e ){
+			var_dump( $e->getMessage() );
+			return false;
+		}
+	}
+
+	private function insert_db( $db, $article ) {
+
+		$table_name = 'rss_articles';
+		$columns = array(
+			'rss_feed_id' => $article['rss_feed_id']
+			, 'link' => $article['link']
+			, 'title' => $article['title']
+			, 'title_md5' => $article['title_md5']
+			, 'description' => $article['description']
+			, 'post_time' => $article['post_time']
+		);
+
+		$sql = 'INSERT INTO '.$table_name.'(';
+		foreach( $columns as $key => $val ) {
+			$sql .= $key.', ';
+		}
+		$sql = substr( $sql, 0, strlen( $sql ) -2 ).' ) VALUES( ';
+		foreach( $columns as $key => $val ) {
+			$sql .= ':'.$key.', ';
+		}
+		$sql = substr( $sql, 0, strlen( $sql ) -2 ).' )';
+
+		$debug = 0;
+
+		if( $debug == 1 ) {
+			echo '---------------------------------------------------<br>';
+			echo '$sql = '.$sql.'<br>';
+			echo '---------------------------------------------------<br>';
+		}
+
+		try {
+			echo 'START Feed->insert_db()';
+				$stmt = $db->prepare( $sql );
+				foreach( $columns as $key => $val ) {
+			        $stmt->bindValue( $key, $val );
+				}
+				$stmt->execute();
+			echo '　　OK<br>'."\n";
+		} catch (PDOException $e){
+			var_dump($e->getMessage());
+		}
+		return true;
+	}
+
+	private function post_article( $article ) {
+
+		//PEAR XML_PRCの読み出し
+		require_once( "XML/RPC.php" );
+
+		$host = "world.ontheroad.jp";
+		$xmlrpc_path = $value["SITE_URL"] ."/xmlrpc.php";
+
+		echo '--------------------------------------------<br>';
+		echo 'xmlrppc.php= '.$xmlrpc_path."<br>";
+
+		$appkey = '';
+		$user = 'hancock_jp';
+		$passwd ='bunnta0421';
+
+		$c = new XML_RPC_client($xmlrpc_path, $host, 80);
+
+		$appkey = new XML_RPC_Value($appkey, 'string');
+		$username = new XML_RPC_Value( $user, 'string' );
+		$passwd = new XML_RPC_Value( $passwd, 'string' );
+
+		$message = new XML_RPC_Message(
+			'blogger.getUsersBlogs',array($appkey, $username, $passwd)
+		);
+
+		$result = $c->send($message);
+
+		if(!$result){
+			exit('Could not connect to the server.');
+		} else if( $result->faultCode() ){
+			exit($result->faultString());
+		}
+
+		$blogs = XML_RPC_decode($result->value());
+		$blog_id = new XML_RPC_Value($blogs[0]["blogid"], "string");
+
+		//--------ここまでがBlogIDの取得----------------------------
+
+		$title			= $article['title'];
+
+		$categories		= $this->get_categories( $title );
+		$description	= $article['description'].'<br><br><a href="'.$article['link'].'">全文を読む</a>';
+
+
+		$t			= ')';
+		$date		= mb_substr( $title, mb_strrpos( $title, $t ) + 1 );
+
+		echo '$title = '.$title.'<br>';
+		echo '$date = '.$date.'<br>';
+
+
+
+		$date		= str_replace( '年', '-', $date );
+		$date		= str_replace( '月', '-', $date );
+		$date		= str_replace( '日', '', $date );
+		$date_array		= explode( '-', $date );
+
+		$year		= $date_array[0];
+		$month		= sprintf( '%02d', $date_array[1] );
+		$day		= sprintf( '%02d', $date_array[2] );
+		$pub_date	= $year.$month.$day.'T00:00:00';
+
+		echo '$pub_date = '.$pub_date.'<br>';
+
+//		exit;
+
+		$content = new XML_RPC_Value(
+		array(
+			'title'			=> new XML_RPC_Value( $title, 'string' ),
+			'categories'	=> new XML_RPC_Value( $categories, 'array' ),
+			'description'	=> new XML_RPC_Value( $description, 'string'),
+//			'wp_slug'		=> new XML_RPC_Value('bookmarks-of-'.date('Yms'),'string'),
+			'dateCreated'	=> new XML_RPC_Value( $pub_date, 'dateTime.iso8601' )
+		), 'struct');
+
+		$publish = new XML_RPC_Value(1, "boolean");
+
+		$message = new XML_RPC_Message(
+			'metaWeblog.newPost',
+			array($blog_id, $username, $passwd, $content, $publish)
+		);
+
+		$result = $c->send($message);
+
+		if(!$result){
+			exit('Could not connect to the server.');
+		} else if( $result->faultCode() ){
+			exit($result->faultString());
+		}
+		return true;
+	}
+
+	private function get_categories( $str ) {
+
+		$categories[] = null;
+
+		if( strstr( $str, "米国" ) ) {
+			array_push( $categories, new XML_RPC_Value( "先進国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "北・中南米", "string") );
+			array_push( $categories, new XML_RPC_Value( "アメリカ", "string") );
+		}
+		if( strstr( $str, "カナダ" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "先進国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "北・中南米", "string") );
+			array_push( $categories, new XML_RPC_Value( "カナダ", "string") );
+		}
+		if( strstr( $str, "オーストリア" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "先進国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "ヨーロッパ", "string") );
+			array_push( $categories, new XML_RPC_Value( "オーストリア", "string") );
+		}
+		if( strstr( $str, "ベルギー" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "先進国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "ヨーロッパ", "string") );
+ 			array_push( $categories, new XML_RPC_Value( "ベルギー", "string") );
+		}
+		if( strstr( $str, "デンマーク" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "先進国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "ヨーロッパ", "string") );
+			array_push( $categories, new XML_RPC_Value( "デンマーク", "string") );
+		}
+		if( strstr( $str, "フィンランド" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "先進国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "ヨーロッパ", "string") );
+			array_push( $categories, new XML_RPC_Value( "フィンランド", "string") );
+		}
+		if( strstr( $str, "フランス" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "先進国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "ヨーロッパ", "string") );
+			array_push( $categories, new XML_RPC_Value( "フランス", "string") );
+		}
+		if( strstr( $str, "ドイツ" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "先進国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "ヨーロッパ", "string") );
+			array_push( $categories, new XML_RPC_Value( "ドイツ", "string") );
+		}
+		if( strstr( $str, "ギリシャ" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "先進国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "ヨーロッパ", "string") );
+			array_push( $categories, new XML_RPC_Value( "ギリシャ", "string") );
+		}
+		if( strstr( $str, "アイルランド" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "先進国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "ヨーロッパ", "string") );
+			array_push( $categories, new XML_RPC_Value( "アイルランド", "string") );
+		}
+		if( strstr( $str, "イタリア" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "先進国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "ヨーロッパ", "string") );
+			array_push( $categories, new XML_RPC_Value( "イタリア", "string") );
+		}
+		if( strstr( $str, "オランダ" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "先進国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "ヨーロッパ", "string") );
+			array_push( $categories, new XML_RPC_Value( "オランダ", "string") );
+		}
+		if( strstr( $str, "ノルウェー" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "先進国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "ヨーロッパ", "string") );
+			array_push( $categories, new XML_RPC_Value( "ノルウェー", "string") );
+		}
+		if( strstr( $str, "ポルトガル" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "先進国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "ヨーロッパ", "string") );
+			array_push( $categories, new XML_RPC_Value( "ポルトガル", "string") );
+		}
+		if( strstr( $str, "スペイン" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "先進国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "ヨーロッパ", "string") );
+			array_push( $categories, new XML_RPC_Value( "スペイン", "string") );
+		}
+		if( strstr( $str, "スウェーデン" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "先進国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "ヨーロッパ", "string") );
+			array_push( $categories, new XML_RPC_Value( "スウェーデン", "string") );
+		}
+		if( strstr( $str, "スイス" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "先進国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "ヨーロッパ", "string") );
+			array_push( $categories, new XML_RPC_Value( "スイス", "string") );
+		}
+		if( strstr( $str, "英国" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "先進国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "ヨーロッパ", "string") );
+			array_push( $categories, new XML_RPC_Value( "イギリス", "string") );
+		}
+		if( strstr( $str, "オーストラリア" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "先進国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "アジア・オセアニア", "string") );
+			array_push( $categories, new XML_RPC_Value( "オーストラリア", "string") );
+		}
+		if( strstr( $str, "ニュージーランド" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "先進国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "アジア・オセアニア", "string") );
+			array_push( $categories, new XML_RPC_Value( "ニュージーランド", "string") );
+		}
+		if( strstr( $str, "香港" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "先進国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "アジア・オセアニア", "string") );
+			array_push( $categories, new XML_RPC_Value( "香港", "string") );
+		}
+		if( strstr( $str, "シンガポール" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "先進国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "アジア・オセアニア", "string") );
+			array_push( $categories, new XML_RPC_Value( "シンガポール", "string") );
+		}
+		if( strstr( $str, "日本" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "先進国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "アジア・オセアニア", "string") );
+			array_push( $categories, new XML_RPC_Value( "日本", "string") );
+		}
+
+
+		if( strstr( $str, "アルゼンチン" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "途上国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "北・中・南米", "string") );
+			array_push( $categories, new XML_RPC_Value( "アルゼンチン", "string") );
+		}
+		if( strstr( $str, "ブラジル" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "途上国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "中米・南米", "string") );
+			array_push( $categories, new XML_RPC_Value( "ブラジル", "string") );
+		}
+		if( strstr( $str, "チリ" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "途上国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "中米・南米", "string") );
+			array_push( $categories, new XML_RPC_Value( "チリ", "string") );
+		}
+		if( strstr( $str, "コロンビア" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "途上国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "中米・南米", "string") );
+			array_push( $categories, new XML_RPC_Value( "コロンビア", "string") );
+		}
+		if( strstr( $str, "メキシコ" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "途上国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "中米・南米", "string") );
+			array_push( $categories, new XML_RPC_Value( "メキシコ", "string") );
+		}
+		if( strstr( $str, "ペルー" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "途上国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "中米・南米", "string") );
+			array_push( $categories, new XML_RPC_Value( "ペルー", "string") );
+		}
+
+
+		if( strstr( $str, "チェコ" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "途上国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "欧州", "string") );
+			array_push( $categories, new XML_RPC_Value( "チェコ共和国", "string") );
+		}
+		if( strstr( $str, "ハンガリー" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "途上国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "欧州", "string") );
+			array_push( $categories, new XML_RPC_Value( "ハンガリー", "string") );
+		}
+		if( strstr( $str, "ポーランド" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "途上国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "欧州", "string") );
+			array_push( $categories, new XML_RPC_Value( "ポーランド", "string") );
+		}
+		if( strstr( $str, "ロシア" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "途上国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "欧州", "string") );
+			array_push( $categories, new XML_RPC_Value( "ロシア", "string") );
+		}
+
+
+		if( strstr( $str, "トルコ" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "途上国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "中東・アフリカ", "string") );
+			array_push( $categories, new XML_RPC_Value( "トルコ", "string") );
+		}
+		if( strstr( $str, "エジプト" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "途上国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "中東・アフリカ", "string") );
+			array_push( $categories, new XML_RPC_Value( "エジプト", "string") );
+		}
+		if( strstr( $str, "イスラエル" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "途上国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "中東・アフリカ", "string") );
+			array_push( $categories, new XML_RPC_Value( "イスラエル", "string") );
+		}
+		if( strstr( $str, "ヨルダン" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "途上国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "中東・アフリカ", "string") );
+			array_push( $categories, new XML_RPC_Value( "ヨルダン", "string") );
+		}
+		if( strstr( $str, "モロッコ" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "途上国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "中東・アフリカ", "string") );
+			array_push( $categories, new XML_RPC_Value( "モロッコ", "string") );
+		}
+		if( strstr( $str, "南アフリカ" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "途上国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "中東・アフリカ", "string") );
+			array_push( $categories, new XML_RPC_Value( "南アフリカ", "string") );
+		}
+
+
+		if( strstr( $str, "中国" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "途上国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "アジア", "string") );
+			array_push( $categories, new XML_RPC_Value( "中国", "string") );
+		}
+		if( strstr( $str, "インドネシア" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "途上国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "アジア", "string") );
+			array_push( $categories, new XML_RPC_Value( "インドネシア", "string") );
+		} else if( strstr( $str, "インド" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "途上国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "アジア", "string") );
+			array_push( $categories, new XML_RPC_Value( "インド", "string") );
+		}
+
+		if( strstr( $str, "韓国" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "途上国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "アジア", "string") );
+			array_push( $categories, new XML_RPC_Value( "韓国", "string") );
+		}
+		if( strstr( $str, "マレーシア" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "途上国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "アジア", "string") );
+			array_push( $categories, new XML_RPC_Value( "マレーシア", "string") );
+		}
+		if( strstr( $str, "フィリピン" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "途上国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "アジア", "string") );
+			array_push( $categories, new XML_RPC_Value( "フィリピン", "string") );
+		}
+		if( strstr( $str, "台湾" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "途上国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "アジア", "string") );
+			array_push( $categories, new XML_RPC_Value( "台湾", "string") );
+		}
+		if( strstr( $str, "タイ" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "途上国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "アジア", "string") );
+			array_push( $categories, new XML_RPC_Value( "タイ", "string") );
+		}
+		if( strstr( $str, "パキスタン" ) ) { 
+			array_push( $categories, new XML_RPC_Value( "途上国", "string") );
+//			array_push( $categories, new XML_RPC_Value( "アジア", "string") );
+			array_push( $categories, new XML_RPC_Value( "パキスタン", "string") );
+		}
+
+		return $categories;
+	}
+}
+
+
+// --------------------------------------------------------------
+// functions()
+// --------------------------------------------------------------
+function get_formatted_time($target) {
+
+	$debug	= 0;
+	$date	= array(
+		"Jan"=>1
+		, "Feb"=>2
+		, "Mar"=>3
+		, "Apr"=>4
+		, "May"=>5
+		, "Jun"=>6
+		, "Jul"=>7
+		, "Aug"=>8
+		, "Sep"=>9
+		, "Oct"=>10
+		, "Nov"=>11
+		, "Dec"=>12
+	);
+
+	$array = explode(' ', $target);
+	$time = explode(':', $array[4]);
+
+	$year	= $array[3];
+	$month	= $date[$array[2]];
+	$day	= $array[1];
+	$hour	= $time[0];
+	$minute	= $time[1];
+	$sec	= $time[2];
+
+	if( $debug == 1 ) {
+		for( $n=0; $n<count($array); $n++ ) {
+			echo '$array['.$n.']= '.$array[$n].'<br>'."\n";
+		}
+		echo '年：'.$year.'<br>'."\n";
+		echo '月：'.$month.'<br>'."\n";
+		echo '日：'.$day.'<br>'."\n";
+		echo '時：'.$hour.'<br>'."\n";
+		echo '分：'.$minute.'<br>'."\n";
+		echo '秒：'.$sec.'<br>'."\n";
+		echo 'unixtime = '.date('Y-m-d H:i:s', mktime( $hour, $minute, $sec, $month, $day, $year ) ).'<br>'."\n";
+		echo 'formatted_time = '.date('Y-m-d H:i:s', mktime( $hour, $minute, $sec, $month, $day, $year ) ).'<br>'."\n";
+	}
+
+	return date('Y-m-d H:i:s', mktime( $hour, $minute, $sec, $month, $day, $year ) );
+}
+
+$db = DBConnection::get()->handle();
+$feedlist = new FeedList($db);
+$feedlist->fetch( $db );
+$db = null;
+
+?>
+
+
+
+<h3>DB から取得して表示</h3>
+<?
+$db = DBConnection::get()->handle();
+$app = new FeedList( $db );
+$feeds = $app->get_feeds();
+
+foreach($feeds as $feed) {
+
+	$feed_name		= $feed->get_value('name');
+	$last_update	= strtotime( $feed->get_value('last_update') );
+	$articles		= $feed->get_articles();
+
+//	echo '<!-- ';
+	echo '<h3>'.$feed_name.'</h3>';
+	echo '<p>（最終更新日：'.date( 'Y年m月d日 H時i分', $last_update ).')</p>';
+	echo '<ol>';
+
+	$n=0;
+	foreach( $articles as $article ) {
+		if( $n>=3 ) continue;
+		$link		= $article['link'];
+		$title		= $article['title'];
+		$post_time	= $article['post_time'];
+		$desc		= $article['description'];
+		echo '<li><a href="'.$link.'" title="'.$title.'">'.$title.'</a>'.$post_time.'<p>'.$desc.'</p></li>'."\n";
+		$n++;
+	}
+	echo '</ol>';
+//	echo '-->';
+}
+$db = null;
+
+?>
+
+
+<br />
+<hr size="1">
+<br />
+
+
+<h3>直接 RSS から取得して直接表示</h3>
+<?php
+
+$url = "http://feeds.feedburner.com/hatena/b/hotentry";
+$url = "http://rss.dailynews.yahoo.co.jp/fc/rss.xml";
+$url = "http://www.jetro.go.jp/world/russia_cis/ru/feed.xml";
+
+$xmlstr = file_get_contents($url);
+mb_convert_encoding($xmlstr,"UTF-8");
+$rss = simplexml_load_string($xmlstr);
+
+//$rss = simplexml_load_file( $url );
+//var_dump($rss);
+
+
+$channel = $rss->channel;
+$feed_title = $channel->title;
+echo '<h3>'.$feed_title.'</h3>';
+echo '<ol>';
+	foreach ($channel->item as $item) {
+		$link = $item->link;
+		$title = $item->title;
+		$date = $item->pubDate;
+		$description = $item->description;
+		echo "<li><a href=\"$link\" title=\"$title\">$title</a>$date</li>\n";
+	}
+
+	foreach ($rss->item as $item) {
+		//$dc = $item->children('http://purl.org/dc/elements/1.1/');
+		$link = $item->link;
+		$title = $item->title;
+		$date = $dc->date;
+		$description =$item->description;
+		echo "<li><a href=\"$link\" title=\"$title\">$title</a>$date<p>$description</p></li>\n";
+	}
+echo '</ol>';
+?>
+
+
+
+</body>
+</html>

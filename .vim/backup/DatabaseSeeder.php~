@@ -1,0 +1,38 @@
+<?php
+
+use Illuminate\Database\Seeder;
+use Illuminate\Database\Eloquent\Model;
+
+class DatabaseSeeder extends Seeder {
+
+	/**
+	 * Run the database seeds.
+	 *
+	 * @return void
+	 */
+	public function run()
+	{
+		DB::table('articles')->truncate();
+		DB::table('articles')->insert([
+			[
+				'title'		=>	'Laozi',
+				'body'		=>	'Whin there is no desire, all things are at peace.',
+				'created_at'	=>	'2015-01-31 23:43:22',
+				'updated_at'	=>	'2015-02-28 21:43:33',
+			],
+			[
+				'title'		=>	'hoge',
+				'body'		=>	'Simplicity is the ultimate sophistication',
+				'created_at'	=>	'2015-08-31 23:43:22',
+				'updated_at'	=>	'2015-09-28 21:43:33',
+			],
+			[
+				'title'		=>	'Leonardo da Vinci',
+				'body'		=>	'Simplicity is the essence of happiness.',
+				'created_at'	=>	'2013-01-11 23:43:22',
+				'updated_at'	=>	'2013-04-28 21:43:33',
+			],
+		]);
+	}
+
+}

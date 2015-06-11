@@ -1,0 +1,23 @@
+<?php namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+use App\Album;
+
+class Image extends Model {
+
+	use SoftDeletes;
+	protected $table = 'images';
+	protected $primaryKey = 'media_url';
+	protected $fillable = array(
+		'album_id', 'image_id', 'title', 'media_url',
+		'source_url', 'display_url', 'width', 'height',
+		'file_size', 'content_type' );
+
+	public function albums() {
+		return $this->belongsTo('Album');
+	}
+
+}
+
+
+

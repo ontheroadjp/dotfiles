@@ -1,0 +1,6 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =4
+let g:netrw_dirhist_1='/Users/hideaki/Vagrant/lara5_test/www/app/Http/Controllers'
+let g:netrw_dirhist_2='/Users/hideaki/MAMP_ROOT/dev/tools/apple/.git'
+let g:netrw_dirhist_3='/Users/hideaki/MAMP_ROOT/test/rin/.git/logs'
+let g:netrw_dirhist_4='/Users/hideaki/Vagrant/LAMP/.git'

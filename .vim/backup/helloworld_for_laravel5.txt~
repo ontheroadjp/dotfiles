@@ -1,0 +1,36 @@
+
+
+~/resources/view に helloworld.php を作成
+------
+
+<h1>Hello World!</h1>
+
+-----
+
+~/app/Http/Controllers に　HelloWorldController.php を作成
+----
+
+<?php namespace App\Http\Controllers;
+class HelloWorldController extends Controller {
+	public function __construct() {
+		$this->middleware('guest');
+	)
+	
+	public function index() {
+		return view( 'helloworld' );
+	}
+}
+?>
+
+----
+
+~/App/Http/routes.php の最後に追加
+----
+
+Route::get('helloworld', 'HelloWorldController@index');
+
+---
+
+/helloworld へアクセスして動作確認
+
+

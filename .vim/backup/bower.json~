@@ -1,0 +1,19 @@
+{
+  "name": "rin",
+  "version": "3.0.3",
+  "homepage": "https://github.com/sanographix/rin",
+  "authors": [
+    "Hideaki Ishihara <dev@ontheroad.jp>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4"
+  }
+}
