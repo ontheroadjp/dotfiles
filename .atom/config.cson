@@ -5,10 +5,38 @@
     showOnStartup: false
   core:
     themes: [
-      "atom-dark-ui"
-      "base16-tomorrow-dark-theme"
+      "isotope-ui"
+      "base16-ocean-dark"
+    ]
+    disabledPackages: [
+      "SFTP-deployment"
+      "web-view"
     ]
   editor:
     invisibles:
       {}
-    fontSize: 13
+    lineHeight: 1.5
+    tabLength: 4
+    fontFamily: "Ricty Diminished"
+    autoIndent: false
+    fontSize: 14
+  "SFTP-deployment":
+    uploadOnSave: false
+  docblockr:
+    {}
+  minimap:
+    {}
+  "one-dark-ui":
+    {}
+  "isotope-ui":
+    backgroundColor: "false"
+    customBackgroundColorPicker:
+      red: 28
+      green: 31
+      blue: 40
+      alpha: 1
+    customBackgroundColor: true
+    fontWeight: "Extra light / Thin"
+  "unity-ui":
+    showIcons: true
+    colorStatusIndicatorsInTreeView: true
