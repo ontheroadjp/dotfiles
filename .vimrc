@@ -109,6 +109,9 @@ if has('vim_starting')
 		NeoBundle 'Shougo/neomru.vim'	"最近使ったファイルを表示できるようにする
 		NeoBundle 'thinca/vim-ref'		"PHP マニュアルの閲覧
 		NeoBundle 'rking/ag.vim'			"grep に ag 使う
+		NeoBundle 'tpope/vim-markdown'		"Markdown 用
+		NeoBundle 'tyru/open-browser.vim'	"ブラウザプレビュー
+		NeoBundle 'thinca/vim-quickrun'		"コード片の実行
 		"NeoBundle 'Shougo/vimshell'
 		"NeoBundle 'Shougo/neocomplcache'
 		"NeoBundle 'Shougo/neosnippet'
@@ -181,6 +184,16 @@ nnoremap <silent> ,vr :UniteResume<CR>
 "	let g:unite_source_grep_recursive_opt = ''
 "endif
 
+""""""""""""""""""""""""""""""
+" QuickRun の設定(Markdown用)
+" 参考: http://qiita.com/us10096698/items/1ac05c5c9543d2f79fa3
+" .md ファイルがシンタックスハイライト有効に
+" \r で実行 
+""""""""""""""""""""""""""""""
+  let g:quickrun_config = {}
+  let g:quickrun_config['markdown'] = {
+        \   'outputter': 'browser'
+              \ }
 
 """"""""""""""""""""""""""""""
 " thinca/vim-ref の設定
