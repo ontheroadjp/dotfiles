@@ -3,12 +3,7 @@
 "基本
 "-------------------------
 set number
-
 inoremap <silent> jj <esc>
-
-" ESCキーを2回押すと終了する
-au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
-au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
 
 "-------------------------
 "PHP 設定 :help 参照のこと
@@ -97,6 +92,8 @@ vnoremap <Space>l $
 
 "-------------------------
 " NeoVundle の設定
+" プラグインのインストール .vimrc に記述のち、:NeoBundleInstall を実行
+" プラグインのアンインストール .vimrc の記述を削除したのち、:NeoBundleClean を実行
 "-------------------------
 
 set nocompatible
@@ -106,35 +103,93 @@ if has('vim_starting')
 	set runtimepath+=~/.vim/bundle/neobundle.vim
 	call neobundle#begin(expand('~/.vim/bundle/'))
 		NeoBundleFetch 'Shougo/neobundle.vim'
+		NeoBundle 'Shougo/neobundle.vim'
+		NeoBundle 'Shougo/vimproc'
+		NeoBundle 'Shougo/unite.vim'	"ファイルオープンを便利に
+		NeoBundle 'Shougo/neomru.vim'	"最近使ったファイルを表示できるようにする
+		NeoBundle 'thinca/vim-ref'		"PHP マニュアルの閲覧
+		NeoBundle 'rking/ag.vim'			"grep に ag 使う
+		"NeoBundle 'Shougo/vimshell'
+		"NeoBundle 'Shougo/neocomplcache'
+		"NeoBundle 'Shougo/neosnippet'
+		"NeoBundle 'jpalardy/vim-slime'
+		"NeoBundle 'scrooloose/syntastic'
 	call neobundle#end()
 endif
-
-NeoBundle 'Shougo/neobundle.vim'
-NeoBundle 'Shougo/vimproc'
-"NeoBundle 'Shougo/vimshell'
-"NeoBundle 'Shougo/neocomplcache'
-"NeoBundle 'Shougo/neosnippet'
-"NeoBundle 'jpalardy/vim-slime'
-"NeoBundle 'scrooloose/syntastic'
-
 
 filetype plugin indent on
 filetype indent on
 syntax on
 
-" プラグインのインストール .vimrc に記述のち、:NeoBundleInstall を実行
-" プラグインのアンインストール .vimrc の記述を削除したのち、:NeoBundleClean を実行
-
-"PHP マニュアルの閲覧
-NeoBundle 'thinca/vim-ref'
-
 let g:ref_phpmanual_path = '/Users/hideaki/.vim/vim-ref/php-chunked-xhtml'
 
+""""""""""""""""""""""""""""""
+" Unit.vimの設定
+" http://blog.remora.cx/2010/12/vim-ref-with-unite.html
+""""""""""""""""""""""""""""""
+
+" 入力モードで開始する
+let g:unite_enable_start_insert=1
+
+" 大文字小文字を区別しない
+let g:unite_enable_ignore_case = 1
+let g:unite_enable_smart_case = 1
+
+" ESCキーを2回押すと終了する
+au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
+au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
+
+"" ウィンドウを分割して開く
+"au FileType unite nnoremap <silent> <buffer> <expr> <C-J> unite#do_action('split')
+"au FileType unite inoremap <silent> <buffer> <expr> <C-J> unite#do_action('split')
+
+"" ウィンドウを縦に分割して開く
+
+"""""""""""""""""""""""""""""""
+"" unite.vim {{{
+"The prefix key.
+nnoremap    [unite]   <Nop>
+nmap    <Leader>f [unite]
+  
+" unite.vim keymap
+nnoremap [unite]u  :<C-u>Unite -no-split<Space>
+nnoremap <silent> [unite]f :<C-u>Unite<Space>file<CR>
+nnoremap <silent> [unite]g :<C-u>Unite<Space>grep<CR>
+nnoremap <silent> [unite]b :<C-u>Unite<Space>buffer<CR>
+nnoremap <silent> [unite]m :<C-u>Unite<Space>bookmark<CR>
+nnoremap <silent> [unite]a :<C-u>UniteBookmarkAdd<CR>
+nnoremap <silent> [unite]r :<C-u>Unite<Space>file_mru<CR>
+nnoremap <silent> [unite]p :<C-u>Unite<Space>file_point<CR>
+nnoremap <silent> [unite]h :<C-u>Unite<Space>history/yank<CR>
+nnoremap <silent> [unite]v :<C-u>UniteWithBufferDir file<CR>
+nnoremap <silent> ,vr :UniteResume<CR>
+"" }}}
+
+"" grep検索
+"nnoremap <silent> ,g  :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
+"
+"" カーソル位置の単語をgrep検索
+"nnoremap <silent> ,cg :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
+"
+"" grep検索結果の再呼出
+"nnoremap <silent> ,r  :<C-u>UniteResume search-buffer<CR>
+"
+"" unite grep に ag(The Silver Searcher) を使う
+"if executable('ag')
+"	let g:unite_source_grep_command = 'ag'
+"	let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
+"	let g:unite_source_grep_recursive_opt = ''
+"endif
+
+
+""""""""""""""""""""""""""""""
+" thinca/vim-ref の設定
+""""""""""""""""""""""""""""""
 "lynx.cfg の場所
-"
-""Homebrew でlynx をインストールした場合
+
+"Homebrew でlynx をインストールした場合
 "/usr/local/Cellar/lynx/2.8.7/etc/lynx.cfg
-"
+
 "MacPorts で lynx をインストールした場合
 "/opt/local/etc/lynx.cfg
 
@@ -154,44 +209,7 @@ function! g:ref_source_webdict_sites.alc.filter(output)
 	return join(split(a:output, "\n")[29 :], "\n")
 endfunction
 
-			cnoremap aa Ref webdict alc<Space>
-
-""""""""""""""""""""""""""""""""
-
-
-"ファイルオープンを便利に
-NeoBundle 'Shougo/unite.vim'
-
-"Unite.vimで最近使ったファイルを表示できるようにする
-NeoBundle 'Shougo/neomru.vim'
-"
-" http://blog.remora.cx/2010/12/vim-ref-with-unite.html
-""""""""""""""""""""""""""""""
-" Unit.vimの設定
-""""""""""""""""""""""""""""""
-"" 入力モードで開始する
-let g:unite_enable_start_insert=1
-
-"" ウィンドウを分割して開く
-"au FileType unite nnoremap <silent> <buffer> <expr> <C-J> unite#do_action('split')
-"au FileType unite inoremap <silent> <buffer> <expr> <C-J> unite#do_action('split')
-
-"" ウィンドウを縦に分割して開く
-
-"""""""""""""""""""""""""""""""
-"" unite.vim {{{
-"The prefix key.
-nnoremap    [unite]   <Nop>
-nmap    <Leader>f [unite]
-  
-" unite.vim keymap
-nnoremap [unite]u  :<C-u>Unite -no-split<Space>
-nnoremap <silent> [unite]f :<C-u>Unite<Space>file<CR>
-nnoremap <silent> [unite]b :<C-u>Unite<Space>buffer<CR>
-nnoremap <silent> [unite]m :<C-u>Unite<Space>bookmark<CR>
-nnoremap <silent> [unite]r :<C-u>Unite<Space>file_mru<CR>
-nnoremap <silent> [unite]v :<C-u>UniteWithBufferDir file<CR>
-nnoremap <silent> ,vr :UniteResume<CR>
+cnoremap aa Ref webdict alc<Space>
 
 """"""""""""""""""""""""""""""
 " VimShell の設定

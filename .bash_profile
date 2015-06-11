@@ -5,6 +5,8 @@
 
 #現在のディレクトリをファインダーで開く
 alias finder='open .'
+
+#指定ファイルをクロームで開く usage: $ chrome ./index.html
 alias chrome='open -a "/Applications/Google Chrome.app"' 
 
 #現在のファインダーをTerminal.appで開く
@@ -20,22 +22,22 @@ terminal(){
 }
 
 
-#ブラウザで開く
-dev(){
-	open -a "/Applications/Google Chrome.app"/ http://dev.localhost.jp
-}
-
-devadmin(){
-	open -a "/Applications/Google Chrome.app"/ http://dev.localhost.jp/wp-login.php
-}
-
-you(){
-	open -a "/Applications/Google Chrome.app"/ http://you.localhost.jp
-}
-
-coteditor(){
-	open -a "/Applications/CotEditor.app"/ $1
-}
+##ブラウザで開く
+#dev(){
+#	open -a "/Applications/Google Chrome.app"/ http://dev.localhost.jp
+#}
+#
+#devadmin(){
+#	open -a "/Applications/Google Chrome.app"/ http://dev.localhost.jp/wp-login.php
+#}
+#
+#you(){
+#	open -a "/Applications/Google Chrome.app"/ http://you.localhost.jp
+#}
+#
+#coteditor(){
+#	open -a "/Applications/CotEditor.app"/ $1
+#}
 
 #-------------------------------------------------
 #基本
@@ -56,12 +58,11 @@ cdla() {
 	\pushd "$@" && la
 }
 
+#エイリアス
 alias cd='cdla'
 alias po='popd'
-alias bashprofile='vim ${HOME}/.bash_profile'
-alias vimrc='vim ${HOME}/.vimrc'
 
-#エイリアス
+#エイリアス（移動用）
 alias gohome='cdla ${HOME}'
 alias godesktop='cdla ${HOME}/Desktop'
 alias godocuments='cdla ${HOME}/Documents'

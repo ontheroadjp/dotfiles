@@ -1,3 +1,8 @@
+
+.git
 *.un~
 *.swp
-.DS_Stor
+.DS_Store
+
+
+.gitmodules
