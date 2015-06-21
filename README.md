@@ -11,8 +11,10 @@
 ln -sf ~/dotfiles/.bashrc ~/.bashrc  
 ln -sf ~/dotfiles/.bash_profile ~/.bash_profile  
 #ln -sf ~/dotfiles/.bash_history ~/.bash_history
-#ln -sf ~/dotfiles/.gitconfig ~/.gitconfig
-#ln -sf ~/dotfiles/.gitignore_global ~/.gitignore_global
+
+## for git
+ln -sf ~/dotfiles/.gitconfig ~/.gitconfig
+ln -sf ~/dotfiles/.gitignore_global ~/.gitignore_global
 
 ## for tmux
 ln -sf ~/dotfiles/.tmux.conf ~/.tmux.conf
