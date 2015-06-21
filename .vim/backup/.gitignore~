@@ -1,7 +1,9 @@
 
+.git
 *.un~
 *.swp
 .DS_Store
 
-
+.vim/backup
+.vim/swap
 .gitmodules

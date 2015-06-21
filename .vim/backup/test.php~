@@ -1,47 +1,6 @@
-<?php
-// テスト用のフィアル　なんでも編集OK
-
+<H1>test php</h1>
 
 hogehoge
 
-
-	$active = null;
-	do {
-		$mrc = curl_multi_exec( $mh, $active );
-	} while ( $mrc == CURLM_CALL_MULTI_PERFORM );
-	
-	while( $active and $mrc == CURLM_OK ) {
-		if (curl_multi_select($mh) != -1) {
-			do {
-				$mrc = curl_multi_exec( $mh, $active );
-			} while ($mrc == CURLM_CALL_MULTI_PERFORM);
-		} 
-	}
-	
-	foreach ( $urls as $key => $url ) {
-		$count++;
-		echo $count.'. ';
-		if( ( $err = curl_error( $conn[$key] ) ) == '' ) {
-//			$res[$key] = curl_multi_getcontent( $conn[$key] );
-			if( is_mobile() ) {
-				echo '（OK）<a href="'.$url.'">画像 URL</a><br>';
-			} else {
-				echo '（OK）'.$url.'<br>';
-			}			
-			$filename = str_replace( ',', '', basename( $url ) );
-	        file_put_contents( $savedir.'/'.$filename, curl_multi_getcontent( $conn[$key] ) );		// 画像保存
-       		fwrite( $fp, $filename."\n" );
-
-		} else {
-			$errorUrls[$key] = $urls[$key];
-			echo '（失敗）<br>';
-		}
-		curl_multi_remove_handle( $mh, $conn[$key] ); 
-		curl_close( $conn[$key] );
-	}
-	curl_multi_close( $mh );
-	
-//	return $res;
-}
-
-?>
+<a href="/" target="_blank">HOME</a>
+<a href="/" target="_blank">HOME</a>

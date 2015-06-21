@@ -142,11 +142,13 @@ let g:unite_enable_smart_case = 1
 au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
 au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
 
-"" ウィンドウを分割して開く
-"au FileType unite nnoremap <silent> <buffer> <expr> <C-J> unite#do_action('split')
-"au FileType unite inoremap <silent> <buffer> <expr> <C-J> unite#do_action('split')
+" ウィンドウを分割して開く
+au FileType unite nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
+au FileType unite inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
 
-"" ウィンドウを縦に分割して開く
+ " ウィンドウを縦に分割して開く
+au FileType unite nnoremap <silent> <buffer> <expr> <C-v> unite#do_action('vsplit')
+au FileType unite inoremap <silent> <buffer> <expr> <C-v> unite#do_action('vsplit')
 
 """""""""""""""""""""""""""""""
 "" unite.vim {{{
@@ -164,6 +166,8 @@ nnoremap <silent> [unite]a :<C-u>UniteBookmarkAdd<CR>
 nnoremap <silent> [unite]r :<C-u>Unite<Space>file_mru<CR>
 nnoremap <silent> [unite]p :<C-u>Unite<Space>file_point<CR>
 nnoremap <silent> [unite]h :<C-u>Unite<Space>history/yank<CR>
+nnoremap <silent> [unite]d :<C-u>Unite<Space>directory/new<CR>
+nnoremap <silent> [unite]n :<C-u>Unite<Space>file/new<CR>
 nnoremap <silent> [unite]v :<C-u>UniteWithBufferDir file<CR>
 nnoremap <silent> ,vr :UniteResume<CR>
 "" }}}

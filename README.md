@@ -7,14 +7,14 @@
 ### Symbolic Link
 
 ```
-ln -s ~/dotfiles/.bashrc ~/.bashrc  
-ln -s ~/dotfiles/.bash_profile ~/.bash_profile  
-ln -s ~/dotfiles/.vimrc ~/.vimrc  
-#ln -s ~/dotfiles/.gvimrc ~/.gvimrc  
-ln -s ~/dotfiles/.atom ~/.atom
-#ln -s ~/dotfiles/.bash_history ~/.bash_history
-#ln -s ~/dotfiles/.gitconfig ~/.gitconfig
-#ln -s ~/dotfiles/.gitignore_global ~/.gitignore_global
+ln -sf ~/dotfiles/.bashrc ~/.bashrc  
+ln -sf ~/dotfiles/.bash_profile ~/.bash_profile  
+ln -sf ~/dotfiles/.vimrc ~/.vimrc  
+#ln -sf ~/dotfiles/.gvimrc ~/.gvimrc  
+ln -sf ~/dotfiles/.atom ~/.atom
+#ln -sf ~/dotfiles/.bash_history ~/.bash_history
+#ln -sf ~/dotfiles/.gitconfig ~/.gitconfig
+#ln -sf ~/dotfiles/.gitignore_global ~/.gitignore_global
 
 source ~/.bash_profile
 ```

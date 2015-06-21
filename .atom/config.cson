@@ -13,8 +13,7 @@
       "web-view"
     ]
   editor:
-    invisibles:
-      {}
+    invisibles: {}
     lineHeight: 1.5
     tabLength: 4
     fontFamily: "Ricty Diminished"
@@ -22,12 +21,9 @@
     fontSize: 14
   "SFTP-deployment":
     uploadOnSave: false
-  docblockr:
-    {}
-  minimap:
-    {}
-  "one-dark-ui":
-    {}
+  docblockr: {}
+  minimap: {}
+  "one-dark-ui": {}
   "isotope-ui":
     backgroundColor: "false"
     customBackgroundColorPicker:
