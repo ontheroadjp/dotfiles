@@ -25,6 +25,9 @@ terminal(){
 }
 
 
+## Markdown Editor
+alias md='open -a "/Applications/MacDown.app"'
+
 ##ブラウザで開く
 #dev(){
 #	open -a "/Applications/Google Chrome.app"/ http://dev.localhost.jp
@@ -83,9 +86,9 @@ alias gomamproot='cdla ${HOME}/MAMP_ROOT'
 #-------------------------------------------------
 
 export TARGET=dev
+export DOCUMENTROOT=${HOME}/MAMP_ROOT
 
 #基本設定
-export DOCUMENTROOT=${HOME}/MAMP_ROOT
 export WPROOT=${DOCUMENTROOT}/${TARGET}
 export WPTHEME=${WPROOT}/wp-content/themes/channel
 export WPPLUGIN=${WPROOT}/wp-content/plugins
@@ -98,8 +101,8 @@ alias wpplugin='cdla $WPPLUGIN'
 #エイリアス（編集用）
 alias wp-config='vim ${WPROOT}/wp-config.php'
 alias header='vim ${WPTHEME}/header.php'
-alias wphome='vim ${WPTHEME}/home.php'
-alias wpindex='vim ${WPTHEME}/index.php'
+alias home='vim ${WPTHEME}/home.php'
+alias pindex='vim ${WPTHEME}/index.php'
 alias single='vim ${WPTHEME}/single.php'
 alias archive='vim ${WPTHEME}/archive.php'
 alias sidebar='vim ${WPTHEME}/sidebar.php'
