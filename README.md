@@ -7,16 +7,37 @@
 ### Symbolic Link
 
 ```
+## for General
 ln -sf ~/dotfiles/.bashrc ~/.bashrc  
 ln -sf ~/dotfiles/.bash_profile ~/.bash_profile  
-ln -sf ~/dotfiles/.vimrc ~/.vimrc  
-#ln -sf ~/dotfiles/.gvimrc ~/.gvimrc  
-ln -sf ~/dotfiles/.atom ~/.atom
 #ln -sf ~/dotfiles/.bash_history ~/.bash_history
 #ln -sf ~/dotfiles/.gitconfig ~/.gitconfig
 #ln -sf ~/dotfiles/.gitignore_global ~/.gitignore_global
 
+## for tmux
+ln -sf ~/dotfiles/.tmux.conf ~/.tmux.conf
+ln -sf ~/dotfiles/bin/get_ssid.sh /usr/local/bin/get_ssid
+ln -sf ~/dotfiles/bin/battery.sh /usr/local/bin/battery
+
+## for vim
+ln -sf ~/dotfiles/.vimrc ~/.vimrc  
+#ln -sf ~/dotfiles/.gvimrc ~/.gvimrc  
+
+## for Karabiner.app
+ln -sf ~/dotfiles/karabiner/private.xml ~/Library/Application\ Support/Karabiner/private.xml
+
+## for atom
+ln -sf ~/dotfiles/.atom ~/.atom
+
 source ~/.bash_profile
+```
+
+## tmux 関連
+
+### インストール
+
+```
+$ brew install tmux
 ```
 
 
