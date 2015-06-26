@@ -1,4 +1,10 @@
 
+
+if [ -f ~/.bashrc ] ; then
+	. ~/.bashrc
+fi
+
+
 #-------------------------------------------------
 # Mac 用
 #-------------------------------------------------
@@ -6,11 +12,6 @@
 #現在のディレクトリをファインダーで開く
 alias finder='open .'
 
-#指定ファイルをクロームで開く usage: $ chrome ./index.html
-alias chrome='open -a "/Applications/Google Chrome.app"' 
-
-#指定ファイルを SublimeText3 で開く 
-alias sub='open -a "/Applications/Sublime Text.app"'
  
 #現在のファインダーをTerminal.appで開く
 terminal(){
@@ -24,51 +25,39 @@ terminal(){
 	fi
 }
 
+## Chrome
+alias chrome='open -a "/Applications/Google Chrome.app"' 
+
+## Sublime Text 3
+alias sub='open -a "/Applications/Sublime Text.app"'
 
 ## Markdown Editor
 alias md='open -a "/Applications/MacDown.app"'
 
-##ブラウザで開く
-#dev(){
-#	open -a "/Applications/Google Chrome.app"/ http://dev.localhost.jp
-#}
-#
-#devadmin(){
-#	open -a "/Applications/Google Chrome.app"/ http://dev.localhost.jp/wp-login.php
-#}
-#
-#you(){
-#	open -a "/Applications/Google Chrome.app"/ http://you.localhost.jp
-#}
-#
-#coteditor(){
-#	open -a "/Applications/CotEditor.app"/ $1
-#}
-
-#-------------------------------------------------
-#基本
-#-------------------------------------------------
-
-#プロンプトの表示変更
-export PS1="[\h@\t \w]\$ "
-
-# vi, vim をMacVim へ変更
+## vi, vim をMacVim へ変更
 #alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 #alias vim='env_LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 
-#エイリアス
+#-------------------------------------------------
+# 基本
+#-------------------------------------------------
+
+## プロンプトの表示変更
+export PS1="[\h@\t \w]\$ "
+
+## エイリアス
 alias la='ls -laG'
 
-#cd した後に la する
+## cd した後に la する
 cdla() {
 	\pushd "$@" && la
 }
 
-#エイリアス
+## エイリアス
 alias cd='cdla'
 alias po='popd'
 
-#エイリアス（移動用）
+## エイリアス（移動用）
 alias gohome='cdla ${HOME}'
 alias godesktop='cdla ${HOME}/Desktop'
 alias godocuments='cdla ${HOME}/Documents'
@@ -139,9 +128,10 @@ alias vhosts='vim ${MAMPROOT}/conf/apache/extra/httpd-vhosts.conf'
 
 
 #-------------------------------------------------
+# tmux の設定
 # 参考：http://qiita.com/b4b4r07/items/01359e8a3066d1c37edc
 # 参考：https://github.com/b4b4r07/dotfiles
-
+#-------------------------------------------------
 
 function is_exists() { type "$1" >/dev/null 2>&1; return $?; }
 function is_osx() { [[ $OSTYPE == darwin* ]]; }

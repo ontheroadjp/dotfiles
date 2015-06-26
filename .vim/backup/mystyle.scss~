@@ -1,8 +1,0 @@
-// buttons
-
-.maru {
-	width: 100px;
-	height: 100px;
-	-webkit-border-radius: 100px;
-	-webkit-box-shadow: 0 3px 3px rgba(0,0,0,0.2);
-}
