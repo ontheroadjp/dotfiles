@@ -1,4 +1,33 @@
 
+" ステータスライン
+set laststatus=2
+set statusline=%<     " 行が長すぎるときに切り詰める位置
+set statusline+=[%n]  " バッファ番号
+set statusline+=%m    " %m 修正フラグ
+set statusline+=%r    " %r 読み込み専用フラグ
+set statusline+=%h    " %h ヘルプバッファフラグ
+set statusline+=%w    " %w プレビューウィンドウフラグ
+set statusline+=%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}  " fencとffを表示
+set statusline+=%y    " バッファ内のファイルのタイプ
+set statusline+=\     " 空白スペース
+if winwidth(0) >= 130
+	set statusline+=%F    " バッファ内のファイルのフルパス
+else
+	set statusline+=%t    " ファイル名のみ
+endif
+set statusline+=%=    " 左寄せ項目と右寄せ項目の区切り
+set statusline+=%{fugitive#statusline()}  " Gitのブランチ名を表示
+set statusline+=\ \   " 空白スペース2個
+set statusline+=%1l   " 何行目にカーソルがあるか
+set statusline+=/
+set statusline+=%L    " バッファ内の総行数
+set statusline+=,
+set statusline+=%c    " 何列目にカーソルがあるか
+set statusline+=%V    " 画面上の何列目にカーソルがあるか
+set statusline+=\ \   " 空白スペース2個
+set statusline+=%P    " ファイル内の何％の位置にあるか
+
+
 "-------------------------
 "基本
 "-------------------------
@@ -112,6 +141,8 @@ if has('vim_starting')
 		NeoBundle 'tpope/vim-markdown'		"Markdown 用
 		NeoBundle 'tyru/open-browser.vim'	"ブラウザプレビュー
 		NeoBundle 'thinca/vim-quickrun'		"コード片の実行
+		NeoBundle 'Yggdroot/indentLine'		"インデントの可視化
+		NeoBundle 'tpope/vim-fugitive'		"git コマンド使えるようにする
 		"NeoBundle 'Shougo/vimshell'
 		"NeoBundle 'Shougo/neocomplcache'
 		"NeoBundle 'Shougo/neosnippet'
@@ -187,6 +218,13 @@ nnoremap <silent> ,vr :UniteResume<CR>
 "	let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
 "	let g:unite_source_grep_recursive_opt = ''
 "endif
+
+""""""""""""""""""""""""""""""
+" indentLine の設定
+""""""""""""""""""""""""""""""
+let g:indentLine_color_term = 111
+let g:indentLine_color_gui = '#708090'
+let g:indentLine_char = '¦' "use ¦, ┆ or │
 
 """"""""""""""""""""""""""""""
 " QuickRun の設定(Markdown用)
