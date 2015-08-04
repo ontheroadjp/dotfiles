@@ -27,7 +27,8 @@
 			<only>TERMINAL</only>
 			<identifier>remap.app_term_command-b2contol-b</identifier>
 			<autogen>--KeyToKey-- KeyCode::B, ModifierFlag::COMMAND_L, KeyCode::B, ModifierFlag::CONTROL_L</autogen>        
-			<autogen>--KeyToKey-- KeyCode::O, ModifierFlag::COMMAND_L, KeyCode::O, ModifierFlag::CONTROL_L</autogen>        
+			<autogen>--KeyToKey-- KeyCode::O, ModifierFlag::COMMAND_L, KeyCode::O, ModifierFlag::CONTROL_L</autogen> 
+			<autogen>--KeyToKey-- KeyCode::C, ModifierFlag::COMMAND_L, KeyCode::C, ModifierFlag::CONTROL_L</autogen>  
 		</item>
 	</list>
 </root>
