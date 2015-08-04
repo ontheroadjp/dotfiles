@@ -1,42 +1,55 @@
 
-
 if [ -f ~/.bashrc ] ; then
 	. ~/.bashrc
 fi
 
-
 #-------------------------------------------------
-# Mac 用
+# Mac 固有の設定
 #-------------------------------------------------
+if [ "$(uname)" == 'Darwin' ]; then 
 
-#現在のディレクトリをファインダーで開く
-alias finder='open .'
+	#現在のディレクトリをファインダーで開く
+	alias finder='open .'
 
  
-#現在のファインダーをTerminal.appで開く
-terminal(){
-	target=`osascript -e 'tell application "Finder" to if(count of Finder windows) > 0 then get POSIX path of(target of front Finder window as text)'`
-	if [ "$target" != "" ]
-	then
-		cd "$target"
-		pwd
-	else
-		echo 'No Finder window found' >&2
-	fi
-}
+	#現在のファインダーをTerminal.appで開く
+	terminal(){
+		target=`osascript -e 'tell application "Finder" to if(count of Finder windows) > 0 then get POSIX path of(target of front Finder window as text)'`
+		if [ "$target" != "" ]
+		then
+			cd "$target"
+			pwd
+		else
+			echo 'No Finder window found' >&2
+		fi
+	}
+	
+	## Chrome
+	alias chrome='open -a "/Applications/Google Chrome.app"' 
+	
+	## Sublime Text 3
+	alias sub='open -a "/Applications/Sublime Text.app"'
+	
+	## Markdown Editor
+	alias md='open -a "/Applications/MacDown.app"'
+	
+	## vi, vim をMacVim へ変更
+	#alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+	#alias vim='env_LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+	
 
-## Chrome
-alias chrome='open -a "/Applications/Google Chrome.app"' 
+# Linux 固有の設定
+elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
+	echo 'Wellcome to Linux!'	
 
-## Sublime Text 3
-alias sub='open -a "/Applications/Sublime Text.app"'
+# Windows(Cygwin) 固有の設定
+elif [ "$(expr substr $(uname -s) 1 10)" == 'MINGW32_NT' ]; then
+	echo 'Wellcome to Cygwin!'
+else
+#	echo "Your platform ($(uname -a)) is not supported."
+	exit 1
+fi
 
-## Markdown Editor
-alias md='open -a "/Applications/MacDown.app"'
-
-## vi, vim をMacVim へ変更
-#alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
-#alias vim='env_LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 
 #-------------------------------------------------
 # 基本
@@ -44,6 +57,8 @@ alias md='open -a "/Applications/MacDown.app"'
 
 ## プロンプトの表示変更
 export PS1="[\h@\t \w]\$ "
+export PS1="[\h@\t \w\[\033[31m\]$(__git_ps1)]\$ "
+export PS1="[\h@\t \w$(__git_ps1)]\$ "
 
 ## エイリアス
 alias la='ls -laG'
@@ -53,22 +68,47 @@ cdla() {
 	\pushd "$@" && la
 }
 
-## エイリアス
+## エイリアス（移動:cd）
 alias cd='cdla'
-alias po='popd'
 
-## エイリアス（移動用）
-alias gohome='cdla ${HOME}'
-alias godesktop='cdla ${HOME}/Desktop'
-alias godocuments='cdla ${HOME}/Documents'
-alias godownload='cdla ${HOME}/Downloads'
+alias d='dirs -v | less'
+alias p='popd'
+alias cd2='pushd +2'
+alias cd3='pushd +3'
+alias cd4='pushd +4'
+alias cd5='pushd +5'
+alias cd6='pushd +6'
+alias cd7='pushd +7'
+alias cd8='pushd +8'
+alias cd9='pushd +9'
+alias cd10='pushd +10'
+alias cd11='pushd +11'
+alias cd12='pushd +12'
+alias cd13='pushd +13'
+alias cd14='pushd +14'
+alias cd15='pushd +15'
+alias cd16='pushd +16'
+alias cd17='pushd +17'
+alias cd18='pushd +18'
+alias cd19='pushd +19'
+alias cd20='pushd +20'
 
-alias gogoogledrive='cdla ${HOME}/Google\ Drive'
-alias goonedrive='cdla ${HOME}/OneDrive'
-alias godropbox='cdla ${HOME}/Dropbox'
+## エイリアス（移動:git）
+alias cdg='cd $(git rev-parse --show-toplevel)'
 
-alias gotext='cdla ${HOME}/Dropbox/アプリ/PlainText\ 2/INBOX'
-alias gomamproot='cdla ${HOME}/MAMP_ROOT'
+## エイリアス（移動:Mac）
+alias cdh='cdla ${HOME}'
+alias cdd='cdla ${HOME}/Desktop'
+alias cddoc='cdla ${HOME}/Documents'
+alias cddl='cdla ${HOME}/Downloads'
+
+alias cdgd='cdla ${HOME}/Google\ Drive'
+alias cdod='cdla ${HOME}/OneDrive'
+alias cddb='cdla ${HOME}/Dropbox'
+
+alias cdmemo='cdla ${HOME}/Dropbox/アプリ/PlainText\ 2/INBOX'
+alias cdm='cdla ${HOME}/MAMP_ROOT'
+alias cdv='cdla ${HOME}/Vagrant'
 
 #-------------------------------------------------
 # WordPress - http://dev.ontheroad.jp
