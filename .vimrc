@@ -31,6 +31,10 @@ set statusline+=%P    " ファイル内の何％の位置にあるか
 "-------------------------
 "基本
 "-------------------------
+set encoding=utf-8
+set fileencodings=iso-2022-jp,euc-jp,sjis,utf-8
+set fileformats=unix,dos,mac
+
 set number
 inoremap <silent> jj <esc>
 
