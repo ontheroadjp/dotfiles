@@ -191,6 +191,7 @@ g:ag_lhandler	ag.txt	/*g:ag_lhandler*
 g:ag_mapping_message	ag.txt	/*g:ag_mapping_message*
 g:ag_prg	ag.txt	/*g:ag_prg*
 g:ag_qhandler	ag.txt	/*g:ag_qhandler*
+g:ag_working_path_mode	ag.txt	/*g:ag_working_path_mode*
 g:indentLine_bufNameExclude	indentLine.txt	/*g:indentLine_bufNameExclude*
 g:indentLine_char	indentLine.txt	/*g:indentLine_char*
 g:indentLine_color_gui	indentLine.txt	/*g:indentLine_color_gui*
@@ -239,6 +240,7 @@ g:neomru#file_mru_ignore_pattern	neomru.txt	/*g:neomru#file_mru_ignore_pattern*
 g:neomru#file_mru_limit	neomru.txt	/*g:neomru#file_mru_limit*
 g:neomru#file_mru_path	neomru.txt	/*g:neomru#file_mru_path*
 g:neomru#filename_format	neomru.txt	/*g:neomru#filename_format*
+g:neomru#follow_links	neomru.txt	/*g:neomru#follow_links*
 g:neomru#time_format	neomru.txt	/*g:neomru#time_format*
 g:neomru#update_interval	neomru.txt	/*g:neomru#update_interval*
 g:openbrowser_browser_commands	openbrowser.txt	/*g:openbrowser_browser_commands*
@@ -269,6 +271,7 @@ g:ref_erlang_cmd	ref-erlang.txt	/*g:ref_erlang_cmd*
 g:ref_erlang_man_dir	ref-erlang.txt	/*g:ref_erlang_man_dir*
 g:ref_man_cmd	ref-man.txt	/*g:ref_man_cmd*
 g:ref_man_lang	ref-man.txt	/*g:ref_man_lang*
+g:ref_man_manpath	ref-man.txt	/*g:ref_man_manpath*
 g:ref_no_default_key_mappings	ref.txt	/*g:ref_no_default_key_mappings*
 g:ref_noenter	ref.txt	/*g:ref_noenter*
 g:ref_open	ref.txt	/*g:ref_open*
@@ -283,6 +286,10 @@ g:ref_refe_cmd	ref-refe.txt	/*g:ref_refe_cmd*
 g:ref_refe_encoding	ref-refe.txt	/*g:ref_refe_encoding*
 g:ref_refe_rsense_cmd	ref-refe.txt	/*g:ref_refe_rsense_cmd*
 g:ref_refe_version	ref-refe.txt	/*g:ref_refe_version*
+g:ref_source_webdict_cmd	ref-webdict.txt	/*g:ref_source_webdict_cmd*
+g:ref_source_webdict_encoding	ref-webdict.txt	/*g:ref_source_webdict_encoding*
+g:ref_source_webdict_sites	ref-webdict.txt	/*g:ref_source_webdict_sites*
+g:ref_source_webdict_use_cache	ref-webdict.txt	/*g:ref_source_webdict_use_cache*
 g:ref_use_vimproc	ref.txt	/*g:ref_use_vimproc*
 g:stderrencoding	vimproc.txt	/*g:stderrencoding*
 g:stdinencoding	vimproc.txt	/*g:stdinencoding*
@@ -320,15 +327,14 @@ g:unite_source_file_mru_ignore_pattern	neomru.txt	/*g:unite_source_file_mru_igno
 g:unite_source_file_mru_limit	neomru.txt	/*g:unite_source_file_mru_limit*
 g:unite_source_file_mru_time_format	neomru.txt	/*g:unite_source_file_mru_time_format*
 g:unite_source_find_command	unite.txt	/*g:unite_source_find_command*
+g:unite_source_find_default_expr	unite.txt	/*g:unite_source_find_default_expr*
 g:unite_source_find_default_opts	unite.txt	/*g:unite_source_find_default_opts*
-g:unite_source_find_max_candidates	unite.txt	/*g:unite_source_find_max_candidates*
 g:unite_source_grep_command	unite.txt	/*g:unite_source_grep_command*
 g:unite_source_grep_default_opts	unite.txt	/*g:unite_source_grep_default_opts*
 g:unite_source_grep_encoding	unite.txt	/*g:unite_source_grep_encoding*
-g:unite_source_grep_max_candidates	unite.txt	/*g:unite_source_grep_max_candidates*
 g:unite_source_grep_recursive_opt	unite.txt	/*g:unite_source_grep_recursive_opt*
 g:unite_source_grep_search_word_highlight	unite.txt	/*g:unite_source_grep_search_word_highlight*
-g:unite_source_history_save_clipboard	unite.txt	/*g:unite_source_history_save_clipboard*
+g:unite_source_history_save_registers	unite.txt	/*g:unite_source_history_save_registers*
 g:unite_source_history_yank_enable	unite.txt	/*g:unite_source_history_yank_enable*
 g:unite_source_history_yank_file	unite.txt	/*g:unite_source_history_yank_file*
 g:unite_source_history_yank_limit	unite.txt	/*g:unite_source_history_yank_limit*
@@ -452,6 +458,7 @@ neobundle-options-depends	neobundle.txt	/*neobundle-options-depends*
 neobundle-options-directory	neobundle.txt	/*neobundle-options-directory*
 neobundle-options-disabled	neobundle.txt	/*neobundle-options-disabled*
 neobundle-options-external_commands	neobundle.txt	/*neobundle-options-external_commands*
+neobundle-options-fetch	neobundle.txt	/*neobundle-options-fetch*
 neobundle-options-focus	neobundle.txt	/*neobundle-options-focus*
 neobundle-options-force	neobundle.txt	/*neobundle-options-force*
 neobundle-options-gui	neobundle.txt	/*neobundle-options-gui*
@@ -462,7 +469,6 @@ neobundle-options-name	neobundle.txt	/*neobundle-options-name*
 neobundle-options-overwrite	neobundle.txt	/*neobundle-options-overwrite*
 neobundle-options-recipe	neobundle.txt	/*neobundle-options-recipe*
 neobundle-options-regular_name	neobundle.txt	/*neobundle-options-regular_name*
-neobundle-options-resettable	neobundle.txt	/*neobundle-options-resettable*
 neobundle-options-rtp	neobundle.txt	/*neobundle-options-rtp*
 neobundle-options-script_type	neobundle.txt	/*neobundle-options-script_type*
 neobundle-options-site	neobundle.txt	/*neobundle-options-site*
@@ -710,6 +716,13 @@ ref-source-attr-normalize()	ref.txt	/*ref-source-attr-normalize()*
 ref-source-attr-opened()	ref.txt	/*ref-source-attr-opened()*
 ref-sources	ref.txt	/*ref-sources*
 ref-viewer	ref.txt	/*ref-viewer*
+ref-webdict	ref-webdict.txt	/*ref-webdict*
+ref-webdict-arguments	ref-webdict.txt	/*ref-webdict-arguments*
+ref-webdict-changelog	ref-webdict.txt	/*ref-webdict-changelog*
+ref-webdict-contents	ref-webdict.txt	/*ref-webdict-contents*
+ref-webdict-customizing	ref-webdict.txt	/*ref-webdict-customizing*
+ref-webdict-introduction	ref-webdict.txt	/*ref-webdict-introduction*
+ref-webdict.txt	ref-webdict.txt	/*ref-webdict.txt*
 ref.txt	ref.txt	/*ref.txt*
 ref.vim	ref.txt	/*ref.vim*
 unite	unite.txt	/*unite*
@@ -740,8 +753,12 @@ unite#get_kinds()	unite.txt	/*unite#get_kinds()*
 unite#get_sources()	unite.txt	/*unite#get_sources()*
 unite#get_status_string()	unite.txt	/*unite#get_status_string()*
 unite#get_unite_winnr()	unite.txt	/*unite#get_unite_winnr()*
-unite#mappings#get_current_filters()	unite.txt	/*unite#mappings#get_current_filters()*
-unite#mappings#set_current_filters()	unite.txt	/*unite#mappings#set_current_filters()*
+unite#mappings#get_current_converters()	unite.txt	/*unite#mappings#get_current_converters()*
+unite#mappings#get_current_matchers()	unite.txt	/*unite#mappings#get_current_matchers()*
+unite#mappings#get_current_sorters()	unite.txt	/*unite#mappings#get_current_sorters()*
+unite#mappings#set_current_converters()	unite.txt	/*unite#mappings#set_current_converters()*
+unite#mappings#set_current_matchers()	unite.txt	/*unite#mappings#set_current_matchers()*
+unite#mappings#set_current_sorters()	unite.txt	/*unite#mappings#set_current_sorters()*
 unite#redraw()	unite.txt	/*unite#redraw()*
 unite#set_profile()	unite.txt	/*unite#set_profile()*
 unite#smart_map()	unite.txt	/*unite#smart_map()*
@@ -793,6 +810,7 @@ unite-filter-attribute-filter	unite.txt	/*unite-filter-attribute-filter*
 unite-filter-attribute-name	unite.txt	/*unite-filter-attribute-name*
 unite-filter-attribute-pattern	unite.txt	/*unite-filter-attribute-pattern*
 unite-filter-attributes	unite.txt	/*unite-filter-attributes*
+unite-filter-converter_abbr_word	unite.txt	/*unite-filter-converter_abbr_word*
 unite-filter-converter_default	unite.txt	/*unite-filter-converter_default*
 unite-filter-converter_file_directory	unite.txt	/*unite-filter-converter_file_directory*
 unite-filter-converter_full_path	unite.txt	/*unite-filter-converter_full_path*
@@ -818,6 +836,7 @@ unite-filter-sorter_length	unite.txt	/*unite-filter-sorter_length*
 unite-filter-sorter_nothing	unite.txt	/*unite-filter-sorter_nothing*
 unite-filter-sorter_rank	unite.txt	/*unite-filter-sorter_rank*
 unite-filter-sorter_reverse	unite.txt	/*unite-filter-sorter_reverse*
+unite-filter-sorter_selecta	unite.txt	/*unite-filter-sorter_selecta*
 unite-filter-sorter_word	unite.txt	/*unite-filter-sorter_word*
 unite-filter-variables	unite.txt	/*unite-filter-variables*
 unite-filters	unite.txt	/*unite-filters*
@@ -883,6 +902,7 @@ unite-options-input	unite.txt	/*unite-options-input*
 unite-options-keep-focus	unite.txt	/*unite-options-keep-focus*
 unite-options-log	unite.txt	/*unite-options-log*
 unite-options-marked-icon	unite.txt	/*unite-options-marked-icon*
+unite-options-match-input	unite.txt	/*unite-options-match-input*
 unite-options-max-multi-lines	unite.txt	/*unite-options-max-multi-lines*
 unite-options-multi-line	unite.txt	/*unite-options-multi-line*
 unite-options-no-	unite.txt	/*unite-options-no-*
@@ -900,6 +920,7 @@ unite-options-previewheight	unite.txt	/*unite-options-previewheight*
 unite-options-profile-name	unite.txt	/*unite-options-profile-name*
 unite-options-prompt	unite.txt	/*unite-options-prompt*
 unite-options-prompt-direction	unite.txt	/*unite-options-prompt-direction*
+unite-options-prompt-focus	unite.txt	/*unite-options-prompt-focus*
 unite-options-prompt-visible	unite.txt	/*unite-options-prompt-visible*
 unite-options-quick-match	unite.txt	/*unite-options-quick-match*
 unite-options-resume	unite.txt	/*unite-options-resume*
@@ -950,7 +971,6 @@ unite-source-attribute-hooks-on_post_filter	unite.txt	/*unite-source-attribute-h
 unite-source-attribute-hooks-on_pre_filter	unite.txt	/*unite-source-attribute-hooks-on_pre_filter*
 unite-source-attribute-hooks-on_pre_init	unite.txt	/*unite-source-attribute-hooks-on_pre_init*
 unite-source-attribute-hooks-on_syntax	unite.txt	/*unite-source-attribute-hooks-on_syntax*
-unite-source-attribute-is_grouped	unite.txt	/*unite-source-attribute-is_grouped*
 unite-source-attribute-is_listed	unite.txt	/*unite-source-attribute-is_listed*
 unite-source-attribute-is_volatile	unite.txt	/*unite-source-attribute-is_volatile*
 unite-source-attribute-matchers	unite.txt	/*unite-source-attribute-matchers*

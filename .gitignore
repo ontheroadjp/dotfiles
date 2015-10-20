@@ -23,7 +23,7 @@ Session.vim
 *.swp
 .vim/backup/
 .vim/swap/
-.vim/bundle/
+.vim/bundle/NeoBundle.lock
 
 ################################
 # for MacOSX by github
