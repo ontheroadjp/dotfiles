@@ -65,6 +65,20 @@ if [ "$(uname)" == 'Darwin' ]; then
 elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
 	echo 'Welcome to Linux!'
 
+	for f in .bash_profile .bashrc .gitconfig .gitignore_global .vim .vimrc 
+	do
+		[ "$f" = ".git" ] && continue
+		if [ -e $DOTPATH/$F ]; then
+			ln -snfv "$DOTPATH/$f" "$HOME/$f" > /dev/null
+			echo "success: ${f}"
+		else
+			echo "missing file/directory: ${f}"
+		fi
+	done
+
+	source ~/.bash_profile > /dev/null 2>&1
+
+
 #-------------------------------------------------
 # デプロイ（Windows(Cygwin) ）
 #-------------------------------------------------
