@@ -1,5 +1,5 @@
 
-" ステータスライン
+" vim ステータスライン
 set laststatus=2
 set statusline=%<     " 行が長すぎるときに切り詰める位置
 set statusline+=[%n]  " バッファ番号
@@ -51,16 +51,16 @@ let g:sql_type_default='mysql'
 "-------------------------
 "バックアップ
 "-------------------------
-set backup
-"set nobackup
-set backupdir=~/.vim/backup
+"set backup
+"set backupdir=~/.vim/backup
+set nobackup
 
 "-------------------------
 "スワップ
 "-------------------------
-set swapfile
-"set noswapfile
-set directory=~/.vim/swap
+"set swapfile
+"set directory=~/.vim/swap
+set noswapfile
 
 "-------------------------
 "カラースキーマー
@@ -286,9 +286,6 @@ cnoremap aa Ref webdict alc<Space>
 "command! DashDef silent !open -g dash://"<cword>"
 "nmap K :DashDef<CR>\|:redraw!<CR>
 "au FileType nim  nmap K :DashNim<CR>\|:redraw!<CR>
-
-
-
 
 
 

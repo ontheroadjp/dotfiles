@@ -1,8 +1,10 @@
 ag.vim
+indentLine
 neobundle.vim
 neomru.vim
 open-browser.vim
 unite.vim
+vim-fugitive
 vim-markdown
 vim-quickrun
 vim-ref
