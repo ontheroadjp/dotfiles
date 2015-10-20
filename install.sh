@@ -42,19 +42,25 @@ DOTPATH=~/dotfiles
 if [ "$(uname)" == 'Darwin' ]; then 
 	echo Welcome to MacOSX !
 
-	for f in .atom .bash_profile .bashrc .gitconfig .gitignore_global .tmux.conf .vim .vimrc 
+	for f in .bash_profile .bashrc .gitconfig .gitignore_global .tmux.conf .vim .vimrc 
 	do
-	    [ "$f" = ".git" ] && continue
-	    ln -snfv "$DOTPATH/$f" "$HOME/$f"
+		[ "$f" = ".git" ] && continue
+		if [ -e $DOTPATH/$F ]; then
+			ln -snfv "$DOTPATH/$f" "$HOME/$f" > /dev/null
+			echo "success: ${f}"
+		else
+			echo "missing file/directory: ${f}"
+		fi
 	done
 
 	#ln -s ~/dotfiles/.gvimrc ~/.gvimrc
-	ln -sf ~/dotfiles/karabiner/private.xml ~/Library/Application\ Support/Karabiner/private.xml
+	ln -sf ~/dotfiles/karabiner/private.xml ~/Library/Application\ Support/Karabiner/private.xml > /dev/null
+	echo "success: Karabiner - private.xml"
 
-	source ~/.bash_profile
+	source ~/.bash_profile > /dev/null 2>&1
 
 #-------------------------------------------------
-# デプロイ（Linux ）
+# デプロイ（Linux）
 #-------------------------------------------------
 elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
 	echo 'Welcome to Linux!'

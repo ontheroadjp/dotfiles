@@ -105,7 +105,7 @@ if [ "$(uname)" == 'Darwin' ]; then
 						fi
 					fi
 				fi
-	
+
 				if is_osx && is_exists 'reattach-to-user-namespace'; then
 					# on OS X force tmux's default command
 					# to spawn a shell in the user's namespace
@@ -245,5 +245,3 @@ bk() {
 		zip -vr ${prefix}$@.zip $@
 	fi
 }
-
-

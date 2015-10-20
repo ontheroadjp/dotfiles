@@ -6,6 +6,8 @@
 .atom/storage/
 .atom/compile-cache/
 
+backup.sh
+
 ################################
 # for vim by github
 ################################
