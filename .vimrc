@@ -1,5 +1,13 @@
 
+"-------------------------
+"カラースキーマー
+"-------------------------
+colorscheme desert
+
+
+"-------------------------
 " vim ステータスライン
+"-------------------------
 set laststatus=2
 set statusline=%<     " 行が長すぎるときに切り詰める位置
 set statusline+=[%n]  " バッファ番号
@@ -27,16 +35,35 @@ set statusline+=%V    " 画面上の何列目にカーソルがあるか
 set statusline+=\ \   " 空白スペース2個
 set statusline+=%P    " ファイル内の何％の位置にあるか
 
-
 "-------------------------
 "基本
 "-------------------------
-set encoding=utf-8
-set fileencodings=iso-2022-jp,euc-jp,sjis,utf-8
+
+" 文字コード
+"set encoding=utf-8
+set encoding=utf-8 nobomb
+set fileencodings=utf-8,ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932
+"set fileencodings=iso-2022-jp,euc-jp,sjis,utf-8
 set fileformats=unix,dos,mac
 
+" 行番号表示
 set number
+
+" ESC の代わりに jj  
 inoremap <silent> jj <esc>
+
+"-------------------------
+" 検索
+"-------------------------
+" 検索文字列が小文字の場合は大文字小文字を区別なく検索する(noignorecase)
+set ignorecase
+" 検索文字列に大文字が含まれている場合は区別して検索する(nosmartcase)
+set smartcase
+" インクリメンタルサーチ
+set incsearch
+" n, N キーで「次の（前の）検索候補」を画面の中心に表示する
+nnoremap n nzz
+nnoremap N Nzz
 
 "-------------------------
 "PHP 設定 :help 参照のこと
@@ -53,26 +80,21 @@ let php_parent_error_close = 1
 let g:sql_type_default='mysql'
 
 "-------------------------
-"バックアップ
+"バックアップファイル
 "-------------------------
 "set backup
 "set backupdir=~/.vim/backup
 set nobackup
 
 "-------------------------
-"スワップ
+"スワップファイル
 "-------------------------
 "set swapfile
 "set directory=~/.vim/swap
 set noswapfile
 
 "-------------------------
-"カラースキーマー
-"-------------------------
-colorscheme desert
-
-"-------------------------
-"タブ設定
+"タブ & インデント
 "-------------------------
 
 "タブ入力を複数の空白文字に置き換える
@@ -93,7 +115,6 @@ set autoindent
 "改行時に入力された行の末尾に合わせて次の行のインデントを増減する
 set smartindent
 
-
 """"""""""""""""""""""""""""
 " 自動的に閉じ括弧を入力
 """"""""""""""""""""""""""""
@@ -101,15 +122,15 @@ set smartindent
 "imap [ []<LEFT>
 "imap ( ()<LEFT>
 
+"-------------------------
+" キーバインド
+"-------------------------
 
-"-------------------------
-" キーバインドの設定
-"-------------------------
 " Shift + 矢印でウインドウサイズを変更
-nnoremap <S-Left> <C-w>><CR>
-nnoremap <S-Right> <C-w><<CR>
-nnoremap <S-Up> <C-w>-<CR> "動かない？
-nnoremap <S-Down> <C-w>+<CR> "動かない？
+"nnoremap <S-Left> <C-w>><CR>
+"nnoremap <S-Right> <C-w><<CR>
+"nnoremap <S-Up> <C-w>-<CR> "動かない？
+"nnoremap <S-Down> <C-w>+<CR> "動かない？
 
 " Ctrl + hjkl でウインドウ間を移動
 "nnoremap <S-h> <C-w>h
@@ -122,6 +143,16 @@ nnoremap <Space>h ^
 nnoremap <Space>l $
 vnoremap <Space>h ^
 vnoremap <Space>l $
+
+" 行移動
+nnoremap k   gk
+nnoremap j   gj
+vnoremap k   gk
+vnoremap j   gj
+nnoremap gk  k
+nnoremap gj  j
+vnoremap gk  k
+vnoremap gj  j
 
 "-------------------------
 " NeoVundle の設定
@@ -159,7 +190,7 @@ filetype plugin indent on
 filetype indent on
 syntax on
 
-let g:ref_phpmanual_path = '/Users/hideaki/.vim/vim-ref/php-chunked-xhtml'
+let g:ref_phpmanual_path = '~/.vim/vim-ref/php-chunked-xhtml'
 
 """"""""""""""""""""""""""""""
 " Unit.vimの設定
@@ -293,8 +324,9 @@ cnoremap aa Ref webdict alc<Space>
 
 
 
+" NeoBundle 関連はここまで
+"-------------------------
 
-""""""""""""""""""""""""""""""
 " filetypeの自動検出(最後の方に書いた方がいいらしい)
 filetype on
 

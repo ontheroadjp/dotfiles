@@ -121,16 +121,20 @@ if [ "$(uname)" == 'Darwin' ]; then
 	
 	#---------------- end of tmux ------------------
 
-	##-------------------------------------------------
-	## WordPress - http://dev.ontheroad.jp
-	##-------------------------------------------------
+	###-------------------------------------------------
+	### WordPress
+	###-------------------------------------------------
 	#
-	#export TARGET=dev
-	#export DOCUMENTROOT=${HOME}/MAMP_ROOT
-	#
+
+	#echo "Where is the WordPress root directory?"
+	#read wproot
+
+	#echo "Where is the theme directory name?"
+	#read themedir
+
 	##基本設定
-	#export WPROOT=${DOCUMENTROOT}/${TARGET}
-	#export WPTHEME=${WPROOT}/wp-content/themes/channel
+	#export WPROOT=${wproot}
+	#export WPTHEME=${WPROOT}/wp-content/${themedir}/channel
 	#export WPPLUGIN=${WPROOT}/wp-content/plugins
 	#
 	##エイリアス（移動用）
@@ -149,8 +153,8 @@ if [ "$(uname)" == 'Darwin' ]; then
 	#alias style='vim ${WPTHEME}/style.css'
 	#alias functions='vim ${WPTHEME}/functions.php'
 	#
-	#
-	#
+	
+	
 	##-------------------------------------------------
 	## MAMP
 	##-------------------------------------------------
@@ -204,33 +208,21 @@ alias la='ls -laG'
 
 ## cd した後に la する
 cdla() {
-	\pushd "$@" && la
+	pushd "$@" && la
 }
 
 ## エイリアス（移動:cd）
 alias cd='cdla'
 
-alias d='dirs -v | less'
+alias d='dirs -v'
 alias p='popd'
-alias cd2='pushd +2'
-alias cd3='pushd +3'
-alias cd4='pushd +4'
-alias cd5='pushd +5'
-alias cd6='pushd +6'
-alias cd7='pushd +7'
-alias cd8='pushd +8'
-alias cd9='pushd +9'
-alias cd10='pushd +10'
-alias cd11='pushd +11'
-alias cd12='pushd +12'
-alias cd13='pushd +13'
-alias cd14='pushd +14'
-alias cd15='pushd +15'
-alias cd16='pushd +16'
-alias cd17='pushd +17'
-alias cd18='pushd +18'
-alias cd19='pushd +19'
-alias cd20='pushd +20'
+
+cdno() {
+	path=`d | egrep "^ *${1}  " | sed -e "s/^ *${1}  "// | sed -e s:^~:${HOME}:`
+	cd ${path}
+}
+
+alias g='cdno'
 
 ## エイリアス（移動:git）
 alias cdg='cd $(git rev-parse --show-toplevel)'

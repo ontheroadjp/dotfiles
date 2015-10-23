@@ -63,7 +63,7 @@ if [ "$(uname)" == 'Darwin' ]; then
 # デプロイ（Linux）
 #-------------------------------------------------
 elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
-	echo 'Welcome to Linux!'
+	echo 'Welcome to Linux !'
 
 	for f in .bash_profile .bashrc .gitconfig .gitignore_global .vim .vimrc 
 	do

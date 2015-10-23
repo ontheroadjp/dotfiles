@@ -1,5 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_cnt =4
 let g:netrw_dirhist_1='/Users/hideaki'
 let g:netrw_dirhist_2='/Users/hideaki/Vagrant/vagrant-lamp/chef-repo/site-cookbooks/ssh/templates/default'
 let g:netrw_dirhist_3='/Users/hideaki/Vagrant/vagrant-lamp/chef-repo/nodes'
+let g:netrw_dirhist_4='/Users/hideaki/Vagrant/vagrant-lamp/chef-repo/site-cookbooks/ssh/recipes'
