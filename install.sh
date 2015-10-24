@@ -2,7 +2,6 @@
 
 DOTPATH=~/dotfiles
 
-
 ## -----------------------------------
 ## dotfiles の取得
 ## -----------------------------------
@@ -53,9 +52,16 @@ if [ "$(uname)" == 'Darwin' ]; then
 		fi
 	done
 
+	## gvim
 	#ln -s ~/dotfiles/.gvimrc ~/.gvimrc
+
+	# Karabiner
 	ln -sf ~/dotfiles/karabiner/private.xml ~/Library/Application\ Support/Karabiner/private.xml > /dev/null
 	echo "success: Karabiner - private.xml"
+
+	# peco
+	ln -sf ~/dotfiles/peco ~/.config/peco
+	echo "success: Peco config files"
 
 	source ~/.bash_profile > /dev/null 2>&1
 

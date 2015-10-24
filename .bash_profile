@@ -219,19 +219,22 @@ cdla() {
 alias cd='cdla'
 alias p='popd && la'
 
-## peco なしの場合
-#exdirs() {
-#	dirs -v | awk '!colname[$2]++{print $1,": ",$2,"(",$1,")"}'
-#}
-#
-#cdno() {
-#	#path=`dirs -v | egrep "^ *${1}  " | sed -e "s/^ *${1}  "// | sed -e s:^~:${HOME}:`
-#	path=`dirs -v | egrep "^ *${1}  " | awk '{print $2}' | sed -e s:^~:${HOME}:`
-#	cd ${path}
-#}
-#
-#alias d='exdirs'
-#alias g='cdno'
+# peco なしの場合
+function exdirs() {
+	dirs -v | awk '!colname[$2]++{print $1,": ",$2,"(",$1,")"}'
+	echo -n "no?"
+	read no
+	
+	line=`dirs -v | awk '!colname[$2]++{print $0}' |  egrep "^ *${no}  "`
+	if [ ! -z "${line}" ]  ; then 
+		path=`echo ${line} | awk '{print $2}' | sed -e s:^~:${HOME}:`
+		cd ${path}
+	else
+		echo "There is no number you inputed."
+	fi
+}
+
+alias d='exdirs'
 
 # peco 使う場合
 exdirspeco() {
@@ -247,7 +250,35 @@ cdnopeco() {
 alias dd='exdirspeco'
 alias gg='cdnopeco'
 
+sshx() {
+	cat ~/.ssh/config | egrep "^Host " | awk '{print NR, $0}'
+	echo -n "no?"
+	read no
 
+	line=`cat ~/.ssh/config | egrep "^Host " | awk '{print NR, $0}' | egrep "${no}"`
+	if [ ! -z "${line}" ]  ; then 
+		host=`echo ${line} | awk '{print $3}'`
+		#sudo tee -a ssh ${host}
+		ssh ${host}
+	else
+		echo "There is no number you inputed."
+	fi
+}
+
+findx(){
+	find $1 -name "$2" | awk '{print NR, $0}'
+	echo -n 'no?'
+	read no
+	
+	line=`find $1 -name "$2" | awk '{print NR, $0}' | egrep "${no}"`
+	if [ ! -z "${line}" ]  ; then 
+		path=`echo ${line} | awk '{print $2}' | sed -e s/$2//`
+		echo $path
+		cd $path
+	else
+		echo "There is no number you inputed."
+	fi
+}
 
 ## エイリアス（移動:git）
 alias cdg='cd $(git rev-parse --show-toplevel)'
