@@ -203,7 +203,11 @@ export PS1="[\h@\t \w]\$ "
 export PS1="[\h@\t \w\[\033[31m\]$(__git_ps1)]\$ "
 export PS1="[\h@\t \w$(__git_ps1)]\$ "
 
+
 ## エイリアス
+alias vp='vim ~/.bash_profile'
+alias sp='source ~/.bash_profile'
+
 alias la='ls -laG'
 
 ## cd した後に la する
@@ -213,16 +217,37 @@ cdla() {
 
 ## エイリアス（移動:cd）
 alias cd='cdla'
+alias p='popd && la'
 
-alias d='dirs -v'
-alias p='popd'
+## peco なしの場合
+#exdirs() {
+#	dirs -v | awk '!colname[$2]++{print $1,": ",$2,"(",$1,")"}'
+#}
+#
+#cdno() {
+#	#path=`dirs -v | egrep "^ *${1}  " | sed -e "s/^ *${1}  "// | sed -e s:^~:${HOME}:`
+#	path=`dirs -v | egrep "^ *${1}  " | awk '{print $2}' | sed -e s:^~:${HOME}:`
+#	cd ${path}
+#}
+#
+#alias d='exdirs'
+#alias g='cdno'
 
-cdno() {
-	path=`d | egrep "^ *${1}  " | sed -e "s/^ *${1}  "// | sed -e s:^~:${HOME}:`
+# peco 使う場合
+exdirspeco() {
+	dirs -v | awk '!colname[$2]++{print $0}'
+}
+
+cdnopeco() {
+	path=`exdirspeco | peco | awk '{print $2}' | sed -e s:^~:${HOME}:`
+	#echo ${path}
 	cd ${path}
 }
 
-alias g='cdno'
+alias dd='exdirspeco'
+alias gg='cdnopeco'
+
+
 
 ## エイリアス（移動:git）
 alias cdg='cd $(git rev-parse --show-toplevel)'
