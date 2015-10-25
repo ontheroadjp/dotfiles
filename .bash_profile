@@ -109,7 +109,7 @@ if [ "$(uname)" == 'Darwin' ]; then
 				if is_osx && is_exists 'reattach-to-user-namespace'; then
 					# on OS X force tmux's default command
 					# to spawn a shell in the user's namespace
-					tmux_config=$(cat $HOME/.tmux.conf <(echo 'set-option -g default-command "reattach-to-user-namespace -l $SHELL"'))
+					#tmux_config=$(cat $HOME/.tmux.conf <(echo 'set-option -g default-command "reattach-to-user-namespace -l $SHELL"'))
 					tmux -f <(echo "$tmux_config") new-session && echo "$(tmux -V) created new session supported OS X"
 				else
 					tmux new-session && echo "tmux created new session"
@@ -199,14 +199,14 @@ fi
 #-------------------------------------------------
 
 ## プロンプトの表示変更
-export PS1="[\h@\t \w]\$ "
-export PS1="[\h@\t \w\[\033[31m\]$(__git_ps1)]\$ "
-export PS1="[\h@\t \w$(__git_ps1)]\$ "
+#export PS1="[\h@\t \w]\$ "
+#export PS1="[\h@\t \w\[\033[31m\]$(__git_ps1)]\$ "
+#export PS1="[\h@\t \w$(__git_ps1)]\$ "
 
 
 ## エイリアス
 alias vp='vim ~/.bash_profile'
-alias sp='source ~/.bash_profile'
+#alias sp='source ~/.bash_profile'
 
 alias la='ls -laG'
 
