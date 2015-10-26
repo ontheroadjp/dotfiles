@@ -4,7 +4,6 @@
 "-------------------------
 colorscheme desert
 
-
 "-------------------------
 " vim ステータスライン
 "-------------------------
@@ -43,7 +42,6 @@ set statusline+=%P    " ファイル内の何％の位置にあるか
 "set encoding=utf-8
 set encoding=utf-8 nobomb
 set fileencodings=utf-8,ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932
-"set fileencodings=iso-2022-jp,euc-jp,sjis,utf-8
 set fileformats=unix,dos,mac
 
 " 行番号表示
@@ -231,6 +229,7 @@ nnoremap <silent> [unite]m :<C-u>Unite<Space>bookmark<CR>
 nnoremap <silent> [unite]a :<C-u>UniteBookmarkAdd<CR>
 nnoremap <silent> [unite]r :<C-u>Unite<Space>file_mru<CR>
 nnoremap <silent> [unite]p :<C-u>Unite<Space>file_point<CR>
+nnoremap <silent> [unite]y :<C-u>Unite<Space>register<CR>
 nnoremap <silent> [unite]h :<C-u>Unite<Space>history/yank<CR>
 nnoremap <silent> [unite]d :<C-u>Unite<Space>directory/new<CR>
 nnoremap <silent> [unite]n :<C-u>Unite<Space>file/new<CR>

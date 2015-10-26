@@ -206,7 +206,7 @@ fi
 
 ## エイリアス
 alias vp='vim ~/.bash_profile'
-#alias sp='source ~/.bash_profile'
+alias sp='source ~/.bash_profile'
 
 alias la='ls -laG'
 
@@ -219,7 +219,11 @@ cdla() {
 alias cd='cdla'
 alias p='popd && la'
 
-# peco なしの場合
+#-------------------------------------------------
+## Functions
+#-------------------------------------------------
+
+# dirs 拡張
 function exdirs() {
 	dirs -v | awk '!colname[$2]++{print $1,": ",$2,"(",$1,")"}'
 	echo -n "no?"
@@ -233,24 +237,10 @@ function exdirs() {
 		echo "There is no number you inputed."
 	fi
 }
-
 alias d='exdirs'
 
-# peco 使う場合
-exdirspeco() {
-	dirs -v | awk '!colname[$2]++{print $0}'
-}
-
-cdnopeco() {
-	path=`exdirspeco | peco | awk '{print $2}' | sed -e s:^~:${HOME}:`
-	#echo ${path}
-	cd ${path}
-}
-
-alias dd='exdirspeco'
-alias gg='cdnopeco'
-
-sshx() {
+# SSH 拡張
+function sshx() {
 	cat ~/.ssh/config | egrep "^Host " | awk '{print NR, $0}'
 	echo -n "no?"
 	read no
@@ -265,7 +255,8 @@ sshx() {
 	fi
 }
 
-findx(){
+# find 拡張
+function findx(){
 	find $1 -name "$2" | awk '{print NR, $0}'
 	echo -n 'no?'
 	read no
@@ -280,11 +271,8 @@ findx(){
 	fi
 }
 
-## エイリアス（移動:git）
-alias cdg='cd $(git rev-parse --show-toplevel)'
-
 #ファイルのバックアップ
-bk() {
+function bk() {
 	prefix=bk_$(date +%Y%m%d)_
 	if [ -f $@ ]; then
 		cp "$@" ./${prefix}$@
@@ -293,3 +281,33 @@ bk() {
 		zip -vr ${prefix}$@.zip $@
 	fi
 }
+
+# notifyd プロセス削除
+function kill-notifyd-process() {
+	process=`ps ax | egrep "[0-9] /usr/sbin/notifyd" | awk '{print $1}'`
+	sudo kill -9 ${process}
+}
+
+#-------------------------------------------------
+## Functions for peco
+#-------------------------------------------------
+
+# dirs 拡張( for peco )
+function exdirs-peco() {
+	path=`dirs -v | awk '!colname[$2]++{print $0}' | peco | awk '{print $2}' | sed -e s:^~:${HOME}:`
+	#echo ${path}
+	cd ${path}
+}
+alias dd='exdirs-peco'
+
+# ps 拡張( for peco )
+function exps() {
+	process=`ps aux | peco | awk '{print $2}'`
+	sudo kill -9 ${process}
+}
+
+
+
+## エイリアス（移動:git）
+alias cdg='cd $(git rev-parse --show-toplevel)'
+

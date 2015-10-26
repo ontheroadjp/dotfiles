@@ -52,8 +52,9 @@ if [ "$(uname)" == 'Darwin' ]; then
 		fi
 	done
 
-	## gvim
-	#ln -s ~/dotfiles/.gvimrc ~/.gvimrc
+	## gvim(MacVim)
+	#ln -sf ~/dotfiles/.gvimrc ~/.gvimrc
+	#ln -sf /usr/share/vim/vim73/colors/desert.vim ~/.vim/colors/
 
 	# Karabiner
 	ln -sf ~/dotfiles/karabiner/private.xml ~/Library/Application\ Support/Karabiner/private.xml > /dev/null
