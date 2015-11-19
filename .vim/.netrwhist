@@ -1,7 +1,7 @@
 let g:netrw_dirhistmax  =10
 let g:netrw_dirhist_cnt =5
-let g:netrw_dirhist_1='/Users/hideaki'
-let g:netrw_dirhist_2='/Users/hideaki/Vagrant/vagrant-lamp/chef-repo/site-cookbooks/ssh/templates/default'
-let g:netrw_dirhist_3='/Users/hideaki/Vagrant/vagrant-lamp/chef-repo/nodes'
-let g:netrw_dirhist_4='/Users/hideaki/Vagrant/vagrant-lamp/chef-repo/site-cookbooks/ssh/recipes'
-let g:netrw_dirhist_5='/Users/hideaki/Documents/.parallels-vm-directory'
+let g:netrw_dirhist_1='/Users/hideaki/Desktop/test/Gulp-Laravel-AdminLTE/src/views/auth'
+let g:netrw_dirhist_2='/Users/hideaki/Desktop/test/NutsPages/config'
+let g:netrw_dirhist_3='/Users/hideaki/Desktop/test/NutsPages/database/migrations'
+let g:netrw_dirhist_4='/Users/hideaki/Desktop/test/NutsPages/app/Http/Middleware'
+let g:netrw_dirhist_5='/Users/hideaki/Desktop/test/NutsPages/config'

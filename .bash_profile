@@ -122,9 +122,17 @@ if [ "$(uname)" == 'Darwin' ]; then
 	#---------------- end of tmux ------------------
 
 	###-------------------------------------------------
+	### Laravel
+	###-------------------------------------------------
+
+	alias pub='php artisan vendor:publish --force'
+	alias sv='php artisan serve'
+	alias rl='php artisan route:list'
+	alias t='vendor/bin/phpunit'
+
+	###-------------------------------------------------
 	### WordPress
 	###-------------------------------------------------
-	#
 
 	#echo "Where is the WordPress root directory?"
 	#read wproot
