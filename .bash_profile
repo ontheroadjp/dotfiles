@@ -129,6 +129,7 @@ if [ "$(uname)" == 'Darwin' ]; then
 
 	export PROJECT_ROOT=${HOME}/Desktop/test/
   alias cdp='cdla ${PROJECT_ROOT}NutsPages/'
+	alias cdv='cdla ${PROJECT_ROOT}NutsPages/vendor/ontheroadjp/'
 
 	###-------------------------------------------------
 	### Laravel

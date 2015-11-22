@@ -2,7 +2,22 @@
 "-------------------------
 "カラースキーマー
 "-------------------------
+
+" 標準
 colorscheme desert
+"colorscheme solarized
+
+" 黒背景
+"colorscheme hybrid
+
+" 柔らかい
+"colorscheme lucius
+"set background=dark
+
+" 柔らかい
+"colorscheme Tomorrow-Night-Eighties
+
+
 
 "-------------------------
 " vim ステータスライン
@@ -124,6 +139,8 @@ set smartindent
 " キーバインド
 "-------------------------
 
+" ウインドウ間の移動（Karabiner でさらに再設定）
+"nnoremap <c-o> <c-w><c-w> " これだと ctl + shift + o の2回押し
 nnoremap <c-w> <c-w><c-w>
 
 " Shift + 矢印でウインドウサイズを変更
@@ -171,6 +188,7 @@ if has('vim_starting')
 		NeoBundle 'Shougo/vimproc'
 		NeoBundle 'Shougo/unite.vim'	"ファイルオープンを便利に
 		NeoBundle 'Shougo/neomru.vim'	"最近使ったファイルを表示できるようにする
+		NeoBundle 'scrooloose/nerdtree' "NERDTree 表示
 		NeoBundle 'thinca/vim-ref'		"PHP マニュアルの閲覧
 		NeoBundle 'rking/ag.vim'			"grep に ag 使う
 		NeoBundle 'tpope/vim-markdown'		"Markdown 用
@@ -178,7 +196,6 @@ if has('vim_starting')
 		NeoBundle 'thinca/vim-quickrun'		"コード片の実行
 		NeoBundle 'Yggdroot/indentLine'		"インデントの可視化
 		NeoBundle 'tpope/vim-fugitive'		"git コマンド使えるようにする
-		NeoBundle 'scrooloose/nerdtree' "Tree 表示
 		"NeoBundle 'Shougo/vimshell'
 		"NeoBundle 'Shougo/neocomplcache'
 		"NeoBundle 'Shougo/neosnippet'
@@ -196,6 +213,7 @@ let g:ref_phpmanual_path = '~/.vim/vim-ref/php-chunked-xhtml'
 """"""""""""""""""""""""""""""
 " NERDTree の設定
 """"""""""""""""""""""""""""""
+
 " デフォルトでツリーを表示させる
 autocmd VimEnter * execute 'NERDTree'
 
