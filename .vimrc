@@ -124,6 +124,8 @@ set smartindent
 " キーバインド
 "-------------------------
 
+nnoremap <c-w> <c-w><c-w>
+
 " Shift + 矢印でウインドウサイズを変更
 "nnoremap <S-Left> <C-w>><CR>
 "nnoremap <S-Right> <C-w><<CR>
@@ -176,6 +178,7 @@ if has('vim_starting')
 		NeoBundle 'thinca/vim-quickrun'		"コード片の実行
 		NeoBundle 'Yggdroot/indentLine'		"インデントの可視化
 		NeoBundle 'tpope/vim-fugitive'		"git コマンド使えるようにする
+		NeoBundle 'scrooloose/nerdtree' "Tree 表示
 		"NeoBundle 'Shougo/vimshell'
 		"NeoBundle 'Shougo/neocomplcache'
 		"NeoBundle 'Shougo/neosnippet'
@@ -189,6 +192,15 @@ filetype indent on
 syntax on
 
 let g:ref_phpmanual_path = '~/.vim/vim-ref/php-chunked-xhtml'
+
+""""""""""""""""""""""""""""""
+" NERDTree の設定
+""""""""""""""""""""""""""""""
+" デフォルトでツリーを表示させる
+autocmd VimEnter * execute 'NERDTree'
+
+" 隠しファイルをデフォルトで表示させる
+" let NERDTreeShowHidden = 1
 
 """"""""""""""""""""""""""""""
 " Unit.vimの設定

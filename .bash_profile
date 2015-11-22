@@ -10,7 +10,6 @@ if [ "$(uname)" == 'Darwin' ]; then
 
 	# 現在のディレクトリをファインダーで開く
 	alias finder='open .'
-
  
 	# 現在のファインダーをTerminal.appで開く
 	terminal(){
@@ -23,7 +22,10 @@ if [ "$(uname)" == 'Darwin' ]; then
 			echo 'No Finder window found' >&2
 		fi
 	}
-	
+
+	## Terminal
+	alias e='exit'
+
 	## Chrome
 	alias chrome='open -a "/Applications/Google Chrome.app"' 
 	
@@ -120,6 +122,13 @@ if [ "$(uname)" == 'Darwin' ]; then
 	tmux_automatically_attach_session
 	
 	#---------------- end of tmux ------------------
+	
+	###-------------------------------------------------
+	### Projects
+	###-------------------------------------------------
+
+	export PROJECT_ROOT=${HOME}/Desktop/test/
+  alias cdp='cdla ${PROJECT_ROOT}NutsPages/'
 
 	###-------------------------------------------------
 	### Laravel
@@ -128,7 +137,7 @@ if [ "$(uname)" == 'Darwin' ]; then
 	alias pub='php artisan vendor:publish --force'
 	alias sv='php artisan serve'
 	alias rl='php artisan route:list'
-	alias t='vendor/bin/phpunit'
+	alias t='vendor/bin/phpunit --colors'
 
 	###-------------------------------------------------
 	### WordPress

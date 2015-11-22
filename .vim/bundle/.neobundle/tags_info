@@ -2,6 +2,7 @@ ag.vim
 indentLine
 neobundle.vim
 neomru.vim
+nerdtree
 open-browser.vim
 unite.vim
 vim-fugitive
