@@ -1,9 +1,9 @@
 ag.vim
-indentLine
 neobundle.vim
 neomru.vim
 nerdtree
 open-browser.vim
+taglist.vim
 unite.vim
 vim-fugitive
 vim-markdown

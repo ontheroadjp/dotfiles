@@ -28,8 +28,10 @@
                 <only>iTERM2,TERMINAL,MACVIM</only>
                 <identifier>ontheroad.app_terminal_for_tmux_commands</identifier>
                 <autogen>--KeyToKey-- KeyCode::B, ModifierFlag::COMMAND_L, KeyCode::B, ModifierFlag::CONTROL_L</autogen>
+                <autogen>--KeyToKey-- KeyCode::E, ModifierFlag::COMMAND_L, KeyCode::E, ModifierFlag::CONTROL_L</autogen>
                 <autogen>--KeyToKey-- KeyCode::O, ModifierFlag::COMMAND_L, KeyCode::O, ModifierFlag::CONTROL_L</autogen>
                 <autogen>--KeyToKey-- KeyCode::C, ModifierFlag::COMMAND_L, KeyCode::C, ModifierFlag::CONTROL_L</autogen>
+                <autogen>--KeyToKey-- KeyCode::T, ModifierFlag::COMMAND_L, KeyCode::L, ModifierFlag::CONTROL_L</autogen>
             </item>
         </list>
         <appdef>
@@ -47,7 +49,7 @@
         <list>
             <item>
                 <name>Key Bind: Vim like Curor move: hjkl</name>
-                <only>iTERM2,TERMINAL,MACVIM,SUBLIMETEXT3,MACDOWN,COTEDITOR</only>
+                <only>SUBLIMETEXT3,MACDOWN,COTEDITOR</only>
                 <identifier>ontheroad.app_sublimetext3</identifier>
                 <autogen>--KeyToKey-- KeyCode::H, ModifierFlag::COMMAND_L | ModifierFlag::SHIFT_L, KeyCode::CURSOR_LEFT</autogen>
                 <autogen>--KeyToKey-- KeyCode::J, ModifierFlag::COMMAND_L | ModifierFlag::SHIFT_L, KeyCode::CURSOR_DOWN</autogen>

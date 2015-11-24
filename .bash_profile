@@ -3,6 +3,8 @@ if [ -f ~/.bashrc ] ; then
 	. ~/.bashrc
 fi
 
+syntax on
+
 #-------------------------------------------------
 # Mac 固有の設定
 #-------------------------------------------------
@@ -23,23 +25,23 @@ if [ "$(uname)" == 'Darwin' ]; then
 		fi
 	}
 
-	## Terminal
+	# Terminal
 	alias e='exit'
 
-	## Chrome
+	# Chrome
 	alias chrome='open -a "/Applications/Google Chrome.app"' 
 	
-	## Sublime Text 3
+	# Sublime Text 3
 	alias sub='open -a "/Applications/Sublime Text.app"'
 	
-	## Markdown Editor
+	# Markdown Editor
 	alias md='open -a "/Applications/MacDown.app"'
 	
-	## vi, vim をMacVim へ変更
+	# vi, vim をMacVim へ変更
 	#alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 	#alias vim='env_LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 	
-	## エイリアス（移動:Mac）
+	# エイリアス（移動:Mac）
 	alias cdh='cdla ${HOME}'
 	alias cdd='cdla ${HOME}/Desktop'
 	alias cddoc='cdla ${HOME}/Documents'
@@ -53,12 +55,15 @@ if [ "$(uname)" == 'Darwin' ]; then
 	alias cdm='cdla ${HOME}/MAMP_ROOT'
 	alias cdv='cdla ${HOME}/Vagrant'
 
+	# エイリアス（for ctag）
+	alias ctags="`brew --prefix`/bin/ctags"
+
 	#-------------------------------------------------
 	# tmux の設定
 	# 参考：http://qiita.com/b4b4r07/items/01359e8a3066d1c37edc
 	# 参考：https://github.com/b4b4r07/dotfiles
 	#-------------------------------------------------
-	
+
 	function is_exists() { type "$1" >/dev/null 2>&1; return $?; }
 	function is_osx() { [[ $OSTYPE == darwin* ]]; }
 	function is_screen_running() { [ ! -z "$STY" ]; }
@@ -123,26 +128,32 @@ if [ "$(uname)" == 'Darwin' ]; then
 	
 	#---------------- end of tmux ------------------
 	
-	###-------------------------------------------------
-	### Projects
-	###-------------------------------------------------
+	# notifyd プロセス削除
+	function kill-notifyd-process() {
+		process=`ps ax | egrep "[0-9] /usr/sbin/notifyd" | awk '{print $1}'`
+		sudo kill -9 ${process}
+	}
+
+	#-------------------------------------------------
+	# Projects
+	#-------------------------------------------------
 
 	export PROJECT_ROOT=${HOME}/Desktop/test/
   alias cdp='cdla ${PROJECT_ROOT}NutsPages/'
 	alias cdv='cdla ${PROJECT_ROOT}NutsPages/vendor/ontheroadjp/'
 
-	###-------------------------------------------------
-	### Laravel
-	###-------------------------------------------------
+	#-------------------------------------------------
+	# Laravel
+	#-------------------------------------------------
 
 	alias pub='php artisan vendor:publish --force'
 	alias sv='php artisan serve'
 	alias rl='php artisan route:list'
 	alias t='vendor/bin/phpunit --colors'
 
-	###-------------------------------------------------
-	### WordPress
-	###-------------------------------------------------
+	#-------------------------------------------------
+	# WordPress
+	#-------------------------------------------------
 
 	#echo "Where is the WordPress root directory?"
 	#read wproot
@@ -150,47 +161,20 @@ if [ "$(uname)" == 'Darwin' ]; then
 	#echo "Where is the theme directory name?"
 	#read themedir
 
-	##基本設定
+	#基本設定
 	#export WPROOT=${wproot}
 	#export WPTHEME=${WPROOT}/wp-content/${themedir}/channel
 	#export WPPLUGIN=${WPROOT}/wp-content/plugins
-	#
-	##エイリアス（移動用）
-	#alias wproot='cdla $WPROOT'
-	#alias wptheme='cdla $WPTHEME'
-	#alias wpplugin='cdla $WPPLUGIN'
-	#
-	##エイリアス（編集用）
-	#alias wp-config='vim ${WPROOT}/wp-config.php'
-	#alias header='vim ${WPTHEME}/header.php'
-	#alias home='vim ${WPTHEME}/home.php'
-	#alias pindex='vim ${WPTHEME}/index.php'
-	#alias single='vim ${WPTHEME}/single.php'
-	#alias archive='vim ${WPTHEME}/archive.php'
-	#alias sidebar='vim ${WPTHEME}/sidebar.php'
-	#alias style='vim ${WPTHEME}/style.css'
-	#alias functions='vim ${WPTHEME}/functions.php'
-	#
 	
+	#エイリアス（移動用）
+	#alias wpr='cdla $WPROOT'
+	#alias wpt='cdla $WPTHEME'
+	#alias wpp='cdla $WPPLUGIN'
 	
-	##-------------------------------------------------
-	## MAMP
-	##-------------------------------------------------
-	#export MAMPROOT=/Applications/MAMP
-	#export PATH=$PATH:${MAMPROOT}/bin
-	#export PATH=$PATH:${MAMPROOT}/bin/php/php5.5.14/bin
-	#export PATH=$PATH:${MAMPROOT}/Library/bin
-	#
-	##Apache
-	#alias httpdconf='vim ${MAMPROOT}/conf/apache/httpd.conf'
-	#alias vhosts='vim ${MAMPROOT}/conf/apache/extra/httpd-vhosts.conf'
-	#
-
 
 	# MacPorts Installer addition on 2015-10-09_at_13:13:23: adding an appropriate PATH variable for use with MacPorts.
 	export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 	# Finished adapting your PATH environment variable for use with MacPorts.
-
 
 #-------------------------------------------------
 # Linux 固有の設定
@@ -216,29 +200,23 @@ fi
 # 共通設定
 #-------------------------------------------------
 
-## プロンプトの表示変更
-#export PS1="[\h@\t \w]\$ "
-#export PS1="[\h@\t \w\[\033[31m\]$(__git_ps1)]\$ "
-#export PS1="[\h@\t \w$(__git_ps1)]\$ "
-
-
-## エイリアス
+# エイリアス
 alias vp='vim ~/.bash_profile'
 alias sp='source ~/.bash_profile'
 
 alias la='ls -laG'
 
-## cd した後に la する
+# cd した後に la する
 cdla() {
 	pushd "$@" && la
 }
 
-## エイリアス（移動:cd）
+# エイリアス（移動:cd）
 alias cd='cdla'
 alias p='popd && la'
 
 #-------------------------------------------------
-## Functions
+# Functions
 #-------------------------------------------------
 
 # dirs 拡張
@@ -300,14 +278,8 @@ function bk() {
 	fi
 }
 
-# notifyd プロセス削除
-function kill-notifyd-process() {
-	process=`ps ax | egrep "[0-9] /usr/sbin/notifyd" | awk '{print $1}'`
-	sudo kill -9 ${process}
-}
-
 #-------------------------------------------------
-## Functions for peco
+# Functions for peco
 #-------------------------------------------------
 
 # dirs 拡張( for peco )
@@ -324,8 +296,12 @@ function exps() {
 	sudo kill -9 ${process}
 }
 
+#-------------------------------------------------
+# その他
+#-------------------------------------------------
 
-
-## エイリアス（移動:git）
+# エイリアス（移動:git）
 alias cdg='cd $(git rev-parse --show-toplevel)'
+
+
 

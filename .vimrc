@@ -3,7 +3,7 @@
 "カラースキーマー
 "-------------------------
 
-" 標準
+" 基本 
 colorscheme desert
 "colorscheme solarized
 
@@ -17,7 +17,17 @@ colorscheme desert
 " 柔らかい
 "colorscheme Tomorrow-Night-Eighties
 
+"let g:base16_shell_path = expand('~/.config/base16-shell/')
+"let base16colorspace="256"
+"set t_Co=256
+"set background=dark
+"
+"if has('unix')
+"	colorscheme base16-ocean
+"endif
 
+"colorscheme base16-eighties
+"colorscheme base16-ocean
 
 "-------------------------
 " vim ステータスライン
@@ -65,18 +75,40 @@ set number
 " ESC の代わりに jj  
 inoremap <silent> jj <esc>
 
+" ESC の代わりに <leader><leader>
+vnoremap <leader><leader> <esc>
+
+" <Leader> の変更
+"let mapleader = "\<Space>"
+"map , <leader>
+
+" 変更があれば保存
+"noremap <leader><leader> :up<CR>
+
+" 矩型選択モードへ
+nnoremap <Leader><Leader> <C-v>
+
 "-------------------------
 " 検索
 "-------------------------
+
 " 検索文字列が小文字の場合は大文字小文字を区別なく検索する(noignorecase)
 set ignorecase
+
 " 検索文字列に大文字が含まれている場合は区別して検索する(nosmartcase)
 set smartcase
+
 " インクリメンタルサーチ
 set incsearch
+
 " n, N キーで「次の（前の）検索候補」を画面の中心に表示する
 nnoremap n nzz
 nnoremap N Nzz
+
+" / で検索して、cs で置換して<esc>. その後は n.n.n. で内容確認しながら置換
+vnoremap <silent> s //e<C-r>=&selection=='exclusive'?'+1':''<CR><CR>
+    \:<C-u>call histdel('search',-1)<Bar>let @/=histget('search',-1)<CR>gv
+omap s :normal vs<CR>
 
 "-------------------------
 "PHP 設定 :help 参照のこと
@@ -114,13 +146,13 @@ set noswapfile
 "set expandtab
 
 "画面上でタブ文字が占める幅
-set tabstop=2
+set tabstop=4
 
 "自動インデントでずれる幅
-set shiftwidth=2
+set shiftwidth=4
 
 "連続した空白に対してタブキーやバックスペースキーでカーソルが動く幅
-set softtabstop=2
+set softtabstop=4
 
 "改行時に前の行のインデントを継続する
 set autoindent
@@ -128,9 +160,9 @@ set autoindent
 "改行時に入力された行の末尾に合わせて次の行のインデントを増減する
 set smartindent
 
-""""""""""""""""""""""""""""
+"-------------------------
 " 自動的に閉じ括弧を入力
-""""""""""""""""""""""""""""
+"-------------------------
 "imap { {}<LEFT>
 "imap [ []<LEFT>
 "imap ( ()<LEFT>
@@ -194,8 +226,9 @@ if has('vim_starting')
 		NeoBundle 'tpope/vim-markdown'		"Markdown 用
 		NeoBundle 'tyru/open-browser.vim'	"ブラウザプレビュー
 		NeoBundle 'thinca/vim-quickrun'		"コード片の実行
-		NeoBundle 'Yggdroot/indentLine'		"インデントの可視化
 		NeoBundle 'tpope/vim-fugitive'		"git コマンド使えるようにする
+		NeoBundle 'vim-scripts/taglist.vim'		"メソッド/変数の一覧表示
+		"NeoBundle 'chriskempson/base16-vim'
 		"NeoBundle 'Shougo/vimshell'
 		"NeoBundle 'Shougo/neocomplcache'
 		"NeoBundle 'Shougo/neosnippet'
@@ -208,17 +241,42 @@ filetype plugin indent on
 filetype indent on
 syntax on
 
-let g:ref_phpmanual_path = '~/.vim/vim-ref/php-chunked-xhtml'
 
 """"""""""""""""""""""""""""""
 " NERDTree の設定
 """"""""""""""""""""""""""""""
 
-" デフォルトでツリーを表示させる
-autocmd VimEnter * execute 'NERDTree'
+" ツリー開閉のキーバインド
+nnoremap <silent><C-e> :NERDTreeToggle<CR>
+
+" デフォルトでツリーを表示
+"autocmd VimEnter * execute 'NERDTree'
+
+" デフォルトでブックマークを表示
+let g:NERDTreeShowBookmarks=1
 
 " 隠しファイルをデフォルトで表示させる
 " let NERDTreeShowHidden = 1
+
+" ファイル拡張子の色を変える
+function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
+	exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='.a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
+  exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'.a:extension .'$#'
+endfunction
+
+call NERDTreeHighlightFile('py', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
+call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow','#151515')
+call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
+call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
+call NERDTreeHighlightFile('rb', 'Red', 'none', 'red', '#151515')
+call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
+"call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
+call NERDTreeHighlightFile('php', 'green', 'none', '#ff00ff', '#151515')
 
 """"""""""""""""""""""""""""""
 " Unit.vimの設定
@@ -284,11 +342,20 @@ nnoremap <silent> ,vr :UniteResume<CR>
 "endif
 
 """"""""""""""""""""""""""""""
-" indentLine の設定
+" taglist の設定
 """"""""""""""""""""""""""""""
-let g:indentLine_color_term = 111
-let g:indentLine_color_gui = '#708090'
-let g:indentLine_char = '¦' "use ¦, ┆ or │
+set tags=tags
+let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
+let Tlist_Show_One_File = 1 "現在編集中のソースのタグしか表示しない
+let Tlist_Exit_OnlyWiindow = 1 "taglist が最後のウインドウなら vim を閉じる
+"let Tlist_Enable_Fold_Column = 1 " 折り畳み
+let g:tlist_php_settings = 'php;c:class;d:constant;f:function'
+
+" ツリー開閉のキーバインド
+"map <silent> <leader>tl :TlistToggle<CR>
+
+" ツリー開閉のキーバインド(Karabiner で再割り当て)
+nnoremap <silent><C-l> :TlistToggle<CR>
 
 """"""""""""""""""""""""""""""
 " QuickRun の設定(Markdown用)
@@ -304,6 +371,8 @@ let g:indentLine_char = '¦' "use ¦, ┆ or │
 """"""""""""""""""""""""""""""
 " thinca/vim-ref の設定
 """"""""""""""""""""""""""""""
+"テキストブラウザ（lynx）使う
+
 "lynx.cfg の場所
 
 "Homebrew でlynx をインストールした場合
@@ -315,8 +384,15 @@ let g:indentLine_char = '¦' "use ¦, ┆ or │
 " :Ref man ls
 " :Ref phpmanual echo
 
-""" ref.vim
-"Ref webdictでalcを使う設定
+" ----------------------------
+" PHP Manual の設定
+" ----------------------------
+let g:ref_phpmanual_path = '/Users/hideaki/.vim/vim-ref/php-chunked-xhtml'
+
+
+" ----------------------------
+" webdictでalcを使う設定
+" ----------------------------
 let g:ref_source_webdict_cmd = 'lynx -dump -nonumbers %s'
 let g:ref_source_webdict_use_cache = 1
 let g:ref_source_webdict_sites = {
@@ -328,7 +404,7 @@ function! g:ref_source_webdict_sites.alc.filter(output)
 	return join(split(a:output, "\n")[29 :], "\n")
 endfunction
 
-cnoremap aa Ref webdict alc<Space>
+cnoremap dic Ref webdict alc<Space>
 
 """"""""""""""""""""""""""""""
 " VimShell の設定
@@ -358,7 +434,5 @@ cnoremap aa Ref webdict alc<Space>
 
 " filetypeの自動検出(最後の方に書いた方がいいらしい)
 filetype on
-
-
 
 

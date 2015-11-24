@@ -1,11 +1,3 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =9
-let g:netrw_dirhist_1='/Users/hideaki/Desktop/test/Gulp-Laravel-AdminLTE/src/views/auth'
-let g:netrw_dirhist_2='/Users/hideaki/Desktop/test/NutsPages/config'
-let g:netrw_dirhist_3='/Users/hideaki/Desktop/test/NutsPages/database/migrations'
-let g:netrw_dirhist_4='/Users/hideaki/Desktop/test/NutsPages/app/Http/Middleware'
-let g:netrw_dirhist_5='/Users/hideaki/Desktop/test/NutsPages/config'
-let g:netrw_dirhist_6='/Users/hideaki/Desktop/test/NutsPages/tests'
-let g:netrw_dirhist_7='/Users/hideaki/Desktop/test/NutsPages/config'
-let g:netrw_dirhist_8='/Users/hideaki/Desktop/test/NutsPages/tests'
-let g:netrw_dirhist_9='/usr/local/etc/php/5.6'
+let g:netrw_dirhist_cnt =1
+let g:netrw_dirhist_1='/Users/hideaki'
