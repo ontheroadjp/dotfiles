@@ -168,24 +168,21 @@ set smartindent
 "imap ( ()<LEFT>
 
 "-------------------------
-" キーバインド
+" キーバインド key bind
 "-------------------------
 
 " ウインドウ間の移動（Karabiner でさらに再設定）
-"nnoremap <c-o> <c-w><c-w> " これだと ctl + shift + o の2回押し
 nnoremap <c-w> <c-w><c-w>
 
-" Shift + 矢印でウインドウサイズを変更
-"nnoremap <S-Left> <C-w>><CR>
-"nnoremap <S-Right> <C-w><<CR>
-"nnoremap <S-Up> <C-w>-<CR> "動かない？
-"nnoremap <S-Down> <C-w>+<CR> "動かない？
+" モーション移動のコマンド ` を <Space> で置き換え
+nnoremap <Space> `
+nnoremap <Space><Space> ``
 
-" Ctrl + hjkl でウインドウ間を移動
-"nnoremap <S-h> <C-w>h
-"nnoremap <S-j> <C-w>j
-"nnoremap <S-k> <C-w>k
-"nnoremap <S-l> <C-w>l
+" ジャンプリスト（戻る）
+nnoremap <Space>o <c-o>
+
+" ジャンプリスト（進む）
+nnoremap <Space>i <c-i>
 
 " 行頭、行末への移動
 nnoremap <Space>h ^
@@ -218,18 +215,17 @@ if has('vim_starting')
 		NeoBundleFetch 'Shougo/neobundle.vim'
 		NeoBundle 'Shougo/neobundle.vim'
 		NeoBundle 'Shougo/vimproc'
-		NeoBundle 'Shougo/unite.vim'	"ファイルオープンを便利に
-		NeoBundle 'Shougo/neomru.vim'	"最近使ったファイルを表示できるようにする
-		NeoBundle 'scrooloose/nerdtree' "NERDTree 表示
-		NeoBundle 'thinca/vim-ref'		"PHP マニュアルの閲覧
+		NeoBundle 'Shougo/unite.vim'		"ファイルオープンを便利に
+		NeoBundle 'Shougo/neomru.vim'		"最近使ったファイルを表示できるようにする
+		NeoBundle 'scrooloose/nerdtree' 	"NERDTree 表示
+		NeoBundle 'thinca/vim-ref'			"PHP マニュアルの閲覧
 		NeoBundle 'rking/ag.vim'			"grep に ag 使う
 		NeoBundle 'tpope/vim-markdown'		"Markdown 用
 		NeoBundle 'tyru/open-browser.vim'	"ブラウザプレビュー
 		NeoBundle 'thinca/vim-quickrun'		"コード片の実行
 		NeoBundle 'tpope/vim-fugitive'		"git コマンド使えるようにする
-		NeoBundle 'vim-scripts/taglist.vim'		"メソッド/変数の一覧表示
+		NeoBundle 'vim-scripts/taglist.vim'	"メソッド/変数の一覧表示
 		"NeoBundle 'chriskempson/base16-vim'
-		"NeoBundle 'Shougo/vimshell'
 		"NeoBundle 'Shougo/neocomplcache'
 		"NeoBundle 'Shougo/neosnippet'
 		"NeoBundle 'jpalardy/vim-slime'
@@ -240,7 +236,6 @@ endif
 filetype plugin indent on
 filetype indent on
 syntax on
-
 
 """"""""""""""""""""""""""""""
 " NERDTree の設定
@@ -302,7 +297,7 @@ au FileType unite inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split
 au FileType unite nnoremap <silent> <buffer> <expr> <C-v> unite#do_action('vsplit')
 au FileType unite inoremap <silent> <buffer> <expr> <C-v> unite#do_action('vsplit')
 
-"""""""""""""""""""""""""""""""
+" ----------------------------
 "" unite.vim {{{
 "The prefix key.
 nnoremap    [unite]   <Nop>
@@ -327,13 +322,13 @@ nnoremap <silent> ,vr :UniteResume<CR>
 
 "" grep検索
 "nnoremap <silent> ,g  :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
-"
+
 "" カーソル位置の単語をgrep検索
 "nnoremap <silent> ,cg :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
-"
+
 "" grep検索結果の再呼出
 "nnoremap <silent> ,r  :<C-u>UniteResume search-buffer<CR>
-"
+
 "" unite grep に ag(The Silver Searcher) を使う
 "if executable('ag')
 "	let g:unite_source_grep_command = 'ag'
@@ -373,16 +368,17 @@ nnoremap <silent><C-l> :TlistToggle<CR>
 """"""""""""""""""""""""""""""
 "テキストブラウザ（lynx）使う
 
-"lynx.cfg の場所
-
-"Homebrew でlynx をインストールした場合
+"lynx.cfg の場所(Homebrew でlynx をインストールした場合)
 "/usr/local/Cellar/lynx/2.8.7/etc/lynx.cfg
 
-"MacPorts で lynx をインストールした場合
+"lynx.cfg の場所(HMacPorts で lynx をインストールした場合)
 "/opt/local/etc/lynx.cfg
 
-" :Ref man ls
-" :Ref phpmanual echo
+" 使い方
+" :dic 検索ワード(ex. :dic happy)
+" :phpm 検索ワード(ex. :phpm echo)
+" :Ref man 検索ワード(ex. Ref man ls)
+""""""""""""""""""""""""""""""
 
 " ----------------------------
 " PHP Manual の設定
@@ -406,18 +402,6 @@ endfunction
 
 cnoremap dic Ref webdict alc<Space>
 
-""""""""""""""""""""""""""""""
-" VimShell の設定
-" Shougo/vimproc のインストールが必要
-""""""""""""""""""""""""""""""
-"NeoBundle 'Shougo/vimproc', {
-"\ 'build': {
-"\ 'windows': 'make -f make_mingw32.mak',
-"\ 'cygwin': 'make -f make_cygwin.mak',
-"\ 'mac': 'make -f make_mac.mak',
-"\ 'unix': 'make -f make_unix.mak',
-"\ }
-"\}
 
 """"""""""""""""""""""""""""""
 " Dash.app 連携
@@ -426,7 +410,6 @@ cnoremap dic Ref webdict alc<Space>
 "command! DashDef silent !open -g dash://"<cword>"
 "nmap K :DashDef<CR>\|:redraw!<CR>
 "au FileType nim  nmap K :DashNim<CR>\|:redraw!<CR>
-
 
 
 " NeoBundle 関連はここまで

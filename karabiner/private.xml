@@ -25,12 +25,11 @@
             </item>
             <item>
                 <name>Key Bind: TERMINAL ONLY for tmux</name>
-                <only>iTERM2,TERMINAL,MACVIM</only>
+                <only>iTERM2,TERMINAL</only>
                 <identifier>ontheroad.app_terminal_for_tmux_commands</identifier>
                 <autogen>--KeyToKey-- KeyCode::B, ModifierFlag::COMMAND_L, KeyCode::B, ModifierFlag::CONTROL_L</autogen>
                 <autogen>--KeyToKey-- KeyCode::E, ModifierFlag::COMMAND_L, KeyCode::E, ModifierFlag::CONTROL_L</autogen>
-                <autogen>--KeyToKey-- KeyCode::O, ModifierFlag::COMMAND_L, KeyCode::O, ModifierFlag::CONTROL_L</autogen>
-                <autogen>--KeyToKey-- KeyCode::C, ModifierFlag::COMMAND_L, KeyCode::C, ModifierFlag::CONTROL_L</autogen>
+                <autogen>--KeyToKey-- KeyCode::O, ModifierFlag::COMMAND_L, KeyCode::P, ModifierFlag::CONTROL_L</autogen>
                 <autogen>--KeyToKey-- KeyCode::T, ModifierFlag::COMMAND_L, KeyCode::L, ModifierFlag::CONTROL_L</autogen>
             </item>
         </list>

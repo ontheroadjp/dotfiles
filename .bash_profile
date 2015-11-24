@@ -3,8 +3,6 @@ if [ -f ~/.bashrc ] ; then
 	. ~/.bashrc
 fi
 
-syntax on
-
 #-------------------------------------------------
 # Mac 固有の設定
 #-------------------------------------------------
@@ -52,12 +50,31 @@ if [ "$(uname)" == 'Darwin' ]; then
 	alias cddb='cdla ${HOME}/Dropbox'
 	
 	alias cdmemo='cdla ${HOME}/Dropbox/アプリ/PlainText\ 2/INBOX'
-	alias cdm='cdla ${HOME}/MAMP_ROOT'
 	alias cdv='cdla ${HOME}/Vagrant'
 
 	# エイリアス（for ctag）
+	# 標準の BSD版から brew でインストールした ctag を使う
 	alias ctags="`brew --prefix`/bin/ctags"
 
+	# MacPorts Installer addition on 2015-10-09_at_13:13:23: adding an appropriate PATH variable for use with MacPorts.
+	export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+	# Finished adapting your PATH environment variable for use with MacPorts.
+
+#	#-------------------------------------------------
+#	# tmux の設定
+#	# 参考：http://qiita.com/b4b4r07/items/01359e8a3066d1c37edc
+#	# 参考：https://github.com/b4b4r07/dotfiles
+#	#-------------------------------------------------
+#
+
+#if [ -z $TMUX ]; then
+#	if $(tmux has-session); then
+#		tmux attach
+#	else
+#		tmux
+#	fi
+#fi
+	
 	#-------------------------------------------------
 	# tmux の設定
 	# 参考：http://qiita.com/b4b4r07/items/01359e8a3066d1c37edc
@@ -139,7 +156,7 @@ if [ "$(uname)" == 'Darwin' ]; then
 	#-------------------------------------------------
 
 	export PROJECT_ROOT=${HOME}/Desktop/test/
-  alias cdp='cdla ${PROJECT_ROOT}NutsPages/'
+	alias cdp='cdla ${PROJECT_ROOT}NutsPages/'
 	alias cdv='cdla ${PROJECT_ROOT}NutsPages/vendor/ontheroadjp/'
 
 	#-------------------------------------------------
@@ -150,9 +167,9 @@ if [ "$(uname)" == 'Darwin' ]; then
 	alias sv='php artisan serve'
 	alias rl='php artisan route:list'
 	alias t='vendor/bin/phpunit --colors'
-
+	
 	#-------------------------------------------------
-	# WordPress
+	# WordPress  
 	#-------------------------------------------------
 
 	#echo "Where is the WordPress root directory?"
@@ -172,10 +189,6 @@ if [ "$(uname)" == 'Darwin' ]; then
 	#alias wpp='cdla $WPPLUGIN'
 	
 
-	# MacPorts Installer addition on 2015-10-09_at_13:13:23: adding an appropriate PATH variable for use with MacPorts.
-	export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
-	# Finished adapting your PATH environment variable for use with MacPorts.
-
 #-------------------------------------------------
 # Linux 固有の設定
 #-------------------------------------------------
@@ -191,10 +204,9 @@ else
 #-------------------------------------------------
 # その他 OS
 #-------------------------------------------------
-#	echo "Your platform ($(uname -a)) is not supported."
+	echo "Your platform ($(uname -a)) is not supported."
 	exit 1
 fi
-
 
 #-------------------------------------------------
 # 共通設定
