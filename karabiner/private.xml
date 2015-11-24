@@ -14,19 +14,26 @@
                 <identifier>private.vim_keybind_apps_esc_with_eisuu</identifier>
                 <only>iTERM2,TERMINAL,MACVIM</only>
                 <autogen>--KeyToKey-- KeyCode::ESCAPE, KeyCode::ESCAPE, KeyCode::JIS_EISUU</autogen>
+                <autogen>--KeyToKey-- KeyCode::J, KeyCode::J, KeyCode::JIS_EISUU</autogen>
                 <autogen>--KeyToKey-- KeyCode::BRACKET_LEFT, VK_CONTROL, KeyCode::BRACKET_LEFT, VK_CONTROL, KeyCode::JIS_EISUU</autogen>
             </item>
             <item>
-                <name>Key Bind: TERMINAL ONLY for vim</name>
+                <name>Key Bind: TERMINAL</name>
                 <only>iTERM2,TERMINAL,MACVIM</only>
-                <identifier>ontheroad.app_terminal_for_vim_commands</identifier>
+                <identifier>ontheroad.app_terminal</identifier>
+                <autogen>--KeyToKey-- KeyCode::C, ModifierFlag::COMMAND_L, KeyCode::C, ModifierFlag::CONTROL_R</autogen>
+            </item>
+            <item>
+                <name>Key Bind: TERMINAL for vim</name>
+                <only>iTERM2,TERMINAL,MACVIM</only>
+                <identifier>ontheroad.app_terminal_for_vim</identifier>
                 <autogen>--KeyToKey-- KeyCode::R, ModifierFlag::COMMAND_L, KeyCode::R, ModifierFlag::CONTROL_R</autogen>
                 <autogen>--KeyToKey-- KeyCode::O, ModifierFlag::COMMAND_L | ModifierFlag::SHIFT_L, KeyCode::W, ModifierFlag::CONTROL_R</autogen>
             </item>
             <item>
-                <name>Key Bind: TERMINAL ONLY for tmux</name>
+                <name>Key Bind: TERMINAL for tmux</name>
                 <only>iTERM2,TERMINAL</only>
-                <identifier>ontheroad.app_terminal_for_tmux_commands</identifier>
+                <identifier>ontheroad.app_terminal_for_tmux</identifier>
                 <autogen>--KeyToKey-- KeyCode::B, ModifierFlag::COMMAND_L, KeyCode::B, ModifierFlag::CONTROL_L</autogen>
                 <autogen>--KeyToKey-- KeyCode::E, ModifierFlag::COMMAND_L, KeyCode::E, ModifierFlag::CONTROL_L</autogen>
                 <autogen>--KeyToKey-- KeyCode::O, ModifierFlag::COMMAND_L, KeyCode::P, ModifierFlag::CONTROL_L</autogen>
