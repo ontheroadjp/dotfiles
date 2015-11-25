@@ -1,34 +1,136 @@
 <?xml version="1.0"?>
-<root>
-	<appdef>
-		<appname>iTERM2</appname>
-		<equal>com.googlecode.iterm2</equal>
-	</appdef>
-	<appdef>
-		<appname>MACVIM</appname>
-		<equal>org.vim.MacVim</equal>
-	</appdef>
-	<list>
-		<item>
-			<name>Leave Insert Mode with EISUU (vim keybind apps)</name>
-			<identifier>private.vim_keybind_apps_esc_with_eisuu</identifier>
-			<only>iTERM2,TERMINAL,MACVIM</only>
-			<autogen>--KeyToKey-- KeyCode::ESCAPE, KeyCode::ESCAPE, KeyCode::JIS_EISUU</autogen>
-			<autogen>--KeyToKey-- KeyCode::BRACKET_LEFT, VK_CONTROL, KeyCode::BRACKET_LEFT, VK_CONTROL, KeyCode::JIS_EISUU</autogen>
-		</item>
-		<item>
-			<name>Command_L to Control_L (TERMINAL ONLY)</name>
-			<only>TERMINAL</only>
-			<identifier>remap.app_term_commandL2contolL</identifier>
-			<autogen>--KeyToKey-- KeyCode::COMMAND_L, KeyCode::CONTROL_L</autogen>        
-		</item>
-		<item>
-			<name>Command-b to Ctrl-b (TERMINAL ONLY for tmux)</name>
-			<only>TERMINAL</only>
-			<identifier>remap.app_term_command-b2contol-b</identifier>
-			<autogen>--KeyToKey-- KeyCode::B, ModifierFlag::COMMAND_L, KeyCode::B, ModifierFlag::CONTROL_L</autogen>        
-			<autogen>--KeyToKey-- KeyCode::O, ModifierFlag::COMMAND_L, KeyCode::O, ModifierFlag::CONTROL_L</autogen> 
-			<autogen>--KeyToKey-- KeyCode::C, ModifierFlag::COMMAND_L, KeyCode::C, ModifierFlag::CONTROL_L</autogen>  
-		</item>
-	</list>
-</root>
+    <root>
+        <appdef>
+            <appname>iTERM2</appname>
+            <equal>com.googlecode.iterm2</equal>
+        </appdef>
+        <appdef>
+            <appname>MACVIM</appname>
+            <equal>org.vim.MacVim</equal>
+        </appdef>
+        <list>
+            <item>
+                <name>Leave Insert Mode with EISUU (vim keybind apps)</name>
+                <identifier>private.vim_keybind_apps_esc_with_eisuu</identifier>
+                <only>iTERM2,TERMINAL,MACVIM</only>
+				<autogen>
+					--KeyToKey-- 
+					KeyCode::ESCAPE, KeyCode::ESCAPE, 
+					KeyCode::JIS_EISUU
+				</autogen>
+				<autogen>
+					--KeyToKey-- 
+					KeyCode::J, KeyCode::J, 
+					KeyCode::JIS_EISUU
+				</autogen>
+            </item>
+            <item>
+                <name>Key Bind: TERMINAL</name>
+                <only>iTERM2,TERMINAL,MACVIM</only>
+                <identifier>ontheroad.app_terminal</identifier>
+				<autogen>
+					--KeyToKey-- 
+					KeyCode::C, ModifierFlag::COMMAND_L, 
+					KeyCode::C, ModifierFlag::CONTROL_R
+				</autogen>
+            </item>
+            <item>
+                <name>Key Bind: TERMINAL for vim</name>
+                <only>iTERM2,TERMINAL,MACVIM</only>
+                <identifier>ontheroad.app_terminal_for_vim</identifier>
+				<autogen>
+					--KeyToKey-- 
+					KeyCode::R, ModifierFlag::COMMAND_L, 
+					KeyCode::R, ModifierFlag::CONTROL_R
+				</autogen>
+				<autogen>
+					--KeyToKey-- 
+					KeyCode::O, ModifierFlag::COMMAND_L | ModifierFlag::SHIFT_L, 
+					KeyCode::W, ModifierFlag::CONTROL_R
+				</autogen>
+				<autogen>
+					--KeyToKey-- 
+					KeyCode::O, ModifierFlag::COMMAND_L, 
+					KeyCode::O, ModifierFlag::CONTROL_R
+				</autogen>
+				<autogen>
+					--KeyToKey-- 
+					KeyCode::I, ModifierFlag::COMMAND_L, 
+					KeyCode::I, ModifierFlag::CONTROL_R
+				</autogen>
+				<autogen>
+					--KeyToKey-- 
+					KeyCode::U, ModifierFlag::COMMAND_L, 
+					KeyCode::U, ModifierFlag::CONTROL_R
+				</autogen>
+				<autogen>
+					--KeyToKey-- 
+					KeyCode::D, ModifierFlag::COMMAND_L, 
+					KeyCode::D, ModifierFlag::CONTROL_R
+				</autogen>
+            </item>
+            <item>
+                <name>Key Bind: TERMINAL for tmux</name>
+                <only>iTERM2,TERMINAL</only>
+                <identifier>ontheroad.app_terminal_for_tmux</identifier>
+				<autogen>
+					--KeyToKey-- 
+					KeyCode::B, ModifierFlag::COMMAND_L, 
+					KeyCode::B, ModifierFlag::CONTROL_L
+				</autogen>
+				<autogen>
+					--KeyToKey-- 
+					KeyCode::E, ModifierFlag::COMMAND_L, 
+					KeyCode::E, ModifierFlag::CONTROL_L
+				</autogen>
+				<autogen>
+					--KeyToKey-- 
+					KeyCode::T, ModifierFlag::COMMAND_L, 
+					KeyCode::L, ModifierFlag::CONTROL_L
+				</autogen>
+            </item>
+        </list>
+        <appdef>
+            <appname>FINDER</appname>
+            <equal>com.apple.finder</equal>
+        </appdef>
+        <appdef>
+            <appname>SUBLIMETEXT3</appname>
+            <equal>com.sublimetext.3</equal>
+        </appdef>
+        <appdef>
+            <appname>MACDOWN</appname>
+            <equal>com.uranusjr.macdown</equal>
+        </appdef>
+        <appdef>
+            <appname>COTEDITOR</appname>
+            <equal>com.coteditor.CotEditor</equal>
+        </appdef>
+        <list>
+            <item>
+                <name>Key Bind: Vim like Curor move: hjkl</name>
+                <only>FINDER,SUBLIMETEXT3,MACDOWN,COTEDITOR</only>
+                <identifier>ontheroad.app_sublimetext3</identifier>
+				<autogen>
+					--KeyToKey-- 
+					KeyCode::H, ModifierFlag::COMMAND_L | ModifierFlag::SHIFT_L, 
+					KeyCode::CURSOR_LEFT
+				</autogen>
+				<autogen>
+					--KeyToKey-- 
+					KeyCode::J, ModifierFlag::COMMAND_L | ModifierFlag::SHIFT_L, 
+					KeyCode::CURSOR_DOWN
+				</autogen>
+				<autogen>
+					--KeyToKey-- 
+					KeyCode::K, ModifierFlag::COMMAND_L | ModifierFlag::SHIFT_L, 
+					KeyCode::CURSOR_UP
+				</autogen>
+				<autogen>
+					--KeyToKey-- 
+					KeyCode::L, ModifierFlag::COMMAND_L | ModifierFlag::SHIFT_L, 
+					KeyCode::CURSOR_RIGHT
+				</autogen>
+            </item>
+        </list>
+    </root>

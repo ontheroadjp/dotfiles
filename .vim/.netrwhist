@@ -1,10 +1,3 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =8
-let g:netrw_dirhist_1='/Users/hideaki/Vagrant/lara5_test/www/app/Http/Controllers'
-let g:netrw_dirhist_2='/Users/hideaki/MAMP_ROOT/dev/tools/apple/.git'
-let g:netrw_dirhist_3='/Users/hideaki/MAMP_ROOT/test/rin/.git/logs'
-let g:netrw_dirhist_4='/Users/hideaki/Vagrant/LAMP/.git'
-let g:netrw_dirhist_5='/Users/hideaki/Vagrant/LAMP/www'
-let g:netrw_dirhist_6='/Users/hideaki/Vagrant/LAMP/www/spa-01/bower_components'
-let g:netrw_dirhist_7='/Users/hideaki/Vagrant/LAMP/www/SPA-01/src/ext/modules/home'
-let g:netrw_dirhist_8='/Users/hideaki/Vagrant/LAMP/www/SPA-01/build/css'
+let g:netrw_dirhist_cnt =1
+let g:netrw_dirhist_1='/Users/hideaki'
