@@ -32,6 +32,7 @@ colorscheme desert
 "-------------------------
 " vim ステータスライン
 "-------------------------
+
 set laststatus=2
 set statusline=%<     " 行が長すぎるときに切り詰める位置
 set statusline+=[%n]  " バッファ番号
@@ -71,6 +72,9 @@ set fileformats=unix,dos,mac
 
 " 行番号表示
 set number
+
+" 折り返しなし
+set nowrap
 
 " ESC の代わりに jj  
 inoremap <silent> jj <esc>
@@ -161,6 +165,16 @@ set autoindent
 set smartindent
 
 "-------------------------
+"ヤンク&ペースト
+"-------------------------
+
+"ペースト後にカーソルが下側に移動するように入れ替え
+nnoremap p gp
+nnoremap P gP
+nnoremap gp p
+nnoremap gP P
+
+"-------------------------
 " 自動的に閉じ括弧を入力
 "-------------------------
 "imap { {}<LEFT>
@@ -179,10 +193,10 @@ nnoremap <Space> `
 nnoremap <Space><Space> ``
 
 " ジャンプリスト（戻る）
-nnoremap <Space>o <c-o>
+nnoremap <Space>o <c-o>zz
 
 " ジャンプリスト（進む）
-nnoremap <Space>i <c-i>
+nnoremap <Space>i <c-i>zz
 
 " 行頭、行末への移動
 nnoremap <Space>h ^
@@ -191,14 +205,14 @@ vnoremap <Space>h ^
 vnoremap <Space>l $
 
 " 行移動
-nnoremap k   gk
-nnoremap j   gj
-vnoremap k   gk
-vnoremap j   gj
-nnoremap gk  k
-nnoremap gj  j
-vnoremap gk  k
-vnoremap gj  j
+nnoremap k gk
+nnoremap j gj
+vnoremap k gk
+vnoremap j gj
+nnoremap gk k
+nnoremap gj j
+vnoremap gk k
+vnoremap gj j
 
 "-------------------------
 " NeoVundle の設定
