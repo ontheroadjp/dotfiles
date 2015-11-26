@@ -1,9 +1,16 @@
+SrcExpl
 ag.vim
 neobundle.vim
+neocomplete-php.vim
+neocomplete.vim
 neomru.vim
+neosnippet
+neosnippet-snippets
 nerdtree
 open-browser.vim
-taglist.vim
+tagbar
+unite-outline
+unite-tag.vim
 unite.vim
 vim-fugitive
 vim-markdown

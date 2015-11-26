@@ -80,11 +80,6 @@
 				</autogen>
 				<autogen>
 					--KeyToKey-- 
-					KeyCode::E, ModifierFlag::COMMAND_L, 
-					KeyCode::E, ModifierFlag::CONTROL_L
-				</autogen>
-				<autogen>
-					--KeyToKey-- 
 					KeyCode::T, ModifierFlag::COMMAND_L, 
 					KeyCode::L, ModifierFlag::CONTROL_L
 				</autogen>

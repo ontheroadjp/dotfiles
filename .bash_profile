@@ -8,6 +8,8 @@ fi
 #-------------------------------------------------
 if [ "$(uname)" == 'Darwin' ]; then 
 
+	export PATH="/usr/local/bin:$PATH"
+
 	# 現在のディレクトリをファインダーで開く
 	alias finder='open .'
  
