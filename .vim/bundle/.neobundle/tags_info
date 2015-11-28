@@ -12,6 +12,7 @@ tagbar
 unite-outline
 unite-tag.vim
 unite.vim
+vdebug
 vim-fugitive
 vim-markdown
 vim-quickrun

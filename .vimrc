@@ -146,10 +146,10 @@ set noswapfile
 "タブ & インデント
 "-------------------------
 
-"タブ入力を複数の空白文字に置き換える
-"set expandtab
+"タブを空白文字(<space>)に置き換える
+set expandtab
 
-"画面上でタブ文字が占める幅
+"インデントの幅
 set tabstop=4
 
 "自動インデントでずれる幅
@@ -232,6 +232,8 @@ filetype off
 if has('vim_starting')
 	set runtimepath+=~/.vim/bundle/neobundle.vim
 	call neobundle#begin(expand('~/.vim/bundle/'))
+	NeoBundleFetch 'Shougo/neobundle.vim'
+	NeoBundle 'Shougo/neobundle.vim'
 	NeoBundle 'Shougo/vimproc', {
 				\ 'build' : {
 				\     'windows' : 'make -f make_mingw32.mak',
@@ -240,21 +242,20 @@ if has('vim_starting')
 				\     'unix' : 'make -f make_unix.mak',
 				\    },
 				\ }
-	NeoBundleFetch 'Shougo/neobundle.vim'
-	NeoBundle 'Shougo/neobundle.vim'
 	NeoBundle 'Shougo/unite.vim'		"ファイルオープンを便利に
 	NeoBundle 'Shougo/neomru.vim'		"最近使ったファイルを表示できるようにする
 	NeoBundle 'Shougo/unite-outline'		"最近使ったファイルを表示できるようにする
 	NeoBundle 'scrooloose/nerdtree' 	"NERDTree 表示
-	if has('lua')
+	if has('lua')						"入力補完
 	  NeoBundleLazy 'Shougo/neocomplete.vim', {
 	      \ 'depends' : 'Shougo/vimproc',
 	      \ 'autoload' : { 'insert' : 1,}
 	      \ }
 	endif
-	NeoBundle 'violetyk/neocomplete-php.vim'
+	NeoBundle 'violetyk/neocomplete-php.vim' "PHP入力補完に説明追加
 	NeoBundle 'Shougo/neosnippet'
 	NeoBundle 'Shougo/neosnippet-snippets'
+	NeoBundle 'joonty/vdebug'			"xdebug クライアント	
 	NeoBundle 'thinca/vim-ref'			"PHP マニュアルの閲覧
 	NeoBundle 'rking/ag.vim'			"grep に ag 使う
 	NeoBundle 'tpope/vim-markdown'		"Markdown 用
@@ -325,13 +326,23 @@ syntax on
 """"""""""""""""""""""""""""""
 
 " 色の設定
-hi Pmenu ctermbg=4
-hi PmenuSel ctermbg=1
-hi PMenuSbar ctermbg=4
+" 1: red
+" 2: green
+" 3: yellow
+" 4: blue
+" 5: red
+" 6: cyan
+" 7: white
+" 8: black
+" 9: black
 
-let g:neocomplete#enable_ignore_case              = 1
-let g:neocomplete#enable_camel_case               = 1
-let g:neocomplete#use_vimproc                     = 1
+hi Pmenu ctermbg=7 "背景の色
+hi PmenuSel ctermbg=6 "選択項目の色
+"hi PMenuSbar ctermbg=4
+
+let g:neocomplete#enable_ignore_case = 1
+let g:neocomplete#enable_camel_case = 1
+let g:neocomplete#use_vimproc = 1
 
 "Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
 
@@ -551,6 +562,49 @@ nnoremap <silent> ,vr :UniteResume<CR>
 ""横分割して開く
 "nnoremap <C-k> :split<CR> :exe("tjump ".expand('<cword>'))<CR>
 
+"""""""""""""""""""""""""""""""
+" Vdebug の設定
+" <F5>: デバッガの起動 / 次のブレイクポイントまで移動
+" <F2>: ステップオーバー
+" <F3>: ステップイン
+" <F4>: ステップアウト
+" <F6>: デバッガの停止
+" <F7>: デバッガーからデタッチ
+" <F9>: カーソル行まで実行
+" <F10>: ブレイクポイントの設定
+" <F11>: show context variables (e.g. after "eval")
+" <F12>: カーソル行の変数を評価
+" :Breakpoint <type> <args>: 色んな種類のブレイクポイントが打てる。 (see :help VdebugBreakpoints)
+" :VdebugEval <code>: <code>の変数を評価
+" <Leader>e: evaluate the expression under visual highlight and display the " result
+"""""""""""""""""""""""""""""""
+
+let g:vdebug_keymap = {
+\    "run" : "<F5>",
+\    "run_to_cursor" : "<F1>",
+\    "step_over" : "<F2>",
+\    "step_into" : "<F3>",
+\    "step_out" : "<F4>",
+\    "close" : "<F6>",
+\    "detach" : "<F7>",
+\    "set_breakpoint" : "<F10>",
+\    "get_context" : "<F11>",
+\    "eval_under_cursor" : "<F12>",
+\}
+
+let g:vdebug_options= {
+\    "port" : 9000,
+\    "server" : 'localhost',
+\    "timeout" : 20,
+\    "on_close" : 'detach',
+\    "break_on_open" : 1,
+\    "ide_key" : '',
+\    "remote_path" : "",
+\    "local_path" : "",
+\    "debug_window_level" : 0,
+\    "debug_file_level" : 0,
+\    "debug_file" : "",
+\}
 
 """"""""""""""""""""""""""""""
 " QuickRun の設定(Markdown用)
@@ -584,7 +638,7 @@ let g:quickrun_config['markdown'] = {
 " PHP Manual の設定
 " ----------------------------
 let g:ref_phpmanual_path = '/Users/hideaki/.vim/vim-ref/php-chunked-xhtml'
-
+cnoremap phpm Ref phpmanual<Space>
 
 " ----------------------------
 " webdictでalcを使う設定
