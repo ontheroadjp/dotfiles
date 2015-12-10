@@ -60,6 +60,10 @@ set statusline+=%V    " 画面上の何列目にカーソルがあるか
 set statusline+=\ \   " 空白スペース2個
 set statusline+=%P    " ファイル内の何％の位置にあるか
 
+" ステータスラインの色を変える
+au InsertEnter * hi StatusLine guifg=Blue guibg=DarkYellow gui=none ctermfg=Blue ctermbg=Yellow cterm=none
+au InsertLeave * hi StatusLine guifg=Blue guibg=DarkGray gui=none ctermfg=Blue ctermbg=white cterm=none
+
 "-------------------------
 "基本
 "-------------------------
@@ -242,27 +246,29 @@ if has('vim_starting')
 				\     'unix' : 'make -f make_unix.mak',
 				\    },
 				\ }
-	NeoBundle 'Shougo/unite.vim'		"ファイルオープンを便利に
-	NeoBundle 'Shougo/neomru.vim'		"最近使ったファイルを表示できるようにする
-	NeoBundle 'Shougo/unite-outline'		"最近使ったファイルを表示できるようにする
-	NeoBundle 'scrooloose/nerdtree' 	"NERDTree 表示
-	if has('lua')						"入力補完
+	NeoBundle 'Shougo/unite.vim'    		"ファイルオープンを便利に
+	NeoBundle 'Shougo/neomru.vim'   		"最近使ったファイルを表示できるようにする
+	NeoBundle 'Shougo/unite-outline'		"変数/関数の一覧を表示
+	NeoBundle 'scrooloose/nerdtree'       	"NERDTree 表示
+	if has('lua')					    	"入力補完
 	  NeoBundleLazy 'Shougo/neocomplete.vim', {
 	      \ 'depends' : 'Shougo/vimproc',
 	      \ 'autoload' : { 'insert' : 1,}
 	      \ }
 	endif
 	NeoBundle 'violetyk/neocomplete-php.vim' "PHP入力補完に説明追加
-	NeoBundle 'Shougo/neosnippet'
-	NeoBundle 'Shougo/neosnippet-snippets'
-	NeoBundle 'joonty/vdebug'			"xdebug クライアント	
-	NeoBundle 'thinca/vim-ref'			"PHP マニュアルの閲覧
-	NeoBundle 'rking/ag.vim'			"grep に ag 使う
-	NeoBundle 'tpope/vim-markdown'		"Markdown 用
-	NeoBundle 'tyru/open-browser.vim'	"ブラウザプレビュー
-	NeoBundle 'thinca/vim-quickrun'		"コード片の実行
-	NeoBundle 'tpope/vim-fugitive'		"git コマンド使えるようにする
-	NeoBundle 'tsukkee/unite-tag.vim'	"メソッド/変数の一覧表示
+	NeoBundle 'Shougo/neosnippet'           "スニペット
+	NeoBundle 'Shougo/neosnippet-snippets'  "基本スニペット集
+	NeoBundle 'joonty/vdebug'	    		"xdebug クライアント	
+	NeoBundle 'thinca/vim-ref'	    		"PHP マニュアル/英語辞書の閲覧
+    NeoBundle 'PDV--phpDocumentor-for-Vim'
+
+	NeoBundle 'rking/ag.vim'	    		"grep に ag 使う
+	NeoBundle 'tpope/vim-markdown'  		"Markdown 用
+	NeoBundle 'tyru/open-browser.vim'   	"ブラウザプレビュー
+	NeoBundle 'thinca/vim-quickrun'	    	"コード片の実行
+	NeoBundle 'tpope/vim-fugitive'	    	"git コマンド使えるようにする
+	NeoBundle 'tsukkee/unite-tag.vim'   	"メソッド/変数の一覧表示
 	
 	" Tagbar
 	" http://rcmdnk.github.io/blog/2014/07/25/computer-vim/#tagbar-srcexpl-nerdtree
@@ -310,7 +316,7 @@ if has('vim_starting')
 	"NeoBundle 'm2mdas/phpcomplete-extended'
 	"NeoBundle 'm2mdas/phpcomplete-extended-laravel'
 	"NeoBundle 'chriskempson/base16-vim'
-	"NeoBundle 'Shougo/neocomplcache'
+	"\eoBundle 'Shougo/neocomplcache'
 	"NeoBundle 'Shougo/neosnippet'
 	"NeoBundle 'jpalardy/vim-slime'
 	"NeoBundle 'scrooloose/syntastic'
@@ -322,10 +328,17 @@ filetype indent on
 syntax on
 
 """"""""""""""""""""""""""""""
+" PDV-phpDocumentor for Vim の設定
+" http://www.phpdoc.org/
+""""""""""""""""""""""""""""""
+
+nnoremap <Leader>doc :call PhpDocSingle()<CR>
+
+""""""""""""""""""""""""""""""
 " neocomplete の設定
 """"""""""""""""""""""""""""""
 
-" 色の設定
+" 色の指定
 " 1: red
 " 2: green
 " 3: yellow
@@ -432,17 +445,37 @@ let g:neocomplete_php_locale = 'ja'
 
 """"""""""""""""""""""""""""""
 " NERDTree の設定
+" https://github.com/oouchida/vimrc/blob/master/vim_conf/nerd_tree.vim
 """"""""""""""""""""""""""""""
 
 " ツリー開閉のキーバインド
-nnoremap <silent><C-e> :NERDTreeToggle<CR>
-nnoremap <Leader>e :NERDTreeToggle<CR>
+"nnoremap <silent><C-e> :NERDTreeToggle<CR>
+"nnoremap <Leader>e :NERDTreeToggle<CR>
+nnoremap ,e :NERDTreeToggle<CR>
 
 " デフォルトでツリーを表示
 "autocmd VimEnter * execute 'NERDTree'
 
+"ツリーを開く場所 "left または right
+"let g:NERDTreeWinPos="left"
+
+"ツリーの幅 "初期値31
+"let g:NERDTreeWinSize=45
+
+"ツリーで行番号を表示する
+let g:NERDTreeShowLineNumbers=1
+
 " デフォルトでブックマークを表示
 let g:NERDTreeShowBookmarks=1
+
+"ブックマークファイル名 "初期値: $HOME/.NERDTreeBookmarks
+"let g:NERDTreeBookmarksFile=
+
+"表示しないファイル設定 "初期値 ['\~$']
+let g:NERDTreeIgnore=['\.clean$', '\.swp$', '\.bak$', '\~$']
+
+" ファイルを開いたら自動で閉じる
+let g:NERDTreeQuitOnOpen=1
 
 " 隠しファイルをデフォルトで表示させる
 " let NERDTreeShowHidden = 1
@@ -467,7 +500,65 @@ call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
 "call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
 call NERDTreeHighlightFile('php', 'green', 'none', '#ff00ff', '#151515')
 
-""""""""""""""""""""""""""""""
+"他のバッファをすべて閉じた時にNERDTreeが開いていたらNERDTreeも一緒に閉じる。
+""autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+"カラー表示する。初期値１：カラー表示
+""let g:NERDChristmasTree=1
+
+"カーソル位置の自動調節を行うか 初期値1 : 自動調節
+""let g:NERDTreeAutoCenter=1
+
+"カーソルの自動調節位置設定 "初期値3
+""let g:NERDTreeAutoCenterThreshold
+
+"ファイル表示の自動ソート "初期値0 : ソートを行わない
+"let g:NERDTreeCaseSensitiveSort=1
+
+""ツリーを表示するカレントディレクトリの変更を行うか
+"0 : 行わない、1 : 変更を行えるようにする、2 : 自動的に変更する
+""初期値0
+let g:NERDTreeChDirMode=2
+
+""カーソルラインをハイライト表示 "初期値1 : 行う
+"let g:NERDTreeHighlightCursorline=1
+
+""セカンドツリーを表示を有効に
+":edit <ディレクトリ名>
+""0 または 1
+"初期値1 : 有効
+""let g:NERDTreeHijackNetrw=1
+
+""マウスでの操作
+"1: ダブルクリックでファイル・ディレクトリが開く
+"2: ディレクトリはダブルクリック・ファイルはシングルクリックで開く
+"3: シングルクリックでファイル・ディレクトリが開く
+"初期値1 
+let g:NERDTreeMouseMode=3
+
+"ツリーにファイル名を表示するか "初期値1: 表示する
+""let g:NERDTreeShowFiles=1
+
+"ソートを行う時の、表示順番設定
+"正規表現で設定
+"初期値 ['\/$', '*', '\.swp$',  '\.bak$', '\~$']
+""let g:NERDTreeSortOrder=
+
+"ステータス表示 "初期値: %{b:NERDTreeRoot.path.strForOS(0)}
+"let g:NERDTreeStatusline=
+
+""ブックマークやヘルプのショートカットを表示
+"0 または 1
+""初期値0: 表示する
+"let g:NERDTreeMinimalUI=0
+
+""古い形式である|と+と~の記号だけでツリー表示
+"ターミナルなどで表示する場合は記号だけの方が画面が崩れないかもしれない
+""0 または 1
+"初期値1: グラフィカルに表示する
+"let g:NERDTreeDirArrows=0
+
+"""""""""""""""""""""""""""""""
 " Unit.vimの設定
 " http://blog.remora.cx/2010/12/vim-ref-with-unite.html
 """"""""""""""""""""""""""""""
@@ -483,6 +574,10 @@ let g:unite_enable_smart_case = 1
 au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
 au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
 
+" , キーを2回押すと終了する
+au FileType unite nnoremap <silent> <buffer> ,, :q<CR>
+au FileType unite inoremap <silent> <buffer> ,, <ESC>:q<CR>
+
 " ウィンドウを分割して開く
 au FileType unite nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
 au FileType unite inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
@@ -495,11 +590,13 @@ au FileType unite inoremap <silent> <buffer> <expr> <C-v> unite#do_action('vspli
 "" unite.vim {{{
 "The prefix key.
 nnoremap    [unite]   <Nop>
-nmap    <Leader>f [unite]
+"nmap    <Leader>f [unite]
+nmap    ,f [unite]
 
 " unite.vim keymap
 nnoremap [unite]u  :<C-u>Unite -no-split<Space>
-nnoremap <silent> [unite]f :<C-u>Unite<Space>file<CR>
+nnoremap <silent> [unite]f :<C-u>Unite<Space>file_rec<CR>
+nnoremap <silent> [unite]c :<C-u>Unite<Space>file<CR>
 nnoremap <silent> [unite]g :<C-u>Unite<Space>grep<CR>
 nnoremap <silent> [unite]b :<C-u>Unite<Space>buffer<CR>
 nnoremap <silent> [unite]m :<C-u>Unite<Space>bookmark<CR>
@@ -510,57 +607,61 @@ nnoremap <silent> [unite]y :<C-u>Unite<Space>register<CR>
 nnoremap <silent> [unite]h :<C-u>Unite<Space>history/yank<CR>
 nnoremap <silent> [unite]d :<C-u>Unite<Space>directory/new<CR>
 nnoremap <silent> [unite]n :<C-u>Unite<Space>file/new<CR>
-nnoremap <silent> [unite]o :<C-u>Unite<Space>outline<CR>
+nnoremap <silent> [unite]t :<C-u>Unite<Space>outline<CR>
 nnoremap <silent> [unite]v :<C-u>UniteWithBufferDir file<CR>
-nnoremap <silent> ,vr :UniteResume<CR>
+nnoremap <silent> ,, :UniteResume<CR>
 "" }}}
 
-"" grep検索
-"nnoremap <silent> ,g  :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
 
-"" カーソル位置の単語をgrep検索
-"nnoremap <silent> ,cg :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
+"""""""""""""""""""""""""""""""
+" rking/ag(grep → ag) の設定
+"""""""""""""""""""""""""""""""
+" grep検索
+nnoremap <silent> ,g  :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
 
-"" grep検索結果の再呼出
-"nnoremap <silent> ,r  :<C-u>UniteResume search-buffer<CR>
+" カーソル位置の単語をgrep検索
+nnoremap <silent> ,cg :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
 
-"" unite grep に ag(The Silver Searcher) を使う
-"if executable('ag')
-"	let g:unite_source_grep_command = 'ag'
-"	let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
-"	let g:unite_source_grep_recursive_opt = ''
-"endif
+" grep検索結果の再呼出
+nnoremap <silent> ,r  :<C-u>UniteResume search-buffer<CR>
+
+" unite grep に ag(The Silver Searcher) を使う
+if executable('ag')
+	let g:unite_source_grep_command = 'ag'
+	let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
+	let g:unite_source_grep_recursive_opt = ''
+endif
 
 
 """""""""""""""""""""""""""""""
-"" taglist の設定
+" taglist の設定
 """""""""""""""""""""""""""""""
-""tags ファイルの場所指定
-"set tags=tags
-"
-""ctag コマンドのパス
-"let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
-"
-""現在編集中のソースのタグしか表示しない
-""let Tlist_Show_One_File = 1 
-"
-""taglist が最後のウインドウなら vim を閉じる
-""let Tlist_Exit_OnlyWiindow = 1 
-"
-"" tagsジャンプの時に複数ある時は一覧表示                                        
-"nnoremap <C-]> g<C-]>
-"
-"" ツリー開閉のキーバインド(Karabiner で再割り当て)
-"nnoremap <silent><C-l> :TlistToggle<CR>
-"
-""新しいタブで開く
-""map <C-]> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
-"
-""縦分割して開く
-""nnoremap <C-h> :vsp<CR> :exe("tjump ".expand('<cword>'))<CR>
-"
-""横分割して開く
-"nnoremap <C-k> :split<CR> :exe("tjump ".expand('<cword>'))<CR>
+"tags ファイルの場所指定
+set tags=tags
+
+"ctag コマンドのパス
+let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
+
+"現在編集中のソースのタグしか表示しない
+"let Tlist_Show_One_File = 1 
+
+"taglist が最後のウインドウなら vim を閉じる
+"let Tlist_Exit_OnlyWiindow = 1 
+
+" tagsジャンプの時に複数ある時は一覧表示                                        
+nnoremap <C-]> g<C-]>
+
+" ツリー開閉のキーバインド(Karabiner で再割り当て)
+nnoremap <silent><C-l> :TlistToggle<CR>
+
+"新しいタブで開く
+"map <C-]> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+
+"縦分割して開く
+"nnoremap <C-h> :vsp<CR> :exe("tjump ".expand('<cword>'))<CR>
+
+"横分割して開く
+nnoremap <C-k> :split<CR> :exe("tjump ".expand('<cword>'))<CR>
 
 """""""""""""""""""""""""""""""
 " Vdebug の設定
