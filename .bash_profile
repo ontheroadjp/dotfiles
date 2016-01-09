@@ -381,7 +381,6 @@ function exps() {
 #-------------------------------------------------
 
 # エイリアス（移動:git）
-alias cdg='cd $(git rev-parse --show-toplevel)'
-
+alias gitop='cd `git rev-parse --show-toplevel`'
 
 
