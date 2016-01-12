@@ -99,4 +99,17 @@ else
 	exit 1
 fi
 
+#-------------------------------------------------
+# 共通
+#-------------------------------------------------
+
+if has "git"; then
+    echo 'NeoBundle Install...'
+    git clone git://github.com/Shougo/neobundle.vim.git $HOME/.vim/bundle
+    vim +":NeoBundleInstall" +:q
+    echo 'done'
+fi
+
+
+
 
