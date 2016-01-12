@@ -8,6 +8,8 @@ fi
 #-------------------------------------------------
 if [ "$(uname)" == 'Darwin' ]; then 
 
+	export PATH="/usr/local/bin:$PATH"
+
 	# 現在のディレクトリをファインダーで開く
 	alias finder='open .'
  
@@ -379,7 +381,6 @@ function exps() {
 #-------------------------------------------------
 
 # エイリアス（移動:git）
-alias cdg='cd $(git rev-parse --show-toplevel)'
-
+alias gitop='cd `git rev-parse --show-toplevel`'
 
 

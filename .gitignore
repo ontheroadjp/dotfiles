@@ -6,6 +6,7 @@
 .atom/storage/
 .atom/compile-cache/
 
+.vim/bundle/
 backup.sh
 
 ################################
