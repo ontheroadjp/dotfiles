@@ -64,8 +64,6 @@ if [ "$(uname)" == 'Darwin' ]; then
 	ln -sf ~/dotfiles/peco ~/.config/peco
 	echo "success: Peco config files"
 
-	source ~/.bash_profile > /dev/null 2>&1
-
 #-------------------------------------------------
 # デプロイ（Linux）
 #-------------------------------------------------
@@ -83,9 +81,6 @@ elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
 		fi
 	done
 
-	source ~/.bash_profile > /dev/null 2>&1
-
-
 #-------------------------------------------------
 # デプロイ（Windows(Cygwin) ）
 #-------------------------------------------------
@@ -102,14 +97,15 @@ fi
 #-------------------------------------------------
 # 共通
 #-------------------------------------------------
-
-if has "git"; then
+if hash "git"; then
     echo 'NeoBundle Install...'
-    git clone git://github.com/Shougo/neobundle.vim.git $HOME/.vim/bundle
+    git clone git://github.com/Shougo/neobundle.vim $HOME/.vim/bundle/neobundle.vim
     vim +":NeoBundleInstall" +:q
-    echo 'done'
 fi
 
+source ~/.bash_profile > /dev/null 2>&1
+echo 'load .bash_profile'
+echo 'Complete!'
 
 
 
