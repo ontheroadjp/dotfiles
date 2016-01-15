@@ -7,7 +7,7 @@ DOTPATH=~/dotfiles
 ## -----------------------------------
 #
 ## git が使えるなら git
-#if has "git"; then
+#if hash "git"; then
 #    git clone --recursive "$GITHUB_URL" "$DOTPATH"
 #
 ## 使えない場合は curl か wget を使用する
