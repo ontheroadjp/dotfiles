@@ -70,7 +70,8 @@ if [ "$(uname)" == 'Darwin' ]; then
 #	# 参考：https://github.com/b4b4r07/dotfiles
 #	#-------------------------------------------------
 #
-	tmux a
+
+	tmux a -d
 
 #if [ -z $TMUX ]; then
 #	if $(tmux has-session); then
@@ -282,10 +283,13 @@ fi
 # 共通設定
 #-------------------------------------------------
 
-# エイリアス
+#-------------------------------------------------
+# エイリアス: for vim
+#-------------------------------------------------
 alias vp='vim ~/.bash_profile'
 alias sp='source ~/.bash_profile'
 alias vv='vim ~/.vimrc'
+alias v='vim'
 
 #-------------------------------------------------
 # エイリアス: 移動用
@@ -304,11 +308,21 @@ alias p='popd && la'
 #-------------------------------------------------
 # エイリアス: for Git
 #-------------------------------------------------
-alias gs='git status'
 alias gg='git graph'
-alias ga='git add'
-alias gr='git reset'
-alias gc='git commit'
+alias gs='git status'
+alias gd='git diff'
+alias ga='git_add_status'
+alias gr='git_reset_status'
+alias gc='git commit -v'
+
+git_add_status() {
+    git add "$@" && git status
+}
+
+git_reset_status() {
+    git reset "$@" && git status
+}
+
 
 #-------------------------------------------------
 # Functions
