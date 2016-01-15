@@ -39,6 +39,9 @@ if [ "$(uname)" == 'Darwin' ]; then
 	# Markdown Editor
 	alias md='open -a "/Applications/MacDown.app"'
 	
+    # Cot Editor
+    alias cot='open -a "/Applications/CotEditor.app"'
+
 	# vi, vim をMacVim へ変更
 	#alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 	#alias vim='env_LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
@@ -70,7 +73,8 @@ if [ "$(uname)" == 'Darwin' ]; then
 #	# 参考：https://github.com/b4b4r07/dotfiles
 #	#-------------------------------------------------
 #
-	tmux a
+
+	tmux a -d
 
 #if [ -z $TMUX ]; then
 #	if $(tmux has-session); then
@@ -282,20 +286,46 @@ fi
 # 共通設定
 #-------------------------------------------------
 
-# エイリアス
+#-------------------------------------------------
+# エイリアス: for vim
+#-------------------------------------------------
 alias vp='vim ~/.bash_profile'
 alias sp='source ~/.bash_profile'
+alias vv='vim ~/.vimrc'
+alias v='vim'
 
+#-------------------------------------------------
+# エイリアス: 移動用
+#-------------------------------------------------
 alias la='ls -laG'
 
 # cd した後に la する
 cdla() {
 	pushd "$@" && la
 }
-
-# エイリアス（移動:cd）
 alias cd='cdla'
+
+# d でひとつ前の場所へ
 alias p='popd && la'
+
+#-------------------------------------------------
+# エイリアス: for Git
+#-------------------------------------------------
+alias gg='git graph'
+alias gs='git status'
+alias gd='git diff'
+alias ga='git_add_status'
+alias gr='git_reset_status'
+alias gc='git commit -v'
+
+git_add_status() {
+    git add "$@" && git status
+}
+
+git_reset_status() {
+    git reset "$@" && git status
+}
+
 
 #-------------------------------------------------
 # Functions
