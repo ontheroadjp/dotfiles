@@ -285,17 +285,30 @@ fi
 # エイリアス
 alias vp='vim ~/.bash_profile'
 alias sp='source ~/.bash_profile'
+alias vv='vim ~/.vimrc'
 
+#-------------------------------------------------
+# エイリアス: 移動用
+#-------------------------------------------------
 alias la='ls -laG'
 
 # cd した後に la する
 cdla() {
 	pushd "$@" && la
 }
-
-# エイリアス（移動:cd）
 alias cd='cdla'
+
+# d でひとつ前の場所へ
 alias p='popd && la'
+
+#-------------------------------------------------
+# エイリアス: for Git
+#-------------------------------------------------
+alias gs='git status'
+alias gg='git graph'
+alias ga='git add'
+alias gr='git reset'
+alias gc='git commit'
 
 #-------------------------------------------------
 # Functions
