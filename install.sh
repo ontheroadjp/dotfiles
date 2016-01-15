@@ -103,7 +103,7 @@ if hash "git"; then
     vim +":NeoBundleInstall" +:q
 fi
 
-source ~/.bash_profile > /dev/null 2>&1
+source $HOME/.bash_profile > /dev/null 2>&1
 echo 'load .bash_profile'
 echo 'Complete!'
 
