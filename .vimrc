@@ -82,6 +82,9 @@ set number
 " 折り返しなし
 set nowrap
 
+" BackSpace キーで改行を削除できるように
+set backspace=2
+
 " ESC の代わりに jj  
 inoremap <silent> jj <esc>
 
