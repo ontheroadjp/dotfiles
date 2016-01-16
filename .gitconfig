@@ -16,4 +16,6 @@
 [user]
 	name = @ontheroad_jp
 	email = dev@ontheroad.jp
+[color]
+    ui = true
 
