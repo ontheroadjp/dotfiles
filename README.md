@@ -100,3 +100,15 @@ git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 mkdir ~/.vim/backup
 mkdir ~/.vim/swap
 ```
+
+## 変更履歴
+
+### 1.0.0
+
+* git-prompt の追加
+* git-completion の追加
+* 軽微な Bagfix
+
+###1.0.0
+
+* 最初のリリース
