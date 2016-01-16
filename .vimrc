@@ -271,7 +271,7 @@ if has('vim_starting')
 	NeoBundle 'Shougo/unite.vim'    		" Unite: ファイルオープンを便利に
 	NeoBundle 'Shougo/neomru.vim'   		" Unite: 最近使ったファイルを表示できるようにする
 	NeoBundle 'Shougo/unite-outline'		" Unite: 変数/関数の一覧を表示
-	NeoBundle 'tsukkee/unite-tag.vim'   	" Unite: ctags の Unite 連携
+	NeoBundle 'tsukkee/unite-tag'          	" Unite: ctags の Unite 連携
 	NeoBundle 'scrooloose/nerdtree'       	" NERDTree 表示
 
 	NeoBundle 'majutsushi/tagbar'           " Tagbar 表示
