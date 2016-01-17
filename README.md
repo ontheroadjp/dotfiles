@@ -8,7 +8,7 @@
 
 ## bash
 
-* ``ls`` は ``la`` で
+* ``ls -la`` は ``la`` で
 
 * peco
 	* ``$ dd`` 過去の移動履歴一覧からジャンプ
@@ -16,10 +16,22 @@
 * git-prompt
 * git-completion
 
+## tmux の使い方（MacOSX のみ）
+
+* プレフィックスキーは ``CMD`` + ``b``
+* ``Prefixkey`` + ``-`` でペインを横分割
+* ``Prefixkey`` + ``\`` でペインを縦分割
+* ``PrefixKey`` + ``o`` でペインをローテーションしながら移動
+
+* ``prefixkey`` + ``j`` でペインの境界を下へ移動
+* ``prefixkey`` + ``k`` でペインの境界を上へ移動
+* ``prefixkey`` + ``h`` でペインの境界を左へ移動
+* ``prefixkey`` + ``l`` でペインの境界を右へ移動
 
 ## vim の使い方
 
 * ``jj`` で挿入モードを抜ける
+* ``CMD`` + ``Shift`` + ``o`` でウインドウ間の移動
 * ``<Leader>`` は、デフォルト（``\``） のまま
 * ファイルをまたぐ（複数ファイルを扱う）操作は、``,`` に統一
 	* ``Unite`` も、``,``
@@ -132,15 +144,19 @@ mkdir ~/.vim/swap
 
 ## 変更履歴
 
+### 1.1.2
+
+* [Add] vagrant-completion の追加
+
 ### 1.1.1
 
-* [Fix] NeoBundle がインストール済みの場合は、再インストールしないように変更
+* [FIX] NeoBundle がインストール済みの場合には、再度インストールしないように変更
 
 ### 1.1.0
 
 * [Add] git-prompt の追加
 * [Add] git-completion の追加
-* [Change] vim で、``BS`` キーで改行を削除できるようにした
+* [Add] vim で、``BS`` キーで改行を削除できるようにした
 * [Fix] 軽微な Bagfix
 
 ###1.0.0
