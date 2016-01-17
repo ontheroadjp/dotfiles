@@ -12,6 +12,14 @@ if [ "$(uname)" == 'Darwin' ]; then
 
 	export PATH="/usr/local/bin:$PATH"
 
+    # vagrant コマンド保管の有効化
+    if [ -f `brew --prefix`/etc/bash_completion.d/vagrant ]; then
+        source `brew --prefix`/etc/bash_completion.d/vagrant
+    elif hash "brew"; then
+        brew tap homebrew/completions
+        source `brew --prefix`/etc/bash_completion.d/vagrant
+    fi
+
 	# 現在のディレクトリをファインダーで開く
 	alias finder='open .'
  
