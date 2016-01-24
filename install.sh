@@ -97,15 +97,16 @@ fi
 #-------------------------------------------------
 # 共通
 #-------------------------------------------------
+source ~/.bash_profile >> /dev/null >&2>1
+echo 'load .bash_profile'
+
 if hash "git" && test ! -e ~/dotfiles/.vim/bundle/neobundle.vim; then
     echo 'NeoBundle Install...'
     git clone git://github.com/Shougo/neobundle.vim $HOME/.vim/bundle/neobundle.vim
-    vim +":NeoBundleInstall" +:q
+    vim + ":NeoBundleInstall" +:q
 else
     echo 'skip NeoBundleInstall'
 fi
 
-source ~/.bash_profile >> /dev/null >&2>1
-echo 'load .bash_profile'
 echo 'Complete!'
 
