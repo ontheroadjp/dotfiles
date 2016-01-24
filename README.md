@@ -1,20 +1,59 @@
 # dotfiles
 
-* bash の設定（``.bash_profile`` ``.bashrc``）
-* tmux の設定（``.tmux.conf``） ※ MacOSX のみ
-* karaviner の設定 ※ MacOSX のみ
-* vim の設定（``.vimrc``）
-* git の設定（``.giticonfig`` など）
+* ``install.sh`` でインストールされるファイル群
+
+|ファイル|MacOSX|Linux|備考|
+|:---|:---:|:---:|:---|
+|~/.bash_profile|◯|◯|[Bash](http://www.gnu.org/software/bash/bash.html) の設定|
+|~/.bashrc|◯|◯|[Bash](http://www.gnu.org/software/bash/bash.html) の設定|
+|~/.tmux.conf|◯||[tmux](https://tmux.github.io/) の設定|
+|~/Library/Application Support/Karabiner/private.xml|◯||[Karaviner.app](https://pqrs.org/osx/karabiner/index.html.ja) 設定|
+|~/.vimrc|◯|◯|[vim](http://www.vim.org/) の設定|
+|~/.vim/|◯|◯|[vim](http://www.vim.org/) の設定|
+|~/.giticonfig|◯|◯|[Git](https://git-scm.com/) の設定|
+|~/.gitignore_global|◯|◯|[Git](https://git-scm.com/) の設定|
+|~/.config/peco|◯||[peco](https://github.com/peco/peco) の設定|
+|~/.vim/bundle/.neobundle|◯|◯|vim プラグイン管理ツール|
+|~/.vim/bundle/PDV--phpDocumentor-for-Vim|◯|◯|vim プラグイン|
+|~/.vim/bundle/SrcExpl|◯|◯|vim プラグイン|
+|~/.vim/bundle/ag.vim|◯|◯|vim プラグイン|
+|~/.vim/bundle/indentLine|◯|◯|vim プラグイン|
+|~/.vim/bundle/neobundle.vim|◯|◯|vim プラグイン|
+|~/.vim/bundle/neocomplete-php.vim|◯|◯|vim プラグイン|
+|~/.vim/bundle/neocomplete.vim|◯|◯|vim プラグイン|
+|~/.vim/bundle/neomru.vim|◯|◯|vim プラグイン|
+|~/.vim/bundle/neosnippet|◯|◯|vim プラグイン|
+|~/.vim/bundle/neosnippet-snippets|◯|◯|vim プラグイン|
+|~/.vim/bundle/nerdtree|◯|◯|vim プラグイン|
+|~/.vim/bundle/qfixhowm|◯|◯|vim プラグイン|
+|~/.vim/bundle/tagbar|◯|◯|vim プラグイン|
+|~/.vim/bundle/taglist.vim|◯|◯|vim プラグイン|
+|~/.vim/bundle/unite-outline|◯|◯|vim プラグイン|
+|~/.vim/bundle/unite.vim|◯|◯|vim プラグイン|
+|~/.vim/bundle/vdebug|◯|◯|vim プラグイン|
+|~/.vim/bundle/vim-fugitive|◯|◯|vim プラグイン|
+|~/.vim/bundle/vim-quickrun|◯|◯|vim プラグイン|
+|~/.vim/bundle/vim-ref|◯|◯|vim プラグイン|
+|~/.vim/bundle/vimproc|◯|◯|vim プラグイン|
+|~/dotfiles/bin/battery.sh|◯|◯|[tmux](https://tmux.github.io/) のステータスバーにバッテリー残量を表示するスクリプト|
+|~/dotfiles/bin/get_ssid.sh|◯|◯|[tmux](https://tmux.github.io/) のステータスバーに接続中の SSID を表示するスクリプト|
+|~/dotfiles/bin/git/git-completion.bash|◯|◯|[Git](https://git-scm.com/) コマンド補完スクリプト|
+|~/dotfiles/bin/git/git-prompt.sh|◯|◯|シェルプロンプトに [Git](https://git-scm.com/) 状態を表示するスクリプト|
+|/usr/local/etc/bash_completion.d/vagrant|◯||[Vagrant](https://www.vagrantup.com/) コマンド補完スクリプト|
+
+
 
 ## bash
 
 * ``ls -la`` は ``la`` で
+* ``cd`` すると自動的に ``la``
+* ``d`` で一つ前の場所へ戻る
+* ``dd`` 過去の移動履歴一覧からジャンプ（peco）
+* ``exps`` プロセス一覧から選択して kill （peco）
 
-* peco
-	* ``$ dd`` 過去の移動履歴一覧からジャンプ
-	* ``$ exps`` プロセス一覧から選択して kill 
-* git-prompt
-* git-completion
+### その他の主なエイリアス
+
+* 
 
 ## tmux の使い方（MacOSX のみ）
 
