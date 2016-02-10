@@ -10,7 +10,13 @@ export EDITOR=vim
 #-------------------------------------------------
 if [ "$(uname)" == 'Darwin' ]; then 
 
+    # 環境変数
 	export PATH="/usr/local/bin:$PATH"
+
+    # Ruby
+    RBENV_ROOT="$HOME/.rbenv"
+    export PATH="$RBENV_ROOT/bin:$PATH"
+    eval "$(rbenv init -)"
 
     # vagrant コマンド補完の有効化
     if [ -f `brew --prefix`/etc/bash_completion.d/vagrant ]; then
@@ -228,6 +234,8 @@ fi
 # 共通設定
 #-------------------------------------------------
 
+alias c='clear'
+
 #-------------------------------------------------
 # エイリアス: for vim
 #-------------------------------------------------
@@ -256,6 +264,7 @@ alias p='popd && la'
 alias gg='git graph'
 alias gs='git status'
 alias gd='git diff'
+alias gdni='git diff --no-index'
 alias ga='git_add_status'
 alias gr='git_reset_status'
 alias gcom='git commit -v'
@@ -276,10 +285,10 @@ alias gitop='cd `git rev-parse --show-toplevel`'
 #-------------------------------------------------
 # エイリアス: for Vagrant
 #-------------------------------------------------
+alias v='vagrant ssh'
 alias vu='vagrant up'
 alias vh='vagrant halt'
 alias vd='vagrant destroy'
-alias vssh='vagrant ssh'
 
 alias von='vagrant sandbox on'
 alias voff='vagrant sandbox off'
@@ -288,6 +297,22 @@ alias vc='vagrant sandbox commit'
 
 alias vbl='vagrant box list'
 alias vs='vagrant status'
+
+#-------------------------------------------------
+# エイリアス: for Vagrant
+#-------------------------------------------------
+alias d='docker'
+alias dps='docker ps '
+alias dimages='docker images'
+alias dstart='docker start '
+alias dstop='docker stop '
+alias dattach='docker attach '
+alias drm='docker rm '
+alias drmi='docker rmi '
+alias drmstop="docker $(docker ps -a -q)"
+
+alias dcid='docker ps -q'
+alias dip="docker inspect --format '{{ .NetworkSettings.IPAddress }}' $(docker ps -q)"
 
 #-------------------------------------------------
 # Functions
