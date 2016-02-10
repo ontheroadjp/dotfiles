@@ -101,6 +101,9 @@ vnoremap <leader><leader> <esc>
 " 矩型選択モードへ
 nnoremap <Leader><Leader> <C-v>
 
+" w!! で sudo で保存
+cabbr w!! w !sudo tee > /dev/null %
+
 "-------------------------
 " 検索 Search
 "-------------------------
@@ -296,6 +299,11 @@ if has('vim_starting')
 	      \ 'depends' : 'Shougo/vimproc',
 	      \ 'autoload' : { 'insert' : 1,}
 	      \ }
+    else
+        NeoBundleLazy 'Shougo/neocomplcache'
+            let g:nocomplcache_enable_at_startup = 1
+            let g:neocomplcache_enable_ignore_case = 1
+            let g:neocomplcache_enble_smart_case = 1
 	endif
 
     "-------------------------
