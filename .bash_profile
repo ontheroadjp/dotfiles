@@ -301,14 +301,17 @@ alias vs='vagrant status'
 #-------------------------------------------------
 # エイリアス: for Vagrant
 #-------------------------------------------------
-alias d='docker'
-alias dps='docker ps '
-alias dimages='docker images'
-alias dstart='docker start '
-alias dstop='docker stop '
+#alias d='docker'
+#alias dps='docker ps '
+#alias D='docker ps | tail -n +2'
+#alias Da='docker ps -a | tail -n +2'
+#alias Di='docker images | tail -n +2'
+#alias dimages='docker images'
+#alias dstart='docker start '
+#alias dstop='docker stop '
 alias dattach='docker attach '
-alias drm='docker rm '
-alias drmi='docker rmi '
+#alias drm='docker rm '
+#alias drmi='docker rmi '
 alias drmstop="docker $(docker ps -a -q)"
 
 alias dcid='docker ps -q'
@@ -393,6 +396,129 @@ alias dd='exdirs-peco'
 function exps() {
 	process=`ps aux | peco | awk '{print $2}'`
 	sudo kill -9 ${process}
+}
+
+# for Docker
+function DD() {
+    echo -e "\033[1;33m--------------------------------\033[0m"
+    echo -e "\033[1;33m<RUNNING...>\033[0m"
+    #docker ps | tail -n +2 | awk 'BEGIN{OFS=" "}{print NR ": " $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15}'
+    docker ps | tail -n +2 | awk 'BEGIN{OFS=" "}
+        function red(s) { printf "\033[1;31m" s "\033[0m " }
+        function green(s) { printf "\033[1;32m" s "\033[0m " }
+        function blue(s) { printf "\033[1;34m" s "\033[0m " }
+        { printf NR ": " $1 " " }
+        { blue($2) }{ green($3) }
+        { print $4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20 }'
+    echo -e "\033[1;33m--------------------------------\033[0m"
+    echo -e "\033[1;33m<STOPPED...>\033[0m"
+    #docker ps -a | grep "Exited \([0-9]*\)" | awk 'BEGIN{OFS="\t"}{print NR ": " $1,$2,$3,$4,$5,$6,$7,$8,$9,$10}'
+    docker ps -a | grep "Exited \([0-9]*\)" | awk 'BEGIN{OFS=" "}
+        function red(s) { printf "\033[1;31m" s "\033[0m " }
+        function green(s) { printf "\033[1;32m" s "\033[0m " }
+        function blue(s) { printf "\033[1;34m" s "\033[0m " }
+        { printf NR ": " $1 " " }
+        { blue($2) }{ green($3) }
+        { print $4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20 }'
+    echo -e "\033[1;33m--------------------------------\033[0m"
+    echo -e "\033[1;33m<IMAGES>\033[0m"
+    #docker images | tail -n +2 | awk 'BEGIN{OFS="\t"}{print NR ": " $1,$2,$3,$4,$5,$6,$7,$8,$9,$10}'
+    docker images | tail -n +2 | awk 'BEGIN{OFS="\t"} \
+        function red(s) { printf "\033[1;31m" s "\033[0m \t" }
+        function green(s) { printf "\033[1;32m" s "\033[0m \t" }
+        function blue(s) { printf "\033[1;34m" s "\033[0m \t" }
+        { printf NR ": " }
+        { blue($1) }{ blue($2) }
+        { print $3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20 }'
+}
+
+function DDps() {
+    echo '<docker ps>'
+   docker ps | tail -n +2
+}
+function DDpsa() {
+    echo '<docker ps -a>'
+   docker ps -a | tail -n +2
+}
+function DDi() {
+    echo '<docker images>'
+    docker images | tail -n +2
+}
+function DDstart() {
+    echo 'docker start'
+    id=$(docker ps -a | grep "Exited \([0-9]*\)" | peco | cut -d" " -f1)
+    docker start ${id}
+}
+function DDstop() {
+    echo 'docker stop'
+    id=$(docker ps | tail -n +2 | peco | cut -d" " -f1)
+    docker stop ${id}
+}
+function DDstopa() {
+    echo 'docker stop'
+    docker stop $(docker ps -a -q)
+}
+function DDrm() {
+    echo 'docker rm'
+    id=$(docker ps -a | grep "Exited \([0-9]*\)" | peco | cut -d" " -f1)
+    docker rm ${id}
+}
+function DDreset() {
+    echo 'docker stop'
+    docker stop $(docker ps -q)
+    echo 'docker rm'
+    docker rm $(docker ps -a -q)
+}
+function DDrmi() {
+    echo 'docker rmi'
+    id=$(docker images | tail -n +2 | peco | awk '{print $3}')
+    docker rmi ${id}
+}
+function DDbash() {
+    id=$(docker ps | tail -n +2 | peco | cut -d" " -f1)
+    docker exec -i -t ${id} /bin/bash
+}
+function DDtop() {
+    id=$(docker ps | tail -n +2 | peco | cut -d" " -f1)
+    docker top ${id}
+}
+function DDlog() {
+    id=$(docker ps | tail -n +2 | peco | cut -d" " -f1)
+    docker logs ${id}
+}
+function DDip() {
+    id=$(docker ps | tail -n +2 | peco | cut -d" " -f1)
+    docker inspect -f '{{ .NetworkSettings.IPAddress }}' ${id}
+}
+function DDvol() {
+    id=$(docker ps | tail -n +2 | peco | cut -d" " -f1)
+    docker inspect -f '{{ .Volumes }}' ${id}
+}
+# ------------------------
+# Docker for MySQL
+# ------------------------
+function DDmysql() {
+    echo 'name(mysql): '
+    read name
+    echo 'root password(root): '
+    read pass
+    echo 'version(5.7): '
+    read version
+    docker run --name ${name} -e MYSQL_ROOT_PASSWORD=${pass} -d nuts/mysql:${version}
+}
+# ------------------------
+# Docker for WordPress
+# ------------------------
+function DDwp() {
+    #echo 'MySQL ROOT Password(root): '
+    #read pass
+    docker run --name mysql -e MYSQL_ROOT_PASSWORD=root -d mysql:5.7
+    #sleep 3s
+    #docker run --name wordpress --link mysql -d -p 80:80 -v "$PWD/":/var/www/html wordpress
+    docker run --name wordpress --link mysql -p 80:80 -d wordpress
+
+    #docker run --name mysql -e MYSQL_ROOT_PASSWORD=mysql -d -p 3306:3306 mysql
+    #docker run --name my-wordpress --link mysql:mysql -p 80:80 -d wordpress
 }
 
 
