@@ -312,10 +312,10 @@ alias vs='vagrant status'
 alias dattach='docker attach '
 #alias drm='docker rm '
 #alias drmi='docker rmi '
-alias drmstop="docker $(docker ps -a -q)"
+#alias drmstop="docker $(docker ps -a -q)"
 
-alias dcid='docker ps -q'
-alias dip="docker inspect --format '{{ .NetworkSettings.IPAddress }}' $(docker ps -q)"
+#alias dcid='docker ps -q'
+#alias dip="docker inspect --format '{{ .NetworkSettings.IPAddress }}' $(docker ps -q)"
 
 #-------------------------------------------------
 # Functions
@@ -401,7 +401,7 @@ function exps() {
 # for Docker
 function DD() {
     echo -e "\033[1;33m--------------------------------\033[0m"
-    echo -e "\033[1;33m<RUNNING...>\033[0m"
+    echo -e "\033[1;33m<RUNNING>\033[0m"
     #docker ps | tail -n +2 | awk 'BEGIN{OFS=" "}{print NR ": " $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15}'
     docker ps | tail -n +2 | awk 'BEGIN{OFS=" "}
         function red(s) { printf "\033[1;31m" s "\033[0m " }
@@ -411,7 +411,7 @@ function DD() {
         { blue($2) }{ green($3) }
         { print $4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20 }'
     echo -e "\033[1;33m--------------------------------\033[0m"
-    echo -e "\033[1;33m<STOPPED...>\033[0m"
+    echo -e "\033[1;33m<STOPPED>\033[0m"
     #docker ps -a | grep "Exited \([0-9]*\)" | awk 'BEGIN{OFS="\t"}{print NR ": " $1,$2,$3,$4,$5,$6,$7,$8,$9,$10}'
     docker ps -a | grep "Exited \([0-9]*\)" | awk 'BEGIN{OFS=" "}
         function red(s) { printf "\033[1;31m" s "\033[0m " }
@@ -445,23 +445,29 @@ function DDi() {
     docker images | tail -n +2
 }
 function DDstart() {
-    echo 'docker start'
     id=$(docker ps -a | grep "Exited \([0-9]*\)" | peco | cut -d" " -f1)
-    docker start ${id}
+    if [ ! -z "$id" ] ; then
+        echo 'docker start'
+        docker start ${id}
+    fi
 }
 function DDstop() {
-    echo 'docker stop'
     id=$(docker ps | tail -n +2 | peco | cut -d" " -f1)
-    docker stop ${id}
+    if [ ! -z "$id" ] ; then
+        echo 'docker stop'
+        docker stop ${id}
+    fi
 }
 function DDstopa() {
     echo 'docker stop'
     docker stop $(docker ps -a -q)
 }
 function DDrm() {
-    echo 'docker rm'
     id=$(docker ps -a | grep "Exited \([0-9]*\)" | peco | cut -d" " -f1)
-    docker rm ${id}
+    if [ ! -z "$id" ] ; then
+        echo 'docker rm'
+        docker rm ${id}
+    fi
 }
 function DDreset() {
     echo 'docker stop'
@@ -470,55 +476,102 @@ function DDreset() {
     docker rm $(docker ps -a -q)
 }
 function DDrmi() {
-    echo 'docker rmi'
     id=$(docker images | tail -n +2 | peco | awk '{print $3}')
-    docker rmi ${id}
+    if [ ! -z "$id" ] ; then
+        echo 'docker rmi'
+        docker rmi ${id}
+    fi
 }
 function DDbash() {
     id=$(docker ps | tail -n +2 | peco | cut -d" " -f1)
-    docker exec -i -t ${id} /bin/bash
+    if [ ! -z "$id" ] ; then
+        docker exec -i -t ${id} /bin/bash
+    fi
+}
+function DDmysql() {
+    id=$(docker ps | tail -n +2 | peco | cut -d" " -f1)
+    if [ ! -z "$id" ] ; then
+        docker exec -i -t ${id} mysql -u root -proot
+    fi
+}
+function DDstats() {
+    id=$(docker ps | tail -n +2 | peco | cut -d" " -f1)
+    if [ ! -z "$id" ] ; then
+        docker stats ${id}
+    fi
 }
 function DDtop() {
     id=$(docker ps | tail -n +2 | peco | cut -d" " -f1)
-    docker top ${id}
+    if [ ! -z "$id" ] ; then
+        docker top ${id}
+    fi
 }
-function DDlog() {
+function DDlogs() {
     id=$(docker ps | tail -n +2 | peco | cut -d" " -f1)
-    docker logs ${id}
+    if [ ! -z "$id" ] ; then
+        docker logs ${id}
+    fi
+}
+function DDlogsf() {
+    id=$(docker ps | tail -n +2 | peco | cut -d" " -f1)
+    if [ ! -z "$id" ] ; then
+        docker logs -f ${id}
+    fi
+}
+function DDhistory() {
+    id=$(docker images | tail -n +2 | peco | cut -d" " -f1)
+    if [ ! -z "$id" ] ; then
+        docker history ${id}
+    fi
+}
+function DDinspect() {
+    id=$(docker ps -a | tail -n +2 | peco | cut -d" " -f1)
+    if [ ! -z "$id" ] ; then
+        docker inspect ${id} | less
+    fi
 }
 function DDip() {
-    id=$(docker ps | tail -n +2 | peco | cut -d" " -f1)
-    docker inspect -f '{{ .NetworkSettings.IPAddress }}' ${id}
+    id=$(docker ps | tail -n +2 | peco | awk '{print $2}')
+    if [ ! -z "$id" ] ; then
+        echo -e "\033[1;33m<IPAddress@${id}>\033[0m"
+        docker inspect -f '{{ .NetworkSettings.IPAddress }}' ${id}
+    fi
+}
+function DDport() {
+    item=$(docker ps -a | tail -n +2 | peco)
+    if [ ! -z "$item" ] ; then
+        name=$(echo ${item} | awk '{print $2}')
+        id=$(echo ${item} | awk '{print $1}')
+        echo -e "\033[1;33m<port@${name}>\033[0m"
+        docker port ${id}
+    fi
 }
 function DDvol() {
     id=$(docker ps | tail -n +2 | peco | cut -d" " -f1)
-    docker inspect -f '{{ .Volumes }}' ${id}
+    if [ ! -z "$id" ] ; then
+        docker inspect -f '{{ .Volumes }}' ${id}
+    fi
 }
-# ------------------------
-# Docker for MySQL
-# ------------------------
-function DDmysql() {
-    echo 'name(mysql): '
-    read name
-    echo 'root password(root): '
-    read pass
-    echo 'version(5.7): '
-    read version
-    docker run --name ${name} -e MYSQL_ROOT_PASSWORD=${pass} -d nuts/mysql:${version}
+function DDenv() {
+    id=$(docker images | tail -n +2 | peco | cut -d" " -f1)
+    if [ ! -z "$id" ] ; then
+        echo -e "\033[1;33m<env@${id}>\033[0m"
+        docker run --rm ${id} env
+    fi
+}
+function DDhosts() {
+    id=$(docker images | tail -n +2 | peco | cut -d" " -f1)
+    if [ ! -z "$id" ] ; then
+        echo -e "\033[1;33m</etc/hosts@${id}>\033[0m"
+        docker run --rm ${id} cat /etc/hosts
+    fi
 }
 # ------------------------
 # Docker for WordPress
 # ------------------------
 function DDwp() {
-    #echo 'MySQL ROOT Password(root): '
-    #read pass
-    docker run --name mysql -e MYSQL_ROOT_PASSWORD=root -d mysql:5.7
-    #sleep 3s
-    #docker run --name wordpress --link mysql -d -p 80:80 -v "$PWD/":/var/www/html wordpress
-    docker run --name wordpress --link mysql -p 80:80 -d wordpress
-
-    #docker run --name mysql -e MYSQL_ROOT_PASSWORD=mysql -d -p 3306:3306 mysql
-    #docker run --name my-wordpress --link mysql:mysql -p 80:80 -d wordpress
+    #docker run --name mysql -e MYSQL_ROOT_PASSWORD=root -d mysql:5.7
+    docker run --name mysql -e MYSQL_ROOT_PASSWORD=root -d nuts/mysql:5.7
+    docker run --name wordpress --link mysql:mysql -p 80:80 -v "/var/www/html/":/var/www/html -d wordpress
 }
-
 
