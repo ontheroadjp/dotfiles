@@ -14,9 +14,9 @@ if [ "$(uname)" == 'Darwin' ]; then
 	export PATH="/usr/local/bin:$PATH"
 
     # Ruby
-    RBENV_ROOT="$HOME/.rbenv"
-    export PATH="$RBENV_ROOT/bin:$PATH"
-    eval "$(rbenv init -)"
+    #RBENV_ROOT="$HOME/.rbenv"
+    #export PATH="$RBENV_ROOT/bin:$PATH"
+    #eval "$(rbenv init -)"
 
     # vagrant コマンド補完の有効化
     if [ -f `brew --prefix`/etc/bash_completion.d/vagrant ]; then
@@ -248,6 +248,7 @@ alias v='vim'
 # エイリアス: 移動用
 #-------------------------------------------------
 alias la='ls -laG'
+alias laa='la | peco'
 
 # cd した後に la する
 cdla() {
@@ -271,11 +272,11 @@ alias gcom='git commit -v'
 alias gb='git branch'
 alias gcheck='git checkout'
 
-git_add_status() {
+function git_add_status() {
     git add "$@" && git status
 }
 
-git_reset_status() {
+function git_reset_status() {
     git reset "$@" && git status
 }
 
@@ -332,7 +333,7 @@ function exdirs() {
 		path=`echo ${line} | awk '{print $2}' | sed -e s:^~:${HOME}:`
 		cd ${path}
 	else
-		echo "There is no number you inputed."
+		echo "There is no number you input."
 	fi
 }
 alias d='exdirs'
@@ -383,22 +384,27 @@ function bk() {
 #-------------------------------------------------
 # Functions for peco
 #-------------------------------------------------
+if [ -n "`which peco 2> /dev/null`" ]; then
+    # dirs 拡張( for peco )
+    function exdirs-peco() {
+    	path=`dirs -v | awk '!colname[$2]++{print $0}' | peco | awk '{print $2}' | sed -e s:^~:${HOME}:`
+    	#echo ${path}
+    	cd ${path}
+    }
+    alias dd='exdirs-peco'
+    
+    # ps 拡張( for peco )
+    function killl() {
+    	process=`ps aux | peco | awk '{print $2}'`
+        if [ ! -z "$id" ] ; then
+    	    sudo kill -9 ${process}
+        fi
+    }
+fi
 
-# dirs 拡張( for peco )
-function exdirs-peco() {
-	path=`dirs -v | awk '!colname[$2]++{print $0}' | peco | awk '{print $2}' | sed -e s:^~:${HOME}:`
-	#echo ${path}
-	cd ${path}
-}
-alias dd='exdirs-peco'
-
-# ps 拡張( for peco )
-function exps() {
-	process=`ps aux | peco | awk '{print $2}'`
-	sudo kill -9 ${process}
-}
-
-# for Docker
+#-------------------------------------------------
+# Functions for Docker
+#-------------------------------------------------
 function DD() {
     echo -e "\033[1;33m--------------------------------\033[0m"
     echo -e "\033[1;33m<RUNNING>\033[0m"
@@ -566,12 +572,11 @@ function DDhosts() {
         docker run --rm ${id} cat /etc/hosts
     fi
 }
-# ------------------------
-# Docker for WordPress
-# ------------------------
-function DDwp() {
-    #docker run --name mysql -e MYSQL_ROOT_PASSWORD=root -d mysql:5.7
-    docker run --name mysql -e MYSQL_ROOT_PASSWORD=root -d nuts/mysql:5.7
-    docker run --name wordpress --link mysql:mysql -p 80:80 -v "/var/www/html/":/var/www/html -d wordpress
-}
+## ------------------------
+## Docker for WordPress
+## ------------------------
+#function DDwp() {
+#    docker run --name mysql -e MYSQL_ROOT_PASSWORD=root -d nuts/mysql:5.7
+#    docker run --name wordpress --link mysql:mysql -p 80:80 -v "/var/www/html/":/var/www/html -d wordpress
+#}
 
