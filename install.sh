@@ -100,6 +100,13 @@ fi
 source ~/.bash_profile >> /dev/null >&2>1
 echo 'load .bash_profile'
 
+# Install peco
+wget https://github.com/peco/peco/releases/download/v0.2.9/peco_linux_amd64.tar.gz
+tar xvzf peco_linux_amd64.tar.gz
+sudo cp peco_linux_amd64/peco /usr/local/bin
+sudo chmod 111 /usr/local/bin/peco
+
+# Install NeoBundle for vim 
 if hash "git" && test ! -e ~/dotfiles/.vim/bundle/neobundle.vim; then
     echo 'NeoBundle Install...'
     git clone git://github.com/Shougo/neobundle.vim $HOME/.vim/bundle/neobundle.vim
