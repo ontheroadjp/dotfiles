@@ -189,9 +189,9 @@ nnoremap gP P
 "-------------------------
 " 自動的に閉じ括弧を入力
 "-------------------------
-"imap { {}<LEFT>
-"imap [ []<LEFT>
-"imap ( ()<LEFT>
+imap { {}<LEFT>
+imap [ []<LEFT>
+imap ( ()<LEFT>
 
 "-------------------------
 " キーバインド key bindings
@@ -286,6 +286,8 @@ if has('vim_starting')
 	"NeoBundleLazy 'wesleyche/SrcExpl', {    "カーソル位置のファイル参照
     "    \ 'autoload' : { 'commands': ['SrcExplToggle'] }
     "    \ }
+
+    "NeoBundle 'tpope/vim-vinegar'
 
     "-------------------------
     " for Development
@@ -568,7 +570,8 @@ if ! empty(neobundle#get("nerdtree"))
     "nnoremap <silent><C-e> :NERDTreeToggle<CR>
     "nnoremap <Leader>e :NERDTreeToggle<CR>
     nnoremap ,e :NERDTreeToggle<CR>
-    
+    nmap <C-e> ,e
+
     " デフォルトでツリーを表示
     "autocmd VimEnter * execute 'NERDTree'
     
@@ -680,6 +683,9 @@ endif
     au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
     au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
     
+    au FileType unite nnoremap <silent> <buffer> ff :q<CR>
+    au FileType unite inoremap <silent> <buffer> ff <ESC>:q<CR>
+    
     " , キーを2回押すと終了する
     au FileType unite nnoremap <silent> <buffer> ,, :q<CR>
     au FileType unite inoremap <silent> <buffer> ,, <ESC>:q<CR>
@@ -717,6 +723,9 @@ endif
     nnoremap <silent> [unite]v :<C-u>UniteWithBufferDir file<CR>
     nnoremap <silent> ,, :UniteResume<CR>
     "" }}}
+
+    nmap <C-r> ,fr
+    nmap <C-f> ,ff
 
 "endif
 
