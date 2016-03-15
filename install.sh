@@ -70,7 +70,7 @@ if [ "$(uname)" == 'Darwin' ]; then
 elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
 	echo 'Welcome to Linux !'
 
-	for f in .bash_profile .bashrc .gitconfig .gitignore_global .vim .vimrc 
+	for f in .bash_profile .bashrc .gitconfig .gitignore_global .vim .vimrc .gvimrc
 	do
 		[ "$f" = ".git" ] && continue
 		if [ -e $DOTPATH/$F ]; then
