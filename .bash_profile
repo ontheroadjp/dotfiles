@@ -59,6 +59,7 @@ if [ "$(uname)" == 'Darwin' ]; then
 	# vi, vim をMacVim へ変更
 	#alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 	#alias vim='env_LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+	alias mvim='env_LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 	
 	# エイリアス（移動:Mac）
 	alias cdh='cdla ${HOME}'
