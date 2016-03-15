@@ -61,8 +61,20 @@ if [ "$(uname)" == 'Darwin' ]; then
 	echo "success: Karabiner - private.xml"
 
 	# peco
-	ln -sf ~/dotfiles/peco ~/.config/peco
-	echo "success: Peco config files"
+    peco_install_dir="/usr/local/bin"
+    #if [ ! -e $peco_install_dir ]; then
+    if hash "peco"; then
+        wget https://github.com/peco/peco/releases/download/v0.2.9/peco_linux_amd64.tar.gz
+        tar xvzf peco_linux_amd64.tar.gz
+        sudo cp peco_linux_amd64/peco /usr/local/bin
+        sudo chmod 111 /usr/local/bin/peco
+	    ln -sf ~/dotfiles/peco ~/.config/peco
+        rm peco_linux_amd64.tar.gz
+        rm -rf peco_linux_amd64
+	    echo "success: Peco installed!"
+    else
+        echo 'skip Peco Install'
+    fi
 
 #-------------------------------------------------
 # デプロイ（Linux）
@@ -101,10 +113,12 @@ source ~/.bash_profile >> /dev/null >&2>1
 echo 'load .bash_profile'
 
 # Install peco
-wget https://github.com/peco/peco/releases/download/v0.2.9/peco_linux_amd64.tar.gz
-tar xvzf peco_linux_amd64.tar.gz
-sudo cp peco_linux_amd64/peco /usr/local/bin
-sudo chmod 111 /usr/local/bin/peco
+function _install_peco() {
+    wget https://github.com/peco/peco/releases/download/v0.2.9/peco_linux_amd64.tar.gz
+    tar xvzf peco_linux_amd64.tar.gz
+    sudo cp peco_linux_amd64/peco /usr/local/bin
+    sudo chmod 111 /usr/local/bin/peco
+}
 
 # Install NeoBundle for vim 
 if hash "git" && test ! -e ~/dotfiles/.vim/bundle/neobundle.vim; then
