@@ -321,6 +321,14 @@ alias dattach='docker attach '
 # Functions
 #-------------------------------------------------
 
+function mm() {
+    pwd > $HOME/dotfiles/mm.txt
+}
+
+function m() {
+    cd $(cat $HOME/dotfiles/mm.txt)
+}
+
 # dirs 拡張
 function exdirs() {
 	dirs -v | awk '!colname[$2]++{print $1,": ",$2,"(",$1,")"}'
@@ -380,26 +388,26 @@ function bk() {
 	fi
 }
 
-#-------------------------------------------------
-# Functions for peco
-#-------------------------------------------------
-if [ -n "`which peco 2> /dev/null`" ]; then
-    # dirs 拡張( for peco )
-    function exdirs-peco() {
-    	path=`dirs -v | awk '!colname[$2]++{print $0}' | peco | awk '{print $2}' | sed -e s:^~:${HOME}:`
-    	#echo ${path}
-    	cd ${path}
-    }
-    alias dd='exdirs-peco'
-    
-    # ps 拡張( for peco )
-    function killl() {
-    	process=`ps aux | peco | awk '{print $2}'`
-        if [ ! -z "$id" ] ; then
-    	    sudo kill -9 ${process}
-        fi
-    }
-fi
+##-------------------------------------------------
+## Functions for peco
+##-------------------------------------------------
+#if [ -n "`which peco 2> /dev/null`" ]; then
+#    # dirs 拡張( for peco )
+#    function exdirs-peco() {
+#    	path=`dirs -v | awk '!colname[$2]++{print $0}' | peco | awk '{print $2}' | sed -e s:^~:${HOME}:`
+#    	#echo ${path}
+#    	cd ${path}
+#    }
+#    alias dd='exdirs-peco'
+#    
+#    # ps 拡張( for peco )
+#    function killl() {
+#    	process=`ps aux | peco | awk '{print $2}'`
+#        if [ ! -z "$id" ] ; then
+#    	    sudo kill -9 ${process}
+#        fi
+#    }
+#fi
 
 #-------------------------------------------------
 # Functions for Docker
