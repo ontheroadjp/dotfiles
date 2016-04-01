@@ -14,9 +14,9 @@ if [ "$(uname)" == 'Darwin' ]; then
 	export PATH="/usr/local/bin:$PATH"
 
     # Ruby
-    RBENV_ROOT="$HOME/.rbenv"
-    export PATH="$RBENV_ROOT/bin:$PATH"
-    eval "$(rbenv init -)"
+    #RBENV_ROOT="$HOME/.rbenv"
+    #export PATH="$RBENV_ROOT/bin:$PATH"
+    #eval "$(rbenv init -)"
 
     # vagrant コマンド補完の有効化
     if [ -f `brew --prefix`/etc/bash_completion.d/vagrant ]; then
@@ -41,9 +41,6 @@ if [ "$(uname)" == 'Darwin' ]; then
 		fi
 	}
 
-	# Terminal
-	alias e='exit'
-
 	# Chrome
 	alias chrome='open -a "/Applications/Google Chrome.app"' 
 	
@@ -59,6 +56,7 @@ if [ "$(uname)" == 'Darwin' ]; then
 	# vi, vim をMacVim へ変更
 	#alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 	#alias vim='env_LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+	alias mvim='env_LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 	
 	# エイリアス（移動:Mac）
 	alias cdh='cdla ${HOME}'
@@ -156,7 +154,7 @@ if [ "$(uname)" == 'Darwin' ]; then
 					# on OS X force tmux's default command
 					# to spawn a shell in the user's namespace
 					#tmux_config=$(cat $HOME/.tmux.conf <(echo 'set-option -g default-command "reattach-to-user-namespace -l $SHELL"'))
-					tmux -f <(echo "$tmux_config") new-session && echo "$(tmux -V) created new session supported OS X"
+					tmux -f < $(echo "$tmux_config") new-session && echo "$(tmux -V) created new session supported OS X"
 				else
 					tmux new-session && echo "tmux created new session"
 				fi
@@ -235,6 +233,7 @@ fi
 #-------------------------------------------------
 
 alias c='clear'
+alias e='exit'
 
 #-------------------------------------------------
 # エイリアス: for vim
@@ -248,6 +247,7 @@ alias v='vim'
 # エイリアス: 移動用
 #-------------------------------------------------
 alias la='ls -laG'
+alias laa='la | peco'
 
 # cd した後に la する
 cdla() {
@@ -271,11 +271,11 @@ alias gcom='git commit -v'
 alias gb='git branch'
 alias gcheck='git checkout'
 
-git_add_status() {
+function git_add_status() {
     git add "$@" && git status
 }
 
-git_reset_status() {
+function git_reset_status() {
     git reset "$@" && git status
 }
 
@@ -301,18 +301,21 @@ alias vs='vagrant status'
 #-------------------------------------------------
 # エイリアス: for Vagrant
 #-------------------------------------------------
-alias d='docker'
-alias dps='docker ps '
-alias dimages='docker images'
-alias dstart='docker start '
-alias dstop='docker stop '
+#alias d='docker'
+#alias dps='docker ps '
+#alias D='docker ps | tail -n +2'
+#alias Da='docker ps -a | tail -n +2'
+#alias Di='docker images | tail -n +2'
+#alias dimages='docker images'
+#alias dstart='docker start '
+#alias dstop='docker stop '
 alias dattach='docker attach '
-alias drm='docker rm '
-alias drmi='docker rmi '
-alias drmstop="docker $(docker ps -a -q)"
+#alias drm='docker rm '
+#alias drmi='docker rmi '
+#alias drmstop="docker $(docker ps -a -q)"
 
-alias dcid='docker ps -q'
-alias dip="docker inspect --format '{{ .NetworkSettings.IPAddress }}' $(docker ps -q)"
+#alias dcid='docker ps -q'
+#alias dip="docker inspect --format '{{ .NetworkSettings.IPAddress }}' $(docker ps -q)"
 
 #-------------------------------------------------
 # Functions
@@ -329,7 +332,7 @@ function exdirs() {
 		path=`echo ${line} | awk '{print $2}' | sed -e s:^~:${HOME}:`
 		cd ${path}
 	else
-		echo "There is no number you inputed."
+		echo "There is no number you input."
 	fi
 }
 alias d='exdirs'
@@ -380,19 +383,199 @@ function bk() {
 #-------------------------------------------------
 # Functions for peco
 #-------------------------------------------------
+if [ -n "`which peco 2> /dev/null`" ]; then
+    # dirs 拡張( for peco )
+    function exdirs-peco() {
+    	path=`dirs -v | awk '!colname[$2]++{print $0}' | peco | awk '{print $2}' | sed -e s:^~:${HOME}:`
+    	#echo ${path}
+    	cd ${path}
+    }
+    alias dd='exdirs-peco'
+    
+    # ps 拡張( for peco )
+    function killl() {
+    	process=`ps aux | peco | awk '{print $2}'`
+        if [ ! -z "$id" ] ; then
+    	    sudo kill -9 ${process}
+        fi
+    }
+fi
 
-# dirs 拡張( for peco )
-function exdirs-peco() {
-	path=`dirs -v | awk '!colname[$2]++{print $0}' | peco | awk '{print $2}' | sed -e s:^~:${HOME}:`
-	#echo ${path}
-	cd ${path}
+#-------------------------------------------------
+# Functions for Docker
+#-------------------------------------------------
+function DD() {
+    echo -e "\033[1;33m--------------------------------\033[0m"
+    echo -e "\033[1;33m<RUNNING>\033[0m"
+    #docker ps | tail -n +2 | awk 'BEGIN{OFS=" "}{print NR ": " $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15}'
+    docker ps | tail -n +2 | awk 'BEGIN{OFS=" "}
+        function red(s) { printf "\033[1;31m" s "\033[0m " }
+        function green(s) { printf "\033[1;32m" s "\033[0m " }
+        function blue(s) { printf "\033[1;34m" s "\033[0m " }
+        { printf NR ": " $1 " " }
+        { blue($2) }{ green($3) }
+        { print $4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20 }'
+    echo -e "\033[1;33m--------------------------------\033[0m"
+    echo -e "\033[1;33m<STOPPED>\033[0m"
+    #docker ps -a | grep "Exited \([0-9]*\)" | awk 'BEGIN{OFS="\t"}{print NR ": " $1,$2,$3,$4,$5,$6,$7,$8,$9,$10}'
+    docker ps -a | grep "Exited \([0-9]*\)" | awk 'BEGIN{OFS=" "}
+        function red(s) { printf "\033[1;31m" s "\033[0m " }
+        function green(s) { printf "\033[1;32m" s "\033[0m " }
+        function blue(s) { printf "\033[1;34m" s "\033[0m " }
+        { printf NR ": " $1 " " }
+        { blue($2) }{ green($3) }
+        { print $4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20 }'
+    echo -e "\033[1;33m--------------------------------\033[0m"
+    echo -e "\033[1;33m<IMAGES>\033[0m"
+    #docker images | tail -n +2 | awk 'BEGIN{OFS="\t"}{print NR ": " $1,$2,$3,$4,$5,$6,$7,$8,$9,$10}'
+    docker images | tail -n +2 | awk 'BEGIN{OFS="\t"} \
+        function red(s) { printf "\033[1;31m" s "\033[0m \t" }
+        function green(s) { printf "\033[1;32m" s "\033[0m \t" }
+        function blue(s) { printf "\033[1;34m" s "\033[0m \t" }
+        { printf NR ": " }
+        { blue($1) }{ blue($2) }
+        { print $3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20 }'
 }
-alias dd='exdirs-peco'
 
-# ps 拡張( for peco )
-function exps() {
-	process=`ps aux | peco | awk '{print $2}'`
-	sudo kill -9 ${process}
+function DDps() {
+    echo '<docker ps>'
+   docker ps | tail -n +2
 }
-
+function DDpsa() {
+    echo '<docker ps -a>'
+   docker ps -a | tail -n +2
+}
+function DDi() {
+    echo '<docker images>'
+    docker images | tail -n +2
+}
+function DDstart() {
+    id=$(docker ps -a | grep "Exited \([0-9]*\)" | peco | cut -d" " -f1)
+    if [ ! -z "$id" ] ; then
+        echo 'docker start'
+        docker start ${id}
+    fi
+}
+function DDstop() {
+    id=$(docker ps | tail -n +2 | peco | cut -d" " -f1)
+    if [ ! -z "$id" ] ; then
+        echo 'docker stop'
+        docker stop ${id}
+    fi
+}
+function DDstopa() {
+    echo 'docker stop'
+    docker stop $(docker ps -a -q)
+}
+function DDrm() {
+    id=$(docker ps -a | grep "Exited \([0-9]*\)" | peco | cut -d" " -f1)
+    if [ ! -z "$id" ] ; then
+        echo 'docker rm'
+        docker rm ${id}
+    fi
+}
+function DDreset() {
+    echo 'docker stop'
+    docker stop $(docker ps -q)
+    echo 'docker rm'
+    docker rm $(docker ps -a -q)
+}
+function DDrmi() {
+    id=$(docker images | tail -n +2 | peco | awk '{print $3}')
+    if [ ! -z "$id" ] ; then
+        echo 'docker rmi'
+        docker rmi ${id}
+    fi
+}
+function DDbash() {
+    id=$(docker ps | tail -n +2 | peco | cut -d" " -f1)
+    if [ ! -z "$id" ] ; then
+        docker exec -i -t ${id} /bin/bash
+    fi
+}
+function DDmysql() {
+    id=$(docker ps | tail -n +2 | peco | cut -d" " -f1)
+    if [ ! -z "$id" ] ; then
+        docker exec -i -t ${id} mysql -u root -proot
+    fi
+}
+function DDstats() {
+    id=$(docker ps | tail -n +2 | peco | cut -d" " -f1)
+    if [ ! -z "$id" ] ; then
+        docker stats ${id}
+    fi
+}
+function DDtop() {
+    id=$(docker ps | tail -n +2 | peco | cut -d" " -f1)
+    if [ ! -z "$id" ] ; then
+        docker top ${id}
+    fi
+}
+function DDlogs() {
+    id=$(docker ps | tail -n +2 | peco | cut -d" " -f1)
+    if [ ! -z "$id" ] ; then
+        docker logs ${id}
+    fi
+}
+function DDlogsf() {
+    id=$(docker ps | tail -n +2 | peco | cut -d" " -f1)
+    if [ ! -z "$id" ] ; then
+        docker logs -f ${id}
+    fi
+}
+function DDhistory() {
+    id=$(docker images | tail -n +2 | peco | cut -d" " -f1)
+    if [ ! -z "$id" ] ; then
+        docker history ${id}
+    fi
+}
+function DDinspect() {
+    id=$(docker ps -a | tail -n +2 | peco | cut -d" " -f1)
+    if [ ! -z "$id" ] ; then
+        docker inspect ${id} | less
+    fi
+}
+function DDip() {
+    id=$(docker ps | tail -n +2 | peco | awk '{print $2}')
+    if [ ! -z "$id" ] ; then
+        echo -e "\033[1;33m<IPAddress@${id}>\033[0m"
+        docker inspect -f '{{ .NetworkSettings.IPAddress }}' ${id}
+    fi
+}
+function DDport() {
+    item=$(docker ps -a | tail -n +2 | peco)
+    if [ ! -z "$item" ] ; then
+        name=$(echo ${item} | awk '{print $2}')
+        id=$(echo ${item} | awk '{print $1}')
+        echo -e "\033[1;33m<port@${name}>\033[0m"
+        docker port ${id}
+    fi
+}
+function DDvol() {
+    id=$(docker ps | tail -n +2 | peco | cut -d" " -f1)
+    if [ ! -z "$id" ] ; then
+        docker inspect -f '{{ .Volumes }}' ${id}
+    fi
+}
+function DDenv() {
+    id=$(docker images | tail -n +2 | peco | cut -d" " -f1)
+    if [ ! -z "$id" ] ; then
+        echo -e "\033[1;33m<env@${id}>\033[0m"
+        docker run --rm ${id} env
+    fi
+}
+function DDhosts() {
+    id=$(docker images | tail -n +2 | peco | cut -d" " -f1)
+    if [ ! -z "$id" ] ; then
+        echo -e "\033[1;33m</etc/hosts@${id}>\033[0m"
+        docker run --rm ${id} cat /etc/hosts
+    fi
+}
+## ------------------------
+## Docker for WordPress
+## ------------------------
+#function DDwp() {
+#    docker run --name mysql -e MYSQL_ROOT_PASSWORD=root -d nuts/mysql:5.7
+#    docker run --name wordpress --link mysql:mysql -p 80:80 -v "/var/www/html/":/var/www/html -d wordpress
+#}
 

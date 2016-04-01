@@ -1,18 +1,13 @@
 <?xml version="1.0"?>
     <root>
-        <appdef>
-            <appname>iTERM2</appname>
-            <equal>com.googlecode.iterm2</equal>
-        </appdef>
-        <appdef>
-            <appname>MACVIM</appname>
-            <equal>org.vim.MacVim</equal>
-        </appdef>
+        <appdef><appname>TERMINAL</appname> <equal>com.apple.Terminal</equal></appdef>
+        <appdef><appname>iTERM2</appname> <equal>com.googlecode.iterm2</equal></appdef>
+        <appdef><appname>MACVIM</appname> <equal>org.vim.MacVim</equal></appdef>
         <list>
             <item>
                 <name>Leave Insert Mode with EISUU (vim keybind apps)</name>
                 <identifier>private.vim_keybind_apps_esc_with_eisuu</identifier>
-                <only>iTERM2,TERMINAL,MACVIM</only>
+                <only>TERMINAL,iTERM2,MACVIM</only>
 				<autogen>
 					--KeyToKey-- 
 					KeyCode::ESCAPE, KeyCode::ESCAPE, 
@@ -25,8 +20,18 @@
 				</autogen>
             </item>
             <item>
+                <name>Key Bind: Full Screen</name>
+                <only>TERMINAL,MACVIM</only>
+                <identifier>ontheroad.full_screen</identifier>
+				<autogen>
+					--KeyToKey-- 
+					KeyCode::RETURN, ModifierFlag::COMMAND_L,
+					KeyCode::F, ModifierFlag::COMMAND_L | ModifierFlag::CONTROL_R
+				</autogen>
+            </item>
+            <item>
                 <name>Key Bind: TERMINAL</name>
-                <only>iTERM2,TERMINAL,MACVIM</only>
+                <only>TERMINAL,iTERM2,MACVIM</only>
                 <identifier>ontheroad.app_terminal</identifier>
 				<autogen>
 					--KeyToKey-- 
@@ -36,12 +41,17 @@
             </item>
             <item>
                 <name>Key Bind: TERMINAL for vim</name>
-                <only>iTERM2,TERMINAL,MACVIM</only>
+                <only>TERMINAL,iTERM2,MACVIM</only>
                 <identifier>ontheroad.app_terminal_for_vim</identifier>
 				<autogen>
 					--KeyToKey-- 
 					KeyCode::R, ModifierFlag::COMMAND_L, 
 					KeyCode::R, ModifierFlag::CONTROL_R
+				</autogen>
+				<autogen>
+					--KeyToKey-- 
+					KeyCode::E, ModifierFlag::COMMAND_L, 
+					KeyCode::E, ModifierFlag::CONTROL_R
 				</autogen>
 				<autogen>
 					--KeyToKey-- 
@@ -85,22 +95,10 @@
 				</autogen>
             </item>
         </list>
-        <appdef>
-            <appname>FINDER</appname>
-            <equal>com.apple.finder</equal>
-        </appdef>
-        <appdef>
-            <appname>SUBLIMETEXT3</appname>
-            <equal>com.sublimetext.3</equal>
-        </appdef>
-        <appdef>
-            <appname>MACDOWN</appname>
-            <equal>com.uranusjr.macdown</equal>
-        </appdef>
-        <appdef>
-            <appname>COTEDITOR</appname>
-            <equal>com.coteditor.CotEditor</equal>
-        </appdef>
+        <appdef> <appname>FINDER</appname><equal>com.apple.finder</equal></appdef>
+        <appdef> <appname>SUBLIMETEXT3</appname><equal>com.sublimetext.3</equal></appdef>
+        <appdef> <appname>MACDOWN</appname><equal>com.uranusjr.macdown</equal></appdef>
+        <appdef> <appname>COTEDITOR</appname><equal>com.coteditor.CotEditor</equal></appdef>
         <list>
             <item>
                 <name>Key Bind: Vim like Curor move: hjkl</name>
