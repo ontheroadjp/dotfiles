@@ -41,9 +41,6 @@ if [ "$(uname)" == 'Darwin' ]; then
 		fi
 	}
 
-	# Terminal
-	alias e='exit'
-
 	# Chrome
 	alias chrome='open -a "/Applications/Google Chrome.app"' 
 	
@@ -236,6 +233,7 @@ fi
 #-------------------------------------------------
 
 alias c='clear'
+alias e='exit'
 
 #-------------------------------------------------
 # エイリアス: for vim
