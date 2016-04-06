@@ -131,3 +131,4 @@ fi
 
 echo 'Complete!'
 
+exit 0
