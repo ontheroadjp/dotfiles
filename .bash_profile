@@ -5,6 +5,11 @@ fi
 
 export EDITOR=vim
 
+function _is_executable() {
+    hash $@ > /dev/null 2>&1
+}
+
+
 #-------------------------------------------------
 # Mac 固有の設定
 #-------------------------------------------------
@@ -231,7 +236,7 @@ alias p='popd && la'
 #-------------------------------------------------
 # エイリアス: for vim
 #-------------------------------------------------
-if hash "vim"; then
+if _is_executable vim; then
     alias vp='vim ~/.bash_profile'
     alias sp='source ~/.bash_profile'
     alias vv='vim ~/.vimrc'
@@ -242,7 +247,7 @@ fi
 #-------------------------------------------------
 # エイリアス: for Git
 #-------------------------------------------------
-if hash "git"; then
+if _is_executable git; then
     alias gg='git graph'
     alias gs='git status'
     alias gd='git diff'
@@ -269,7 +274,7 @@ fi
 #-------------------------------------------------
 # エイリアス: for Vagrant
 #-------------------------------------------------
-if hash "vagrant"; then
+if _is_executable vagrant; then
     alias v='vagrant ssh'
     alias vu='vagrant up'
     alias vh='vagrant halt'
@@ -286,7 +291,7 @@ if hash "vagrant"; then
     # vagrant コマンド補完の有効化
     if [ -f `brew --prefix`/etc/bash_completion.d/vagrant ]; then
         source `brew --prefix`/etc/bash_completion.d/vagrant
-    elif hash "brew"; then
+    elif _is_executable brew; then
         brew tap homebrew/completions
         source `brew --prefix`/etc/bash_completion.d/vagrant
     fi
@@ -296,9 +301,14 @@ fi
 #-------------------------------------------------
 # Functions for Docker ( Dopecker )
 #-------------------------------------------------
-if [ -f ~/dotfiles/dopecker/dopecker ] ; then
-	. ~/dotfiles/dopecker/dopecker
-    echo "Load Docker settings."
+if _is_executable docker; then
+    if _is_executable git && [ ! -d ~/dotfiles/dopecker ]; then
+        git clone https://github.com/ontheroadjp/dotfiles.git ~/dotfiles/dopecker
+    fi
+    if [ -f ~/dotfiles/dopecker/dopecker ]; then
+        source ~/dotfiles/dopecker/dopecker
+        echo "Load Docker settings."
+    fi
 fi
 
 #-------------------------------------------------
@@ -367,10 +377,10 @@ function bk() {
 ##-------------------------------------------------
 ## Functions for peco
 ##-------------------------------------------------
-#if [ -n "`which peco 2> /dev/null`" ]; then
+#if _is_executable peco; then
 #    # dirs 拡張( for peco )
 #    function exdirs-peco() {
-#    	path=`dirs -v | awk '!colname[$2]++{print $0}' | peco | awk '{print $2}' | sed -e s:^~:${HOME}:`
+#    	path=$(dirs -v | awk '!colname[$2]++{print $0}' | peco | awk '{print $2}' | sed -e s:^~:${HOME}:)
 #    	#echo ${path}
 #    	cd ${path}
 #    }
