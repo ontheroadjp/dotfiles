@@ -300,10 +300,11 @@ fi
 
 #-------------------------------------------------
 # Functions for Docker ( Dopecker )
+# see https://github.com/ontheroadjp/dopecker.git
 #-------------------------------------------------
 if _is_executable docker; then
     if _is_executable git && [ ! -d ~/dotfiles/dopecker ]; then
-        git clone https://github.com/ontheroadjp/dotfiles.git ~/dotfiles/dopecker
+        git clone https://github.com/ontheroadjp/dopecker.git ~/dotfiles/dopecker
     fi
     if [ -f ~/dotfiles/dopecker/dopecker ]; then
         source ~/dotfiles/dopecker/dopecker
