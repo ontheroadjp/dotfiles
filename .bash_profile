@@ -212,17 +212,27 @@ alias c='clear && la'
 alias e='exit'
 
 function mm() {
-    pwd > $HOME/dotfiles/.movedir/.mm.txt
+    local confdir=$HOME/dotfiles/.movedir
+    if [ $# -eq 0 ]; then
+        pwd > ${confdir}/.mm.txt
+    elif [ $1 = "show" ]; then
+        cat ${confdir}/.mm.txt
+    fi
 }
 function m() {
-    cd $(cat $HOME/dotfiles/.movedir/.mm.txt)
+    cd $(cat ${confdir}/.mm.txt)
 }
 
 function nn() {
-    pwd > $HOME/dotfiles/.movedir/.nn.txt
+    local confdir=$HOME/dotfiles/.movedir
+    if [ $# -eq 0 ]; then
+        pwd > ${confdir}/.nn.txt
+    elif [ $1 = "show" ]; then
+        cat ${confdir}/.nn.txt
+    fi
 }
 function n() {
-    cd $(cat $HOME/dotfiles/.movedir/.nn.txt)
+    cd $(cat ${confdir}/.movedir/.nn.txt)
 }
 
 #-------------------------------------------------
