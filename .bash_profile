@@ -212,7 +212,7 @@ alias c='clear && la'
 alias e='exit'
 
 function mm() {
-    pwd > $HOME/dotfiles/mm.txt
+    pwd > $HOME/dotfiles/.mm.txt
 }
 function m() {
     cd $(cat $HOME/dotfiles/mm.txt)
