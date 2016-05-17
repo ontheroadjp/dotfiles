@@ -215,7 +215,14 @@ function mm() {
     pwd > $HOME/dotfiles/.mm.txt
 }
 function m() {
-    cd $(cat $HOME/dotfiles/mm.txt)
+    cd $(cat $HOME/dotfiles/.mm.txt)
+}
+
+function nn() {
+    pwd > $HOME/dotfiles/.nn.txt
+}
+function n() {
+    cd $(cat $HOME/dotfiles/.nn.txt)
 }
 
 #-------------------------------------------------
