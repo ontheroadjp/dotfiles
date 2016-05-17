@@ -2,7 +2,7 @@
 .git
 .gitmodules
 
-.mm.txt
+.movedir/
 
 .atom/packages/
 .atom/storage/
