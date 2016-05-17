@@ -211,28 +211,28 @@ fi
 alias c='clear && la'
 alias e='exit'
 
+modedir_file="$HOME/dotfiles/.movedir"
 function mm() {
-    local confdir=$HOME/dotfiles/.movedir
     if [ $# -eq 0 ]; then
-        pwd > ${confdir}/.mm.txt
+        pwd > ${modedir_file}/.mm.txt
     elif [ $1 = "show" ]; then
-        cat ${confdir}/.mm.txt
+        cat ${modedir_file}/.mm.txt
     fi
 }
 function m() {
-    cd $(cat ${confdir}/.mm.txt)
+    cd $(cat ${modedir_file}/.mm.txt)
 }
 
 function nn() {
     local confdir=$HOME/dotfiles/.movedir
     if [ $# -eq 0 ]; then
-        pwd > ${confdir}/.nn.txt
+        pwd > ${modedir_file}/.nn.txt
     elif [ $1 = "show" ]; then
-        cat ${confdir}/.nn.txt
+        cat ${modedir_file}/.nn.txt
     fi
 }
 function n() {
-    cd $(cat ${confdir}/.movedir/.nn.txt)
+    cd $(cat ${modedir_file}/.movedir/.nn.txt)
 }
 
 #-------------------------------------------------
