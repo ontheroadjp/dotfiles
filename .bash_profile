@@ -208,7 +208,7 @@ fi
 # OS 共通設定
 #-------------------------------------------------
 
-alias c='clear'
+alias c='clear && la'
 alias e='exit'
 
 function mm() {
@@ -395,4 +395,8 @@ function bk() {
 #        fi
 #    }
 #fi
+
+export TOYBOX_HOME=/home/nobita/workspace/docker-toybox
+export PATH=$PATH:$TOYBOX_HOME/bin
+source $TOYBOX_HOME/bin/complition.sh
 
