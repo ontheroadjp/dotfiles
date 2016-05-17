@@ -2,6 +2,8 @@
 .git
 .gitmodules
 
+.mm.txt
+
 .atom/packages/
 .atom/storage/
 .atom/compile-cache/
@@ -10,6 +12,8 @@
 .vim/.netrwhist
 backup.sh
 
+bin/peco_linux_amd64.tar.gz
+bin/peco_linux_amd64/
 dopecker/
 
 ################################
