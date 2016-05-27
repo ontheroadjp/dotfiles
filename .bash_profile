@@ -208,31 +208,40 @@ fi
 # OS 共通設定
 #-------------------------------------------------
 
+alias cdh='cdla ${HOME}'
 alias c='clear && la'
 alias e='exit'
 
-modedir_file="$HOME/dotfiles/.movedir"
+movedir="$HOME/dotfiles/.movedir"
+mkdir -p ${movedir}
 function mm() {
     if [ $# -eq 0 ]; then
-        pwd > ${modedir_file}/.mm.txt
+        pwd | tee ${movedir}/mm.txt
     elif [ $1 = "show" ]; then
-        cat ${modedir_file}/.mm.txt
+        cat ${movedir}/mm.txt
     fi
 }
 function m() {
-    cd $(cat ${modedir_file}/.mm.txt)
+    if [ -f ${movedir}/mm.txt ]; then
+        cd $(cat ${movedir}/mm.txt)
+    else
+        echo "not set."
+    fi
 }
 
 function nn() {
-    local confdir=$HOME/dotfiles/.movedir
     if [ $# -eq 0 ]; then
-        pwd > ${modedir_file}/.nn.txt
+        pwd | tee ${movedir}/nn.txt
     elif [ $1 = "show" ]; then
-        cat ${modedir_file}/.nn.txt
+        cat ${movedir}/nn.txt
     fi
 }
 function n() {
-    cd $(cat ${modedir_file}/.movedir/.nn.txt)
+    if [ -f ${movedir}/nn.txt ]; then
+        cd $(cat ${movedir}/nn.txt)
+    else
+        echo "not set."
+    fi
 }
 
 #-------------------------------------------------
