@@ -20,6 +20,11 @@ export PS1='[\[\033[32m\]\u@\h\[\033[00m\]:\[\033[34m\]\w\[\033[31m\]$(__git_ps1
 
 
 # Docker security addition on xxx
+#export DOCKER_HOST=tcp://127.0.0.1:2376 DOCKER_TLS_VERIFY=1
+# Finished for Docker security addition.
+
+
+# Docker security addition on xxx
 export DOCKER_HOST=tcp://127.0.0.1:2376 DOCKER_TLS_VERIFY=1
 # Finished for Docker security addition.
 
