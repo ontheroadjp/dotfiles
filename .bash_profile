@@ -4,6 +4,7 @@ if [ -f ~/.bashrc ] ; then
 fi
 
 export EDITOR=vim
+export TERM=xterm
 
 function _is_executable() {
     hash $@ > /dev/null 2>&1
@@ -337,6 +338,15 @@ if _is_executable docker; then
         echo "Load Docker settings."
     fi
 fi
+
+#-------------------------------------------------
+# golang
+#-------------------------------------------------
+mkdir -p $GOPATH
+export GOPATH="$HOME/.go"
+export GOBIN="$GOPATH/bin"
+export PATH="$PATH:$GOPATH/bin"
+
 
 #-------------------------------------------------
 # Functions( beta )
