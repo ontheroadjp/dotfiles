@@ -434,5 +434,7 @@ function bk() {
 
 export TOYBOX_HOME=/home/nobita/workspace/docker-toybox
 export PATH=$PATH:$TOYBOX_HOME/bin
-source $TOYBOX_HOME/bin/complition.sh
+if [ -f $TOYBOX_HOME/bin/complition.sh ]; then
+    source $TOYBOX_HOME/bin/complition.sh
+fi
 
