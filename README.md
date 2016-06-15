@@ -1,6 +1,64 @@
 # dotfiles
 
-* ``install.sh`` でインストールされるファイル群
+## インストール
+
+### dotfiles 本体
+
+```bash
+# dotfiles のインストール
+$ git clone -b bk https://github.com/ontheroadjp/dotfiles.git ~/
+$ sh ~/dotfiles/install.sh
+$ source ~/.bash_profile
+```
+
+### vim + lua のインストール
+
+```
+$ sudo yum install -y lua lua-devel
+$ git clone https://github.com/vim/vim.git /usr/local/src
+$ cd /usr/local/src
+$ ./configure \
+	--with-features=huge \
+	--enable-multibyte \
+	--enable-luainterp=dynamic \
+	--enable-gpm \
+	--enable-cscope \
+	--enable-fontset
+$ make -j4
+$ make install
+```
+
+### NeoBundle のインストール
+
+* ``install.sh`` 実行時に実行される
+
+```
+mkdir -p ~/.vim/bundle
+git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
+```
+
+### vim プラグインのインストール
+
+```bash
+$ vim
+:NeoBundleInstall
+```
+
+### peco のインストール
+
+```bash
+$ sh ~/dotfiles/bin/install_peco.sh
+```
+
+#### tmux インストール（Mac のみ）
+
+```
+$ brew install tmux
+```
+
+## dotfiles の中身
+
+* ``install.sh`` でインストールされる設定ファイル
 
 |ファイル|MacOSX|Linux|備考|
 |:---|:---:|:---:|:---|
@@ -14,6 +72,11 @@
 |~/.gitignore_global|◯|◯|[Git](https://git-scm.com/) の設定|
 |~/.config/peco|◯||[peco](https://github.com/peco/peco) の設定|
 |~/.vim/bundle/.neobundle|◯|◯|vim プラグイン管理ツール|
+
+* ``NeoBundle`` で管理する vim プラグイン（``.vimrc``）
+
+|ファイル|MacOSX|Linux|備考|
+|:---|:---:|:---:|:---|
 |~/.vim/bundle/PDV--phpDocumentor-for-Vim|◯|◯|vim プラグイン|
 |~/.vim/bundle/SrcExpl|◯|◯|vim プラグイン|
 |~/.vim/bundle/ag.vim|◯|◯|vim プラグイン|
@@ -35,6 +98,11 @@
 |~/.vim/bundle/vim-quickrun|◯|◯|vim プラグイン|
 |~/.vim/bundle/vim-ref|◯|◯|vim プラグイン|
 |~/.vim/bundle/vimproc|◯|◯|vim プラグイン|
+
+* 含まれるシェルスクリプト
+
+|ファイル|MacOSX|Linux|備考|
+|:---|:---:|:---:|:---|
 |~/dotfiles/bin/battery.sh|◯|◯|[tmux](https://tmux.github.io/) のステータスバーにバッテリー残量を表示するスクリプト|
 |~/dotfiles/bin/get_ssid.sh|◯|◯|[tmux](https://tmux.github.io/) のステータスバーに接続中の SSID を表示するスクリプト|
 |~/dotfiles/bin/git/git-completion.bash|◯|◯|[Git](https://git-scm.com/) コマンド補完スクリプト|
@@ -45,18 +113,26 @@
 
 ## bash
 
-* ``ls -la`` は ``la`` で
+### ディレクトリ操作
+
+(1) ``~/.bash_profile`` で定義
+
+* ``ls -laG`` は ``la`` で
 * ``cd`` すると自動的に ``la``
 * ``d`` で一つ前の場所へ戻る
-* ``dd`` 過去の移動履歴一覧からジャンプ（peco）
-* ``exps`` プロセス一覧から選択して kill （peco）
+* ``mm`` でディレクトリを記憶し `m` で記憶したディレクトリへ移動
+* ``nn`` でディレクトリを記憶し `n` で記憶したディレクトリへ移動
 
-### その他の主なエイリアス
+(2) ``~/.bash_profile`` で定義（Mac のみ）
 
-* 
+* ``cdh`` = ``${HOME}``
+* ``cdd`` = ``${HOME}/Desktop``
+* ``cddoc`` = ``${HOME}/Documents``
+* ``cddl`` = ``${HOME}/Downloads``
 
 ## tmux の使い方（MacOSX のみ）
 
+* 設定は ``~/.tmux.conf`` と Karabiner
 * プレフィックスキーは ``CMD`` + ``b``
 * ``Prefixkey`` + ``-`` でペインを横分割
 * ``Prefixkey`` + ``\`` でペインを縦分割
@@ -73,10 +149,10 @@
 * ``CMD`` + ``Shift`` + ``o`` でウインドウ間の移動
 * ``<Leader>`` は、デフォルト（``\``） のまま
 * ファイルをまたぐ（複数ファイルを扱う）操作は、``,`` に統一
-	* ``Unite`` も、``,``
-	* ``NERDTree`` も、``,``
-	* ``SrcExpl`` も、``,``
-	* ``grep`` も、``,``
+	* ``Unite`` の開閉は、``,fr`` ``,ff`` など
+	* ``NERDTree`` の開閉は、``,e``
+	* ``SrcExpl`` の開閉は、``,t``
+	* ``grep`` は、``,g``
 	
 	(``grep`` は Unite grep で ag を使用する)
 
@@ -100,7 +176,7 @@
 
 ### コマンド
 
-|col1|col2|
+|コマンド|内容|
 |:---|:---|
 |,fr|最近開いたファイル一覧（file_mru）|
 |,ff|カレントディレクトリ以下のファイル一覧（file_rec）|
@@ -124,7 +200,7 @@
 
 ### 基本コマンド
 
-|col1|col2|
+|コマンド|内容|
 |:---|:---|
 |``,e``|ツリーの開閉|
 |``?``|ヘルプ表示/非表示切り替え|
@@ -134,52 +210,51 @@
 |``s``|ウインドウを横に分割してファイルを開く|
 |``ma``|新規ファイル/ディレクトリ作成（ファイル名の最後に ``/`` を付けるとディレクトリ作成）|
 
-## その他
+## git 関連
 
-### インストール
+### ワークフロー
 
-```
-# dotfiles 取得
-$ git clone -b bk https://github.com/ontheroadjp/dotfiles.git
+* ``gg`` で git log 確認
+* ``gs``, ``gd`` で変更箇所の確認
+* ``ga`` でステージング
+* ``gc`` でコミット
 
-# ディレクトリ作成
-$ mkdir dotfiles/.vim/bundle
+### 主なエイリアス
 
-# NeoBundle インストール
-$ git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
+(1) ``~/.bash_profile`` で定義
 
-# vim プラグインのインストール
-$ vim
-:NeoBundleInstall
-```
+* ``gg``		= ``git graph``
+* ``gs``		= ``git status``
+* ``gd``		= ``git diff``
+* ``ga``		= ``git_add_status``
+* ``gc``		= ``git commit``
+* ``gb``		= ``git branch``
 
+(2) ``~/gitconfig`` で定義
 
-#### tmux インストール
+* ``graph`` = ``log --graph --date-order --all --pretty=format:'%h %Cred%d %Cgreen%ad %Cblue%cn %Creset%s' --date=short``
+ 
+## vagrant 関連
 
-```
-$ brew install tmux
-```
+### 主なエイリアス
 
-#### vim のインストール
+(1) ``~/.bash_profile`` で定義
 
-```
-sudo apt-get update
-sudo apt-get install -y vim
-```
+* ``v`` = ``vagrant ssh``
+* ``vu`` = ``vagrant up``
+* ``vh`` = ``vagrant halt``
+* ``vd`` = ``vagrant destroy``
 
-#### NeoBundle のインストール
+(2) ``~/.bash_profile`` で定義（sandbox プラグイン用）
 
-```
-mkdir -p ~/.vim/bundle
-git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
-```
+* ``von`` = ``vagrant sandbox on``
+* ``voff`` = ``vagrant sandbox off``
+* ``vrb`` = ``vagrant sandbox rollback``
+* ``vc`` = ``vagrant sandbox commit``
 
-### スワップ/バックアップ用のディレクトリ作成
+## Docker 関連
 
-```
-mkdir ~/.vim/backup
-mkdir ~/.vim/swap
-```
+docker がインストールされている場合、dopecker がインストールされる
 
 ## 変更履歴
 
