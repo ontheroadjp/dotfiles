@@ -2,6 +2,8 @@
 .git
 .gitmodules
 
+.movedir/
+
 .atom/packages/
 .atom/storage/
 .atom/compile-cache/
@@ -9,6 +11,10 @@
 .vim/bundle/
 .vim/.netrwhist
 backup.sh
+
+bin/peco_linux_amd64.tar.gz
+bin/peco_linux_amd64/
+dopecker/
 
 ################################
 # for vim by github
