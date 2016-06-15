@@ -114,7 +114,7 @@ echo 'load .bash_profile'
 
 # Install peco
 function _install_peco() {
-    if hash "peco"
+    if hash "peco"; then
         echo -n 'peco Install...'
         wget https://github.com/peco/peco/releases/download/v0.2.9/peco_linux_amd64.tar.gz
         tar xvzf peco_linux_amd64.tar.gz
