@@ -10,7 +10,6 @@ function _is_executable() {
     hash $@ > /dev/null 2>&1
 }
 
-
 #-------------------------------------------------
 # Mac 固有の設定
 #-------------------------------------------------
@@ -329,10 +328,10 @@ fi
 # Functions for Docker ( Dopecker )
 # see https://github.com/ontheroadjp/dopecker.git
 #-------------------------------------------------
-if _is_executable docker; then
-    if _is_executable git && [ ! -d ~/dotfiles/dopecker ]; then
-        git clone https://github.com/ontheroadjp/dopecker.git ~/dotfiles/dopecker
-    fi
+if _is_executable docker && _is_executable git; then
+    #if [ ! -d ~/dotfiles/dopecker ]; then
+    #    git clone https://github.com/ontheroadjp/dopecker.git ~/dotfiles/dopecker
+    #fi
     if [ -f ~/dotfiles/dopecker/dopecker ]; then
         source ~/dotfiles/dopecker/dopecker
         echo "Load Docker settings."
@@ -342,10 +341,13 @@ fi
 #-------------------------------------------------
 # golang
 #-------------------------------------------------
-mkdir -p $GOPATH
-export GOPATH="$HOME/.go"
-export GOBIN="$GOPATH/bin"
-export PATH="$PATH:$GOPATH/bin"
+if env | grep GOPATH > /dev/null 2>&1; then
+    mkdir -p $GOPATH
+    export GOPATH="$HOME/.go"
+    export GOBIN="$GOPATH/bin"
+    export PATH="$PATH:$GOPATH/bin"
+    echo "Load golang settings."
+fi
 
 
 #-------------------------------------------------
