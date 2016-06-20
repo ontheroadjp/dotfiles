@@ -333,6 +333,7 @@ alias dmem='dstat -Tclm'
 alias dcpu='dstat -Tclr'
 alias dnet='dstat -Tclnd'
 alias ddisk='dstat -Tcldr'
+alias dplugins='la /usr/share/dstat/*.py'
 
 #-------------------------------------------------
 # Functions for Docker ( Dopecker )
