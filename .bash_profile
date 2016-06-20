@@ -325,6 +325,16 @@ if _is_executable vagrant; then
 fi
 
 #-------------------------------------------------
+# エイリアス: for dstat
+#-------------------------------------------------
+
+alias dfull='dstat -Tclmdrn'
+alias dmem='dstat -Tclm'
+alias dcpu='dstat -Tclr'
+alias dnet='dstat -Tclnd'
+alias ddisk='dstat -Tcldr'
+
+#-------------------------------------------------
 # Functions for Docker ( Dopecker )
 # see https://github.com/ontheroadjp/dopecker.git
 #-------------------------------------------------
