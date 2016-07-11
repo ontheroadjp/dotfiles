@@ -416,6 +416,22 @@ function bk() {
 ##-------------------------------------------------
 ## Functions for peco
 ##-------------------------------------------------
+
+
+# http://qiita.com/uchiko/items/f6b1528d7362c9310da0
+
+peco_history() {
+    declare l=$(HISTTIMEFORMAT= history | sort -k1,1nr | perl -ne 'BEGIN { my @lines = (); } s/^\s*\d+\s*//; $in=$_; if (!(grep {$in eq $_} @lines)) { push(@lines, $in); print $in; }' | peco --query "$READLINE_LINE")
+    READLINE_LINE="$l"
+    READLINE_POINT=${#l}
+    # for OSX
+    if [ `uname` = "Darwin" ]; then
+        ${READLINE_LINE}
+    fi
+    echo ${l}
+}
+alias hh="peco_history"
+
 #if _is_executable peco; then
 #    # dirs 拡張( for peco )
 #    function exdirs-peco() {
@@ -435,7 +451,7 @@ function bk() {
 #fi
 
 export TOYBOX_HOME=/home/nobita/workspace/docker-toybox
-export PATH=$PATH:$TOYBOX_HOME/bin
+export PATH=$TOYBOX_HOME/bin:$PATH
 if [ -f $TOYBOX_HOME/bin/complition.sh ]; then
     source $TOYBOX_HOME/bin/complition.sh
 fi
