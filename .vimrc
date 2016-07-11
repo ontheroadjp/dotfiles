@@ -194,11 +194,33 @@ nnoremap gP P
 "imap ( ()<LEFT>
 
 "-------------------------
-" キーバインド key bindings
+" ウインドウ関連
 "-------------------------
+
+" ウインドウの縦分割
+nnoremap ,w :<C-u>sp<CR>
+
+" ウインドウの水平分割
+nnoremap ,v :<C-u>vs<CR>
+
+" 左のウインドウへ移動
+nnoremap wh <C-w>h
+
+" 下のウインドウへ移動
+nnoremap wj <C-w>j
+
+" 上のウインドウへ移動
+nnoremap wk <C-w>k
+
+" 右のウインドウへ移動
+nnoremap wl <C-w>l
 
 " ウインドウ間の移動（Karabiner でさらに再設定）
 nnoremap <c-w> <c-w><c-w>
+
+"-------------------------
+" 移動関連
+"-------------------------
 
 " モーション移動のコマンド ` を <Space> で置き換え
 nnoremap <Space> `
@@ -209,6 +231,15 @@ nnoremap <Space>o <c-o>zz
 
 " ジャンプリスト（進む）
 nnoremap <Space>i <c-i>zz
+
+"定義元へのジャンプ
+nnoremap <Space>] g<c-]>
+
+"対になるカッコへジャンプ
+nnoremap <Space>[ %
+
+"行番号を指定してジャンプ
+"nnoremap {count}<Space> {count}G
 
 " 行頭、行末への移動
 nnoremap <Space>h ^
@@ -229,17 +260,12 @@ vnoremap gj j
 "f 移動の後戻る
 nnoremap <Space>; ,
 
+"-------------------------
+" キーバインド key bindings
+"-------------------------
+
 "空行の挿入
 nnoremap 0 :<C-u>call append(expand('.'), '')<Cr>j
-
-"定義元へのジャンプ
-nnoremap <Space>] g<c-]>
-
-"対になるカッコへジャンプ
-nnoremap <Space>[ %
-
-"行番号を指定してジャンプ
-"nnoremap {count}<Space> {count}G
 
 "---------------------------------------------------------------------------
 " NeoBundle の設定
@@ -309,11 +335,18 @@ if has('vim_starting')
 	endif
 
     "-------------------------
+    " for Git
+    "-------------------------
+    NeoBundle 'tpope/vim-fugitive'
+
+    "-------------------------
     " for PHP
     "-------------------------
-    NeoBundle 'violetyk/neocomplete-php.vim' " PHP入力補完に説明追加
-	NeoBundle 'joonty/vdebug'	    		 " xdebug クライアント	
-    NeoBundle 'PDV--phpDocumentor-for-Vim'   " Doc コメントを簡単に追加
+    NeoBundle 'violetyk/neocomplete-php.vim'        " PHP入力補完に説明追加
+	NeoBundle 'joonty/vdebug'	    		        " xdebug クライアント	
+    NeoBundle 'PDV--phpDocumentor-for-Vim'          " Doc コメントを簡単に追加
+    "NeoBundle 'm2mdas/phpcomplete-extended'        " PHP 入力補完
+	"NeoBundle 'm2mdas/phpcomplete-extended-laravel' "Laravel 入力補完
 
     "-------------------------
     " Utilities
@@ -328,8 +361,6 @@ if has('vim_starting')
 	"NeoBundle 'tpope/vim-markdown'          " Markdown 用
 	"NeoBundle 'tyru/open-browser.vim'       " ブラウザプレビュー
 
-    "NeoBundle 'm2mdas/phpcomplete-extended' " PHP 入力補完
-	"NeoBundle 'm2mdas/phpcomplete-extended-laravel' "Laravel 入力補完
 	"NeoBundle 'chriskempson/base16-vim'     " カラースキーマー
 	"NeoBundle 'jpalardy/vim-slime'
 	"NeoBundle 'scrooloose/syntastic'        " シンタックスチェック
