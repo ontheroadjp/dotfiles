@@ -258,9 +258,17 @@ docker がインストールされている場合、dopecker がインストー�
 
 ## 変更履歴
 
+### 1.3.0
+
+* [Update] peco のバージョン変更
+
+### 1.2.0
+
+* [New] ディレクトリを保存できる mm コマンド nn コマンドを追加
+
 ### 1.1.2
 
-* [Add] vagrant-completion の追加
+* [New] vagrant-completion の追加
 
 ### 1.1.1
 
@@ -268,10 +276,10 @@ docker がインストールされている場合、dopecker がインストー�
 
 ### 1.1.0
 
-* [Add] git-prompt の追加
-* [Add] git-completion の追加
-* [Add] vim で、``BS`` キーで改行を削除できるようにした
-* [Fix] 軽微な Bagfix
+* [New] git-prompt の追加
+* [New] git-completion の追加
+* [Modified] vim で、``BS`` キーで改行を削除できるようにした
+* [Fix] 軽微な Bugfix
 
 ###1.0.0
 
