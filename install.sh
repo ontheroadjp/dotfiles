@@ -109,46 +109,49 @@ fi
 #-------------------------------------------------
 # 共通
 #-------------------------------------------------
-source ~/.bash_profile >> /dev/null >&2>1
-echo 'load .bash_profile'
-
 # Install peco
 function _install_peco() {
-    if hash "peco"; then
-        echo -n 'peco Install...'
+    if ! hash "peco"; then
+        echo -n '>>> peco Install...'
         wget https://github.com/peco/peco/releases/download/v0.2.9/peco_linux_amd64.tar.gz
         tar xvzf peco_linux_amd64.tar.gz
         sudo cp peco_linux_amd64/peco /usr/local/bin
         sudo chmod 111 /usr/local/bin/peco
+        rm -rf peco_linux_amd64*
         echo "done."
     else
-        echo 'skip peco install'
+        echo '>>> skip peco install'
     fi
 }
 
 # Install NeoBundle for vim 
 function _install_neobundle() {
     if hash "git" && test ! -e ~/dotfiles/.vim/bundle/neobundle.vim; then
-        echo -n 'NeoBundle Install...'
+        echo -n '>>> NeoBundle Install...'
         git clone git://github.com/Shougo/neobundle.vim $HOME/.vim/bundle/neobundle.vim
         vim + ":NeoBundleInstall" +:q
         echo "done."
     else
-        echo 'skip NeoBundleInstall'
+        echo '>>> skip NeoBundleInstall'
     fi
 }
 
 # Install dopecker(https://github.com/ontheroadjp/dopecker.git)
 function _install_dopecker() {
-    if hash docker && hash git && [ ! -d ~/dotfiles/dopecker ]; then
-        echo -n 'dopecker Install...'
+    if hash git && [ ! -d ~/dotfiles/dopecker ]; then
+        echo -n '>>> dopecker Install...'
         git clone https://github.com/ontheroadjp/dopecker.git ~/dotfiles/dopecker
         echo "done."
     else
-        echo 'skip dopecker ienstall'
+        echo '>>> skip dopecker ienstall'
     fi
 }
 
+
+_install_peco
+_install_dopecker
+echo '>>> load .bash_profile'
+source ~/.bash_profile >> /dev/null >&2>1
 echo 'Complete!'
 
 exit 0
