@@ -10,7 +10,6 @@ function _is_executable() {
     hash $@ > /dev/null 2>&1
 }
 
-
 #-------------------------------------------------
 # Mac 固有の設定
 #-------------------------------------------------
@@ -326,13 +325,24 @@ if _is_executable vagrant; then
 fi
 
 #-------------------------------------------------
+# エイリアス: for dstat
+#-------------------------------------------------
+
+alias dfull='dstat -Tclmdrn'
+alias dmem='dstat -Tclm'
+alias dcpu='dstat -Tclr'
+alias dnet='dstat -Tclnd'
+alias ddisk='dstat -Tcldr'
+alias dplugins='la /usr/share/dstat/*.py'
+
+#-------------------------------------------------
 # Functions for Docker ( Dopecker )
 # see https://github.com/ontheroadjp/dopecker.git
 #-------------------------------------------------
-if _is_executable docker; then
-    if _is_executable git && [ ! -d ~/dotfiles/dopecker ]; then
-        git clone https://github.com/ontheroadjp/dopecker.git ~/dotfiles/dopecker
-    fi
+if _is_executable docker && _is_executable git; then
+    #if [ ! -d ~/dotfiles/dopecker ]; then
+    #    git clone https://github.com/ontheroadjp/dopecker.git ~/dotfiles/dopecker
+    #fi
     if [ -f ~/dotfiles/dopecker/dopecker ]; then
         source ~/dotfiles/dopecker/dopecker
         echo "Load Docker settings."
@@ -342,10 +352,13 @@ fi
 #-------------------------------------------------
 # golang
 #-------------------------------------------------
-mkdir -p $GOPATH
-export GOPATH="$HOME/.go"
-export GOBIN="$GOPATH/bin"
-export PATH="$PATH:$GOPATH/bin"
+if env | grep GOPATH > /dev/null 2>&1; then
+    mkdir -p $GOPATH
+    export GOPATH="$HOME/.go"
+    export GOBIN="$GOPATH/bin"
+    export PATH="$PATH:$GOPATH/bin"
+    echo "Load golang settings."
+fi
 
 
 #-------------------------------------------------
@@ -414,6 +427,22 @@ function bk() {
 ##-------------------------------------------------
 ## Functions for peco
 ##-------------------------------------------------
+
+
+# http://qiita.com/uchiko/items/f6b1528d7362c9310da0
+
+peco_history() {
+    declare l=$(HISTTIMEFORMAT= history | sort -k1,1nr | perl -ne 'BEGIN { my @lines = (); } s/^\s*\d+\s*//; $in=$_; if (!(grep {$in eq $_} @lines)) { push(@lines, $in); print $in; }' | peco --query "$READLINE_LINE")
+    READLINE_LINE="$l"
+    READLINE_POINT=${#l}
+    # for OSX
+    if [ `uname` = "Darwin" ]; then
+        ${READLINE_LINE}
+    fi
+    echo ${l}
+}
+alias hh="peco_history"
+
 #if _is_executable peco; then
 #    # dirs 拡張( for peco )
 #    function exdirs-peco() {
@@ -433,7 +462,7 @@ function bk() {
 #fi
 
 export TOYBOX_HOME=/home/nobita/workspace/docker-toybox
-export PATH=$PATH:$TOYBOX_HOME/bin
+export PATH=$TOYBOX_HOME/bin:$PATH
 if [ -f $TOYBOX_HOME/bin/complition.sh ]; then
     source $TOYBOX_HOME/bin/complition.sh
 fi
