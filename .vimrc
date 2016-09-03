@@ -198,10 +198,10 @@ nnoremap gP P
 "-------------------------
 
 " ウインドウの縦分割
-nnoremap ,w :<C-u>sp<CR>
+nnoremap ww :<C-u>sp<CR>
 
 " ウインドウの水平分割
-nnoremap ,v :<C-u>vs<CR>
+nnoremap wv :<C-u>vs<CR>
 
 " 左のウインドウへ移動
 nnoremap wh <C-w>h
