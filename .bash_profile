@@ -11,22 +11,24 @@ function _is_executable() {
 }
 
 #-------------------------------------------------
-# Mac 固有の設定
+# For MacOSX only
 #-------------------------------------------------
 if [ "$(uname)" == 'Darwin' ]; then 
 
-    # 環境変数
+    # Homebrew
 	export PATH="/usr/local/bin:$PATH"
+    export PATH="/usr/local/sbin:$PATH"
+    alias brew="env PATH=${PATH/\/Users\/$(whoami)\/\.rbenv\/shims:?/} brew"
 
     # Ruby
     #RBENV_ROOT="$HOME/.rbenv"
     #export PATH="$RBENV_ROOT/bin:$PATH"
     #eval "$(rbenv init -)"
 
-	# 現在のディレクトリをファインダーで開く
+	# opening the current directory of the Terminal.app in the Finder.app
 	alias finder='open .'
  
-	# 現在のファインダーをTerminal.appで開く
+	# opening the current directory of the Finder.app in the Terminal.app
 	function terminal(){
 		target=`osascript -e 'tell application "Finder" to if(count of Finder windows) > 0 then get POSIX path of(target of front Finder window as text)'`
 		if [ "$target" != "" ]
@@ -50,12 +52,12 @@ if [ "$(uname)" == 'Darwin' ]; then
     # Cot Editor
     alias cot='open -a "/Applications/CotEditor.app"'
 
-	# vi, vim をMacVim へ変更
+	# changing vi and vim to MacVim
 	#alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 	#alias vim='env_LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 	alias mvim='env_LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 	
-	# エイリアス（移動:Mac）
+    # alias(directory change:Mac)
 	alias cdh='cdla ${HOME}'
 	alias cdd='cdla ${HOME}/Desktop'
 	alias cddoc='cdla ${HOME}/Documents'
@@ -68,21 +70,15 @@ if [ "$(uname)" == 'Darwin' ]; then
 	alias cdmemo='cdla ${HOME}/Dropbox/アプリ/PlainText\ 2/INBOX'
 	alias cdv='cdla ${HOME}/Vagrant'
 
-	# エイリアス（for ctag）
-	# 標準の BSD版から brew でインストールした ctag を使う
+	# alias（for ctag）
+	# changing the BSD version to the version installed by Homebrew
 	alias ctags="`brew --prefix`/bin/ctags"
 
 	# MacPorts Installer addition on 2015-10-09_at_13:13:23: adding an appropriate PATH variable for use with MacPorts.
 	export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 	# Finished adapting your PATH environment variable for use with MacPorts.
 
-	#-------------------------------------------------
-	# tmux の設定
-	# 参考：http://qiita.com/b4b4r07/items/01359e8a3066d1c37edc
-	# 参考：https://github.com/b4b4r07/dotfiles
-	#-------------------------------------------------
-
-	tmux a -d
+	#tmux a -d
 
 #if [ -z $TMUX ]; then
 #	if $(tmux has-session); then
@@ -93,9 +89,9 @@ if [ "$(uname)" == 'Darwin' ]; then
 #fi
 						  
 	#-------------------------------------------------
-	# tmux の設定
-	# 参考：http://qiita.com/b4b4r07/items/01359e8a3066d1c37edc
-	# 参考：https://github.com/b4b4r07/dotfiles
+	# tmux settings
+	# see：http://qiita.com/b4b4r07/items/01359e8a3066d1c37edc
+	# see：https://github.com/b4b4r07/dotfiles
 	#-------------------------------------------------
 
 	function is_exists() { type "$1" >/dev/null 2>&1; return $?; }
@@ -162,7 +158,7 @@ if [ "$(uname)" == 'Darwin' ]; then
 	
 	#---------------- end of tmux ------------------
 	
-	# notifyd プロセス削除
+	# kill notifyd process
 	function kill-notifyd-process() {
 		process=`ps ax | egrep "[0-9] /usr/sbin/notifyd" | awk '{print $1}'`
 		sudo kill -9 ${process}
@@ -171,7 +167,6 @@ if [ "$(uname)" == 'Darwin' ]; then
 	#-------------------------------------------------
 	# Projects
 	#-------------------------------------------------
-
 	export PROJECT_ROOT=${HOME}/Desktop/test/
 	alias cdp='cdla ${PROJECT_ROOT}NutsPages/'
 	alias cdv='cdla ${PROJECT_ROOT}NutsPages/vendor/ontheroadjp/'
@@ -179,39 +174,61 @@ if [ "$(uname)" == 'Darwin' ]; then
 	#-------------------------------------------------
 	# Laravel
 	#-------------------------------------------------
-
 	alias pub='php artisan vendor:publish --force'
 	alias sv='php artisan serve'
 	alias rl='php artisan route:list'
 	alias t='vendor/bin/phpunit --colors'
 	
 #-------------------------------------------------
-# Linux 固有の設定
+# For Linux only
 #-------------------------------------------------
 elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
 	echo 'Wellcome to Linux!'	
 
 #-------------------------------------------------
-# Windows(Cygwin) 固有の設定
+# For Windows(Cygwin) only
 #-------------------------------------------------
 elif [ "$(expr substr $(uname -s) 1 10)" == 'MINGW32_NT' ]; then
 	echo 'Wellcome to Cygwin!'
 else
+
 #-------------------------------------------------
-# その他 OS
+# For other OS only
 #-------------------------------------------------
 	echo "Your platform ($(uname -a)) is not supported."
 	exit 1
 fi
 
 #-------------------------------------------------
-# OS 共通設定
+# OS common settings
 #-------------------------------------------------
 
 alias cdh='cdla ${HOME}'
 alias c='clear && la'
 alias e='exit'
 
+if [ -f ${HOME}/dotfiles/peco/peco ]; then
+    export PATH=${PATH}:${HOME}/dotfiles/peco
+fi
+
+#-------------------------------------------------
+# Changing directory(Common)
+#-------------------------------------------------
+alias la='ls -laG'
+alias laa='la | peco'
+
+# la after cd
+cdla() {
+	pushd "$@" && la
+}
+alias cd='cdla'
+
+# back to the previous location
+alias p='popd && la'
+
+#-------------------------------------------------
+# Changing directory(Mark)
+#-------------------------------------------------
 movedir="$HOME/dotfiles/.movedir"
 mkdir -p ${movedir}
 function mm() {
@@ -228,7 +245,6 @@ function m() {
         echo "not set."
     fi
 }
-
 function nn() {
     if [ $# -eq 0 ]; then
         pwd | tee ${movedir}/nn.txt
@@ -245,22 +261,7 @@ function n() {
 }
 
 #-------------------------------------------------
-# エイリアス: 移動用
-#-------------------------------------------------
-alias la='ls -laG'
-alias laa='la | peco'
-
-# cd した後に la する
-cdla() {
-	pushd "$@" && la
-}
-alias cd='cdla'
-
-# d でひとつ前の場所へ
-alias p='popd && la'
-
-#-------------------------------------------------
-# エイリアス: for vim
+# Vim
 #-------------------------------------------------
 if _is_executable vim; then
     alias vp='vim ~/.bash_profile'
@@ -271,7 +272,7 @@ if _is_executable vim; then
 fi
 
 #-------------------------------------------------
-# エイリアス: for Git
+# Git
 #-------------------------------------------------
 if _is_executable git; then
     alias gg='git graph'
@@ -292,13 +293,31 @@ if _is_executable git; then
         git reset "$@" && git status
     }
     
-    # Git プロジェクトルートへ移動 
+    # move project root dir of Git
     alias gitop='cd `git rev-parse --show-toplevel`'
     echo "Load Git settings."
 fi
 
 #-------------------------------------------------
-# エイリアス: for Vagrant
+# Docker
+#-------------------------------------------------
+if _is_executable docker; then
+    if [ -d ~/dotfiles/docker-dd ]; then
+        source ~/dotfiles/docker-dd/docker-dd-common.fnc
+        source ~/dotfiles/docker-dd/docker-dd-network.fnc
+        source ~/dotfiles/docker-dd/docker-dd-volume.fnc
+    fi
+
+    export TOYBOX_HOME=/home/nobita/workspace/docker-toybox
+    export PATH=${TOYBOX_HOME}/bin:${PATH}
+    if [ -f ${TOYBOX_HOME}/bin/complition.sh ]; then
+        source ${TOYBOX_HOME}/bin/complition.sh
+    fi
+    echo "Load Docker settings."
+fi
+
+#-------------------------------------------------
+# Vagrant
 #-------------------------------------------------
 if _is_executable vagrant; then
     alias v='vagrant ssh'
@@ -314,7 +333,7 @@ if _is_executable vagrant; then
     alias vbl='vagrant box list'
     alias vs='vagrant status'
 
-    # vagrant コマンド補完の有効化
+    # enable completion for the vagrant
     if [ -f `brew --prefix`/etc/bash_completion.d/vagrant ]; then
         source `brew --prefix`/etc/bash_completion.d/vagrant
     elif _is_executable brew; then
@@ -325,9 +344,8 @@ if _is_executable vagrant; then
 fi
 
 #-------------------------------------------------
-# エイリアス: for dstat
+# dstat
 #-------------------------------------------------
-
 alias dfull='dstat -Tclmdrn'
 alias dmem='dstat -Tclm'
 alias dcpu='dstat -Tclr'
@@ -336,36 +354,19 @@ alias ddisk='dstat -Tcldr'
 alias dplugins='la /usr/share/dstat/*.py'
 
 #-------------------------------------------------
-# Functions for Docker ( Dopecker )
-# see https://github.com/ontheroadjp/dopecker.git
-#-------------------------------------------------
-if _is_executable docker && _is_executable git; then
-    #if [ ! -d ~/dotfiles/dopecker ]; then
-    #    git clone https://github.com/ontheroadjp/dopecker.git ~/dotfiles/dopecker
-    #fi
-    if [ -f ~/dotfiles/dopecker/dopecker ]; then
-        source ~/dotfiles/dopecker/dopecker
-        echo "Load Docker settings."
-    fi
-fi
-
-#-------------------------------------------------
 # golang
 #-------------------------------------------------
 if env | grep GOPATH > /dev/null 2>&1; then
-    mkdir -p $GOPATH
-    export GOPATH="$HOME/.go"
-    export GOBIN="$GOPATH/bin"
-    export PATH="$PATH:$GOPATH/bin"
+    mkdir -p ${GOPATH}
+    export GOPATH="${HOME}/.go"}
+    export GOBIN="${GOPATH}/bin"
+    export PATH="${PATH}:${GOPATH}/bin"
     echo "Load golang settings."
 fi
-
 
 #-------------------------------------------------
 # Functions( beta )
 #-------------------------------------------------
-
-# dirs 拡張
 function exdirs() {
 	dirs -v | awk '!colname[$2]++{print $1,": ",$2,"(",$1,")"}'
 	echo -n "no?"
@@ -381,7 +382,7 @@ function exdirs() {
 }
 alias d='exdirs'
 
-# SSH 拡張
+# SSH extension
 function sshx() {
 	cat ~/.ssh/config | egrep "^Host " | awk '{print NR, $0}'
 	echo -n "no?"
@@ -397,7 +398,7 @@ function sshx() {
 	fi
 }
 
-# find 拡張
+# find extension
 function findx(){
 	find $1 -name "$2" | awk '{print NR, $0}'
 	echo -n 'no?'
@@ -413,7 +414,7 @@ function findx(){
 	fi
 }
 
-#ファイルのバックアップ
+# files/directories backup
 function bk() {
 	prefix=bk_$(date +%Y%m%d)_
 	if [ -f $@ ]; then
@@ -427,8 +428,6 @@ function bk() {
 ##-------------------------------------------------
 ## Functions for peco
 ##-------------------------------------------------
-
-
 # http://qiita.com/uchiko/items/f6b1528d7362c9310da0
 
 peco_history() {
@@ -442,28 +441,4 @@ peco_history() {
     echo ${l}
 }
 alias hh="peco_history"
-
-#if _is_executable peco; then
-#    # dirs 拡張( for peco )
-#    function exdirs-peco() {
-#    	path=$(dirs -v | awk '!colname[$2]++{print $0}' | peco | awk '{print $2}' | sed -e s:^~:${HOME}:)
-#    	#echo ${path}
-#    	cd ${path}
-#    }
-#    alias dd='exdirs-peco'
-#    
-#    # ps 拡張( for peco )
-#    function killl() {
-#    	process=`ps aux | peco | awk '{print $2}'`
-#        if [ ! -z "$id" ] ; then
-#    	    sudo kill -9 ${process}
-#        fi
-#    }
-#fi
-
-export TOYBOX_HOME=/home/nobita/workspace/docker-toybox
-export PATH=$TOYBOX_HOME/bin:$PATH
-if [ -f $TOYBOX_HOME/bin/complition.sh ]; then
-    source $TOYBOX_HOME/bin/complition.sh
-fi
 
