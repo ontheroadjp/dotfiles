@@ -12,9 +12,10 @@
 .vim/.netrwhist
 backup.sh
 
-bin/peco_linux_amd64.tar.gz
-bin/peco_linux_amd64/
-dopecker/
+docker-dd/
+peco/Changes
+peco/README.md
+peco/peco
 
 mm.txt
 nn.txt
