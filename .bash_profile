@@ -283,7 +283,8 @@ if _is_executable git; then
     alias gr='git_reset_status'
     alias gcom='git commit -v'
     alias gb='git branch'
-    alias gcheck='git checkout'
+    alias gc='git checkout'
+    alias gm='git merge --no-ff'
     
     function git_add_status() {
         git add "$@" && git status
