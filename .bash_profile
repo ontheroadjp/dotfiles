@@ -214,7 +214,7 @@ fi
 #-------------------------------------------------
 # Changing directory(Common)
 #-------------------------------------------------
-alias la='ls -laG'
+alias la='ls -la'
 alias laa='la | peco'
 
 # la after cd
