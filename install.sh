@@ -1,38 +1,6 @@
 #! /bin/bash 
 
-DOTPATH=~/dotfiles
-
-## -----------------------------------
-## dotfiles の取得
-## -----------------------------------
-## git が使えるなら git
-#if hash "git"; then
-#    git clone --recursive "$GITHUB_URL" "$DOTPATH"
-#
-## 使えない場合は curl か wget を使用する
-#elif has "curl" || has "wget"; then
-#    tarball="https://github.com/b4b4r07/dotfiles/archive/master.tar.gz"
-#    
-#    # どっちかでダウンロードして，tar に流す
-#    if has "curl"; then
-#        curl -L "$tarball"
-#
-#    elif has "wget"; then
-#        wget -O - "$tarball"
-#
-#    fi | tar xv -
-#    
-#    # 解凍したら，DOTPATH に置く
-#    mv -f dotfiles-master "$DOTPATH"
-#
-#else
-#    die "curl or wget required"
-#fi
-#
-#cd ~/dotfiles
-#if [ $? -ne 0 ]; then
-#    die "not found: $DOTPATH"
-#fi
+DOTPATH=${HOME}/dotfiles
 
 function _deploy_dotfiles() {
     #-------------------------------------------------
@@ -55,11 +23,11 @@ function _deploy_dotfiles() {
     	done
     
     	## gvim(MacVim)
-    	#ln -sf ~/dotfiles/.gvimrc ~/.gvimrc
+    	#ln -sf ${DOTPATH}/.gvimrc ~/.gvimrc
     	#ln -sf /usr/share/vim/vim73/colors/desert.vim ~/.vim/colors/
     
     	# Karabiner
-    	ln -sf ~/dotfiles/karabiner/private.xml ~/Library/Application\ Support/Karabiner/private.xml > /dev/null
+    	ln -sf ${DOTPATH}/karabiner/private.xml ~/Library/Application\ Support/Karabiner/private.xml > /dev/null
     	echo "success: Karabiner - private.xml"
     
     #-------------------------------------------------
@@ -96,11 +64,11 @@ function _deploy_dotfiles() {
 }
 
 #-------------------------------------------------
-# Vim
+# Vim(NeoBundle)
 #-------------------------------------------------
 function _install_neobundle() {
     printf ">>> install NeoBundle for vim..."
-    if hash "git" && test ! -e ~/dotfiles/.vim/bundle/neobundle.vim; then
+    if which "git" && test ! -e ${DOTPATH}/.vim/bundle/neobundle.vim; then
         git clone git://github.com/Shougo/neobundle.vim $HOME/.vim/bundle/neobundle.vim
         vim + ":NeoBundleInstall" +:q
         echo "done."
@@ -114,7 +82,7 @@ function _install_neobundle() {
 #-------------------------------------------------
 function _install_peco() {
     printf ">>> install peco..."
-    if ! hash "peco"; then
+    if ! which "peco"; then
         if [ "$(uname)" == 'Darwin' ]; then 
             wget https://github.com/peco/peco/releases/download/v0.4.3/peco_darwin_386.zip -P ${DOTPATH} > /dev/null 2>&1
             tar xzf peco_darwin_386.zip -C peco --strip-components 1
@@ -124,7 +92,7 @@ function _install_peco() {
             tar xzf peco_linux_amd64.tar.gz -C peco --strip-components 1
             rm ${DOTPATH}/peco_linux_amd64.tar.gz
         fi
-        mkdir -p ${HOME}/.peco && ln -sf ~/dotfiles/peco/config.json ~/.peco/config.json
+        mkdir -p ${HOME}/.peco && ln -sf ${DOYPATH}/peco/config.json ~/.peco/config.json
 	    echo "done"
     else
         echo "skip"
@@ -135,11 +103,14 @@ function _install_peco() {
 # Docker
 #-------------------------------------------------
 function _install_docker_dd() {
+    if ! which peco; then
+        _install_peco
+    fi
+
     printf ">>> install docker-dd..."
-    if hash git && [ ! -d ~/dotfiles/docker-dd ]; then
+    if which git && [ ! -d ${DOTPATH}/docker-dd ]; then
         echo -n '>>> docker-dd Install...'
         git clone https://github.com/nutsllc/docker-dd.git
-        #git clone https://github.com/ontheroadjp/dopecker.git ~/dotfiles/dopecker
         echo "done"
     else
         echo 'skip'
@@ -147,7 +118,7 @@ function _install_docker_dd() {
 }
 
 _deploy_dotfiles
-#_install_neobundle
+_install_neobundle
 _install_peco
 _install_docker_dd
 
