@@ -16,9 +16,22 @@ function _is_executable() {
 if [ "$(uname)" == 'Darwin' ]; then 
 
     # Homebrew
+    if ! which brew; then
+        /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    fi
 	export PATH="/usr/local/bin:$PATH"
     export PATH="/usr/local/sbin:$PATH"
     alias brew="env PATH=${PATH/\/Users\/$(whoami)\/\.rbenv\/shims:?/} brew"
+
+    # go & ghq
+    [ ! $(which go) ] && brew install go
+    [ ! $(which ghq) ] && brew tap motemen/ghq && brew install ghq
+    export GOPATH="${HOME}/dev"}
+    #export GOBIN="${GOPATH}/bin"
+    export PATH="${PATH}:${GOPATH}/bin"
+    mkdir -p ${GOPATH}
+    alias rr='cd $(ghq list -p | peco)'
+
 
     # Ruby
     #RBENV_ROOT="$HOME/.rbenv"
@@ -78,15 +91,15 @@ if [ "$(uname)" == 'Darwin' ]; then
 	export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 	# Finished adapting your PATH environment variable for use with MacPorts.
 
-	#tmux a -d
+	tmux a -d
 
-#if [ -z $TMUX ]; then
-#	if $(tmux has-session); then
-#		tmux attach
-#	else
-#		tmux
-#	fi
-#fi
+if [ -z $TMUX ]; then
+	if $(tmux has-session); then
+		tmux attach
+	else
+		tmux
+	fi
+fi
 						  
 	#-------------------------------------------------
 	# tmux settings
@@ -214,17 +227,28 @@ fi
 #-------------------------------------------------
 # Changing directory(Common)
 #-------------------------------------------------
-alias la='ls -la'
-alias laa='la | peco'
+alias la='ls -laG'
+alias dev='cd ~/dev'
 
 # la after cd
 cdla() {
-	pushd "$@" && la
+    if [ $# -eq 0 ]; then
+        place=${HOME}
+    else
+        place=$@
+    fi
+	clear && pushd "${place}" && la
 }
 alias cd='cdla'
 
 # back to the previous location
 alias p='popd && la'
+
+alias .="pwd"
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
 
 #-------------------------------------------------
 # Changing directory(Mark)
@@ -355,22 +379,11 @@ alias ddisk='dstat -Tcldr'
 alias dplugins='la /usr/share/dstat/*.py'
 
 #-------------------------------------------------
-# golang
-#-------------------------------------------------
-if env | grep GOPATH > /dev/null 2>&1; then
-    mkdir -p ${GOPATH}
-    export GOPATH="${HOME}/.go"}
-    export GOBIN="${GOPATH}/bin"
-    export PATH="${PATH}:${GOPATH}/bin"
-    echo "Load golang settings."
-fi
-
-#-------------------------------------------------
 # Functions( beta )
 #-------------------------------------------------
 function exdirs() {
 	dirs -v | awk '!colname[$2]++{print $1,": ",$2,"(",$1,")"}'
-	echo -n "no?"
+	echo -n "no? "
 	read no
 	
 	line=`dirs -v | awk '!colname[$2]++{print $0}' |  egrep "^ *${no}  "`
@@ -442,4 +455,7 @@ peco_history() {
     echo ${l}
 }
 alias hh="peco_history"
+
+export TOYBOX_HOME=${HOME}/Vagrant/toybox
+export PATH=$PATH:${TOYBOX_HOME}
 
