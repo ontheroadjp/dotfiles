@@ -18,4 +18,5 @@
 	email = dev@ontheroad.jp
 [color]
     ui = true
-
+[ghq]
+    root = ~/dev/src
