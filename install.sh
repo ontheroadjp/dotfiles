@@ -68,10 +68,14 @@ function _deploy_dotfiles() {
 #-------------------------------------------------
 function _install_neobundle() {
     printf ">>> install NeoBundle for vim..."
-    if which "git" && test ! -e ${DOTPATH}/.vim/bundle/neobundle.vim; then
-        git clone git://github.com/Shougo/neobundle.vim $HOME/.vim/bundle/neobundle.vim
-        vim + ":NeoBundleInstall" +:q
-        echo "done."
+    if which vim; then
+        if which "git" && test ! -e ${DOTPATH}/.vim/bundle/neobundle.vim; then
+            git clone git://github.com/Shougo/neobundle.vim $HOME/.vim/bundle/neobundle.vim
+            vim + ":NeoBundleInstall" +:q
+            echo "done."
+        else
+            echo "skip"
+        fi
     else
         echo "skip"
     fi
