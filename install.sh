@@ -77,7 +77,7 @@ function _install_neobundle() {
             echo "skip"
         fi
     else
-        echo "skip"
+        echo "skip - vim is not installed."
     fi
 }
 
@@ -89,21 +89,21 @@ function _install_peco() {
     if which wget; then
         if ! which "peco"; then
             if [ "$(uname)" == 'Darwin' ]; then 
-                wget https://github.com/peco/peco/releases/download/v0.4.3/peco_darwin_386.zip -P ${DOTPATH} > /dev/null 2>&1
+                wget https://github.com/peco/peco/releases/download/v0.4.3/peco_darwin_386.zip -P ${DOTPATH}
                 tar xzf peco_darwin_386.zip -C peco --strip-components 1
                 rm ${DOTPATH}/peco_darwin_386.zip
             elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
-                wget https://github.com/peco/peco/releases/download/v0.2.9/peco_linux_amd64.tar.gz -P ~/dotfiles > /dev/null 2>&1
+                wget https://github.com/peco/peco/releases/download/v0.2.9/peco_linux_amd64.tar.gz -P ~/dotfiles
                 tar xzf peco_linux_amd64.tar.gz -C peco --strip-components 1
                 rm ${DOTPATH}/peco_linux_amd64.tar.gz
             fi
             mkdir -p ${HOME}/.peco && ln -sf ${DOYPATH}/peco/config.json ~/.peco/config.json
 	        echo "done"
         else
-            echo "skip"
+            echo "skip: already installed."
         fi
     else
-        echo "you need wget first.
+        echo "skip: you need to install wget first."
     fi
 }
 
@@ -125,13 +125,13 @@ function _install_docker_dd() {
             echo 'skip'
         fi
     else
-        echo 'already installed.'
+        echo 'skip: already installed.'
     fi
 }
 
 [ ! -d ~/.dotfiles ] && {
     if ! which git; then
-        echo "you need to install git"; exit 2
+        echo "you need to install git first."; exit 2
     fi
     git clone https://github.com/ontheroadjp/dotfiles.git ~/dotfiles
 }
