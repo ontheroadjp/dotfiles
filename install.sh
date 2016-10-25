@@ -71,8 +71,7 @@ function _install_neobundle() {
     if which vim > /dev/null 2>&1; then
         if which "git" && [ ! -e ${DOTPATH}/.vim/bundle/neobundle.vim ]; then
             git clone git://github.com/Shougo/neobundle.vim $HOME/.vim/bundle/neobundle.vim
-            vim + ":NeoBundleInstall" +:q
-            echo "done."
+            vim +:NeoBundleInstall +:q & && echo "done."
         else
             echo "skip"
         fi
