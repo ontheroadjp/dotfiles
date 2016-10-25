@@ -148,9 +148,8 @@ _install_neobundle
 _install_peco
 _install_docker_dd
 
-printf ">>> install docker-dd..."
+echo ">>> load .bash_profile"
 exec ${SHELL} -l
-echo "done"
 
 echo "Complete!"
 
