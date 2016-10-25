@@ -71,7 +71,8 @@ function _install_neobundle() {
     if which vim > /dev/null 2>&1; then
         if which "git" && [ ! -e ${DOTPATH}/.vim/bundle/neobundle.vim ]; then
             git clone git://github.com/Shougo/neobundle.vim $HOME/.vim/bundle/neobundle.vim
-            vim +:NeoBundleInstall +:q & && echo "done."
+            vim +:NeoBundleInstall +:q & 
+            echo "done."
         else
             echo "skip"
         fi
@@ -128,12 +129,14 @@ function _install_docker_dd() {
     fi
 }
 
-[ ! -d ~/.dotfiles ] && {
+if [ ! -d ~/.dotfiles ]; then 
     if ! which git > /dev/null 2>&1; then
         echo "you need to install git first."; exit 2
     fi
     git clone https://github.com/ontheroadjp/dotfiles.git ~/dotfiles
-}
+else
+    cd ${DOTPATH} && git pull
+fi
 
 _deploy_dotfiles
 _install_neobundle
