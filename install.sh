@@ -86,20 +86,24 @@ function _install_neobundle() {
 #-------------------------------------------------
 function _install_peco() {
     printf ">>> install peco..."
-    if ! which "peco"; then
-        if [ "$(uname)" == 'Darwin' ]; then 
-            wget https://github.com/peco/peco/releases/download/v0.4.3/peco_darwin_386.zip -P ${DOTPATH} > /dev/null 2>&1
-            tar xzf peco_darwin_386.zip -C peco --strip-components 1
-            rm ${DOTPATH}/peco_darwin_386.zip
-        elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
-            wget https://github.com/peco/peco/releases/download/v0.2.9/peco_linux_amd64.tar.gz -P ~/dotfiles > /dev/null 2>&1
-            tar xzf peco_linux_amd64.tar.gz -C peco --strip-components 1
-            rm ${DOTPATH}/peco_linux_amd64.tar.gz
+    if which wget; then
+        if ! which "peco"; then
+            if [ "$(uname)" == 'Darwin' ]; then 
+                wget https://github.com/peco/peco/releases/download/v0.4.3/peco_darwin_386.zip -P ${DOTPATH} > /dev/null 2>&1
+                tar xzf peco_darwin_386.zip -C peco --strip-components 1
+                rm ${DOTPATH}/peco_darwin_386.zip
+            elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
+                wget https://github.com/peco/peco/releases/download/v0.2.9/peco_linux_amd64.tar.gz -P ~/dotfiles > /dev/null 2>&1
+                tar xzf peco_linux_amd64.tar.gz -C peco --strip-components 1
+                rm ${DOTPATH}/peco_linux_amd64.tar.gz
+            fi
+            mkdir -p ${HOME}/.peco && ln -sf ${DOYPATH}/peco/config.json ~/.peco/config.json
+	        echo "done"
+        else
+            echo "skip"
         fi
-        mkdir -p ${HOME}/.peco && ln -sf ${DOYPATH}/peco/config.json ~/.peco/config.json
-	    echo "done"
     else
-        echo "skip"
+        echo "you need wget first.
     fi
 }
 
@@ -112,12 +116,16 @@ function _install_docker_dd() {
     fi
 
     printf ">>> install docker-dd..."
-    if which git && [ ! -d ${DOTPATH}/docker-dd ]; then
-        echo -n '>>> docker-dd Install...'
-        git clone https://github.com/nutsllc/docker-dd.git
-        echo "done"
+    if [ -d "${DOTPATH}/docker-dd" ]; then
+        if which git && [ ! -d ${DOTPATH}/docker-dd ]; then
+            echo -n '>>> docker-dd Install...'
+            git clone https://github.com/nutsllc/docker-dd.git
+            echo "done"
+        else
+            echo 'skip'
+        fi
     else
-        echo 'skip'
+        echo 'already installed.'
     fi
 }
 
