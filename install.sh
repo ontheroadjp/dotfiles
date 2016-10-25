@@ -69,13 +69,14 @@ function _deploy_dotfiles() {
 function _install_neobundle() {
     printf ">>> install NeoBundle for vim..."
     if which vim > /dev/null 2>&1; then
-        if which "git" && [ ! -e ${DOTPATH}/.vim/bundle/neobundle.vim ]; then
+        if which "git" > /dev/null 2>&1 && [ ! -e ${DOTPATH}/.vim/bundle/neobundle.vim ]; then
             git clone git://github.com/Shougo/neobundle.vim $HOME/.vim/bundle/neobundle.vim
             #vim +:NeoBundleInstall +:q
+            # https://github.com/Shougo/neobundle.vim/blob/master/bin/neoinstall
             vim -u ~/.vimrc -i NONE -c "try | NeoBundleUpdate! | finally | q! | endtry" -e -s -V1
             echo "done."
         else
-            echo "skip"
+            echo "skip: already exist."
         fi
     else
         echo "skip - vim is not installed."
@@ -94,7 +95,7 @@ function _install_peco() {
                 tar xzf peco_darwin_386.zip -C peco --strip-components 1
                 rm ${DOTPATH}/peco_darwin_386.zip
             elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
-                wget https://github.com/peco/peco/releases/download/v0.2.9/peco_linux_amd64.tar.gz -P ~/dotfiles
+                wget https://github.com/peco/peco/releases/download/v0.2.9/peco_linux_amd64.tar.gz -P ${DOTPATH}
                 tar xzf peco_linux_amd64.tar.gz -C peco --strip-components 1
                 rm ${DOTPATH}/peco_linux_amd64.tar.gz
             fi
@@ -130,11 +131,13 @@ function _install_docker_dd() {
     fi
 }
 
+branch=${1:=master}
+
 if [ ! -d ~/.dotfiles ]; then 
     if ! which git > /dev/null 2>&1; then
         echo "you need to install git first."; exit 2
     fi
-    git clone https://github.com/ontheroadjp/dotfiles.git ~/dotfiles
+    git clone -b ${branch} https://github.com/ontheroadjp/dotfiles.git ~/dotfiles
 else
     cd ${DOTPATH} && git pull
 fi
@@ -144,7 +147,10 @@ _install_neobundle
 _install_peco
 _install_docker_dd
 
+printf ">>> install docker-dd..."
 exec ${SHELL} -l
+echo "done"
+
 echo "Complete!"
 
 exit 0
