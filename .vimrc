@@ -177,7 +177,7 @@ set autoindent
 set smartindent
 
 "-------------------------
-"ヤンク&ペースト
+" yank & paste
 "-------------------------
 
 "ペースト後にカーソルが下側に移動するように入れ替え
@@ -187,49 +187,49 @@ nnoremap gp p
 nnoremap gP P
 
 "-------------------------
-" 自動的に閉じ括弧を入力
+" automatic adding quote
 "-------------------------
 "imap { {}<LEFT>
 "imap [ []<LEFT>
 "imap ( ()<LEFT>
 
 "-------------------------
-" ウインドウ関連
+" window
 "-------------------------
 
-" ウインドウの縦分割
+" virtical split
 nnoremap ww :<C-u>sp<CR>
 
-" ウインドウの水平分割
+" horizon split
 nnoremap wv :<C-u>vs<CR>
 
-" 左のウインドウへ移動
+" move to left window
 nnoremap wh <C-w>h
 
-" 下のウインドウへ移動
+" move to bottom window
 nnoremap wj <C-w>j
 
-" 上のウインドウへ移動
+" move to above window
 nnoremap wk <C-w>k
 
-" 右のウインドウへ移動
+" move to right window
 nnoremap wl <C-w>l
 
-" ウインドウ間の移動（Karabiner でさらに再設定）
+" move between window
 nnoremap <c-w> <c-w><c-w>
 
 "-------------------------
-" 移動関連
+" change directory
 "-------------------------
 
-" モーション移動のコマンド ` を <Space> で置き換え
+" motion prefix ` to <space>
 nnoremap <Space> `
 "nnoremap <Space><Space> ``
 
-" ジャンプリスト（戻る）
+" Jump list (reverse)
 nnoremap <Space>o <c-o>zz
 
-" ジャンプリスト（進む）
+" Jump list (forwaord)
 nnoremap <Space>i <c-i>zz
 
 "定義元へのジャンプ
@@ -247,7 +247,7 @@ nnoremap <Space>l $
 vnoremap <Space>h ^
 vnoremap <Space>l $
 
-" 行移動
+" Line move
 nnoremap k gk
 nnoremap j gj
 vnoremap k gk
@@ -257,11 +257,11 @@ nnoremap gj j
 vnoremap gk k
 vnoremap gj j
 
-"f 移動の後戻る
+" Returning after moving by f
 nnoremap <Space>; ,
 
 "-------------------------
-" キーバインド key bindings
+" key bindings
 "-------------------------
 
 "空行の挿入
@@ -319,7 +319,6 @@ if has('vim_starting')
     " for Development
     "-------------------------
 	NeoBundle 'thinca/vim-quickrun'	    	" コード片の実行
-	NeoBundle 'tpope/vim-fugitive'	    	" git コマンド使えるようにする
     NeoBundle 'Shougo/neosnippet'           " スニペット
 	NeoBundle 'Shougo/neosnippet-snippets'  " 基本スニペット集
 	if has('lua')					    	" 入力補完
@@ -371,18 +370,6 @@ endif
 filetype plugin indent on
 filetype indent on
 syntax on
-
-"---------------------------------------------------------------------------
-" Tagbar の設定
-" http://rcmdnk.github.io/blog/2014/07/25/computer-vim/#tagbar-srcexpl-nerdtree
-"---------------------------------------------------------------------------
-if ! empty(neobundle#get("tagbar"))
-	" Width (default 40)
-	let g:tagbar_width = 30
-	" Map for toggle
-	"nn <silent> <leader>t :TagbarToggle<CR>
-    nn <silent> ,t :TagbarToggle<CR>
-endif
 
 "---------------------------------------------------------------------------
 " Sorce Explorer の設定
@@ -592,6 +579,69 @@ endif
 "endif
 
 "---------------------------------------------------------------------------
+" Unit.vimの設定
+" http://blog.remora.cx/2010/12/vim-ref-with-unite.html
+"---------------------------------------------------------------------------
+"if ! empty(neobundle#get("unite"))
+
+    " 入力モードで開始する
+    let g:unite_enable_start_insert=1
+    
+    " 大文字小文字を区別しない
+    let g:unite_enable_ignore_case = 1
+    let g:unite_enable_smart_case = 1
+    
+    " ESCキーを2回押すと終了する
+    au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
+    au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
+    
+    au FileType unite nnoremap <silent> <buffer> ff :q<CR>
+    au FileType unite inoremap <silent> <buffer> ff <ESC>:q<CR>
+    
+    " , キーを2回押すと終了する
+    au FileType unite nnoremap <silent> <buffer> ,, :q<CR>
+    au FileType unite inoremap <silent> <buffer> ,, <ESC>:q<CR>
+    
+    " ウィンドウを分割して開く
+    au FileType unite nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
+    au FileType unite inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
+    
+    " ウィンドウを縦に分割して開く
+    au FileType unite nnoremap <silent> <buffer> <expr> <C-v> unite#do_action('vsplit')
+    au FileType unite inoremap <silent> <buffer> <expr> <C-v> unite#do_action('vsplit')
+    
+    " ----------------------------
+    "" unite.vim {{{
+    " The prefix key.
+    nnoremap    [unite]   <Nop>
+    "nmap    <Leader>f [unite]
+    nmap    ,f [unite]
+    
+    " unite.vim keymap
+    nnoremap [unite]u  :<C-u>Unite -no-split<Space>
+    nnoremap <silent> [unite]f :<C-u>Unite<Space>file_rec<CR>
+    nnoremap <silent> [unite]c :<C-u>Unite<Space>file<CR>
+    nnoremap <silent> [unite]g :<C-u>Unite<Space>grep<CR>
+    nnoremap <silent> [unite]b :<C-u>Unite<Space>buffer<CR>
+    nnoremap <silent> [unite]m :<C-u>Unite<Space>bookmark<CR>
+    nnoremap <silent> [unite]a :<C-u>UniteBookmarkAdd<CR>
+    nnoremap <silent> [unite]r :<C-u>Unite<Space>file_mru<CR>
+    nnoremap <silent> [unite]p :<C-u>Unite<Space>file_point<CR>
+    nnoremap <silent> [unite]y :<C-u>Unite<Space>register<CR>
+    nnoremap <silent> [unite]h :<C-u>Unite<Space>history/yank<CR>
+    nnoremap <silent> [unite]d :<C-u>Unite<Space>directory/new<CR>
+    nnoremap <silent> [unite]n :<C-u>Unite<Space>file/new<CR>
+    nnoremap <silent> [unite]t :<C-u>Unite<Space>outline<CR>
+    nnoremap <silent> [unite]v :<C-u>UniteWithBufferDir file<CR>
+    nnoremap <silent> ,, :UniteResume<CR>
+    "" }}}
+
+    nmap <C-r> ,fr
+    nmap <C-f> ,ff
+
+"endif
+
+"---------------------------------------------------------------------------
 " NERDTree の設定
 " https://github.com/oouchida/vimrc/blob/master/vim_conf/nerd_tree.vim
 "---------------------------------------------------------------------------
@@ -698,67 +748,16 @@ if ! empty(neobundle#get("nerdtree"))
 endif
 
 "---------------------------------------------------------------------------
-" Unit.vimの設定
-" http://blog.remora.cx/2010/12/vim-ref-with-unite.html
+" Tagbar の設定
+" http://rcmdnk.github.io/blog/2014/07/25/computer-vim/#tagbar-srcexpl-nerdtree
 "---------------------------------------------------------------------------
-"if ! empty(neobundle#get("unite"))
-
-    " 入力モードで開始する
-    let g:unite_enable_start_insert=1
-    
-    " 大文字小文字を区別しない
-    let g:unite_enable_ignore_case = 1
-    let g:unite_enable_smart_case = 1
-    
-    " ESCキーを2回押すと終了する
-    au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
-    au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
-    
-    au FileType unite nnoremap <silent> <buffer> ff :q<CR>
-    au FileType unite inoremap <silent> <buffer> ff <ESC>:q<CR>
-    
-    " , キーを2回押すと終了する
-    au FileType unite nnoremap <silent> <buffer> ,, :q<CR>
-    au FileType unite inoremap <silent> <buffer> ,, <ESC>:q<CR>
-    
-    " ウィンドウを分割して開く
-    au FileType unite nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
-    au FileType unite inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
-    
-    " ウィンドウを縦に分割して開く
-    au FileType unite nnoremap <silent> <buffer> <expr> <C-v> unite#do_action('vsplit')
-    au FileType unite inoremap <silent> <buffer> <expr> <C-v> unite#do_action('vsplit')
-    
-    " ----------------------------
-    "" unite.vim {{{
-    " The prefix key.
-    nnoremap    [unite]   <Nop>
-    "nmap    <Leader>f [unite]
-    nmap    ,f [unite]
-    
-    " unite.vim keymap
-    nnoremap [unite]u  :<C-u>Unite -no-split<Space>
-    nnoremap <silent> [unite]f :<C-u>Unite<Space>file_rec<CR>
-    nnoremap <silent> [unite]c :<C-u>Unite<Space>file<CR>
-    nnoremap <silent> [unite]g :<C-u>Unite<Space>grep<CR>
-    nnoremap <silent> [unite]b :<C-u>Unite<Space>buffer<CR>
-    nnoremap <silent> [unite]m :<C-u>Unite<Space>bookmark<CR>
-    nnoremap <silent> [unite]a :<C-u>UniteBookmarkAdd<CR>
-    nnoremap <silent> [unite]r :<C-u>Unite<Space>file_mru<CR>
-    nnoremap <silent> [unite]p :<C-u>Unite<Space>file_point<CR>
-    nnoremap <silent> [unite]y :<C-u>Unite<Space>register<CR>
-    nnoremap <silent> [unite]h :<C-u>Unite<Space>history/yank<CR>
-    nnoremap <silent> [unite]d :<C-u>Unite<Space>directory/new<CR>
-    nnoremap <silent> [unite]n :<C-u>Unite<Space>file/new<CR>
-    nnoremap <silent> [unite]t :<C-u>Unite<Space>outline<CR>
-    nnoremap <silent> [unite]v :<C-u>UniteWithBufferDir file<CR>
-    nnoremap <silent> ,, :UniteResume<CR>
-    "" }}}
-
-    nmap <C-r> ,fr
-    nmap <C-f> ,ff
-
-"endif
+if ! empty(neobundle#get("tagbar"))
+	" Width (default 40)
+	let g:tagbar_width = 30
+	" Map for toggle
+	"nn <silent> <leader>t :TagbarToggle<CR>
+    nn <silent> ,t :TagbarToggle<CR>
+endif
 
 "---------------------------------------------------------------------------
 " rking/ag(grep → ag) の設定
@@ -889,13 +888,13 @@ let g:quickrun_config['markdown'] = {
 "---------------------------------------------------------------------------
 " man の設定
 "---------------------------------------------------------------------------
-cnoremap man Ref man<Space>
+cnoremap man man<Space>
 
 "---------------------------------------------------------------------------
 " PHP Manual の設定
 "---------------------------------------------------------------------------
 let g:ref_phpmanual_path = '/Users/hideaki/.vim/vim-ref/php-chunked-xhtml'
-cnoremap phpm Ref phpmanual<Space>
+cnoremap phpm phpmanual<Space>
 
 
 "---------------------------------------------------------------------------
@@ -912,7 +911,7 @@ function! g:ref_source_webdict_sites.alc.filter(output)
 	return join(split(a:output, "\n")[29 :], "\n")
 endfunction
 
-cnoremap dic Ref webdict alc<Space>
+cnoremap dic webdict alc<Space>
 
 
 "---------------------------------------------------------------------------
@@ -929,5 +928,4 @@ cnoremap dic Ref webdict alc<Space>
 
 " filetypeの自動検出(最後の方に書いた方がいいらしい)
 filetype on
-
 
