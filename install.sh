@@ -132,6 +132,7 @@ function _install_docker_dd() {
 }
 
 branch=${1:=master}
+branch=dev
 
 if [ ! -d ~/.dotfiles ]; then 
     if ! which git > /dev/null 2>&1; then
