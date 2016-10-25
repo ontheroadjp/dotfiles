@@ -121,7 +121,7 @@ function _install_docker_dd() {
     if ! which git; then
         echo "you need to install git"; exit 2
     fi
-    git clone https://github.com/ontheroadjp/dotfiles/master ~/dotfiles
+    git clone https://github.com/ontheroadjp/dotfiles.git ~/dotfiles
 }
 
 _deploy_dotfiles
