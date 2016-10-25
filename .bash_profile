@@ -30,8 +30,6 @@ if [ "$(uname)" == 'Darwin' ]; then
     #export GOBIN="${GOPATH}/bin"
     export PATH="${PATH}:${GOPATH}/bin"
     mkdir -p ${GOPATH}
-    alias rr='cd $(ghq list -p | peco)'
-
 
     # Ruby
     #RBENV_ROOT="$HOME/.rbenv"
@@ -228,9 +226,7 @@ fi
 # Changing directory(Common)
 #-------------------------------------------------
 alias la='ls -laG'
-alias dev='cd ~/dev'
 
-# la after cd
 cdla() {
     if [ $# -eq 0 ]; then
         place=${HOME}
@@ -244,11 +240,31 @@ alias cd='cdla'
 # back to the previous location
 alias p='popd && la'
 
+# -------------------------------- base
+alias hh="cd ${HOME}"
 alias .="pwd"
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
+
+# -------------------------------- repository
+function cd_to_repository() {
+    #place=$(ghq list -p | peco)
+    place="$(ghq root)/$(ghq list | peco)"
+    [ ! -z "${place}" ] && {
+        cd ${place}
+    }
+}
+alias rr='cd_to_repository'
+alias rrr="cd ${HOME}/dev"
+
+github() {
+    place="$(ghq list | peco)"
+    [ ! -z "$place" ] && {
+        open "https://${place}"
+    }
+}
 
 #-------------------------------------------------
 # Changing directory(Mark)
@@ -439,9 +455,9 @@ function bk() {
 	fi
 }
 
-##-------------------------------------------------
-## Functions for peco
-##-------------------------------------------------
+#-------------------------------------------------
+# Functions for peco
+#-------------------------------------------------
 # http://qiita.com/uchiko/items/f6b1528d7362c9310da0
 
 peco_history() {
@@ -454,8 +470,11 @@ peco_history() {
     fi
     echo ${l}
 }
-alias hh="peco_history"
+alias his="peco_history"
 
+#-------------------------------------------------
+# others
+#-------------------------------------------------
 export TOYBOX_HOME=${HOME}/Vagrant/toybox
 export PATH=$PATH:${TOYBOX_HOME}
 
