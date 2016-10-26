@@ -121,10 +121,10 @@ set incsearch
 nnoremap n nzz
 nnoremap N Nzz
 
-" / で検索して、cs で置換して<esc>. その後は n.n.n. で内容確認しながら置換
-vnoremap <silent> s //e<C-r>=&selection=='exclusive'?'+1':''<CR><CR>
-			\:<C-u>call histdel('search',-1)<Bar>let @/=histget('search',-1)<CR>gv
-omap s :normal vs<CR>
+"" / で検索して、cs で置換して<esc>. その後は n.n.n. で内容確認しながら置換
+"vnoremap <silent> s //e<C-r>=&selection=='exclusive'?'+1':''<CR><CR>
+"			\:<C-u>call histdel('search',-1)<Bar>let @/=histget('search',-1)<CR>gv
+"omap s :normal vs<CR>
 
 "-------------------------
 "PHP 設定 :help 参照のこと
