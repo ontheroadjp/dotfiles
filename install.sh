@@ -2,6 +2,10 @@
 
 DOTPATH=${HOME}/dotfiles
 
+function _is_exist {
+    type $@ > /dev/null 2>&1
+}
+
 function _deploy_dotfiles() {
     #-------------------------------------------------
     # for MacOSX
@@ -68,8 +72,8 @@ function _deploy_dotfiles() {
 #-------------------------------------------------
 function _install_neobundle() {
     printf ">>> install NeoBundle for vim..."
-    if which vim > /dev/null 2>&1; then
-        if which "git" > /dev/null 2>&1 && [ ! -e ${DOTPATH}/.vim/bundle/neobundle.vim ]; then
+    if _is_exist vim; then
+        if _is_exist "git" && [ ! -e ${DOTPATH}/.vim/bundle/neobundle.vim ]; then
             git clone git://github.com/Shougo/neobundle.vim $HOME/.vim/bundle/neobundle.vim
             #vim +:NeoBundleInstall +:q
             # https://github.com/Shougo/neobundle.vim/blob/master/bin/neoinstall
@@ -88,8 +92,8 @@ function _install_neobundle() {
 #-------------------------------------------------
 function _install_peco() {
     printf ">>> install peco..."
-    if which wget > /dev/null 2>&1; then
-        if ! which "peco" > /dev/null 2>&1; then
+    if _is_exist wget; then
+        if ! _is_exist "peco"; then
             if [ "$(uname)" == 'Darwin' ]; then 
                 wget https://github.com/peco/peco/releases/download/v0.4.3/peco_darwin_386.zip -P ${DOTPATH}
                 tar xzf peco_darwin_386.zip -C peco --strip-components 1
@@ -110,16 +114,33 @@ function _install_peco() {
 }
 
 #-------------------------------------------------
+# go & ghq
+#-------------------------------------------------
+if [ "$(uname)" == 'Darwin' ]; then 
+    # Homebrew
+    if ! _is_exsist brew; then
+        /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    fi
+	export PATH="/usr/local/bin:$PATH"
+    export PATH="/usr/local/sbin:$PATH"
+    alias brew="env PATH=${PATH/\/Users\/$(whoami)\/\.rbenv\/shims:?/} brew"
+
+    # go & ghq
+    [ ! $(_is_exist go) ] && brew install go
+    [ ! $(_is_exist ghq) ] && brew tap motemen/ghq && brew install ghq
+fi
+
+#-------------------------------------------------
 # Docker
 #-------------------------------------------------
 function _install_docker_dd() {
-    if ! which peco > /dev/null 2>&1; then
+    if ! _is_exist peco; then
         _install_peco
     fi
 
     printf ">>> install docker-dd..."
     if [ -d "${DOTPATH}/docker-dd" ]; then
-        if which git && [ ! -d ${DOTPATH}/docker-dd ]; then
+        if _is_exist git && [ ! -d ${DOTPATH}/docker-dd ]; then
             echo -n '>>> docker-dd Install...'
             git clone https://github.com/nutsllc/docker-dd.git
             echo "done"
@@ -135,7 +156,7 @@ branch=${1:=master}
 branch=dev
 
 if [ ! -d ~/.dotfiles ]; then 
-    if ! which git > /dev/null 2>&1; then
+    if ! _is_exist git; then
         echo "you need to install git first."; exit 2
     fi
     git clone -b ${branch} https://github.com/ontheroadjp/dotfiles.git ~/dotfiles
