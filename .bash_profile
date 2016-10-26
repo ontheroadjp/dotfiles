@@ -6,30 +6,14 @@ fi
 export EDITOR=vim
 export TERM=xterm
 
-function _is_executable() {
-    hash $@ > /dev/null 2>&1
+function _is_exist {
+    type $@ > /dev/null 2>&1
 }
 
 #-------------------------------------------------
 # For MacOSX only
 #-------------------------------------------------
 if [ "$(uname)" == 'Darwin' ]; then 
-
-    # Homebrew
-    if ! which brew; then
-        /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    fi
-	export PATH="/usr/local/bin:$PATH"
-    export PATH="/usr/local/sbin:$PATH"
-    alias brew="env PATH=${PATH/\/Users\/$(whoami)\/\.rbenv\/shims:?/} brew"
-
-    # go & ghq
-    [ ! $(which go) ] && brew install go
-    [ ! $(which ghq) ] && brew tap motemen/ghq && brew install ghq
-    export GOPATH="${HOME}/dev"}
-    #export GOBIN="${GOPATH}/bin"
-    export PATH="${PATH}:${GOPATH}/bin"
-    mkdir -p ${GOPATH}
 
     # Ruby
     #RBENV_ROOT="$HOME/.rbenv"
@@ -261,7 +245,7 @@ alias rrr="cd ${HOME}/dev"
 
 github() {
     place="$(ghq list | peco)"
-    [ ! -z "$place" ] && {
+    [ ! -z "${place}" ] && {
         open "https://${place}"
     }
 }
@@ -269,32 +253,32 @@ github() {
 #-------------------------------------------------
 # Changing directory(Mark)
 #-------------------------------------------------
-movedir="$HOME/dotfiles/.movedir"
-mkdir -p ${movedir}
+dirmarks="$HOME/dotfiles/.dirmarks"
+mkdir -p ${dirmarks}
 function mm() {
     if [ $# -eq 0 ]; then
-        pwd | tee ${movedir}/mm.txt
+        pwd | tee ${dirmarks}/mm.txt
     elif [ $1 = "show" ]; then
-        cat ${movedir}/mm.txt
+        cat ${dirmarks}/mm.txt
     fi
 }
 function m() {
-    if [ -f ${movedir}/mm.txt ]; then
-        cd $(cat ${movedir}/mm.txt)
+    if [ -f ${dirmarks}/mm.txt ]; then
+        cd $(cat ${dirmarks}/mm.txt)
     else
         echo "not set."
     fi
 }
 function nn() {
     if [ $# -eq 0 ]; then
-        pwd | tee ${movedir}/nn.txt
+        pwd | tee ${dirmarks}/nn.txt
     elif [ $1 = "show" ]; then
-        cat ${movedir}/nn.txt
+        cat ${dirmarks}/nn.txt
     fi
 }
 function n() {
-    if [ -f ${movedir}/nn.txt ]; then
-        cd $(cat ${movedir}/nn.txt)
+    if [ -f ${dirmarks}/nn.txt ]; then
+        cd $(cat ${dirmarks}/nn.txt)
     else
         echo "not set."
     fi
@@ -303,7 +287,7 @@ function n() {
 #-------------------------------------------------
 # Vim
 #-------------------------------------------------
-if _is_executable vim; then
+if _is_exist vim; then
     alias vp='vim ~/.bash_profile'
     alias sp='source ~/.bash_profile'
     alias vv='vim ~/.vimrc'
@@ -314,7 +298,7 @@ fi
 #-------------------------------------------------
 # Git
 #-------------------------------------------------
-if _is_executable git; then
+if _is_exist git; then
     alias gg='git graph'
     alias gs='git status'
     alias gd='git diff'
@@ -335,14 +319,24 @@ if _is_executable git; then
     }
     
     # move project root dir of Git
-    alias gitop='cd `git rev-parse --show-toplevel`'
+    alias gitop="cd $(git rev-parse --show-toplevel)"
     echo "Load Git settings."
+fi
+
+#-------------------------------------------------
+# Go
+#-------------------------------------------------
+if _is_exist go; then
+    export GOPATH="${HOME}/dev"}
+    #export GOBIN="${GOPATH}/bin"
+    export PATH="${PATH}:${GOPATH}/bin"
+    mkdir -p ${GOPATH}
 fi
 
 #-------------------------------------------------
 # Docker
 #-------------------------------------------------
-if _is_executable docker; then
+if _is_exist docker; then
     if [ -d ~/dotfiles/docker-dd ]; then
         source ~/dotfiles/docker-dd/docker-dd-common.fnc
         source ~/dotfiles/docker-dd/docker-dd-network.fnc
@@ -360,7 +354,7 @@ fi
 #-------------------------------------------------
 # Vagrant
 #-------------------------------------------------
-if _is_executable vagrant; then
+if _is_exist vagrant; then
     alias v='vagrant ssh'
     alias vu='vagrant up'
     alias vh='vagrant halt'
@@ -377,7 +371,7 @@ if _is_executable vagrant; then
     # enable completion for the vagrant
     if [ -f `brew --prefix`/etc/bash_completion.d/vagrant ]; then
         source `brew --prefix`/etc/bash_completion.d/vagrant
-    elif _is_executable brew; then
+    elif _is_exist brew; then
         brew tap homebrew/completions
         source `brew --prefix`/etc/bash_completion.d/vagrant
     fi
@@ -387,12 +381,14 @@ fi
 #-------------------------------------------------
 # dstat
 #-------------------------------------------------
-alias dfull='dstat -Tclmdrn'
-alias dmem='dstat -Tclm'
-alias dcpu='dstat -Tclr'
-alias dnet='dstat -Tclnd'
-alias ddisk='dstat -Tcldr'
-alias dplugins='la /usr/share/dstat/*.py'
+if _is_exist dstat; then
+    alias dfull='dstat -Tclmdrn'
+    alias dmem='dstat -Tclm'
+    alias dcpu='dstat -Tclr'
+    alias dnet='dstat -Tclnd'
+    alias ddisk='dstat -Tcldr'
+    alias dplugins='la /usr/share/dstat/*.py'
+fi
 
 #-------------------------------------------------
 # Functions( beta )
