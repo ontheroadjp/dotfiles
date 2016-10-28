@@ -197,26 +197,26 @@ nnoremap gP P
 " window
 "-------------------------
 
-" virtical split
-nnoremap ww :<C-u>sp<CR>
-
 " horizon split
-nnoremap wv :<C-u>vs<CR>
+nnoremap ,- :<C-u>sp<CR>
+
+" virtical split
+nnoremap ,\ :<C-u>vs<CR>
 
 " move to left window
-nnoremap wh <C-w>h
+nnoremap ,h <C-w>h
 
 " move to bottom window
-nnoremap wj <C-w>j
+nnoremap ,j <C-w>j
 
 " move to above window
-nnoremap wk <C-w>k
+nnoremap ,k <C-w>k
 
 " move to right window
-nnoremap wl <C-w>l
+nnoremap ,l <C-w>l
 
 " move between window
-nnoremap <c-w> <c-w><c-w>
+nnoremap ,o <c-w><c-w>
 
 "-------------------------
 " change directory
