@@ -474,3 +474,6 @@ alias his="peco_history"
 export TOYBOX_HOME=${HOME}/Vagrant/toybox
 export PATH=$PATH:${TOYBOX_HOME}
 
+export DDD_HOME=${HOME}/dev/src/github.com/nutsllc/docker-dd-compose
+export DDD_SEARCH_DIR=${HOME}/dev/src
+source ${DDD_HOME}/docker-dd-compose
