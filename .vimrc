@@ -2,21 +2,21 @@
 cnoremap vim source ~/.vimrc
 
 "-------------------------
-"カラースキーマー
+" Color schema
 "-------------------------
 
-" 基本 
+" general
 colorscheme desert
 "colorscheme solarized
 
-" 黒背景
+" black background
 "colorscheme hybrid
 
-" 柔らかい
+" soft colors
 "colorscheme lucius
 "set background=dark
 
-" 柔らかい
+" soft colors
 "colorscheme Tomorrow-Night-Eighties
 
 "let g:base16_shell_path = expand('~/.config/base16-shell/')
@@ -32,102 +32,102 @@ colorscheme desert
 "colorscheme base16-ocean
 
 "-------------------------
-" vim ステータスライン
+" vim status-line
 "-------------------------
 
 set laststatus=2
-set statusline=%<     " 行が長すぎるときに切り詰める位置
-set statusline+=[%n]  " バッファ番号
-set statusline+=%m    " %m 修正フラグ
-set statusline+=%r    " %r 読み込み専用フラグ
-set statusline+=%h    " %h ヘルプバッファフラグ
-set statusline+=%w    " %w プレビューウィンドウフラグ
-set statusline+=%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}  " fencとffを表示
-set statusline+=%y    " バッファ内のファイルのタイプ
-set statusline+=\     " 空白スペース
+set statusline=%<     " line break point when line is too long
+set statusline+=[%n]  " buffer number
+set statusline+=%m    " %m editing flag
+set statusline+=%r    " %r readonly flag
+set statusline+=%h    " %h help buffer flag
+set statusline+=%w    " %w preview window flat
+set statusline+=%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}  " show fenc and ff
+set statusline+=%y    " show file type in buffer
+set statusline+=\     " white space
 if winwidth(0) >= 130
-	set statusline+=%F    " バッファ内のファイルのフルパス
+	set statusline+=%F    " show full path of the file in current buffer
 else
-	set statusline+=%t    " ファイル名のみ
+	set statusline+=%t    " show only file name
 endif
-set statusline+=%=    " 左寄せ項目と右寄せ項目の区切り
-set statusline+=%{fugitive#statusline()}  " Gitのブランチ名を表示（tpope/fugitive プラグイン使う）
-set statusline+=\ \   " 空白スペース2個
-set statusline+=%1l   " 何行目にカーソルがあるか
+set statusline+=%=    " separate charactor for left block and right block
+set statusline+=%{fugitive#statusline()}  " show Git branch name (must be tpope/fugitive plug-in)
+set statusline+=\ \   " white space twice
+set statusline+=%1l   " show line number at the cursor
 set statusline+=/
-set statusline+=%L    " バッファ内の総行数
+set statusline+=%L    " show total line number
 set statusline+=,
-set statusline+=%c    " 何列目にカーソルがあるか
-set statusline+=%V    " 画面上の何列目にカーソルがあるか
-set statusline+=\ \   " 空白スペース2個
-set statusline+=%P    " ファイル内の何％の位置にあるか
+set statusline+=%c    " show column number at a cursor
+set statusline+=%V    " show column number of the monitor at a cursor
+set statusline+=\ \   " white space twice
+set statusline+=%P    " show cursor position as % of the file
 
-" ステータスラインの色を変える
+" change color of the status line
 au InsertEnter * hi StatusLine guifg=Blue guibg=DarkYellow gui=none ctermfg=Blue ctermbg=Yellow cterm=none
 au InsertLeave * hi StatusLine guifg=Blue guibg=DarkGray gui=none ctermfg=Blue ctermbg=white cterm=none
 
 "-------------------------
-"基本
+" General settings
 "-------------------------
 
-" 文字コード
+" set charactor code
 "set encoding=utf-8
 set encoding=utf-8 nobomb
 set fileencodings=utf-8,ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932
 set fileformats=unix,dos,mac
 
-" 行番号表示
+" show line number
 set number
 
-" 折り返しなし
+" automatic wordwrap
 set nowrap
 
-" BackSpace キーで改行を削除できるように
+" it can delete newline character be BackSpace key
 set backspace=2
 
-" ESC の代わりに jj  
+" 'jj' for 'ESC'
 inoremap <silent> jj <esc>
 
-" ESC の代わりに <leader><leader>
+" '<leader><leader>' for ESC
 vnoremap <leader><leader> <esc>
 
-" <Leader> の変更
+" changing <Leader>
 "let mapleader = "\<Space>"
-"map , <leader>
+map , <leader>
 
-" 変更があれば保存
+" to save file if changed
 "noremap <leader><leader> :up<CR>
 
-" 矩型選択モードへ
+" to chenge rectangular type selection mode
 nnoremap <Leader><Leader> <C-v>
 
-" w!! で sudo で保存
+" w!! to save as root user
 cabbr w!! w !sudo tee > /dev/null %
 
 "-------------------------
-" 検索 Search
+" Search
 "-------------------------
 
-" 検索文字列が小文字の場合は大文字小文字を区別なく検索する(noignorecase)
+" search regardress capital note or small note if search word is small note (noignorecase)
 set ignorecase
 
-" 検索文字列に大文字が含まれている場合は区別して検索する(nosmartcase)
+" if capital note in search words, it doesn't regardress capital note or small note (nosmartcase)
 set smartcase
 
-" インクリメンタルサーチ
+" to enable incremental search
 set incsearch
 
-" n, N キーで「次の（前の）検索候補」を画面の中心に表示する
+" show in middle of the monitor when moving n or N
 nnoremap n nzz
 nnoremap N Nzz
 
-"" / で検索して、cs で置換して<esc>. その後は n.n.n. で内容確認しながら置換
+" '/' for search and 'cs' for replace word and 'n' for moving to next
 "vnoremap <silent> s //e<C-r>=&selection=='exclusive'?'+1':''<CR><CR>
 "			\:<C-u>call histdel('search',-1)<Bar>let @/=histget('search',-1)<CR>gv
 "omap s :normal vs<CR>
 
 "-------------------------
-"PHP 設定 :help 参照のこと
+"PHP settings (note ":help" in vim)
 "-------------------------
 let php_sql_query = 1
 let php_baselib = 1
@@ -136,51 +136,51 @@ let php_noShortTags = 1
 let php_parent_error_close = 1
 
 "-------------------------
-"DB 設定
+"DB settings
 "-------------------------
 let g:sql_type_default='mysql'
 
 "-------------------------
-"バックアップファイル
+"Backup file
 "-------------------------
 "set backup
 "set backupdir=~/.vim/backup
 set nobackup
 
 "-------------------------
-"スワップファイル
+"Swap file
 "-------------------------
 "set swapfile
 "set directory=~/.vim/swap
 set noswapfile
 
 "-------------------------
-"タブ & インデント
+"Tab and Indent
 "-------------------------
 
-"タブを空白文字(<space>)に置き換える
+" replace tab to space
 set expandtab
 
-"インデントの幅
+" indent width
 set tabstop=4
 
-"自動インデントでずれる幅
+" auto indent width
 set shiftwidth=4
 
-"連続した空白に対してタブキーやバックスペースキーでカーソルが動く幅
+" moving width of the consecutive white space
 set softtabstop=4
 
-"改行時に前の行のインデントを継続する
+" to continue indent width in new line
 set autoindent
 
-"改行時に入力された行の末尾に合わせて次の行のインデントを増減する
+" to determining indent width automatically in new line
 set smartindent
 
 "-------------------------
 " yank & paste
 "-------------------------
 
-"ペースト後にカーソルが下側に移動するように入れ替え
+" move cursor position to under line after yank
 nnoremap p gp
 nnoremap P gP
 nnoremap gp p
@@ -198,25 +198,25 @@ nnoremap gP P
 "-------------------------
 
 " horizon split
-nnoremap ,- :<C-u>sp<CR>
+nnoremap \- :<C-u>sp<CR>
 
 " virtical split
-nnoremap ,\ :<C-u>vs<CR>
+nnoremap \\ :<C-u>vs<CR>
 
 " move to left window
-nnoremap ,h <C-w>h
+nnoremap \h <C-w>h
 
 " move to bottom window
-nnoremap ,j <C-w>j
+nnoremap \j <C-w>j
 
 " move to above window
-nnoremap ,k <C-w>k
+nnoremap \k <C-w>k
 
 " move to right window
-nnoremap ,l <C-w>l
+nnoremap \l <C-w>l
 
 " move between window
-nnoremap ,o <c-w><c-w>
+nnoremap \o <c-w><c-w>
 
 "-------------------------
 " change directory
@@ -232,16 +232,16 @@ nnoremap <Space>o <c-o>zz
 " Jump list (forwaord)
 nnoremap <Space>i <c-i>zz
 
-"定義元へのジャンプ
+" jump to definition source
 nnoremap <Space>] g<c-]>
 
-"対になるカッコへジャンプ
+" jump to brackets to be paired
 nnoremap <Space>[ %
 
-"行番号を指定してジャンプ
+" jump to line you designate
 "nnoremap {count}<Space> {count}G
 
-" 行頭、行末への移動
+" move to beginning/endding of line
 nnoremap <Space>h ^
 nnoremap <Space>l $
 vnoremap <Space>h ^
@@ -264,13 +264,13 @@ nnoremap <Space>; ,
 " key bindings
 "-------------------------
 
-"空行の挿入
+" insert brank line
 nnoremap 0 :<C-u>call append(expand('.'), '')<Cr>j
 
 "---------------------------------------------------------------------------
-" NeoBundle の設定
-" プラグインのインストール .vimrc に記述のち、:NeoBundleInstall を実行
-" プラグインのアンインストール .vimrc の記述を削除したのち、:NeoBundleClean を実行
+" settings for NeoBundle
+" plug-in install   : add to .vimrc and exec :NeoBundleInstall in vim
+" Plug-in uninstall : remove from .vimrc and exec :NeoBundleClean in vim
 "---------------------------------------------------------------------------
 
 set nocompatible
@@ -283,7 +283,7 @@ if has('vim_starting')
     NeoBundle 'Shougo/neobundle.vim'
 
     "-------------------------
-    " Core スクリプトの非同期実行
+    " async execution for core script
     "-------------------------
 	NeoBundle 'Shougo/vimproc', {
 				\ 'build' : {
@@ -297,19 +297,19 @@ if has('vim_starting')
     "-------------------------
     " Unite, NERDTree, Tagbar, SourceExplorer
     "-------------------------
-	NeoBundle 'Shougo/unite.vim'    		" Unite: ファイルオープンを便利に
-	NeoBundle 'Shougo/neomru.vim'   		" Unite: 最近使ったファイルを表示できるようにする
-	NeoBundle 'Shougo/unite-outline'		" Unite: 変数/関数の一覧を表示
-	NeoBundle 'tsukkee/unite-tag'          	" Unite: ctags の Unite 連携
-	NeoBundle 'scrooloose/nerdtree'       	" NERDTree 表示
+	NeoBundle 'Shougo/unite.vim'    	        	" Adding Unite to easy to open files
+	NeoBundle 'Shougo/neomru.vim'   	        	" Unite: using MRU in Unite
+	NeoBundle 'Shougo/unite-outline'	        	" Unite: show functions/variables
+	NeoBundle 'tsukkee/unite-tag'                  	" Unite: using ctags in Unite
+	NeoBundle 'scrooloose/nerdtree'               	" Adding NERDTree to view file tree
 
-	NeoBundle 'majutsushi/tagbar'           " Tagbar 表示
-	"NeoBundleLazy 'majutsushi/tagbar', {    " Tagbar 表示
+	NeoBundle 'majutsushi/tagbar'                   " Adding Tagbar
+	"NeoBundleLazy 'majutsushi/tagbar',         {   " Adding Tagbar
     "    \ 'autoload': { 'commands': ['TagbarToggle'] }
     "    \ }
 
-	NeoBundle 'wesleyche/SrcExpl'           "カーソル位置のファイル参照
-	"NeoBundleLazy 'wesleyche/SrcExpl', {    "カーソル位置のファイル参照
+	NeoBundle 'wesleyche/SrcExpl'                   " show file at cursor in new window
+	"NeoBundleLazy 'wesleyche/SrcExpl', {           " show file at cursor in new window
     "    \ 'autoload' : { 'commands': ['SrcExplToggle'] }
     "    \ }
 
@@ -318,10 +318,10 @@ if has('vim_starting')
     "-------------------------
     " for Development
     "-------------------------
-	NeoBundle 'thinca/vim-quickrun'	    	" コード片の実行
-    NeoBundle 'Shougo/neosnippet'           " スニペット
-	NeoBundle 'Shougo/neosnippet-snippets'  " 基本スニペット集
-	if has('lua')					    	" 入力補完
+	NeoBundle 'thinca/vim-quickrun'	            	" execute code sunipet
+    NeoBundle 'Shougo/neosnippet'                   " code snipet
+	NeoBundle 'Shougo/neosnippet-snippets'          " a collection of the code anipet
+	if has('lua')					            	" auto complition
 	  NeoBundleLazy 'Shougo/neocomplete.vim', {
 	      \ 'depends' : 'Shougo/vimproc',
 	      \ 'autoload' : { 'insert' : 1,}
@@ -341,28 +341,28 @@ if has('vim_starting')
     "-------------------------
     " for PHP
     "-------------------------
-    NeoBundle 'violetyk/neocomplete-php.vim'        " PHP入力補完に説明追加
-	NeoBundle 'joonty/vdebug'	    		        " xdebug クライアント	
-    NeoBundle 'PDV--phpDocumentor-for-Vim'          " Doc コメントを簡単に追加
-    "NeoBundle 'm2mdas/phpcomplete-extended'        " PHP 入力補完
-	"NeoBundle 'm2mdas/phpcomplete-extended-laravel' "Laravel 入力補完
+    NeoBundle 'violetyk/neocomplete-php.vim'        " adding explanation in PHP auto complition
+	NeoBundle 'joonty/vdebug'	    		        " xdebug client
+    NeoBundle 'PDV--phpDocumentor-for-Vim'          " ease to insert Doc comments
+    "NeoBundle 'm2mdas/phpcomplete-extended'        " auto complition for PHP
+	"NeoBundle 'm2mdas/phpcomplete-extended-laravel' "auto complition for Laravel
 
     "-------------------------
     " Utilities
     "-------------------------
-	NeoBundle 'rking/ag.vim'	    		 " grep に ag 使う
-    NeoBundle 'thinca/vim-ref'               " 辞書検索(PHP マニュアル/英語辞書の閲覧)
-    NeoBundle 'fuenor/qfixhowm'              " 簡単にメモを取る
+	NeoBundle 'rking/ag.vim'                        " using ag in grep
+    NeoBundle 'thinca/vim-ref'                      " search dictionary (PHP mnual/English dictionary)
+    NeoBundle 'fuenor/qfixhowm'                     " ease to create memo
 
     "-------------------------
     " minor leage
     "-------------------------
-	"NeoBundle 'tpope/vim-markdown'          " Markdown 用
-	"NeoBundle 'tyru/open-browser.vim'       " ブラウザプレビュー
+	"NeoBundle 'tpope/vim-markdown'                 " for Markdown
+	"NeoBundle 'tyru/open-browser.vim'              " browser preview
 
-	"NeoBundle 'chriskempson/base16-vim'     " カラースキーマー
+	"NeoBundle 'chriskempson/base16-vim'            " color schema
 	"NeoBundle 'jpalardy/vim-slime'
-	"NeoBundle 'scrooloose/syntastic'        " シンタックスチェック
+	"NeoBundle 'scrooloose/syntastic'               " syntax check
 
     call neobundle#end()
 endif
@@ -372,7 +372,7 @@ filetype indent on
 syntax on
 
 "---------------------------------------------------------------------------
-" Sorce Explorer の設定
+" settings for Sorce Explorer
 "---------------------------------------------------------------------------
 if ! empty(neobundle#get("SrcExpl"))
 
@@ -408,53 +408,52 @@ endif
 
 "---------------------------------------------------------------------------
 " QFixHowm
+" note: https://sites.google.com/site/fudist/Home/qfixhowm/quick-start)
 "---------------------------------------------------------------------------
-"使い方(https://sites.google.com/site/fudist/Home/qfixhowm/quick-start)
-
-"g,c メモを作成する
-"g,<Space> メモを作成する（同一ファイル）
-"g,j メモを作成する（開いているバッファに紐付け）
-
-"g,m 最近閲覧/作成/更新したリストを表示
-"g,g メモを検索する 
-
-"g,u クイックメモ
-
-"<C-w>, Quickfix ウインドウの開閉
+"Usage:
+"g,c        : create new memo
+"g,<Space>  : create new memo (in the same file)
+"g,j        : create new memo (related in opning buffer)
+"g,m        : show memo list
+"g,g        : search memo
+"g,u        : quick memo
+"<C-w>,     : open/close Quickfix window
 "---------------------------------------------------------------------------
 
-"QFixHowmキーマップ
+" key-bindings for QFixHowm
 let QFixHowm_Key = 'g'
 
-"保存先
+" a place of the save files
 let howm_dir = '~/Dropbox/memo'
 
-"保存ファイル名
+" save file name
 let howm_filename = '%Y/%m/%Y-%m-%d-%H%M%S.md'
 
-"ファイルのエンコード
+" file encording
 let howm_fileencoding = 'utf-8'
 
-"ファイルの改行コード
+" line feed code
 let howm_fileformat = 'unix'
 
-"タイトル記号
+" mark of a title
 let QFixHowm_Title = '#'
 
-"タイトル行検索正規表現の辞書を初期化
+" initializig dictionary for a regular expression of the title line
 let QFixMRU_Title = {}
 
-"MRUでタイトル行とみなす正規表現(Vimの正規表現で指定)
+" regular expression for regarding title line in MRU 
+" (designation by a regular expression of the Vim)
 let QFixMRU_Title['mkd'] = '^###[^#]'
 
-"grepでタイトル行とみなす正規表現(使用するgrepによっては変更する必要があり)
+" regular expression for regarding title line in grep 
+" (!: needing to change depends on type of grep)
 let QFixMRU_Title['mkd_regxp'] = '^###[^#]'
 
 let QFixHowm_DiaryFile = 'diary/%Y/%m/%Y-%m-%d-000000.howm'
 
 
 "---------------------------------------------------------------------------
-" PDV-phpDocumentor for Vim の設定
+" settings for PDV-phpDocumentor for Vim
 " http://www.phpdoc.org/
 "---------------------------------------------------------------------------
 "if ! empty(neobundle#get("PDV--phpDocumentor-for-Vim"))
@@ -464,11 +463,11 @@ let QFixHowm_DiaryFile = 'diary/%Y/%m/%Y-%m-%d-000000.howm'
 "endif
 
 "---------------------------------------------------------------------------
-" neocomplete の設定
+" settings for neocomplete
 "---------------------------------------------------------------------------
 if ! empty(neobundle#get("neocomplete"))
 
-    " 色の指定
+    " color table
     " 1: red
     " 2: green
     " 3: yellow
@@ -479,8 +478,8 @@ if ! empty(neobundle#get("neocomplete"))
     " 8: black
     " 9: black
     
-    hi Pmenu ctermbg=7 "背景の色
-    hi PmenuSel ctermbg=6 "選択項目の色
+    hi Pmenu ctermbg=7      "background color
+    hi PmenuSel ctermbg=6   "selected color
     "hi PMenuSbar ctermbg=4
     
     let g:neocomplete#enable_ignore_case = 1
@@ -570,7 +569,7 @@ if ! empty(neobundle#get("neocomplete"))
 endif
 
 "---------------------------------------------------------------------------
-" neocomplete-php の設定
+" settings for neocomplete-php
 "---------------------------------------------------------------------------
 "if ! empty(neobundle#get("neocomplete-php"))
 
@@ -579,34 +578,34 @@ endif
 "endif
 
 "---------------------------------------------------------------------------
-" Unit.vimの設定
-" http://blog.remora.cx/2010/12/vim-ref-with-unite.html
+" settings for Unit.vim
+" note: http://blog.remora.cx/2010/12/vim-ref-with-unite.html
 "---------------------------------------------------------------------------
 "if ! empty(neobundle#get("unite"))
 
-    " 入力モードで開始する
+    " start in inline mode
     let g:unite_enable_start_insert=1
     
-    " 大文字小文字を区別しない
+    " regardless capital letter or small letter
     let g:unite_enable_ignore_case = 1
     let g:unite_enable_smart_case = 1
     
-    " ESCキーを2回押すと終了する
+    " twice "ESC" to close
     au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
     au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
     
     au FileType unite nnoremap <silent> <buffer> ff :q<CR>
     au FileType unite inoremap <silent> <buffer> ff <ESC>:q<CR>
     
-    " , キーを2回押すと終了する
+    " twice "," to close
     au FileType unite nnoremap <silent> <buffer> ,, :q<CR>
     au FileType unite inoremap <silent> <buffer> ,, <ESC>:q<CR>
     
-    " ウィンドウを分割して開く
+    " open in horizontal window
     au FileType unite nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
     au FileType unite inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
     
-    " ウィンドウを縦に分割して開く
+    " open in virtical window
     au FileType unite nnoremap <silent> <buffer> <expr> <C-v> unite#do_action('vsplit')
     au FileType unite inoremap <silent> <buffer> <expr> <C-v> unite#do_action('vsplit')
     
@@ -614,8 +613,7 @@ endif
     "" unite.vim {{{
     " The prefix key.
     nnoremap    [unite]   <Nop>
-    "nmap    <Leader>f [unite]
-    nmap    ,f [unite]
+    nmap    <Leader>f [unite]
     
     " unite.vim keymap
     nnoremap [unite]u  :<C-u>Unite -no-split<Space>
@@ -633,7 +631,7 @@ endif
     nnoremap <silent> [unite]n :<C-u>Unite<Space>file/new<CR>
     nnoremap <silent> [unite]t :<C-u>Unite<Space>outline<CR>
     nnoremap <silent> [unite]v :<C-u>UniteWithBufferDir file<CR>
-    nnoremap <silent> ,, :UniteResume<CR>
+    nnoremap <silent> <Leader><Leader> :UniteResume<CR>
     "" }}}
 
     nmap <C-r> ,fr
@@ -642,52 +640,52 @@ endif
 "endif
 
 "---------------------------------------------------------------------------
-" NERDTree の設定
-" https://github.com/oouchida/vimrc/blob/master/vim_conf/nerd_tree.vim
+" settings for NERDTree
+" note: https://github.com/oouchida/vimrc/blob/master/vim_conf/nerd_tree.vim
 "---------------------------------------------------------------------------
 if ! empty(neobundle#get("nerdtree"))
 
-    " ツリー開閉のキーバインド
+    " Key-bindings: NERDTree open/close
     "nnoremap <silent><C-e> :NERDTreeToggle<CR>
     "nnoremap <Leader>e :NERDTreeToggle<CR>
-    nnoremap ,e :NERDTreeToggle<CR>
-    nmap <C-e> ,e
+    nnoremap <Leader>e :NERDTreeToggle<CR>
+    nmap <C-e> <Leader>e
 
-    " デフォルトでツリーを表示
+    " show Tree in default
     "autocmd VimEnter * execute 'NERDTree'
     
-    "ツリーを開く場所 - left または right
+    " set a place of the Tree in left or right
     "let g:NERDTreeWinPos="left"
     
-    "ツリーの幅 "初期値31
+    " set tree width (default: 31)
     "let g:NERDTreeWinSize=45
     
-    "ツリーで行番号を表示する
+    " show line number in NERDTree
     let g:NERDTreeShowLineNumbers=1
     
-    " デフォルトでブックマークを表示
+    " show bookmarks in default
     let g:NERDTreeShowBookmarks=1
     
-    "ブックマークファイル名 - 初期値: $HOME/.NERDTreeBookmarks
+    " set bookmark file name - default: $HOME/.NERDTreeBookmarks
     "let g:NERDTreeBookmarksFile=
     
-    "表示しないファイル設定 - 初期値 ['\~$']
+    "set exclude files - default ['\~$']
     let g:NERDTreeIgnore=['\.clean$', '\.swp$', '\.bak$', '\~$']
     
-    " 隠しファイルをデフォルトで表示させる
+    " show hidden files
     " let NERDTreeShowHidden = 1
     
-    " ファイルを開いたら自動で閉じる
+    " close Tree window automatically when file is opened
     let g:NERDTreeQuitOnOpen=1
     
-    "他のバッファをすべて閉じた時にNERDTreeが開いていたらNERDTreeも一緒に閉じる。
+    " close NERDTree when all buffers is closed.
     "autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
     
-    "ツリー表示でカレントディレクトリの変更
-    "初期値(0) -  0:行わない、1:変更を行えるようにする、2:自動的に変更する 
+    " change current directory when moving in NERDTree
+    "default (0) -  0:don't change, 1:can be changed, 2:auto change
     let g:NERDTreeChDirMode=2
     
-    " ファイル拡張子の色を変える
+    " change color of the file extension
     function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
     	exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='.a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
     	exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'.a:extension .'$#'
@@ -706,7 +704,7 @@ if ! empty(neobundle#get("nerdtree"))
     call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
     call NERDTreeHighlightFile('php', 'green', 'none', '#ff00ff', '#151515')
     
-    "カラー表示する - 初期値(1):カラー表示
+    " colorize - default: (1) enable
     ""let g:NERDChristmasTree=1
     
     "カーソル位置の自動調節を行うか - 初期値(1):自動調節
@@ -715,31 +713,31 @@ if ! empty(neobundle#get("nerdtree"))
     "カーソルの自動調節位置設定 - 初期値(3)
     ""let g:NERDTreeAutoCenterThreshold
     
-    "ファイル表示の自動ソート - 初期値(0):ソートを行わない
+    " auto file sorting - default: (0) disable
     "let g:NERDTreeCaseSensitiveSort=1
     
-    "カーソルラインをハイライト表示 - 初期値(1):行う
+    " heiglighting cursor line - default: (1) enable
     "let g:NERDTreeHighlightCursorline=1
     
     "セカンドツリーを表示を有効に ":edit <ディレクトリ名> " - 初期値(1):有効
     "let g:NERDTreeHijackNetrw=1
     
-    "マウスでの操作 - 初期値(1)
-    "1: ダブルクリックでファイル・ディレクトリが開く
-    "2: ディレクトリはダブルクリック・ファイルはシングルクリックで開く
-    "3: シングルクリックでファイル・ディレクトリが開く
+    "mouse - default: 1
+    "1: open file/directory by double-click
+    "2: open file by single-click and open directory by double-click
+    "3: open file/directory bo single-click
     let g:NERDTreeMouseMode=3
     
-    "ツリーにファイル名を表示する - 初期値(1):表示する
+    " show file name in tree - default: (1) show
     "let g:NERDTreeShowFiles=1
     
     "ソートを行う時の、表示順番設定 (正規表現で設定) - 初期値 ['\/$', '*', '\.swp$',  '\.bak$', '\~$']
     "let g:NERDTreeSortOrder=
     
-    "ステータス表示 - 初期値: %{b:NERDTreeRoot.path.strForOS(0)}
+    " status format - default: %{b:NERDTreeRoot.path.strForOS(0)}
     "let g:NERDTreeStatusline=
     
-    "ブックマークやヘルプのショートカットを表示 - 初期値(0):表示する
+    " show shortcut-key for bookmarks and help - default: (0) show
     "let g:NERDTreeMinimalUI=0
     
     "古い形式である|と+と~の記号だけでツリー表示 - 初期値(1):グラフィカルに表示する
@@ -748,31 +746,30 @@ if ! empty(neobundle#get("nerdtree"))
 endif
 
 "---------------------------------------------------------------------------
-" Tagbar の設定
-" http://rcmdnk.github.io/blog/2014/07/25/computer-vim/#tagbar-srcexpl-nerdtree
+" settings for Tagbar
+" note: http://rcmdnk.github.io/blog/2014/07/25/computer-vim/#tagbar-srcexpl-nerdtree
 "---------------------------------------------------------------------------
 if ! empty(neobundle#get("tagbar"))
 	" Width (default 40)
 	let g:tagbar_width = 30
 	" Map for toggle
-	"nn <silent> <leader>t :TagbarToggle<CR>
-    nn <silent> ,t :TagbarToggle<CR>
+    nn <silent> <Leader>t :TagbarToggle<CR>
 endif
 
 "---------------------------------------------------------------------------
-" rking/ag(grep → ag) の設定
+" settings for rking/ag(grep → ag)
 "---------------------------------------------------------------------------
 
-" grep検索
+" grep search
 nnoremap <silent> ,g  :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
 
-" カーソル位置の単語をgrep検索
+" grep search in cursor
 nnoremap <silent> ,cg :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
 
-" grep検索結果の再呼出
+" show result for grep search again
 nnoremap <silent> ,r  :<C-u>UniteResume search-buffer<CR>
 
-" unite grep に ag(The Silver Searcher) を使う
+" useing ag(The Silver Searcher) in unite grep
 if executable('ag')
 	let g:unite_source_grep_command = 'ag'
 	let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
@@ -781,51 +778,51 @@ endif
 
 
 "---------------------------------------------------------------------------
-" taglist の設定
+" settings for taglist
 "---------------------------------------------------------------------------
 
-""tags ファイルの場所指定
-"set tags=tags
-"
-""ctag コマンドのパス
-"let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
-"
-""現在編集中のソースのタグしか表示しない
-""let Tlist_Show_One_File = 1 
-"
-""taglist が最後のウインドウなら vim を閉じる
-""let Tlist_Exit_OnlyWiindow = 1 
-"
-"" tagsジャンプの時に複数ある時は一覧表示                                        
-""nnoremap <C-]> g<C-]>
-"
-"" ツリー開閉のキーバインド(Karabiner で再割り当て)
-"nnoremap <silent><C-l> :TlistToggle<CR>
-"
-""新しいタブで開く
-""map <C-]> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
-"
-""縦分割して開く
-""nnoremap <C-h> :vsp<CR> :exe("tjump ".expand('<cword>'))<CR>
-"
-""横分割して開く
-"nnoremap <C-k> :split<CR> :exe("tjump ".expand('<cword>'))<CR>
+"a place of tags file
+set tags=tags
+
+"command path
+let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
+
+"show tags only editing file
+"let Tlist_Show_One_File = 1 
+
+"if taglist is last window, close vim
+"let Tlist_Exit_OnlyWiindow = 1 
+
+"If multi files exist, show list of the tags
+"nnoremap <C-]> g<C-]>
+
+" Key binding for tree open/close (rebindings by Karabiner) 
+nnoremap <silent><C-l> :TlistToggle<CR>
+
+"To open in new window
+"map <C-]> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+
+"To open in horizontal split window
+"nnoremap <C-h> :vsp<CR> :exe("tjump ".expand('<cword>'))<CR>
+
+"To open in virtical split window
+nnoremap <C-k> :split<CR> :exe("tjump ".expand('<cword>'))<CR>
 
 
 "---------------------------------------------------------------------------
-" Vdebug の設定
-" <F5>: デバッガの起動 / 次のブレイクポイントまで移動
-" <F2>: ステップオーバー
-" <F3>: ステップイン
-" <F4>: ステップアウト
-" <F6>: デバッガの停止
-" <F7>: デバッガーからデタッチ
-" <F9>: カーソル行まで実行
-" <F10>: ブレイクポイントの設定
+" settings for Vdebug
+" <F5>: start debugger / move to next brake point
+" <F2>: step-over
+" <F3>: step-in
+" <F4>: step-out
+" <F6>: stop debugger
+" <F7>: detouch debugger
+" <F9>: exec to cursor line
+" <F10>: set brake point
 " <F11>: show context variables (e.g. after "eval")
-" <F12>: カーソル行の変数を評価
-" :Breakpoint <type> <args>: 色んな種類のブレイクポイントが打てる。 (see :help VdebugBreakpoints)
-" :VdebugEval <code>: <code>の変数を評価
+" <F12>: evaluate variable value at cursor
+" :Breakpoint <type> <args>: can be set several types of the brake point (see :help VdebugBreakpoints)
+" :VdebugEval <code>: evaluate variable value in <code>
 " <Leader>e: evaluate the expression under visual highlight and display the " result
 "---------------------------------------------------------------------------
 
@@ -858,55 +855,56 @@ let g:vdebug_options= {
 
 
 "---------------------------------------------------------------------------
-" QuickRun の設定(Markdown用)
-" 参考: http://qiita.com/us10096698/items/1ac05c5c9543d2f79fa3
-" .md ファイルがシンタックスハイライト有効に
-" \r で実行 
+" settings for QuickRun (for Markdown)
+" note: http://qiita.com/us10096698/items/1ac05c5c9543d2f79fa3
+" enabling syntax-highlight in .md file
+" 
+" Usage:
+" exec command: <leader>r 
 "---------------------------------------------------------------------------
 let g:quickrun_config = {}
 let g:quickrun_config['markdown'] = {
-			\   'outputter': 'browser'
-			\ }
+\    'outputter': 'browser'
+\}
 
 
 "---------------------------------------------------------------------------
-" thinca/vim-ref の設定
-" テキストブラウザ（lynx）使う
+" settings for thinca/vim-ref
+"---------------------------------------------------------------------------
+" using text browser (lynx）
 "
-" 使い方
-" :man 検索ワード(ex. :man ls)
-" :phpm 検索ワード(ex. :phpm echo)
-" :eng 検索ワード(ex. :dic happy)
+" Usage:
+" :man search-word (ex. :man ls)
+" :phpm search-word (ex. :phpm echo)
+" :eng search-word (ex. :dic happy)
 "---------------------------------------------------------------------------
-"lynx.cfg の場所(Homebrew でlynx をインストールした場合)
+"a place of lynx.cfg (in case of the installing lynx by Homebrew)
 "/usr/local/Cellar/lynx/2.8.7/etc/lynx.cfg
 
-"lynx.cfg の場所(HMacPorts で lynx をインストールした場合)
+"a place of lynx.cfg (in case of the installing lynx by MacPorts)
 "/opt/local/etc/lynx.cfg
 
-
 "---------------------------------------------------------------------------
-" man の設定
+" settigs for man
 "---------------------------------------------------------------------------
 cnoremap man man<Space>
 
 "---------------------------------------------------------------------------
-" PHP Manual の設定
+" settings for PHP Manual
 "---------------------------------------------------------------------------
 let g:ref_phpmanual_path = '/Users/hideaki/.vim/vim-ref/php-chunked-xhtml'
 cnoremap phpm phpmanual<Space>
 
-
 "---------------------------------------------------------------------------
-" webdictでalcを使う設定
+" settings for using alc in the webdict
 "---------------------------------------------------------------------------
 let g:ref_source_webdict_cmd = 'lynx -dump -nonumbers %s'
 let g:ref_source_webdict_use_cache = 1
 let g:ref_source_webdict_sites = {
-			\ 'alc' : {
-			\   'url' : 'http://eow.alc.co.jp/%s/UTF-8/'
-			\   }
-			\ }
+\   'alc' : {
+\       'url' : 'http://eow.alc.co.jp/%s/UTF-8/'
+\   }
+\}
 function! g:ref_source_webdict_sites.alc.filter(output)
 	return join(split(a:output, "\n")[29 :], "\n")
 endfunction
@@ -915,7 +913,7 @@ cnoremap dic webdict alc<Space>
 
 
 "---------------------------------------------------------------------------
-" Dash.app 連携
+" cooperate in Dash.app
 "---------------------------------------------------------------------------
 "command! DashNim silent !open -g dash://nimrod:"<cword>"
 "command! DashDef silent !open -g dash://"<cword>"
@@ -923,9 +921,9 @@ cnoremap dic webdict alc<Space>
 "au FileType nim  nmap K :DashNim<CR>\|:redraw!<CR>
 
 
-" NeoBundle 関連はここまで
+" the end of NeoBundle settings is here
 "---------------------------------------------------------------------------
 
-" filetypeの自動検出(最後の方に書いた方がいいらしい)
+" autoload the filetype of the file (much better to place in the last of the file??)
 filetype on
 
