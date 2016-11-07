@@ -243,13 +243,25 @@ function cd_to_repository() {
 alias rr='cd_to_repository'
 alias rrr="cd ${HOME}/dev"
 
-github() {
+function github() {
     place="$(ghq list | peco)"
     [ ! -z "${place}" ] && {
         open "https://${place}"
     }
 }
 
+function dockerhub() {
+    place="$(ghq list | sed "s:github.com:hub.docker.com/r:" | peco)"
+    [ ! -z "${place}" ] && {
+        open "https://${place}"
+    }
+}
+function dockerhub-build() {
+    place="$(ghq list | sed "s:github.com:hub.docker.com/r:" | peco)"
+    [ ! -z "${place}" ] && {
+        open "https://${place}/builds"
+    }
+}
 #-------------------------------------------------
 # Changing directory(Mark)
 #-------------------------------------------------
@@ -259,6 +271,9 @@ function mm() {
     if [ $# -eq 0 ]; then
         pwd | tee ${dirmarks}/mm.txt
     elif [ $1 = "show" ]; then
+        [ ! -f ${dirmarks}/mm.txt ] && {
+            echo "not set." && return
+        }
         cat ${dirmarks}/mm.txt
     fi
 }
@@ -273,12 +288,32 @@ function nn() {
     if [ $# -eq 0 ]; then
         pwd | tee ${dirmarks}/nn.txt
     elif [ $1 = "show" ]; then
+        [ ! -f ${dirmarks}/nn.txt ] && {
+            echo "not set." && return
+        }
         cat ${dirmarks}/nn.txt
     fi
 }
 function n() {
     if [ -f ${dirmarks}/nn.txt ]; then
         cd $(cat ${dirmarks}/nn.txt)
+    else
+        echo "not set."
+    fi
+}
+function bb() {
+    if [ $# -eq 0 ]; then
+        pwd | tee ${dirmarks}/bb.txt
+    elif [ $1 = "show" ]; then
+        [ ! -f ${dirmarks}/bb.txt ] && {
+            echo "not set." && return
+        }
+        cat ${dirmarks}/bb.txt
+    fi
+}
+function b() {
+    if [ -f ${dirmarks}/bb.txt ]; then
+        cd $(cat ${dirmarks}/bb.txt)
     else
         echo "not set."
     fi
@@ -319,7 +354,7 @@ if _is_exist git; then
     }
     
     # move project root dir of Git
-    alias gitop="cd $(git rev-parse --show-toplevel)"
+    alias .g="cd $(git rev-parse --show-toplevel)"
     echo "Load Git settings."
 fi
 
