@@ -31,7 +31,7 @@ function _deploy_dotfiles() {
     	#ln -sf /usr/share/vim/vim73/colors/desert.vim ~/.vim/colors/
     
     	# Karabiner
-    	ln -sf ${DOTPATH}/karabiner/private.xml ~/Library/Application\ Support/Karabiner/private.xml > /dev/null
+    	ln -sf ${DOTPATH}/karabiner/private.xml ${HOME}/Library/Application\ Support/Karabiner/private.xml > /dev/null
     	echo "success: Karabiner - private.xml"
     
     #-------------------------------------------------
