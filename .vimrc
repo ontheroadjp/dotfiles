@@ -93,13 +93,12 @@ vnoremap <leader><leader> <esc>
 
 " changing <Leader>
 "let mapleader = "\<Space>"
-map , <leader>
 
 " to save file if changed
 "noremap <leader><leader> :up<CR>
 
 " to chenge rectangular type selection mode
-nnoremap <Leader><Leader> <C-v>
+nnoremap ,, <C-v>
 
 " w!! to save as root user
 cabbr w!! w !sudo tee > /dev/null %
@@ -277,94 +276,94 @@ set nocompatible
 filetype off
 
 if has('vim_starting')
-	set runtimepath+=~/.vim/bundle/neobundle.vim
-	call neobundle#begin(expand('~/.vim/bundle/'))
-    NeoBundleFetch 'Shougo/neobundle.vim'
-    NeoBundle 'Shougo/neobundle.vim'
+set runtimepath+=~/.vim/bundle/neobundle.vim
+call neobundle#begin(expand('~/.vim/bundle/'))
+NeoBundleFetch 'Shougo/neobundle.vim'
+NeoBundle 'Shougo/neobundle.vim'
 
-    "-------------------------
-    " async execution for core script
-    "-------------------------
-	NeoBundle 'Shougo/vimproc', {
-				\ 'build' : {
-				\     'windows' : 'make -f make_mingw32.mak',
-				\     'cygwin' : 'make -f make_cygwin.mak',
-				\     'mac' : 'make -f make_mac.mak',
-				\     'unix' : 'make -f make_unix.mak',
-				\    }
-				\ }
-    
-    "-------------------------
-    " Unite, NERDTree, Tagbar, SourceExplorer
-    "-------------------------
-	NeoBundle 'Shougo/unite.vim'    	        	" Adding Unite to easy to open files
-	NeoBundle 'Shougo/neomru.vim'   	        	" Unite: using MRU in Unite
-	NeoBundle 'Shougo/unite-outline'	        	" Unite: show functions/variables
-	NeoBundle 'tsukkee/unite-tag'                  	" Unite: using ctags in Unite
-	NeoBundle 'scrooloose/nerdtree'               	" Adding NERDTree to view file tree
+"-------------------------
+" async execution for core script
+"-------------------------
+NeoBundle 'Shougo/vimproc', {
+            \ 'build' : {
+            \     'windows' : 'make -f make_mingw32.mak',
+            \     'cygwin' : 'make -f make_cygwin.mak',
+            \     'mac' : 'make -f make_mac.mak',
+            \     'unix' : 'make -f make_unix.mak',
+            \    }
+            \ }
 
-	NeoBundle 'majutsushi/tagbar'                   " Adding Tagbar
-	"NeoBundleLazy 'majutsushi/tagbar',         {   " Adding Tagbar
-    "    \ 'autoload': { 'commands': ['TagbarToggle'] }
-    "    \ }
+"-------------------------
+" Unite, NERDTree, Tagbar, SourceExplorer
+"-------------------------
+NeoBundle 'Shougo/unite.vim'    	        	" Adding Unite to easy to open files
+NeoBundle 'Shougo/neomru.vim'   	        	" Unite: using MRU in Unite
+NeoBundle 'Shougo/unite-outline'	        	" Unite: show functions/variables
+NeoBundle 'tsukkee/unite-tag'                  	" Unite: using ctags in Unite
+NeoBundle 'scrooloose/nerdtree'               	" Adding NERDTree to view file tree
 
-	NeoBundle 'wesleyche/SrcExpl'                   " show file at cursor in new window
-	"NeoBundleLazy 'wesleyche/SrcExpl', {           " show file at cursor in new window
-    "    \ 'autoload' : { 'commands': ['SrcExplToggle'] }
-    "    \ }
+NeoBundle 'majutsushi/tagbar'                   " Adding Tagbar
+"NeoBundleLazy 'majutsushi/tagbar',         {   " Adding Tagbar
+"    \ 'autoload': { 'commands': ['TagbarToggle'] }
+"    \ }
 
-    "NeoBundle 'tpope/vim-vinegar'
+NeoBundle 'wesleyche/SrcExpl'                   " show file at cursor in new window
+"NeoBundleLazy 'wesleyche/SrcExpl', {           " show file at cursor in new window
+"    \ 'autoload' : { 'commands': ['SrcExplToggle'] }
+"    \ }
 
-    "-------------------------
-    " for Development
-    "-------------------------
-	NeoBundle 'thinca/vim-quickrun'	            	" execute code sunipet
-    NeoBundle 'Shougo/neosnippet'                   " code snipet
-	NeoBundle 'Shougo/neosnippet-snippets'          " a collection of the code anipet
-	if has('lua')					            	" auto complition
-	  NeoBundleLazy 'Shougo/neocomplete.vim', {
-	      \ 'depends' : 'Shougo/vimproc',
-	      \ 'autoload' : { 'insert' : 1,}
-	      \ }
-    else
-        NeoBundleLazy 'Shougo/neocomplcache'
-            let g:nocomplcache_enable_at_startup = 1
-            let g:neocomplcache_enable_ignore_case = 1
-            let g:neocomplcache_enble_smart_case = 1
-	endif
+"NeoBundle 'tpope/vim-vinegar'
 
-    "-------------------------
-    " for Git
-    "-------------------------
-    NeoBundle 'tpope/vim-fugitive'
+"-------------------------
+" for Development
+"-------------------------
+NeoBundle 'thinca/vim-quickrun'	            	" execute code sunipet
+NeoBundle 'Shougo/neosnippet'                   " code snipet
+NeoBundle 'Shougo/neosnippet-snippets'          " a collection of the code anipet
+if has('lua')					            	" auto complition
+  NeoBundleLazy 'Shougo/neocomplete.vim', {
+      \ 'depends' : 'Shougo/vimproc',
+      \ 'autoload' : { 'insert' : 1,}
+      \ }
+else
+    NeoBundleLazy 'Shougo/neocomplcache'
+        let g:nocomplcache_enable_at_startup = 1
+        let g:neocomplcache_enable_ignore_case = 1
+        let g:neocomplcache_enble_smart_case = 1
+endif
 
-    "-------------------------
-    " for PHP
-    "-------------------------
-    NeoBundle 'violetyk/neocomplete-php.vim'        " adding explanation in PHP auto complition
-	NeoBundle 'joonty/vdebug'	    		        " xdebug client
-    NeoBundle 'PDV--phpDocumentor-for-Vim'          " ease to insert Doc comments
-    "NeoBundle 'm2mdas/phpcomplete-extended'        " auto complition for PHP
-	"NeoBundle 'm2mdas/phpcomplete-extended-laravel' "auto complition for Laravel
+"-------------------------
+" for Git
+"-------------------------
+NeoBundle 'tpope/vim-fugitive'
 
-    "-------------------------
-    " Utilities
-    "-------------------------
-	NeoBundle 'rking/ag.vim'                        " using ag in grep
-    NeoBundle 'thinca/vim-ref'                      " search dictionary (PHP mnual/English dictionary)
-    NeoBundle 'fuenor/qfixhowm'                     " ease to create memo
+"-------------------------
+" for PHP
+"-------------------------
+NeoBundle 'violetyk/neocomplete-php.vim'        " adding explanation in PHP auto complition
+NeoBundle 'joonty/vdebug'	    		        " xdebug client
+NeoBundle 'PDV--phpDocumentor-for-Vim'          " ease to insert Doc comments
+"NeoBundle 'm2mdas/phpcomplete-extended'        " auto complition for PHP
+"NeoBundle 'm2mdas/phpcomplete-extended-laravel' "auto complition for Laravel
 
-    "-------------------------
-    " minor leage
-    "-------------------------
-	"NeoBundle 'tpope/vim-markdown'                 " for Markdown
-	"NeoBundle 'tyru/open-browser.vim'              " browser preview
+"-------------------------
+" Utilities
+"-------------------------
+NeoBundle 'rking/ag.vim'                        " using ag in grep
+NeoBundle 'thinca/vim-ref'                      " search dictionary (PHP mnual/English dictionary)
+NeoBundle 'fuenor/qfixhowm'                     " ease to create memo
 
-	"NeoBundle 'chriskempson/base16-vim'            " color schema
-	"NeoBundle 'jpalardy/vim-slime'
-	"NeoBundle 'scrooloose/syntastic'               " syntax check
+"-------------------------
+" minor leage
+"-------------------------
+"NeoBundle 'tpope/vim-markdown'                 " for Markdown
+"NeoBundle 'tyru/open-browser.vim'              " browser preview
 
-    call neobundle#end()
+"NeoBundle 'chriskempson/base16-vim'            " color schema
+"NeoBundle 'jpalardy/vim-slime'
+"NeoBundle 'scrooloose/syntastic'               " syntax check
+
+call neobundle#end()
 endif
 
 filetype plugin indent on
@@ -376,33 +375,33 @@ syntax on
 "---------------------------------------------------------------------------
 if ! empty(neobundle#get("SrcExpl"))
 
-    " Set refresh time in ms
-    let g:SrcExpl_RefreshTime = 1000 "1秒
-    
-    " Is update tags when SrcExpl is opened
-    let g:SrcExpl_isUpdateTags = 0
+" Set refresh time in ms
+let g:SrcExpl_RefreshTime = 1000 "1秒
 
-    " Tag update command
+" Is update tags when SrcExpl is opened
+let g:SrcExpl_isUpdateTags = 0
+
+" Tag update command
+let g:SrcExpl_updateTagsCmd = 'ctags --sort=foldcase %'
+
+" Update all tags
+function! g:SrcExpl_UpdateAllTags()
+    let g:SrcExpl_updateTagsCmd = 'ctags --sort=foldcase -R .'
+    call g:SrcExpl_UpdateTags()
     let g:SrcExpl_updateTagsCmd = 'ctags --sort=foldcase %'
+endfunction
 
-    " Update all tags
-    function! g:SrcExpl_UpdateAllTags()
-        let g:SrcExpl_updateTagsCmd = 'ctags --sort=foldcase -R .'
-        call g:SrcExpl_UpdateTags()
-        let g:SrcExpl_updateTagsCmd = 'ctags --sort=foldcase %'
-    endfunction
+" Source Explorer Window Height
+let g:SrcExpl_winHeight = 14
 
-    " Source Explorer Window Height
-    let g:SrcExpl_winHeight = 14
-    
-    " Mappings
-    nn [srce] <Nop>
-    nm <Leader>n [srce]
-    nn <silent> [srce]<CR> :SrcExplToggle<CR>
-    nn <silent> [srce]u :call g:SrcExpl_UpdateTags()<CR>
-    nn <silent> [srce]a :call g:SrcExpl_UpdateAllTags()<CR>
-    nn <silent> [srce]n :call g:SrcExpl_NextDef()<CR>
-    nn <silent> [srce]p :call g:SrcExpl_PrevDef()<CR>
+" Mappings
+nn [srce] <Nop>
+nm <Leader>n [srce]
+nn <silent> [srce]<CR> :SrcExplToggle<CR>
+nn <silent> [srce]u :call g:SrcExpl_UpdateTags()<CR>
+nn <silent> [srce]a :call g:SrcExpl_UpdateAllTags()<CR>
+nn <silent> [srce]n :call g:SrcExpl_NextDef()<CR>
+nn <silent> [srce]p :call g:SrcExpl_PrevDef()<CR>
 
 endif
 
@@ -458,7 +457,7 @@ let QFixHowm_DiaryFile = 'diary/%Y/%m/%Y-%m-%d-000000.howm'
 "---------------------------------------------------------------------------
 "if ! empty(neobundle#get("PDV--phpDocumentor-for-Vim"))
 
-    nnoremap <Leader>d :call PhpDocSingle()<CR>
+nnoremap <Leader>d :call PhpDocSingle()<CR>
 
 "endif
 
@@ -467,104 +466,104 @@ let QFixHowm_DiaryFile = 'diary/%Y/%m/%Y-%m-%d-000000.howm'
 "---------------------------------------------------------------------------
 if ! empty(neobundle#get("neocomplete"))
 
-    " color table
-    " 1: red
-    " 2: green
-    " 3: yellow
-    " 4: blue
-    " 5: red
-    " 6: cyan
-    " 7: white
-    " 8: black
-    " 9: black
-    
-    hi Pmenu ctermbg=7      "background color
-    hi PmenuSel ctermbg=6   "selected color
-    "hi PMenuSbar ctermbg=4
-    
-    let g:neocomplete#enable_ignore_case = 1
-    let g:neocomplete#enable_camel_case = 1
-    let g:neocomplete#use_vimproc = 1
-    
-    "Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
-    
-    " Disable AutoComplPop.
-    let g:acp_enableAtStartup = 0
-    
-    " Use neocomplete.
-    let g:neocomplete#enable_at_startup = 1
-    
-    " Use smartcase.
-    let g:neocomplete#enable_smart_case = 1
-    
-    " Set minimum syntax keyword length.
-    let g:neocomplete#sources#syntax#min_keyword_length = 3
-    let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-    
-    " Define dictionary.
-    let g:neocomplete#sources#dictionary#dictionaries = {
-        \ 'default' : '',
-        \ 'vimshell' : $HOME.'/.vimshell_hist',
-        \ 'scheme' : $HOME.'/.gosh_completions'
-            \ }
-    
-    " Define keyword.
-    if !exists('g:neocomplete#keyword_patterns')
-        let g:neocomplete#keyword_patterns = {}
-    endif
-    let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-    
-    " Plugin key-mappings.
-    inoremap <expr><C-g>     neocomplete#undo_completion()
-    inoremap <expr><C-l>     neocomplete#complete_common_string()
-    
-    " Recommended key-mappings.
-    " <CR>: close popup and save indent.
-    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-    function! s:my_cr_function()
-      return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-      " For no inserting <CR> key.
-      "return pumvisible() ? "\<C-y>" : "\<CR>"
-    endfunction
-    
-    " <TAB>: completion.
-    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-    
-    " <C-h>, <BS>: close popup and delete backword char.
-    inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-    inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-    
-    " Close popup by <Space>.
-    "inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
-    
-    " AutoComplPop like behavior.
-    "let g:neocomplete#enable_auto_select = 1
-    
-    " Shell like behavior(not recommended).
-    "set completeopt+=longest
-    "let g:neocomplete#enable_auto_select = 1
-    "let g:neocomplete#disable_auto_complete = 1
-    "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
-    
-    " Enable omni completion.
-    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-    
-    " Enable heavy omni completion.
-    if !exists('g:neocomplete#sources#omni#input_patterns')
-      let g:neocomplete#sources#omni#input_patterns = {}
-    endif
-    
-    "let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-    "let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-    "let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-    
-    " For perlomni.vim setting.
-    " https://github.com/c9s/perlomni.vim
-    let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+" color table
+" 1: red
+" 2: green
+" 3: yellow
+" 4: blue
+" 5: red
+" 6: cyan
+" 7: white
+" 8: black
+" 9: black
+
+hi Pmenu ctermbg=7      "background color
+hi PmenuSel ctermbg=6   "selected color
+"hi PMenuSbar ctermbg=4
+
+let g:neocomplete#enable_ignore_case = 1
+let g:neocomplete#enable_camel_case = 1
+let g:neocomplete#use_vimproc = 1
+
+"Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
+
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
+" Define dictionary.
+let g:neocomplete#sources#dictionary#dictionaries = {
+    \ 'default' : '',
+    \ 'vimshell' : $HOME.'/.vimshell_hist',
+    \ 'scheme' : $HOME.'/.gosh_completions'
+        \ }
+
+" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? "\<C-y>" : "\<CR>"
+endfunction
+
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+
+" Close popup by <Space>.
+"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
+
+" AutoComplPop like behavior.
+"let g:neocomplete#enable_auto_select = 1
+
+" Shell like behavior(not recommended).
+"set completeopt+=longest
+"let g:neocomplete#enable_auto_select = 1
+"let g:neocomplete#disable_auto_complete = 1
+"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+
+"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
+" For perlomni.vim setting.
+" https://github.com/c9s/perlomni.vim
+let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
 endif
 
@@ -573,7 +572,7 @@ endif
 "---------------------------------------------------------------------------
 "if ! empty(neobundle#get("neocomplete-php"))
 
-    let g:neocomplete_php_locale = 'ja'
+let g:neocomplete_php_locale = 'ja'
 
 "endif
 
@@ -583,59 +582,59 @@ endif
 "---------------------------------------------------------------------------
 "if ! empty(neobundle#get("unite"))
 
-    " start in inline mode
-    let g:unite_enable_start_insert=1
-    
-    " regardless capital letter or small letter
-    let g:unite_enable_ignore_case = 1
-    let g:unite_enable_smart_case = 1
-    
-    " twice "ESC" to close
-    au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
-    au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
-    
-    au FileType unite nnoremap <silent> <buffer> ff :q<CR>
-    au FileType unite inoremap <silent> <buffer> ff <ESC>:q<CR>
-    
-    " twice "," to close
-    au FileType unite nnoremap <silent> <buffer> ,, :q<CR>
-    au FileType unite inoremap <silent> <buffer> ,, <ESC>:q<CR>
-    
-    " open in horizontal window
-    au FileType unite nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
-    au FileType unite inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
-    
-    " open in virtical window
-    au FileType unite nnoremap <silent> <buffer> <expr> <C-v> unite#do_action('vsplit')
-    au FileType unite inoremap <silent> <buffer> <expr> <C-v> unite#do_action('vsplit')
-    
-    " ----------------------------
-    "" unite.vim {{{
-    " The prefix key.
-    nnoremap    [unite]   <Nop>
-    nmap    <Leader>f [unite]
-    
-    " unite.vim keymap
-    nnoremap [unite]u  :<C-u>Unite -no-split<Space>
-    nnoremap <silent> [unite]f :<C-u>Unite<Space>file_rec<CR>
-    nnoremap <silent> [unite]c :<C-u>Unite<Space>file<CR>
-    nnoremap <silent> [unite]g :<C-u>Unite<Space>grep<CR>
-    nnoremap <silent> [unite]b :<C-u>Unite<Space>buffer<CR>
-    nnoremap <silent> [unite]m :<C-u>Unite<Space>bookmark<CR>
-    nnoremap <silent> [unite]a :<C-u>UniteBookmarkAdd<CR>
-    nnoremap <silent> [unite]r :<C-u>Unite<Space>file_mru<CR>
-    nnoremap <silent> [unite]p :<C-u>Unite<Space>file_point<CR>
-    nnoremap <silent> [unite]y :<C-u>Unite<Space>register<CR>
-    nnoremap <silent> [unite]h :<C-u>Unite<Space>history/yank<CR>
-    nnoremap <silent> [unite]d :<C-u>Unite<Space>directory/new<CR>
-    nnoremap <silent> [unite]n :<C-u>Unite<Space>file/new<CR>
-    nnoremap <silent> [unite]t :<C-u>Unite<Space>outline<CR>
-    nnoremap <silent> [unite]v :<C-u>UniteWithBufferDir file<CR>
-    nnoremap <silent> <Leader><Leader> :UniteResume<CR>
-    "" }}}
+" start in inline mode
+let g:unite_enable_start_insert=1
 
-    nmap <C-r> ,fr
-    nmap <C-f> ,ff
+" regardless capital letter or small letter
+let g:unite_enable_ignore_case = 1
+let g:unite_enable_smart_case = 1
+
+" twice "ESC" to close
+au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
+au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
+
+au FileType unite nnoremap <silent> <buffer> ff :q<CR>
+au FileType unite inoremap <silent> <buffer> ff <ESC>:q<CR>
+
+" twice "," to close
+au FileType unite nnoremap <silent> <buffer> ,, :q<CR>
+au FileType unite inoremap <silent> <buffer> ,, <ESC>:q<CR>
+
+" open in horizontal window
+au FileType unite nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
+au FileType unite inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
+
+" open in virtical window
+au FileType unite nnoremap <silent> <buffer> <expr> <C-v> unite#do_action('vsplit')
+au FileType unite inoremap <silent> <buffer> <expr> <C-v> unite#do_action('vsplit')
+
+" ----------------------------
+"" unite.vim {{{
+" The prefix key.
+nnoremap    [unite]   <Nop>
+nmap    <Leader>f [unite]
+
+" unite.vim keymap
+nnoremap [unite]u  :<C-u>Unite -no-split<Space>
+nnoremap <silent> [unite]f :<C-u>Unite<Space>file_rec<CR>
+nnoremap <silent> [unite]c :<C-u>Unite<Space>file<CR>
+nnoremap <silent> [unite]g :<C-u>Unite<Space>grep<CR>
+nnoremap <silent> [unite]b :<C-u>Unite<Space>buffer<CR>
+nnoremap <silent> [unite]m :<C-u>Unite<Space>bookmark<CR>
+nnoremap <silent> [unite]a :<C-u>UniteBookmarkAdd<CR>
+nnoremap <silent> [unite]r :<C-u>Unite<Space>file_mru<CR>
+nnoremap <silent> [unite]p :<C-u>Unite<Space>file_point<CR>
+nnoremap <silent> [unite]y :<C-u>Unite<Space>register<CR>
+nnoremap <silent> [unite]h :<C-u>Unite<Space>history/yank<CR>
+nnoremap <silent> [unite]d :<C-u>Unite<Space>directory/new<CR>
+nnoremap <silent> [unite]n :<C-u>Unite<Space>file/new<CR>
+nnoremap <silent> [unite]t :<C-u>Unite<Space>outline<CR>
+nnoremap <silent> [unite]v :<C-u>UniteWithBufferDir file<CR>
+nnoremap <silent> <Leader><Leader> :UniteResume<CR>
+"" }}}
+
+nmap <C-r> ,fr
+nmap <C-f> ,ff
 
 "endif
 
@@ -645,103 +644,102 @@ endif
 "---------------------------------------------------------------------------
 if ! empty(neobundle#get("nerdtree"))
 
-    " Key-bindings: NERDTree open/close
-    "nnoremap <silent><C-e> :NERDTreeToggle<CR>
-    "nnoremap <Leader>e :NERDTreeToggle<CR>
-    nnoremap <Leader>e :NERDTreeToggle<CR>
-    nmap <C-e> <Leader>e
+" Key-bindings: NERDTree open/close
+"nnoremap <silent><C-e> :NERDTreeToggle<CR>
+nnoremap ,e :NERDTreeToggle<CR>
+"nmap <C-e> <Leader>e
 
-    " show Tree in default
-    "autocmd VimEnter * execute 'NERDTree'
-    
-    " set a place of the Tree in left or right
-    "let g:NERDTreeWinPos="left"
-    
-    " set tree width (default: 31)
-    "let g:NERDTreeWinSize=45
-    
-    " show line number in NERDTree
-    let g:NERDTreeShowLineNumbers=1
-    
-    " show bookmarks in default
-    let g:NERDTreeShowBookmarks=1
-    
-    " set bookmark file name - default: $HOME/.NERDTreeBookmarks
-    "let g:NERDTreeBookmarksFile=
-    
-    "set exclude files - default ['\~$']
-    let g:NERDTreeIgnore=['\.clean$', '\.swp$', '\.bak$', '\~$']
-    
-    " show hidden files
-    " let NERDTreeShowHidden = 1
-    
-    " close Tree window automatically when file is opened
-    let g:NERDTreeQuitOnOpen=1
-    
-    " close NERDTree when all buffers is closed.
-    "autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-    
-    " change current directory when moving in NERDTree
-    "default (0) -  0:don't change, 1:can be changed, 2:auto change
-    let g:NERDTreeChDirMode=2
-    
-    " change color of the file extension
-    function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
-    	exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='.a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
-    	exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'.a:extension .'$#'
-    endfunction
-    
-    call NERDTreeHighlightFile('py', 'yellow', 'none', 'yellow', '#151515')
-    call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
-    call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
-    call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow','#151515')
-    call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
-    call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
-    call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
-    call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
-    call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
-    call NERDTreeHighlightFile('rb', 'Red', 'none', 'red', '#151515')
-    call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
-    call NERDTreeHighlightFile('php', 'green', 'none', '#ff00ff', '#151515')
-    
-    " colorize - default: (1) enable
-    ""let g:NERDChristmasTree=1
-    
-    "カーソル位置の自動調節を行うか - 初期値(1):自動調節
-    ""let g:NERDTreeAutoCenter=1
-    
-    "カーソルの自動調節位置設定 - 初期値(3)
-    ""let g:NERDTreeAutoCenterThreshold
-    
-    " auto file sorting - default: (0) disable
-    "let g:NERDTreeCaseSensitiveSort=1
-    
-    " heiglighting cursor line - default: (1) enable
-    "let g:NERDTreeHighlightCursorline=1
-    
-    "セカンドツリーを表示を有効に ":edit <ディレクトリ名> " - 初期値(1):有効
-    "let g:NERDTreeHijackNetrw=1
-    
-    "mouse - default: 1
-    "1: open file/directory by double-click
-    "2: open file by single-click and open directory by double-click
-    "3: open file/directory bo single-click
-    let g:NERDTreeMouseMode=3
-    
-    " show file name in tree - default: (1) show
-    "let g:NERDTreeShowFiles=1
-    
-    "ソートを行う時の、表示順番設定 (正規表現で設定) - 初期値 ['\/$', '*', '\.swp$',  '\.bak$', '\~$']
-    "let g:NERDTreeSortOrder=
-    
-    " status format - default: %{b:NERDTreeRoot.path.strForOS(0)}
-    "let g:NERDTreeStatusline=
-    
-    " show shortcut-key for bookmarks and help - default: (0) show
-    "let g:NERDTreeMinimalUI=0
-    
-    "古い形式である|と+と~の記号だけでツリー表示 - 初期値(1):グラフィカルに表示する
-    "let g:NERDTreeDirArrows=0
+" show Tree in default
+"autocmd VimEnter * execute 'NERDTree'
+
+" set a place of the Tree in left or right
+"let g:NERDTreeWinPos="left"
+
+" set tree width (default: 31)
+"let g:NERDTreeWinSize=45
+
+" show line number in NERDTree
+let g:NERDTreeShowLineNumbers=1
+
+" show bookmarks in default
+let g:NERDTreeShowBookmarks=1
+
+" set bookmark file name - default: $HOME/.NERDTreeBookmarks
+"let g:NERDTreeBookmarksFile=
+
+"set exclude files - default ['\~$']
+let g:NERDTreeIgnore=['\.clean$', '\.swp$', '\.bak$', '\~$']
+
+" show hidden files
+" let NERDTreeShowHidden = 1
+
+" close Tree window automatically when file is opened
+let g:NERDTreeQuitOnOpen=1
+
+" close NERDTree when all buffers is closed.
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+" change current directory when moving in NERDTree
+"default (0) -  0:don't change, 1:can be changed, 2:auto change
+let g:NERDTreeChDirMode=2
+
+" change color of the file extension
+function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
+    exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='.a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
+    exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'.a:extension .'$#'
+endfunction
+
+call NERDTreeHighlightFile('py', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
+call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow','#151515')
+call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
+call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
+call NERDTreeHighlightFile('rb', 'Red', 'none', 'red', '#151515')
+call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
+call NERDTreeHighlightFile('php', 'green', 'none', '#ff00ff', '#151515')
+
+" colorize - default: (1) enable
+""let g:NERDChristmasTree=1
+
+"カーソル位置の自動調節を行うか - 初期値(1):自動調節
+""let g:NERDTreeAutoCenter=1
+
+"カーソルの自動調節位置設定 - 初期値(3)
+""let g:NERDTreeAutoCenterThreshold
+
+" auto file sorting - default: (0) disable
+"let g:NERDTreeCaseSensitiveSort=1
+
+" heiglighting cursor line - default: (1) enable
+"let g:NERDTreeHighlightCursorline=1
+
+"セカンドツリーを表示を有効に ":edit <ディレクトリ名> " - 初期値(1):有効
+"let g:NERDTreeHijackNetrw=1
+
+"mouse - default: 1
+"1: open file/directory by double-click
+"2: open file by single-click and open directory by double-click
+"3: open file/directory bo single-click
+let g:NERDTreeMouseMode=3
+
+" show file name in tree - default: (1) show
+"let g:NERDTreeShowFiles=1
+
+"ソートを行う時の、表示順番設定 (正規表現で設定) - 初期値 ['\/$', '*', '\.swp$',  '\.bak$', '\~$']
+"let g:NERDTreeSortOrder=
+
+" status format - default: %{b:NERDTreeRoot.path.strForOS(0)}
+"let g:NERDTreeStatusline=
+
+" show shortcut-key for bookmarks and help - default: (0) show
+"let g:NERDTreeMinimalUI=0
+
+"古い形式である|と+と~の記号だけでツリー表示 - 初期値(1):グラフィカルに表示する
+"let g:NERDTreeDirArrows=0
 
 endif
 
@@ -750,10 +748,10 @@ endif
 " note: http://rcmdnk.github.io/blog/2014/07/25/computer-vim/#tagbar-srcexpl-nerdtree
 "---------------------------------------------------------------------------
 if ! empty(neobundle#get("tagbar"))
-	" Width (default 40)
-	let g:tagbar_width = 30
-	" Map for toggle
-    nn <silent> <Leader>t :TagbarToggle<CR>
+" Width (default 40)
+let g:tagbar_width = 30
+" Map for toggle
+nn <silent> ,t :TagbarToggle<CR>
 endif
 
 "---------------------------------------------------------------------------
