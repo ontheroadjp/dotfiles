@@ -4,20 +4,15 @@ cnoremap vim source ~/.vimrc
 "-------------------------
 " Color schema
 "-------------------------
-
-" general
 colorscheme desert
 "colorscheme solarized
 
-" black background
-"colorscheme hybrid
+"colorscheme hybrid                                             " black background
 
-" soft colors
-"colorscheme lucius
+"colorscheme lucius                                             " soft colors
 "set background=dark
 
-" soft colors
-"colorscheme Tomorrow-Night-Eighties
+"colorscheme Tomorrow-Night-Eighties                            " soft colors
 
 "let g:base16_shell_path = expand('~/.config/base16-shell/')
 "let base16colorspace="256"
@@ -31,10 +26,7 @@ colorscheme desert
 "colorscheme base16-eighties
 "colorscheme base16-ocean
 
-"-------------------------
-" vim status-line
-"-------------------------
-
+"-------------------------------------------------------------------------------- vim status-line
 set laststatus=2
 set statusline=%<     " line break point when line is too long
 set statusline+=[%n]  " buffer number
@@ -66,205 +58,97 @@ set statusline+=%P    " show cursor position as % of the file
 au InsertEnter * hi StatusLine guifg=Blue guibg=DarkYellow gui=none ctermfg=Blue ctermbg=Yellow cterm=none
 au InsertLeave * hi StatusLine guifg=Blue guibg=DarkGray gui=none ctermfg=Blue ctermbg=white cterm=none
 
-"-------------------------
-" General settings
-"-------------------------
-
-" set charactor code
-"set encoding=utf-8
-set encoding=utf-8 nobomb
+"-------------------------------------------------------------------------------- General settings
+"set encoding=utf-8                              " set charactor code
+set encoding=utf-8 nobomb                        " set charactor code
 set fileencodings=utf-8,ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932
 set fileformats=unix,dos,mac
+set number                                       " show line number
+set nowrap                                       " automatic wordwrap
+set backspace=2                                  " it can delete newline character be BackSpace key
+inoremap <silent> jj <esc>                       " 'jj' for 'ESC'
+vnoremap <leader><leader> <esc>                  " '<leader><leader>' for ESC
+"let mapleader = "\<Space>"                      " changing <Leader>
+"noremap <leader><leader> :up<CR>                " to save file if changed
+nnoremap ,, <C-v>                                " to chenge rectangular type selection mode
+cabbr w!! w !sudo tee > /dev/null %              " w!! to save as root user
 
-" show line number
-set number
+"------------------------------------------------------------------------------- Search
+set ignorecase                                   " search regardress capital note or small note if search word is small note (noignorecase)
+set smartcase                                    " if capital note in search words, it doesn't regardress capital note or small note (nosmartcase)
+set incsearch                                    " to enable incremental search
+nnoremap n nzz                                   " show in middle of the monitor when moving n
+nnoremap N Nzz                                   " show in middle of the monitor when moving N
 
-" automatic wordwrap
-set nowrap
+"-------------------------------------------------------- PHP settings (note ":help" in vim)
+let php_sql_query = 1                            " PHP settings
+let php_baselib = 1                              " PHP settings
+let php_htmlInStrings = 1                        " PHP settings
+let php_noShortTags = 1                          " PHP settings
+let php_parent_error_close = 1                   " PHP settings
+let g:sql_type_default='mysql'                   " DB settings
 
-" it can delete newline character be BackSpace key
-set backspace=2
+"-------------------------------------------------------------------------------  Backup file
+"set backup                                      " enable swap file
+"set backupdir=~/.vim/backup                     " set backup file directory
+set nobackup                                     " disable backup file
 
-" 'jj' for 'ESC'
-inoremap <silent> jj <esc>
+"-------------------------------------------------------------------------------  Swap file
+"set swapfile                                    " enable swap file
+"set directory=~/.vim/swap                       " set swap file directory
+set noswapfile                                   " disable swap file
 
-" '<leader><leader>' for ESC
-vnoremap <leader><leader> <esc>
+"------------------------------------------------------------------------------- Tab and Indent
+set expandtab                                    " replace tab to space
+set tabstop=4                                    " indent width
+set shiftwidth=4                                 " auto indent width
+set softtabstop=4                                " moving width of the consecutive white space
+set autoindent                                   " to continue indent width in new line
+set smartindent                                  " to determining indent width automatically in new line
 
-" changing <Leader>
-"let mapleader = "\<Space>"
+"------------------------------------------------------------------------------- yank & put
+nnoremap p gp                                    " move cursor position to under line after yank
+nnoremap P gP                                    " move cursor position to under line after yank
+nnoremap gp p                                    " move cursor position to under line after yank
+nnoremap gP P                                    " move cursor position to under line after yank
 
-" to save file if changed
-"noremap <leader><leader> :up<CR>
+"------------------------------------------------------------------------ automatic adding quote
+"imap { {}<LEFT>                                 " automatic adding quote
+"imap [ []<LEFT>                                 " automatic adding quote
+"imap ( ()<LEFT>                                 " automatic adding quote
 
-" to chenge rectangular type selection mode
-nnoremap ,, <C-v>
+"------------------------------------------------------------------------------- window
+nnoremap \- :<C-u>sp<CR><C-w>j                   " horizon split
+nnoremap \\ :<C-u>vs<CR><C-w>l                   " virtical split
+nnoremap \h <C-w>h                               " move to left window
+nnoremap \j <C-w>j                               " move to bottom window
+nnoremap \k <C-w>k                               " move to above window
+nnoremap \l <C-w>l                               " move to right window
+nnoremap \o <c-w><c-w>                           " move between window
 
-" w!! to save as root user
-cabbr w!! w !sudo tee > /dev/null %
+"------------------------------------------------------------------------------- change directory
+nnoremap <Space> `                               " motion prefix ` to <space>
+nnoremap <Space>o <c-o>zz                        " Jump list (reverse)
+nnoremap <Space>i <c-i>zz                        " Jump list (forwaord)
+nnoremap <Space>] g<c-]>                         " jump to definition source
+nnoremap <Space>[ %                              " jump to brackets to be paired
+"nnoremap {count}<Space> {count}G                " jump to line you designate
+nnoremap <Space>h ^                              " move to beginning of line
+nnoremap <Space>l $                              " move to endding of line
+vnoremap <Space>h ^                              " move to beginning of line
+vnoremap <Space>l $                              " move to endding of line
 
-"-------------------------
-" Search
-"-------------------------
+"------------------------------------------------------------------------------- Line move
+nnoremap k gk                                    " Line move
+nnoremap j gj                                    " Line move
+vnoremap k gk                                    " Line move
+vnoremap j gj                                    " Line move
+nnoremap gk k                                    " Line move
+nnoremap gj j                                    " Line move
+vnoremap gk k                                    " Line move
+vnoremap gj j                                    " Line move
 
-" search regardress capital note or small note if search word is small note (noignorecase)
-set ignorecase
-
-" if capital note in search words, it doesn't regardress capital note or small note (nosmartcase)
-set smartcase
-
-" to enable incremental search
-set incsearch
-
-" show in middle of the monitor when moving n or N
-nnoremap n nzz
-nnoremap N Nzz
-
-" '/' for search and 'cs' for replace word and 'n' for moving to next
-"vnoremap <silent> s //e<C-r>=&selection=='exclusive'?'+1':''<CR><CR>
-"			\:<C-u>call histdel('search',-1)<Bar>let @/=histget('search',-1)<CR>gv
-"omap s :normal vs<CR>
-
-"-------------------------
-"PHP settings (note ":help" in vim)
-"-------------------------
-let php_sql_query = 1
-let php_baselib = 1
-let php_htmlInStrings = 1
-let php_noShortTags = 1
-let php_parent_error_close = 1
-
-"-------------------------
-"DB settings
-"-------------------------
-let g:sql_type_default='mysql'
-
-"-------------------------
-"Backup file
-"-------------------------
-"set backup
-"set backupdir=~/.vim/backup
-set nobackup
-
-"-------------------------
-"Swap file
-"-------------------------
-"set swapfile
-"set directory=~/.vim/swap
-set noswapfile
-
-"-------------------------
-"Tab and Indent
-"-------------------------
-
-" replace tab to space
-set expandtab
-
-" indent width
-set tabstop=4
-
-" auto indent width
-set shiftwidth=4
-
-" moving width of the consecutive white space
-set softtabstop=4
-
-" to continue indent width in new line
-set autoindent
-
-" to determining indent width automatically in new line
-set smartindent
-
-"-------------------------
-" yank & paste
-"-------------------------
-
-" move cursor position to under line after yank
-nnoremap p gp
-nnoremap P gP
-nnoremap gp p
-nnoremap gP P
-
-"-------------------------
-" automatic adding quote
-"-------------------------
-"imap { {}<LEFT>
-"imap [ []<LEFT>
-"imap ( ()<LEFT>
-
-"-------------------------
-" window
-"-------------------------
-
-" horizon split
-nnoremap \- :<C-u>sp<CR><C-w>j
-
-" virtical split
-nnoremap \\ :<C-u>vs<CR><C-w>l
-
-" move to left window
-nnoremap \h <C-w>h
-
-" move to bottom window
-nnoremap \j <C-w>j
-
-" move to above window
-nnoremap \k <C-w>k
-
-" move to right window
-nnoremap \l <C-w>l
-
-" move between window
-nnoremap \o <c-w><c-w>
-
-"-------------------------
-" change directory
-"-------------------------
-
-" motion prefix ` to <space>
-nnoremap <Space> `
-"nnoremap <Space><Space> ``
-
-" Jump list (reverse)
-nnoremap <Space>o <c-o>zz
-
-" Jump list (forwaord)
-nnoremap <Space>i <c-i>zz
-
-" jump to definition source
-nnoremap <Space>] g<c-]>
-
-" jump to brackets to be paired
-nnoremap <Space>[ %
-
-" jump to line you designate
-"nnoremap {count}<Space> {count}G
-
-" move to beginning/endding of line
-nnoremap <Space>h ^
-nnoremap <Space>l $
-vnoremap <Space>h ^
-vnoremap <Space>l $
-
-" Line move
-nnoremap k gk
-nnoremap j gj
-vnoremap k gk
-vnoremap j gj
-nnoremap gk k
-nnoremap gj j
-vnoremap gk k
-vnoremap gj j
-
-" Returning after moving by f
-nnoremap <Space>; ,
-
-"-------------------------
-" key bindings
-"-------------------------
-
-" insert brank line
-nnoremap 0 :<C-u>call append(expand('.'), '')<Cr>j
+nnoremap 0 :<C-u>call append(expand('.'), '')<Cr>j  " insert brank line
 
 "---------------------------------------------------------------------------
 " settings for NeoBundle
