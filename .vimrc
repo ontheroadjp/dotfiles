@@ -70,7 +70,7 @@ inoremap <silent> jj <esc>                       " 'jj' for 'ESC'
 vnoremap <leader><leader> <esc>                  " '<leader><leader>' for ESC
 "let mapleader = "\<Space>"                      " changing <Leader>
 "noremap <leader><leader> :up<CR>                " to save file if changed
-nnoremap ,, <C-v>                                " to chenge rectangular type selection mode
+nnoremap ,, <C-v>
 cabbr w!! w !sudo tee > /dev/null %              " w!! to save as root user
 
 "------------------------------------------------------------------------------- Search
@@ -458,6 +458,28 @@ let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 "if ! empty(neobundle#get("neocomplete-php"))
     let g:neocomplete_php_locale = 'ja'
 "endif
+
+
+"---------------------------------------------------------------------------
+" settings for neosnippet
+"---------------------------------------------------------------------------
+" Plugin key-mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+"imap <expr><TAB>
+" \ pumvisible() ? "\<C-n>" :
+" \ neosnippet#expandable_or_jumpable() ?
+" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
 
 "---------------------------------------------------------------------------
 " settings for Unit.vim
