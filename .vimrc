@@ -138,15 +138,15 @@ nnoremap <Space>l $                              " move to endding of line
 vnoremap <Space>h ^                              " move to beginning of line
 vnoremap <Space>l $                              " move to endding of line
 
-"------------------------------------------------------------------------------- Line move
-nnoremap k gk                                    " Line move
-nnoremap j gj                                    " Line move
-vnoremap k gk                                    " Line move
-vnoremap j gj                                    " Line move
-nnoremap gk k                                    " Line move
-nnoremap gj j                                    " Line move
-vnoremap gk k                                    " Line move
-vnoremap gj j                                    " Line move
+"------------------------------------------------------------------------------- Cursor move
+nnoremap k gk
+nnoremap j gj
+vnoremap k gk
+vnoremap j gj
+nnoremap gk k
+nnoremap gj j
+vnoremap gk k
+vnoremap gj j
 
 nnoremap 0 :<C-u>call append(expand('.'), '')<Cr>j  " insert brank line
 
