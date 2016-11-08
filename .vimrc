@@ -168,14 +168,23 @@ NeoBundle 'Shougo/neobundle.vim'
 "-------------------------
 " async execution for core script
 "-------------------------
+"NeoBundle 'Shougo/vimproc', {
+"\ 'build' : {
+"\     'windows' : 'make -f make_mingw32.mak',
+"\     'cygwin' : 'make -f make_cygwin.mak',
+"\     'mac' : 'make -f make_mac.mak',
+"\     'unix' : 'make -f make_unix.mak',
+"\    }
+"\ }
 NeoBundle 'Shougo/vimproc', {
-            \ 'build' : {
-            \     'windows' : 'make -f make_mingw32.mak',
-            \     'cygwin' : 'make -f make_cygwin.mak',
-            \     'mac' : 'make -f make_mac.mak',
-            \     'unix' : 'make -f make_unix.mak',
-            \    }
-            \ }
+\ 'build' : {
+\     'windows' : 'tools\\update-dll-mingw',
+\     'cygwin' : 'make -f make_cygwin.mak',
+\     'mac' : 'make',
+\     'linux' : 'make',
+\     'unix' : 'gmake',
+\    }
+\ }
 
 "-------------------------
 " Unite, NERDTree, Tagbar, SourceExplorer
@@ -796,13 +805,14 @@ let g:quickrun_config['markdown'] = {
 "---------------------------------------------------------------------------
 " settigs for man
 "---------------------------------------------------------------------------
-cnoremap man man<Space>
+cnoremap man Ref man<Space>
 
 "---------------------------------------------------------------------------
 " settings for PHP Manual
 "---------------------------------------------------------------------------
 let g:ref_phpmanual_path = '/Users/hideaki/.vim/vim-ref/php-chunked-xhtml'
-cnoremap phpm phpmanual<Space>
+"cnoremap phpm Ref phpmanual<Space>
+cnoremap refphp Unite ref/phpmanual<CR>
 
 "---------------------------------------------------------------------------
 " settings for using alc in the webdict
@@ -818,7 +828,7 @@ function! g:ref_source_webdict_sites.alc.filter(output)
 	return join(split(a:output, "\n")[29 :], "\n")
 endfunction
 
-cnoremap dic webdict alc<Space>
+cnoremap refen Ref webdict alc<Space>
 
 
 "---------------------------------------------------------------------------
