@@ -118,7 +118,7 @@ function _install_peco() {
 #-------------------------------------------------
 if [ "$(uname)" == 'Darwin' ]; then 
     # Homebrew
-    if ! _is_exsist brew; then
+    if ! _is_exist brew; then
         /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     fi
 	export PATH="/usr/local/bin:$PATH"
@@ -126,8 +126,8 @@ if [ "$(uname)" == 'Darwin' ]; then
     alias brew="env PATH=${PATH/\/Users\/$(whoami)\/\.rbenv\/shims:?/} brew"
 
     # go & ghq
-    [ ! $(_is_exist go) ] && brew install go
-    [ ! $(_is_exist ghq) ] && brew tap motemen/ghq && brew install ghq
+    if ! _is_exist go; then brew install go; fi
+    if ! _is_exist ghq; then brew tap motemen/ghq && brew install ghq; fi
 fi
 
 #-------------------------------------------------
@@ -152,8 +152,10 @@ function _install_docker_dd() {
     fi
 }
 
-branch=${1:=master}
-branch=dev
+[ -z "$1" ] && {
+    branch=master
+    branch=dev
+}
 
 if [ ! -d ~/.dotfiles ]; then 
     if ! _is_exist git; then
