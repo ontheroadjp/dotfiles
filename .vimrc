@@ -320,17 +320,18 @@ NeoBundle 'wesleyche/SrcExpl'                   " show file at cursor in new win
 NeoBundle 'thinca/vim-quickrun'	            	" execute code sunipet
 NeoBundle 'Shougo/neosnippet'                   " code snipet
 NeoBundle 'Shougo/neosnippet-snippets'          " a collection of the code anipet
-if has('lua')					            	" auto complition
-  NeoBundleLazy 'Shougo/neocomplete.vim', {
-      \ 'depends' : 'Shougo/vimproc',
-      \ 'autoload' : { 'insert' : 1,}
-      \ }
-else
-    NeoBundleLazy 'Shougo/neocomplcache'
-        let g:nocomplcache_enable_at_startup = 1
-        let g:neocomplcache_enable_ignore_case = 1
-        let g:neocomplcache_enble_smart_case = 1
-endif
+NeoBundle 'Shougo/neocomplete.vim'              " auto complition
+"if has('lua')					            	" auto complition
+"  NeoBundleLazy 'Shougo/neocomplete.vim', {
+"      \ 'depends' : 'Shougo/vimproc',
+"      \ 'autoload' : { 'insert' : 1,}
+"      \ }
+"else
+"    NeoBundleLazy 'Shougo/neocomplcache'
+"        let g:nocomplcache_enable_at_startup = 1
+"        let g:neocomplcache_enable_ignore_case = 1
+"        let g:neocomplcache_enble_smart_case = 1
+"endif
 
 "-------------------------
 " for Git
@@ -464,7 +465,7 @@ nnoremap <Leader>d :call PhpDocSingle()<CR>
 "---------------------------------------------------------------------------
 " settings for neocomplete
 "---------------------------------------------------------------------------
-if ! empty(neobundle#get("neocomplete"))
+"if ! empty(neobundle#get("neocomplete"))
 
 " color table
 " 1: red
@@ -565,15 +566,13 @@ endif
 " https://github.com/c9s/perlomni.vim
 let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
-endif
+"endif
 
 "---------------------------------------------------------------------------
 " settings for neocomplete-php
 "---------------------------------------------------------------------------
 "if ! empty(neobundle#get("neocomplete-php"))
-
-let g:neocomplete_php_locale = 'ja'
-
+    let g:neocomplete_php_locale = 'ja'
 "endif
 
 "---------------------------------------------------------------------------
