@@ -197,10 +197,10 @@ nnoremap gP P
 "-------------------------
 
 " horizon split
-nnoremap \- :<C-u>sp<CR>
+nnoremap \- :<C-u>sp<CR><C-w>j
 
 " virtical split
-nnoremap \\ :<C-u>vs<CR>
+nnoremap \\ :<C-u>vs<CR><C-w>l
 
 " move to left window
 nnoremap \h <C-w>h
@@ -612,7 +612,7 @@ au FileType unite inoremap <silent> <buffer> <expr> <C-v> unite#do_action('vspli
 "" unite.vim {{{
 " The prefix key.
 nnoremap    [unite]   <Nop>
-nmap    <Leader>f [unite]
+nmap    ,f [unite]
 
 " unite.vim keymap
 nnoremap [unite]u  :<C-u>Unite -no-split<Space>
@@ -630,7 +630,7 @@ nnoremap <silent> [unite]d :<C-u>Unite<Space>directory/new<CR>
 nnoremap <silent> [unite]n :<C-u>Unite<Space>file/new<CR>
 nnoremap <silent> [unite]t :<C-u>Unite<Space>outline<CR>
 nnoremap <silent> [unite]v :<C-u>UniteWithBufferDir file<CR>
-nnoremap <silent> <Leader><Leader> :UniteResume<CR>
+"nnoremap <silent> <Leader><Leader> :UniteResume<CR>
 "" }}}
 
 nmap <C-r> ,fr
