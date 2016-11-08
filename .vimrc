@@ -66,19 +66,19 @@ set fileformats=unix,dos,mac
 set number                                       " show line number
 set nowrap                                       " automatic wordwrap
 set backspace=2                                  " it can delete newline character be BackSpace key
-inoremap <silent> jj <esc>                       " 'jj' for 'ESC'
-vnoremap <leader><leader> <esc>                  " '<leader><leader>' for ESC
+inoremap <silent> jj <esc>
+vnoremap <leader><leader> <esc>
 "let mapleader = "\<Space>"                      " changing <Leader>
 "noremap <leader><leader> :up<CR>                " to save file if changed
 nnoremap ,, <C-v>
-cabbr w!! w !sudo tee > /dev/null %              " w!! to save as root user
+cabbr w!! w !sudo tee > /dev/null %
 
 "------------------------------------------------------------------------------- Search
 set ignorecase                                   " search regardress capital note or small note if search word is small note (noignorecase)
 set smartcase                                    " if capital note in search words, it doesn't regardress capital note or small note (nosmartcase)
 set incsearch                                    " to enable incremental search
-nnoremap n nzz                                   " show in middle of the monitor when moving n
-nnoremap N Nzz                                   " show in middle of the monitor when moving N
+nnoremap n nzz
+nnoremap N Nzz
 
 "-------------------------------------------------------- PHP settings (note ":help" in vim)
 let php_sql_query = 1                            " PHP settings
@@ -107,10 +107,10 @@ set autoindent                                   " to continue indent width in n
 set smartindent                                  " to determining indent width automatically in new line
 
 "------------------------------------------------------------------------------- yank & put
-nnoremap p gp                                    " move cursor position to under line after yank
-nnoremap P gP                                    " move cursor position to under line after yank
-nnoremap gp p                                    " move cursor position to under line after yank
-nnoremap gP P                                    " move cursor position to under line after yank
+nnoremap p gp
+nnoremap P gP
+nnoremap gp p
+nnoremap gP P
 
 "------------------------------------------------------------------------ automatic adding quote
 "imap { {}<LEFT>                                 " automatic adding quote
@@ -225,7 +225,7 @@ NeoBundle 'tpope/vim-fugitive'
 "-------------------------
 " for PHP
 "-------------------------
-NeoBundle 'violetyk/neocomplete-php.vim'        " adding explanation in PHP auto complition
+"NeoBundle 'violetyk/neocomplete-php.vim'        " adding explanation in PHP auto complition
 NeoBundle 'joonty/vdebug'	    		        " xdebug client
 NeoBundle 'PDV--phpDocumentor-for-Vim'          " ease to insert Doc comments
 "NeoBundle 'm2mdas/phpcomplete-extended'        " auto complition for PHP
@@ -387,10 +387,11 @@ let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
 " Define dictionary.
 let g:neocomplete#sources#dictionary#dictionaries = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
+\   'default' : '',
+\   'vimshell' : $HOME.'/.vimshell_hist',
+\   'scheme' : $HOME.'/.gosh_completions',
+\   'php' : $HOME.'/.vim/dict/php.dict'
+\ }
 
 " Define keyword.
 if !exists('g:neocomplete#keyword_patterns')
@@ -458,6 +459,11 @@ let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 "if ! empty(neobundle#get("neocomplete-php"))
     let g:neocomplete_php_locale = 'ja'
 "endif
+
+"---------------------------------------------------------------------------
+" Load PHP dictionary
+"---------------------------------------------------------------------------
+"autocmd FileType php,ctp :set dictionary=~/.vim/dict/php.dict
 
 
 "---------------------------------------------------------------------------
