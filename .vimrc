@@ -6,13 +6,17 @@ autocmd QuickfixCmdPost *grep* cwindow
 nnoremap ]q :cnext<CR>
 nnoremap [q :cprevious<CR>
 
-"-------------------------------------------------------------------------------- color schema
+"nmap ,c :!open -a Google\ Chrome<CR>
+
+"================================================================================ visuals
+"color schema
 so ${HOME}/dotfiles/.vim/vimrc_includs/color-schema.vim
 
-"-------------------------------------------------------------------------------- vim status-line
-so ${HOME}/dotfiles/.vim/vimrc_includs/vim-status-line.vim
+"vim status-line
+"so ${HOME}/dotfiles/.vim/vimrc_includs/vim-status-line.vim
+set laststatus=2
 
-"-------------------------------------------------------------------------------- General settings
+"================================================================================ General settings
 "set encoding=utf-8                              " set charactor code
 set encoding=utf-8 nobomb                        " set charactor code
 set fileencodings=utf-8,ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932
@@ -37,6 +41,11 @@ set softtabstop=4                                " moving width of the consecuti
 set autoindent                                   " to continue indent width in new line
 set smartindent                                  " to determining indent width automatically in new line
 
+"------------------------------------------------------------------------------- Cursor settings
+let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\" 
+let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
+let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+
 "------------------------------------------------------------------------------- Search
 set ignorecase                                   " search regardress capital note or small note if search word is small note (noignorecase)
 set smartcase                                    " if capital note in search words, it doesn't regardress capital note or small note (nosmartcase)
@@ -44,66 +53,28 @@ set incsearch                                    " to enable incremental search
 nnoremap n nzz
 nnoremap N Nzz
 
-"-------------------------------------------------------- PHP settings (note ":help" in vim)
-let php_sql_query = 1                            " PHP settings
-let php_baselib = 1                              " PHP settings
-let php_htmlInStrings = 1                        " PHP settings
-let php_noShortTags = 1                          " PHP settings
-let php_parent_error_close = 1                   " PHP settings
-let g:sql_type_default='mysql'                   " DB settings
-
-"------------------------------------------------------------------------ automatic adding quote
-"imap { {}<LEFT>                                 " automatic adding quote
-"imap [ []<LEFT>                                 " automatic adding quote
-"imap ( ()<LEFT>                                 " automatic adding quote
-
-"-------------------------------------------------------------------------------- Key bindings
+"================================================================================== Key bindings
+" JJ to <esc>
 inoremap <silent> jj <esc>
-vnoremap <leader><leader> <esc>
-"let mapleader = "\<Space>"                      " changing <Leader>
-"noremap <leader><leader> :up<CR>                " to save file if changed
-nnoremap ,, <C-v>
-cabbr w!! w !sudo tee > /dev/null %
 
-"------------------------------------------------------------------------------- yank & put
-nnoremap p gp
-nnoremap P gP
-nnoremap gp p
-nnoremap gP P
+" <Leader><Leader> to <esc>
+"vnoremap <leader><leader> <esc>
 
-"------------------------------------------------------------------------------- window
-nnoremap \- :<C-u>sp<CR><C-w>j                   " horizon split
-nnoremap \\ :<C-u>vs<CR><C-w>l                   " virtical split
-nnoremap \h <C-w>h                               " move to left window
-nnoremap \j <C-w>j                               " move to bottom window
-nnoremap \k <C-w>k                               " move to above window
-nnoremap \l <C-w>l                               " move to right window
-nnoremap \q <c-w><c-w>                           " move between window
+" changing <Leader>
+"let mapleader = "\<Space>"
 
-"------------------------------------------------------------------------------- Jump
-nnoremap <Space> `
-nnoremap <Space>o <c-o>zz
-nnoremap <Space>i <c-i>zz
-nnoremap <Space>] g<c-]>
-nnoremap <Space>[ %
-"nnoremap {count}<Space> {count}G
-nnoremap <Space>h ^
-nnoremap <Space>l $
-vnoremap <Space>h ^
-vnoremap <Space>l $
+ 
+"" Go into visual mode
+"nnoremap ,, <C-v>
+"cabbr w!! w !sudo tee > /dev/null %
 
-"nnoremap <Space> `                               " motion prefix ` to <space>
-"nnoremap <Space>o <c-o>zz                        " Jump list (reverse)
-"nnoremap <Space>i <c-i>zz                        " Jump list (forwaord)
-"nnoremap <Space>] g<c-]>                         " jump to definition source
-"nnoremap <Space>[ %                              " jump to brackets to be paired
-""nnoremap {count}<Space> {count}G                " jump to line you designate
-"nnoremap <Space>h ^
-"nnoremap <Space>l $
-"vnoremap <Space>h ^
-"vnoremap <Space>l $
+" Create/edit file in the current directory
+cnoremap ed edit %:p:h/
 
-"------------------------------------------------------------------------------- Cursor move
+" Auto change directory to match current file ,cd
+nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
+
+"------------------------------------------------------------------------------- moving cursor
 nnoremap k gk
 nnoremap j gj
 vnoremap k gk
@@ -113,16 +84,124 @@ nnoremap gj j
 vnoremap gk k
 vnoremap gj j
 
-nnoremap 0 :<C-u>call append(expand('.'), '')<Cr>j  " insert brank line
+" insert brank line
+nnoremap 00 :<C-u>call append(expand('.'), '')<CR>j
+
+" insert two brank line and to be inline mode
+nnoremap 0i :<C-u>call append(expand('.'), '')<CR>o
+
+"------------------------------------------------------------------------------- Jump to
+" motion prefix ` to <space>
+nnoremap <Space> `
+
+" Jump list (reverse)
+nnoremap <Space>o <c-o>zz
+
+" Jump list (forword)
+nnoremap <Space>i <c-i>zz
+
+"Jump to definition source
+nnoremap <Space>] g<c-]>
+
+" Jump to brackets to be paired
+nnoremap <Space>[ %
+
+" Jump to begining of the line 
+nnoremap <Space>h ^
+vnoremap <Space>h ^
+
+" Jump to end ot the line
+nnoremap <Space>l $
+vnoremap <Space>l $
+
+" list all of them if multiple candidate of the distination when it tags jump
+nnoremap <C-]> g<C-]> 
+"------------------------------------------------------------------------------- yank & put
+nnoremap p gp
+nnoremap P gP
+nnoremap gp p
+nnoremap gP P
+
+" past in normalmode
+if &term =~ "xterm"
+    let &t_ti .= "\e[?2004h"
+    let &t_te .= "\e[?2004l"
+    let &pastetoggle = "\e[201~"
+    if !exists('*XTermPasteBegin')
+        function XTermPasteBegin(ret)
+            set paste
+            return a:ret
+        endfunction
+    endif
+
+    noremap <special> <expr> <Esc>[200~ XTermPasteBegin("0i")
+    inoremap <special> <expr> <Esc>[200~ XTermPasteBegin("")
+    cnoremap <special> <Esc>[200~ <nop>
+    cnoremap <special> <Esc>[201~ <nop>
+endif
+
+"------------------------------------------------------------------------------- window
+" horizon split
+cnoremap sp rightbelow sp<CR> 
+
+" virtical split
+cnoremap vs rightbelow vsp<CR>
+
+" close window
+"nnoremap \2 :close<CR>
+
+" move to left window
+"nnoremap \h <C-w>h
+
+" move to bottom window
+"nnoremap \j <C-w>j
+
+" move to above window
+"nnoremap \k <C-w>k
+
+" move to right window
+"nnoremap \l <C-w>l
+
+" move between window
+"nnoremap \q <c-w><c-w>
+
+"------------------------------------------------------------------------
+"brackets
+inoremap {<Enter> {}<Left><CR><ESC><S-o>
+inoremap [<Enter> []<Left><CR><ESC><S-o>
+inoremap (<Enter> ()<Left><CR><ESC><S-o>
+"inoremap { {}<LEFT>
+"inoremap [ []<LEFT>
+"inoremap ( ()<LEFT>
+"inoremap < <><LEFT>
+"inoremap " ""<LEFT>
+"inoremap ' ''<LEFT>
+
+"-------------------------------------------------------- PHP settings (note ":help" in vim)
+let php_sql_query = 1                            " PHP settings
+let php_baselib = 1                              " PHP settings
+let php_htmlInStrings = 1                        " PHP settings
+let php_noShortTags = 1                          " PHP settings
+let php_parent_error_close = 1                   " PHP settings
+let g:sql_type_default='mysql'                   " DB settings
+
+
+nnoremap ,a vap=vapvv
 
 "------------------------------------------------------------------------------ Load dictionary
-"autocmd FileType php,ctp :set dictionary=~/.source ~/.vimrc/dict/php.dict
+"autocmd FileType php,ctp :set dictionary=~/.source ~/.vim/dict/php.dict
+autocmd FileType php,ctp :set dictionary=~/.vim/dict/php.dict
+autocmd FileType php,ctp :set complete+=k/~/.vim/dict/php.dict
 
-"------------------------------------------------------------------------------ File Open
-cnoremap vv source ~/.vimrc
-cnoremap ep e ${HOME}/.vim/vimrc_includs/plugins.vim
+"------------------------------------------------------------------------------ Command alias
+cnoremap vv source ~/.vimrc<CR>
+cnoremap qq q<CR>
 
-"------------------------------------------------------------------------------ Plug-in
+" open files
+nmap <Leader>es :e ~/.vim/snippets/
+
+
+"------------------------------------------------------------------------------ Plug-ins
 " Plug-in installation
 so ${HOME}/dotfiles/.vim/vimrc_includs/plugins.vim
 "so ${HOME}/dotfiles/.vim/vimrc_includs/plugins_dirs.vim
@@ -137,10 +216,17 @@ so ${HOME}/dotfiles/.vim/vimrc_includs/tagbar.vim
 so ${HOME}/dotfiles/.vim/vimrc_includs/taglist.vim
 so ${HOME}/dotfiles/.vim/vimrc_includs/srcexplorer.vim
 
+" moving cursor
+so ${HOME}/dotfiles/.vim/vimrc_includs/vim-easymotion.vim
+
 " completion
-so ${HOME}/dotfiles/.vim/vimrc_includs/neocomplete.vim
+"so ${HOME}/dotfiles/.vim/vimrc_includs/neocomplete.vim
 "so ${HOME}/dotfiles/.vim/vimrc_includs/neocomplete-php.vim
-so ${HOME}/dotfiles/.vim/vimrc_includs/neosnippet.vim
+so ${HOME}/dotfiles/.vim/vimrc_includs/supertab.vim
+
+" snippets
+"so ${HOME}/dotfiles/.vim/vimrc_includs/neosnippet.vim
+so ${HOME}/dotfiles/.vim/vimrc_includs/snipmate.vim
 
 " reference
 so ${HOME}/dotfiles/.vim/vimrc_includs/vim-ref.vim
@@ -151,11 +237,13 @@ so ${HOME}/dotfiles/.vim/vimrc_includs/ag.vim
 so ${HOME}/dotfiles/.vim/vimrc_includs/quickrun.vim
 so ${HOME}/dotfiles/.vim/vimrc_includs/qfixhome.vim
 so ${HOME}/dotfiles/.vim/vimrc_includs/vdebug.vim
-so ${HOME}/dotfiles/.vim/vimrc_includs/pdv-phpdocumentor-for-vim.vim
 
 " PHP
 so ${HOME}/dotfiles/.vim/vimrc_includs/php.vim 
 so ${HOME}/dotfiles/.vim/vimrc_includs/vim-php-namespace.vim 
+so ${HOME}/dotfiles/.vim/vimrc_includs/php-getter-setter.vim
+so ${HOME}/dotfiles/.vim/vimrc_includs/vim-php-cs-fixer.vim 
+so ${HOME}/dotfiles/.vim/vimrc_includs/pdv-phpdocumentor-for-vim.vim
 
 filetype on
 
