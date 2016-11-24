@@ -1,0 +1,104 @@
+# container
+snippet container
+	<div class="container">
+		${1}
+	</div>
+
+# row
+snippet row
+	<div class="row">
+		${1}
+	</div>
+
+# col-md
+snippet col-md
+	<div class="col-md-${1}">
+		${2}
+	</div>
+
+#panel
+snippet panel
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			${1}
+		</div>
+		<div class="panel-body">
+			${2}
+		</div>
+	</div>
+
+# .panel-heading
+snippet .panel-heading
+	<div class="panel-heading">
+		${1}
+	</div>
+
+# .panel-body
+snippet .panel-body
+	<div class="panel-body">
+		${1}
+	</div>
+
+# <span class="label...>
+snippet .label
+	<span class="label label-default">${1}</span>
+
+snippet list-group
+	<ul class="list-group">
+		<li class="list-group-item">
+			${1}
+		</li>
+	</ul>
+
+#form-group
+snippet .form-group
+	<div class="form-group">
+		${1}
+	</div>
+
+snippet .form-control
+	<input type="${1}" class="form-control" name="${2}" id="${3}" placeholder="${4}">
+
+snippet .btn
+	<button class="btn btn-primary">${1}</button>
+
+# form - block - selectbox
+snippet selectbox
+	<div class="form-group {{ $errors->has('$2') ? 'has-error' : '' }}">
+		<label for="$2">${1}</label>
+		<select class="form-control" name="${2}">
+			<option selected disabled>Select category ID</option>
+			@foreach($items as $item)
+				<option 
+					value="{{ $item->id }}" 
+					{{ old('$2') == $item->id ? 'selected' : '' }}
+				>
+					{{ $item->name }}
+				</option>
+			@endforeach
+		</select>
+		{!! $errors->first('$2','<span class="help-block">:message</span>') !!}
+	</div>
+
+# form - block - textfield
+snippet textfield
+	<div class="form-group {{ $errors->has('$1') ? 'has-error' : '' }}">
+		<label for="$1">$1</label>
+		<input
+			type="text"
+			class="form-control"
+			name="${1}"
+			id="$1"
+			value="{{ old('title') }}"
+			placeholder="What is a $1? "
+			required
+		>
+		{!! $errors->first('$1','<span class="help-block">:message</span>') !!}
+	</div>
+
+# form -block -submit button
+snippet submit
+	<div class="form-group">
+		<button class="btn btn-primary">${1}</button>
+	</div>
+

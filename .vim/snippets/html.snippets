@@ -1,0 +1,172 @@
+# Template
+snippet html
+	<!DOCTYPE html>
+	<html lang="${1}">
+	<head>
+		<meta charset="UTF-8">
+		<title>${2}</title>
+	</head>
+	<body>
+		${3}
+	</body>
+	</html>
+
+snippet head
+	<head>
+		<meta charset="UTF-8">
+		<title>${1}</title>
+	</head>
+
+
+# <head></head>
+snippet title
+	<title>${1}</title>
+	${2}
+
+snippet script
+	<script>
+		${1}
+	</script>
+
+
+# HTML5
+snippet header
+	<header>${1}</header>
+
+snippet nav
+	<nav>${1}</nav> 
+
+snippet section
+	<section>${1}</section>
+
+# <h12345></h12345>
+snippet h1
+	<h1>${1}</h1>
+
+snippet h2
+	<h2>${1}</h2>
+
+snippet h3
+	<h3>${1}</h3>
+
+snippet h4
+	<h4>${1}</h4>
+
+snippet h5
+	<h5>${1}</h5>
+
+# Paragraph
+snippet div
+	<div>${1}</div>
+
+snippet p
+	<p>${1}</p>
+
+snippet span
+	<span>${$1}</span>${2}
+
+snippet br
+	<br />
+
+# Text
+snippet strike
+	<strike>${1}</strike>
+
+snippet small
+	<small>${1}</small>
+
+# List
+snippet ul
+	<ul>
+		${1}
+	</ul>
+
+snippet ol
+	<ol>
+		${1}
+	</ol>
+
+snippet li
+	<li>${1}</li>
+
+# Table
+snippet table
+	<table>
+		<tr>
+			<th>${1}</th>
+		</tr>
+		<tr>
+			<td>${2}</td>
+		</tr>
+	</table>
+
+snippet tr
+	<tr>
+		<td>${1}</td>
+	</tr>
+
+snippet th
+	<th>${1}</th>
+
+snippet td
+	<td>${1}</td>
+
+# <form>
+snippet form
+	<form method="${1}" action="${2}">
+		${3}
+	</form>
+
+# <label>
+snippet label
+	<label for="${1}">${2}</label>
+
+# <input type="text">
+snippet intext
+	<input name="${1}" type="text"></input>
+
+# <textarea>
+snippet inarea
+	<textarea name="${1}" rows="${2} cols="${3}"></textarea>
+
+# <input type="radio">
+snippet inradio
+	<input name="${1}" type="radio" value="${2}">${3}
+
+# <select>
+snippet inselect
+	<select name="${1}">
+		<option value="${2}">${3}</option>
+	</select>
+
+# <option>
+snippet inoption
+	<option value="${2}">${3}</option>
+
+# <button type="submit">
+snippet submit
+		<button type="Submit">${1}</button>
+
+# <input type="reset">
+snippet reset
+	<input type="reset" value="Reset">
+
+snippet hidden
+	<input type="hidden" name="${1}" value="${2}">
+
+# Ancher
+snippet a
+	<a href="${1}">${2}</a>${3}
+
+snippet at
+	<a href="${1}" target="_blank">${2}</a>${3}
+
+# attributes
+snippet id
+	id="${1}"${2}
+
+snippet class
+	class="${1}"${2}
+
+snippet target
+	target="_blank"
