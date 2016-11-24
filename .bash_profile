@@ -10,10 +10,34 @@ function _is_exist {
     type $@ > /dev/null 2>&1
 }
 
+function opeco() {
+    if [ $# -eq 0 ]; then
+        search_dir=$(pwd)
+    elif [ ! -d $1 ]; then
+        echo "bad argument." && return
+    else
+        search_dir=$1
+    fi
+
+    item=$(ls "${search_dir}" | peco) && [ -z "${item}" ] && return
+    while [ -d "${search_dir}/${item}" ]; do
+        search_dir="${search_dir}/${item}"
+        item=$(ls "${search_dir}" | peco) && [ -z "${item}" ] && return
+    done
+    open "${search_dir}/${item}"
+}
+
+function laracast() {
+    opeco $HOME/dev/src/github.com/iamfreee/laracasts-downloader/Downloads
+}
+
 #-------------------------------------------------
 # For MacOSX only
 #-------------------------------------------------
 if [ "$(uname)" == 'Darwin' ]; then 
+
+    # for Homebrew
+    export PATH="/usr/local/sbin:$PATH"
 
     # Ruby
     #RBENV_ROOT="$HOME/.rbenv"
@@ -73,15 +97,18 @@ if [ "$(uname)" == 'Darwin' ]; then
 	export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 	# Finished adapting your PATH environment variable for use with MacPorts.
 
-	tmux a -d
+    # Python
+	export PATH="/usr/local/share:$PATH"
 
-if [ -z $TMUX ]; then
-	if $(tmux has-session); then
-		tmux attach
-	else
-		tmux
-	fi
-fi
+	#tmux a -d
+
+#if [ -z $TMUX ]; then
+#	if $(tmux has-session); then
+#		tmux attach
+#	else
+#		tmux
+#	fi
+#fi
 						  
 	#-------------------------------------------------
 	# tmux settings
@@ -159,21 +186,6 @@ fi
 		sudo kill -9 ${process}
 	}
 
-	#-------------------------------------------------
-	# Projects
-	#-------------------------------------------------
-	export PROJECT_ROOT=${HOME}/Desktop/test/
-	alias cdp='cdla ${PROJECT_ROOT}NutsPages/'
-	alias cdv='cdla ${PROJECT_ROOT}NutsPages/vendor/ontheroadjp/'
-
-	#-------------------------------------------------
-	# Laravel
-	#-------------------------------------------------
-	alias pub='php artisan vendor:publish --force'
-	alias sv='php artisan serve'
-	alias rl='php artisan route:list'
-	alias t='vendor/bin/phpunit --colors'
-	
 #-------------------------------------------------
 # For Linux only
 #-------------------------------------------------
@@ -201,6 +213,7 @@ fi
 alias cdh='cdla ${HOME}'
 alias c='clear && la'
 alias e='exit'
+alias jj=$(:)
 
 if [ -f ${HOME}/dotfiles/peco/peco ]; then
     export PATH=${PATH}:${HOME}/dotfiles/peco
@@ -413,6 +426,23 @@ if _is_exist vagrant; then
     echo "Load Vagrant settings."
 fi
 
+#-------------------------------------------------
+# PHP
+#-------------------------------------------------
+if _is_exist composer; then
+    export PATH="${PATH}:${HOME}/.composer/vendor/bin"
+fi
+
+#-------------------------------------------------
+# Laravel
+#-------------------------------------------------
+alias art='php artisan '
+alias tinker='php artisan tinker'
+alias pub='php artisan vendor:publish --force'
+alias sv='php artisan serve'
+alias rl='php artisan route:list'
+alias t='vendor/bin/phpunit --colors'
+	
 #-------------------------------------------------
 # dstat
 #-------------------------------------------------
