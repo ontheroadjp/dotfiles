@@ -19,16 +19,17 @@ function! g:SrcExpl_UpdateAllTags()
     let g:SrcExpl_updateTagsCmd = 'ctags --sort=foldcase %'
 endfunction
 
-" Source Explorer Window Height
+" Height
 let g:SrcExpl_winHeight = 14
 
 " Mappings
-nn [srce] <Nop>
-nm <Leader>n [srce]
-nn <silent> [srce]<CR> :SrcExplToggle<CR>
-nn <silent> [srce]u :call g:SrcExpl_UpdateTags()<CR>
-nn <silent> [srce]a :call g:SrcExpl_UpdateAllTags()<CR>
-nn <silent> [srce]n :call g:SrcExpl_NextDef()<CR>
-nn <silent> [srce]p :call g:SrcExpl_PrevDef()<CR>
+"nn [srce] <Nop>
+"nm <Leader>s [srce]
+"nn <silent> [srce]<CR> :SrcExplToggle<CR>
+"nn <silent> [srce]u :call g:SrcExpl_UpdateTags()<CR>
+"nn <silent> [srce]a :call g:SrcExpl_UpdateAllTags()<CR>
+"nn <silent> [srce]n :call g:SrcExpl_NextDef()<CR>
+"nn <silent> [srce]p :call g:SrcExpl_PrevDef()<CR>
+nn <silent> ,s :SrcExplToggle<CR>
 
 endif

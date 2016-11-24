@@ -41,7 +41,7 @@ let g:NERDTreeQuitOnOpen=1
 
 " change current directory when moving in NERDTree
 "default (0) -  0:don't change, 1:can be changed, 2:auto change
-let g:NERDTreeChDirMode=2
+let g:NERDTreeChDirMode=0
 
 " change color of the file extension
 function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)

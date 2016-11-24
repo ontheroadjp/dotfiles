@@ -6,5 +6,5 @@ if ! empty(neobundle#get("tagbar"))
 " Width (default 40)
 let g:tagbar_width = 30
 " Map for toggle
-nn <silent> ,t :TagbarToggle<CR>
+nn <silent> ,t :TagbarToggle<CR><C-w>l
 endif

@@ -15,6 +15,7 @@ let g:unite_enable_smart_case = 1
 au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
 au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
 
+" twice "f" to close
 au FileType unite nnoremap <silent> <buffer> ff :q<CR>
 au FileType unite inoremap <silent> <buffer> ff <ESC>:q<CR>
 
@@ -39,7 +40,7 @@ nmap    ,f [unite]
 " unite.vim keymap
 nnoremap [unite]u  :<C-u>Unite -no-split<Space>
 nnoremap <silent> [unite]f :<C-u>Unite<Space>file_rec<CR>
-nnoremap <silent> [unite]c :<C-u>Unite<Space>file<CR>
+"nnoremap <silent> [unite]c :<C-u>Unite<Space>file<CR>
 nnoremap <silent> [unite]g :<C-u>Unite<Space>grep<CR>
 nnoremap <silent> [unite]b :<C-u>Unite<Space>buffer<CR>
 nnoremap <silent> [unite]m :<C-u>Unite<Space>bookmark<CR>
@@ -48,14 +49,11 @@ nnoremap <silent> [unite]r :<C-u>Unite<Space>file_mru<CR>
 nnoremap <silent> [unite]p :<C-u>Unite<Space>file_point<CR>
 nnoremap <silent> [unite]y :<C-u>Unite<Space>register<CR>
 nnoremap <silent> [unite]h :<C-u>Unite<Space>history/yank<CR>
-nnoremap <silent> [unite]d :<C-u>Unite<Space>directory/new<CR>
-nnoremap <silent> [unite]n :<C-u>Unite<Space>file/new<CR>
+"nnoremap <silent> [unite]d :<C-u>Unite<Space>directory/new<CR>
+"nnoremap <silent> [unite]n :<C-u>Unite<Space>file/new<CR>
 nnoremap <silent> [unite]t :<C-u>Unite<Space>outline<CR>
 nnoremap <silent> [unite]v :<C-u>UniteWithBufferDir file<CR>
 "nnoremap <silent> <Leader><Leader> :UniteResume<CR>
 "" }}}
-
-nmap <C-r> ,fr
-nmap <C-f> ,ff
 
 "endif
