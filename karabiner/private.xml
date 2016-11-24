@@ -8,9 +8,9 @@
                 <name>Leave Insert Mode with EISUU (vim keybind apps)</name>
                 <identifier>private.vim_keybind_apps_esc_with_eisuu</identifier>
                 <only>TERMINAL,iTERM2,MACVIM</only>
-				<autogen>
-					--KeyToKey-- 
-					KeyCode::ESCAPE, KeyCode::ESCAPE, 
+                <autogen>
+                    --KeyToKey-- 
+                    KeyCode::ESCAPE, KeyCode::ESCAPE, 
 					KeyCode::JIS_EISUU
 				</autogen>
 				<autogen>
@@ -18,80 +18,35 @@
 					KeyCode::J, KeyCode::J, 
 					KeyCode::JIS_EISUU
 				</autogen>
+			</item>
+            <item>
+                <name>Replace COMMAND to CTRL</name>
+                <identifier>private.vim_cmd_to_ctrl</identifier>
+                <only>TERMINAL,iTERM2,MACVIM</only>
+				<autogen>
+					--KeyToKey-- 
+					KeyCode::COMMAND_L,
+					KeyCode::CONTROL_L
+				</autogen>
+				<autogen>
+					--KeyToKey-- 
+					KeyCode::TAB, ModifierFlag::CONTROL_L,
+					KeyCode::TAB, ModifierFlag::COMMAND_L 
+				</autogen>
+				<autogen>
+					--KeyToKey-- 
+					KeyCode::SPACE, ModifierFlag::CONTROL_L | ModifierFlag::SHIFT_L,
+					KeyCode::SPACE, ModifierFlag::COMMAND_L | ModifierFlag::SHIFT_L
+				</autogen>
             </item>
             <item>
-                <name>Key Bind: Full Screen</name>
-                <only>TERMINAL,MACVIM</only>
+                <name>Key Bind: Window to be full Screen</name>
+                <only>TERMINAL</only>
                 <identifier>ontheroad.full_screen</identifier>
 				<autogen>
 					--KeyToKey-- 
-					KeyCode::RETURN, ModifierFlag::COMMAND_L,
+					KeyCode::RETURN, ModifierFlag::CONTROL_L,
 					KeyCode::F, ModifierFlag::COMMAND_L | ModifierFlag::CONTROL_R
-				</autogen>
-            </item>
-            <item>
-                <name>Key Bind: TERMINAL</name>
-                <only>TERMINAL,iTERM2,MACVIM</only>
-                <identifier>ontheroad.app_terminal</identifier>
-				<autogen>
-					--KeyToKey-- 
-					KeyCode::C, ModifierFlag::COMMAND_L, 
-					KeyCode::C, ModifierFlag::CONTROL_R
-				</autogen>
-            </item>
-            <item>
-                <name>Key Bind: TERMINAL for vim</name>
-                <only>TERMINAL,iTERM2,MACVIM</only>
-                <identifier>ontheroad.app_terminal_for_vim</identifier>
-				<autogen>
-					--KeyToKey-- 
-					KeyCode::R, ModifierFlag::COMMAND_L, 
-					KeyCode::R, ModifierFlag::CONTROL_R
-				</autogen>
-				<autogen>
-					--KeyToKey-- 
-					KeyCode::E, ModifierFlag::COMMAND_L, 
-					KeyCode::E, ModifierFlag::CONTROL_R
-				</autogen>
-				<autogen>
-					--KeyToKey-- 
-					KeyCode::O, ModifierFlag::COMMAND_L | ModifierFlag::SHIFT_L, 
-					KeyCode::W, ModifierFlag::CONTROL_R
-				</autogen>
-				<autogen>
-					--KeyToKey-- 
-					KeyCode::O, ModifierFlag::COMMAND_L, 
-					KeyCode::O, ModifierFlag::CONTROL_R
-				</autogen>
-				<autogen>
-					--KeyToKey-- 
-					KeyCode::I, ModifierFlag::COMMAND_L, 
-					KeyCode::I, ModifierFlag::CONTROL_R
-				</autogen>
-				<autogen>
-					--KeyToKey-- 
-					KeyCode::U, ModifierFlag::COMMAND_L, 
-					KeyCode::U, ModifierFlag::CONTROL_R
-				</autogen>
-				<autogen>
-					--KeyToKey-- 
-					KeyCode::D, ModifierFlag::COMMAND_L, 
-					KeyCode::D, ModifierFlag::CONTROL_R
-				</autogen>
-            </item>
-            <item>
-                <name>Key Bind: TERMINAL for tmux</name>
-                <only>iTERM2,TERMINAL</only>
-                <identifier>ontheroad.app_terminal_for_tmux</identifier>
-				<autogen>
-					--KeyToKey-- 
-					KeyCode::B, ModifierFlag::COMMAND_L, 
-					KeyCode::B, ModifierFlag::CONTROL_L
-				</autogen>
-				<autogen>
-					--KeyToKey-- 
-					KeyCode::T, ModifierFlag::COMMAND_L, 
-					KeyCode::L, ModifierFlag::CONTROL_L
 				</autogen>
             </item>
         </list>
@@ -99,31 +54,4 @@
         <appdef> <appname>SUBLIMETEXT3</appname><equal>com.sublimetext.3</equal></appdef>
         <appdef> <appname>MACDOWN</appname><equal>com.uranusjr.macdown</equal></appdef>
         <appdef> <appname>COTEDITOR</appname><equal>com.coteditor.CotEditor</equal></appdef>
-        <list>
-            <item>
-                <name>Key Bind: Vim like Curor move: hjkl</name>
-                <only>FINDER,SUBLIMETEXT3,MACDOWN,COTEDITOR</only>
-                <identifier>ontheroad.app_sublimetext3</identifier>
-				<autogen>
-					--KeyToKey-- 
-					KeyCode::H, ModifierFlag::COMMAND_L | ModifierFlag::SHIFT_L, 
-					KeyCode::CURSOR_LEFT
-				</autogen>
-				<autogen>
-					--KeyToKey-- 
-					KeyCode::J, ModifierFlag::COMMAND_L | ModifierFlag::SHIFT_L, 
-					KeyCode::CURSOR_DOWN
-				</autogen>
-				<autogen>
-					--KeyToKey-- 
-					KeyCode::K, ModifierFlag::COMMAND_L | ModifierFlag::SHIFT_L, 
-					KeyCode::CURSOR_UP
-				</autogen>
-				<autogen>
-					--KeyToKey-- 
-					KeyCode::L, ModifierFlag::COMMAND_L | ModifierFlag::SHIFT_L, 
-					KeyCode::CURSOR_RIGHT
-				</autogen>
-            </item>
-        </list>
     </root>
