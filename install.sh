@@ -88,6 +88,22 @@ function _install_neobundle() {
 }
 
 #-------------------------------------------------
+# PHP Document
+#-------------------------------------------------
+function _getPhpDocument() {
+    printf ">>> install PHP Document..."
+    url=http://jp2.php.net/get/php_manual_ja.tar.gz/from/this/mirror
+    mkdir -p ${DOTPATH}/.vim/ref
+    if [ ! -d ${DOTPATH}/.vim/ref/php-chunked-xhtml ]; then
+        wget -O ${DOTPATH}/.vim/ref/php-chunked-xhtml.tar.gz ${url}
+        tar xzf ${DOTPATH}/.vim/ref/php-chunked-xhtml.tar.gz -C ${DOTPATH}/.vim/ref
+        echo "done"
+    else
+        echo "skip: already installed."
+    fi
+}
+
+#-------------------------------------------------
 # Peco
 #-------------------------------------------------
 function _install_peco() {
@@ -168,6 +184,7 @@ fi
 
 _deploy_dotfiles
 _install_neobundle
+_getPhpDocument
 _install_peco
 _install_docker_dd
 
