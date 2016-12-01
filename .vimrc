@@ -170,6 +170,7 @@ cnoremap vs rightbelow vsp<CR>
 inoremap {<Enter> {}<Left><CR><ESC><S-o>
 inoremap [<Enter> []<Left><CR><ESC><S-o>
 inoremap (<Enter> ()<Left><CR><ESC><S-o>
+inoremap ({<Enter> ({})<Left><Left><CR><ESC><S-o>
 "inoremap { {}<LEFT>
 "inoremap [ []<LEFT>
 "inoremap ( ()<LEFT>
