@@ -30,6 +30,11 @@
 				</autogen>
 				<autogen>
 					--KeyToKey-- 
+					KeyCode::SPACE, ModifierFlag::CONTROL_L,
+					KeyCode::SPACE, ModifierFlag::COMMAND_L
+				</autogen>
+				<autogen>
+					--KeyToKey-- 
 					KeyCode::TAB, ModifierFlag::CONTROL_L,
 					KeyCode::TAB, ModifierFlag::COMMAND_L 
 				</autogen>
