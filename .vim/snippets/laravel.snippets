@@ -1,0 +1,93 @@
+# Controller - REST API
+snippet rest
+
+	/**
+	 * Display a listing of items
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function index()
+	{
+	    $items = ${1:}::all();
+	    return $items;
+	}
+	
+	/**
+	 * Display the specified $1.
+	 *
+	 * @param  int $id
+	 * @return \Illuminate\Http\Response
+	 */
+	public function show($id)
+	{
+	    return $1::findOrAbort($id);
+	}
+	
+	/**
+	 * Store a newly created $1 in storage.
+	 *
+	 * @param  \Illuminate\Http\Request $request
+	 * @return \Illuminate\Http\Response
+	 */
+	public function store(Request $request)
+	{
+	    $item = new $1($request->all());
+	    $item->save();
+	    return $item;
+	}
+	
+	/**
+	 * Update the specified $1 in storage.
+	 *
+	 * @param  \Illuminate\Http\Request $request
+	 * @return \Illuminate\Http\Response
+	 */
+	public function update($id, Request $request)
+	{
+	    $item = $1::findOrAbort($id);
+		$item->fill($request->only(
+			$1::getFillable()
+		));
+	    $item->save();
+	    return $item;
+	}
+	
+	/**
+	 * Remove the specified $1 from storage.
+	 *
+	 * @param int $id
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function destroy($id)
+	{
+	    $item = $1::findOrAbort($id);
+	    $item->delete();
+	
+	    return \Response::json([
+			'success' => true
+		]);
+	}
+
+snippet findorabort
+	public static function findOrAbort($id){
+	    if (!$item = ${1:}::find($id)) {
+	        $error = [
+	            'error' => [
+	                'code' => 'ERR-NOTFOUND',
+	                'http_code' => '404',
+	                'message' => 'Requested $1 cannot be found in the database.',
+	            ]
+	        ];
+	        return \Response::json($error, 404);
+	    }
+	    return $item;
+	}
+
+snippet validate
+	$this->validate($req, [
+	    'category_id' => 'required|exists:categories,id',
+	    'title' => 'required',
+	    'link' => 'required|active_url|unique:todos,link'
+	]);
+

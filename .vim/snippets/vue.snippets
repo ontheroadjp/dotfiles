@@ -1,0 +1,44 @@
+# vuenew
+snippet vuenew
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.28/vue.js"></script>
+	<script src="https://cdn.jsdelivr.net/vue.resource/1.0.3/vue-resource.min.js"></script>
+	<script>
+		new Vue({
+			el: '${1}',
+			data: {
+				db_items: []
+				${2}
+			},
+			computed: {
+				${3}
+			},
+			methods: {
+				${4}
+			},
+			ready: function() {
+				this.$http({
+				    url: '/api/stories',
+				    method: 'GET'
+				}).then( function(response) {
+				    this.$set('db_items',response.data)
+				}, function(response) {
+				
+				});
+			}
+		})
+	</script>
+
+# vuecomponent
+snippet vuecomponent
+	<template id="$2">
+		${3}
+	</template>
+	Vue.component('${1:}', {
+		template: "#${2:}",
+		props: ['val'],
+		methods: {
+
+		}
+	})
+
+	
