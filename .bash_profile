@@ -375,7 +375,7 @@ fi
 # Go
 #-------------------------------------------------
 if _is_exist go; then
-    export GOPATH="${HOME}/dev"}
+    export GOPATH="${HOME}/dev"
     #export GOBIN="${GOPATH}/bin"
     export PATH="${PATH}:${GOPATH}/bin"
     mkdir -p ${GOPATH}
