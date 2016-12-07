@@ -3,8 +3,8 @@ let g:snipMate.scope_aliases = {}
 let g:snipMate.scope_aliases['php'] = 'php'
 
 " PHP file
-au BufRead *.php set ft=php.html.bootstrap.laravel.cdn.javascript
-au BufNewFile *.php set ft=php.html.bootstrap.laravel.cdn.javascript
+au BufRead *.php set ft=php.html.bootstrap.laravel.cdn.javascript.vue
+au BufNewFile *.php set ft=php.html.bootstrap.laravel.cdn.javascript.vue
 
 " HTML file
 au BufRead *.html set ft=html.bootstrap.cdn.javascript.vue

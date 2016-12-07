@@ -84,10 +84,42 @@ snippet findorabort
 	    return $item;
 	}
 
+# validate
 snippet validate
 	$this->validate($req, [
 	    'category_id' => 'required|exists:categories,id',
 	    'title' => 'required',
 	    'link' => 'required|active_url|unique:todos,link'
 	]);
+
+#belongsto
+snippet belongsto
+	public function category()
+	{
+	    return $this->belongsTo(Category::class,'category_id');
+	}
+
+# run
+snippet run
+	use Faker\Factory as Faker;
+	public function run()
+	{
+	    DB::table('${1:}')->delete();
+	
+	    $faker = Faker::create('en_US');
+	    //$faker = Faker::create('ja_JP');
+	
+	    for ($i = 0; $i < 10; $i++) {
+	        Article::create([
+	            'title' => $faker->sentence(),
+	            'body' => $faker->paragraph(),
+	            'published_at' => Carbon::today()
+	        ]);
+	    }
+	}
+
+# faker
+snippet faker
+	use Faker\Factory as Faker;
+	$faker = Faker::create('en_US');
 
