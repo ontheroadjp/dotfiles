@@ -101,6 +101,11 @@ NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'tpope/vim-fugitive'
 
 "-------------------------
+" for HTML, CSS
+"-------------------------
+NeoBundle 'mattn/emmet-vim'
+
+"-------------------------
 " for PHP
 "-------------------------
 "NeoBundle 'violetyk/neocomplete-php.vim'           " adding explanation in PHP auto complition
