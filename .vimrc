@@ -33,6 +33,9 @@ set nobackup                                     " disable backup file
 "set directory=~/.vim/swap                       " set swap file directory
 set noswapfile                                   " disable swap file
 
+"------------------------------------------------------------------------------- Filetype
+autocmd BufNewFile,BufRead *.{html,htm,vue*} set filetype=html  " for vue.js
+
 "------------------------------------------------------------------------------- Tab and Indent
 set expandtab                                    " replace tab to space
 set tabstop=4                                    " indent width
@@ -43,7 +46,7 @@ set smartindent                                  " to determining indent width a
 
 "------------------------------------------------------------------------------- Cursor settings
 let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\" 
-"let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
+let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
 let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
 
 "------------------------------------------------------------------------------- Search
@@ -62,14 +65,15 @@ inoremap <silent> jj <esc>
 
 " changing <Leader>
 "let mapleader = "\<Space>"
-
  
 "" Go into visual mode
 "nnoremap ,, <C-v>
-"cabbr w!! w !sudo tee > /dev/null %
+
+" Save as root user
+cabbr w!! w !sudo tee > /dev/null %
 
 " Create/edit file in the current directory
-cnoremap ed edit %:p:h/
+cnoremap %ed edit %:p:h/
 
 " Auto change directory to match current file ,cd
 nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
@@ -84,7 +88,7 @@ nnoremap gj j
 vnoremap gk k
 vnoremap gj j
 
-" insert brank line
+" insert brank line to under cursor
 nnoremap 00 :<C-u>call append(expand('.'), '')<CR>j
 
 " insert two brank line and to be inline mode
@@ -142,10 +146,10 @@ endif
 
 "------------------------------------------------------------------------------- window
 " horizon split
-cnoremap sp rightbelow sp<CR> 
+cnoremap -- rightbelow sp<CR> 
 
 " virtical split
-cnoremap vs rightbelow vsp<CR>
+cnoremap v-- rightbelow vsp<CR>
 
 " close window
 "nnoremap \2 :close<CR>
@@ -198,8 +202,6 @@ autocmd FileType php,ctp :set complete+=k/~/.vim/dict/php.dict
 cnoremap vv source ~/.vimrc<CR>
 cnoremap qq q<CR>
 
-" open files
-nmap <Leader>es :e ~/.vim/snippets/
 
 
 "------------------------------------------------------------------------------ Plug-ins
