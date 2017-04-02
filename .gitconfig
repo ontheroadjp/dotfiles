@@ -12,10 +12,11 @@
 	co = checkout
 	cm = commit
 	df = diff
-	graph = log --graph --date-order --all --pretty=format:'%h %Cred%d %Cgreen%ad %Cblue%cn %Creset%s' --date=short
+    graph = log --graph --date-order --all --pretty=format:'%h %Cred%d %Cgreen%ad %Cblue%cn %Creset%s' --date=short
 [user]
 	name = @ontheroad_jp
 	email = dev@ontheroad.jp
 [color]
     ui = true
-
+[ghq]
+    root = ~/dev/src
