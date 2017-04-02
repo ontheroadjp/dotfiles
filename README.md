@@ -56,11 +56,20 @@
 	* ``Tagbar`` の開閉は、``,t``
 	* ``SrcExpl`` の開閉は、``,s``
 	* ``grep`` は、``,g`` (``grep`` は Unite grep で ag を使用する)
-* ウインドウ関連の操作は、``\`` に統一
-	* ``\` `` でウインドウの水平分割
-	* ``\1`` でウインドウの垂直分割
-	* ``\2`` でカレントウインドウを閉じる
-	* ``Ctrl + Shift + o + o`` でウインドウ間移動 （Karabiner 連動）
+
+## vim の使い方（移動編）
+
+### ウインドウ
+* ``:--`` で水平分割
+* ``:v--`` で垂直分割
+* ``Ctrl + w + h`` で左のウインドウへ移動(vim デフォルト)
+* ``Ctrl + w + j`` で下のウインドウへ移動(vim デフォルト)
+* ``Ctrl + w + k`` で上のウインドウへ移動(vim デフォルト)
+* ``Ctrl + w + l`` で右のウインドウへ移動(vim デフォルト)
+* ``Ctrl + ww`` でウインドウ間ローテーション
+
+### ジャンプ
+
 * ジャンプ（移動）関連の操作は、``<Space>`` に統一
 	* ``<Space>h`` で、行頭へ移動
 	* ``<Space>l`` で、行末へ移動
@@ -124,11 +133,17 @@
 
 * ``TAB`` でスニペット補完
 * スニペット展開できなければ入力補完 (SuperTab)
+
+### スニペット登録
+
+* ``<Leader>es`` で ``:~/.vim/snippets/`` が入力されるので、``php<TAB>`` で PHP 用のスニペット登録用ファイルを開く
+)
 * スニペット登録ファイルの場所は ``~/.vim/snippets/``
 * スニペット登録ファイルは ``ファイルタイプ.snippets``
 * なので PHP ファイル (xxx.php) に適用するには ``~/.vim/snippets/php.snippets``
-* ``<Leader>es`` で ``:~/.vim/snippets/`` が入力されるので、``php<TAB>`` で PHP 用のスニペット登録用ファイルを開く
-)
+
+### tags と PHP 辞書の作成
+
 * 補完候補元は ``tags`` と PHP 辞書
 * ``tags`` ファイル作成は ``ctags --languages=php -f tags $(pwd)``
 * PHP 辞書作成は ``php -r '$f=get_defined_functions();echo join("\n",$f["internal"]);'|sort > ~/.vim/dict/php.dict``
@@ -153,16 +168,27 @@
 
 ## vim の使い方 (PHP)
 
+### use
+
 * ファイル保存時に自動的に ``php -l`` 実行して結果を quickfix で開く
 * class 名の上で ``<Leader>n`` で ``use`` 文自動挿入
 * class 名の上で ``<Leader>nf`` で class フルパス表示
 * 上記 ``<Leader>n`` と ``<Leader>nf`` は vim の カレントディレクトリに ``tags`` 必要
 * ``use`` 文全体を選択して ``<Leader>su`` で短いもの順にソート
+
+### getter/setter
+
 * 変数宣言の行で ``<Leader>g`` で getter を自動挿入
 * 変数宣言の行で ``<Leader>s`` で setter を自動挿入
 * 変数宣言の行で ``<Leader>b`` で setter/getter を自動挿入
 * 変数宣言の行で ``<Leader>p`` で setter/getter/both の自動挿入プロンプト表示
+
+### コメント
+
 * クラス/関数宣言の行で ``<Leader>d`` でドキュメントコメントを自動生成
+
+### フォーマット
+
 * ``<Leader>psr`` で psr-2 フォーマットへ整形
 
 ## git 関連
