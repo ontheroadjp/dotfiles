@@ -122,3 +122,55 @@ snippet switch
 		default:
 			break;
 	}
+
+# PHPUnit
+snippet phpunit
+	class ${1}Test extends PHPUnit_Framework_TestCase
+	{
+	
+	    public function setup()
+		{
+
+	    }
+	
+	    public function tearDown()
+		{
+	
+	    }
+	
+		/** @test */
+	    public function test_something()
+		{
+
+		}
+	}
+
+# PHPUnit for laravel
+snippet laratest
+	<?php
+	
+	use Illuminate\Foundation\Testing\WithoutMiddleware;
+	use Illuminate\Foundation\Testing\DatabaseMigrations;
+	use Illuminate\Foundation\Testing\DatabaseTransactions;
+	
+	class ${1}Test extends TestCase
+	{
+	    use DatabaseTransactions;
+	
+	    public function setup()
+	    {
+	        parent::setup();
+	    }
+	
+	    public function tearDown()
+	    {
+	
+	    }
+	
+	    /** @test */
+	    public function test_something()
+	    {
+	        $this->assertTrue(true);
+	    }
+	}
+
