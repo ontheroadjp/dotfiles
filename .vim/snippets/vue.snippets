@@ -28,17 +28,50 @@ snippet vuenew
 		})
 	</script>
 
+# template
+snippet template
+	<template>
+		${1}
+	</template>
+
+# slot
+snippet slot
+	<slot></slot>
+
+# transition
+snippet transition
+	<transition name="${1}">
+		${2}
+	</transition>
+
 # vuecomponent
 snippet vuecomponent
-	<template id="$2">
-		${3}
+	<template id="$1">
+		${2}
 	</template>
-	Vue.component('${1:}', {
-		template: "#${2:}",
+	Vue.component('$1', {
+		name: "${1:}",
+		template: "#$1",
 		props: ['val'],
+		data: function() {
+			return {
+				message: "Hello Vue Component."
+			}
+		},
 		methods: {
-
-		}
+			changeValue: function() {
+				bus.$emit('value-change', this.message);
+			}
+		},
 	})
 
-	
+# listener
+snippet listener
+	created() {
+	    const self = this;
+	    nutsBus.$on('${1:}', function() {
+	        console.log('$1');
+	    });
+	},
+
+
