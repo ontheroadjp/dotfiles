@@ -256,19 +256,22 @@ function cd_to_repository() {
 alias rr='cd_to_repository'
 alias rrr="cd ${HOME}/dev"
 
-function github() {
+function open_github() {
     place="$(ghq list | peco)"
     [ ! -z "${place}" ] && {
         open "https://${place}"
     }
 }
+alias rrgit='open_github';
 
-function dockerhub() {
+function open_dockerhub() {
     place="$(ghq list | sed "s:github.com:hub.docker.com/r:" | peco)"
     [ ! -z "${place}" ] && {
         open "https://${place}"
     }
 }
+alias rrdocker='open_dockerhub';
+
 function dockerhub-build() {
     place="$(ghq list | sed "s:github.com:hub.docker.com/r:" | peco)"
     [ ! -z "${place}" ] && {
