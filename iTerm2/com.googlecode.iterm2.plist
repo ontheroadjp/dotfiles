@@ -326,11 +326,11 @@
 	<key>Hotkey</key>
 	<true/>
 	<key>HotkeyChar</key>
-	<integer>126</integer>
+	<integer>96</integer>
 	<key>HotkeyCode</key>
 	<integer>50</integer>
 	<key>HotkeyModifiers</key>
-	<integer>131332</integer>
+	<integer>1048848</integer>
 	<key>IRMemory</key>
 	<integer>4</integer>
 	<key>JobName</key>
@@ -390,13 +390,13 @@
 	<key>NSWindow Frame SessionsPreferences</key>
 	<string>269 139 606 456 0 0 1920 1200 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>498 657 796 473 0 0 1920 1200 </string>
+	<string>498 689 796 473 0 0 1920 1200 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>155 616 592 584 0 0 1920 1200 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
 	<string>0 0 1920 1200 0 0 1920 1200 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>962 6 955 1193 0 0 1920 1200 </string>
+	<string>962 441 730 752 0 0 1920 1200 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
 	<string>832 122 650 526 0 0 1920 1200 </string>
 	<key>NSWindow Frame iTerm Window 3</key>
@@ -2819,7 +2819,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2016-12-19T02:10:19Z</date>
+	<date>2017-04-06T07:50:02Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>ShowBookmarkName</key>
@@ -3679,7 +3679,7 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.0.13</string>
+	<string>3.0.15</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>1</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>

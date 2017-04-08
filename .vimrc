@@ -23,7 +23,7 @@ set fileencodings=utf-8,ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,
 set fileformats=unix,dos,mac
 set number                                       " show line number
 set nowrap                                       " automatic wordwrap
-set backspace=2                                  " it can delete newline character be BackSpace key
+set backspace=indent,eol,start                   " it can delete newline character be BackSpace key
 
 "set backup                                      " enable swap file
 "set backupdir=~/.vim/backup                     " set backup file directory
@@ -149,7 +149,10 @@ endif
 cnoremap -- rightbelow sp<CR> 
 
 " virtical split
-cnoremap v-- rightbelow vsp<CR>
+cnoremap \\ rightbelow vsp<CR>
+
+"hi vertsplit guifg=bg guifg=bg
+"hi horisplit guifg=bg guifg=bg
 
 " close window
 "nnoremap \2 :close<CR>
