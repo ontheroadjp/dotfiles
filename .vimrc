@@ -1,4 +1,3 @@
-
 " open vimgrep result in quickfix
 autocmd QuickfixCmdPost *grep* cwindow
 
@@ -15,6 +14,15 @@ so ${HOME}/dotfiles/.vim/vimrc_includs/color-schema.vim
 "vim status-line
 "so ${HOME}/dotfiles/.vim/vimrc_includs/vim-status-line.vim
 set laststatus=2
+
+" status-line color
+au InsertEnter * hi StatusLine guifg=Blue guibg=DarkYellow gui=none ctermfg=Black ctermbg=Blue cterm=none
+au InsertLeave * hi StatusLine guifg=Blue guibg=DarkGray gui=none ctermfg=Blue ctermbg=DarkGray cterm=none
+au VimEnter * hi StatusLineNC guifg=Blue guibg=DarkYellow gui=none ctermfg=DarkGray ctermbg=DarkGray cterm=none
+
+" window split
+au VimEnter * hi VertSplit guifg=Blue guibg=DarkGray gui=none ctermfg=DarkGray ctermbg=DarkGray cterm=none
+
 
 "================================================================================ General settings
 "set encoding=utf-8                              " set charactor code
@@ -33,6 +41,7 @@ set nobackup                                     " disable backup file
 "set directory=~/.vim/swap                       " set swap file directory
 set noswapfile                                   " disable swap file
 
+"set cursorline                                   " show cursor line
 "------------------------------------------------------------------------------- Filetype
 autocmd BufNewFile,BufRead *.{html,htm,vue*} set filetype=html  " for vue.js
 
@@ -150,9 +159,6 @@ cnoremap -- rightbelow sp<CR>
 
 " virtical split
 cnoremap \\ rightbelow vsp<CR>
-
-"hi vertsplit guifg=bg guifg=bg
-"hi horisplit guifg=bg guifg=bg
 
 " close window
 "nnoremap \2 :close<CR>
