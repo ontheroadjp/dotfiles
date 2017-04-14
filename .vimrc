@@ -36,7 +36,7 @@ set backspace=indent,eol,start                   " it can delete newline charact
 "set cursorline                                   " show cursor line
 set linespace=4
 
-"------------------------------------------------------------------------------- Buff/Swap
+"------------------------------------------------------------------------------- Buff file/Swap file
 "set backup                                      " enable swap file
 "set backupdir=~/.vim/backup                     " set backup file directory
 set nobackup                                     " disable backup file
@@ -48,7 +48,10 @@ set noswapfile                                   " disable swap file
 
 "------------------------------------------------------------------------------- File/Directory
 " Create/edit file in the current directory
-cnoremap %ed edit %:p:h/
+"cnoremap %ed edit %:p:h/
+
+" %% to expand current directory
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h/').'/' : '%%'
 
 " Auto change directory to match current file ,cd
 nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
@@ -58,6 +61,12 @@ cabbr w!! w !sudo tee > /dev/null %
 
 " Filetype
 autocmd BufNewFile,BufRead *.{html,htm,vue*} set filetype=html  " for vue.js
+
+"------------------------------------------------------------------------------- Buffer
+nnoremap <silent> [b :bprevious<CR>
+nnoremap <silent> ]b :bnext<CR>
+nnoremap <silent> [B :bfirst<CR>
+nnoremap <silent> ]B :blast<CR>
 
 "------------------------------------------------------------------------------- Tab and Indent
 set expandtab                                    " replace tab to space
