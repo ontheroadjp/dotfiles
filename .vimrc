@@ -1,4 +1,3 @@
-
 " open vimgrep result in quickfix
 autocmd QuickfixCmdPost *grep* cwindow
 
@@ -12,9 +11,19 @@ nnoremap [q :cprevious<CR>
 "color schema
 so ${HOME}/dotfiles/.vim/vimrc_includs/color-schema.vim
 
+" line number
+au VimEnter * hi LineNr guifg=Blue guibg=DarkGray gui=none ctermfg=gray ctermbg=none cterm=none
+nmap <C-N><C-N> :set invnumber<CR>
+
 "vim status-line
 "so ${HOME}/dotfiles/.vim/vimrc_includs/vim-status-line.vim
-set laststatus=2
+set laststatus=2                                " 2:always show the status-line
+au InsertEnter * hi StatusLine guifg=Blue guibg=DarkYellow gui=none ctermfg=Black ctermbg=Blue cterm=none
+au InsertLeave * hi StatusLine guifg=Blue guibg=DarkGray gui=none ctermfg=Blue ctermbg=DarkGray cterm=none
+au VimEnter * hi StatusLineNC guifg=Blue guibg=DarkYellow gui=none ctermfg=DarkGray ctermbg=DarkGray cterm=none
+
+" window split bar
+au VimEnter * hi VertSplit guifg=Blue guibg=DarkGray gui=none ctermfg=DarkGray ctermbg=none cterm=none
 
 "================================================================================ General settings
 "set encoding=utf-8                              " set charactor code
@@ -23,8 +32,11 @@ set fileencodings=utf-8,ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,
 set fileformats=unix,dos,mac
 set number                                       " show line number
 set nowrap                                       " automatic wordwrap
-set backspace=2                                  " it can delete newline character be BackSpace key
+set backspace=indent,eol,start                   " it can delete newline character be BackSpace key
+"set cursorline                                   " show cursor line
+set linespace=4
 
+"------------------------------------------------------------------------------- Buff file/Swap file
 "set backup                                      " enable swap file
 "set backupdir=~/.vim/backup                     " set backup file directory
 set nobackup                                     " disable backup file
@@ -33,8 +45,28 @@ set nobackup                                     " disable backup file
 "set directory=~/.vim/swap                       " set swap file directory
 set noswapfile                                   " disable swap file
 
-"------------------------------------------------------------------------------- Filetype
+
+"------------------------------------------------------------------------------- File/Directory
+" Create/edit file in the current directory
+"cnoremap %ed edit %:p:h/
+
+" %% to expand current directory
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h/').'/' : '%%'
+
+" Auto change directory to match current file ,cd
+nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
+
+" Save as root user
+cabbr w!! w !sudo tee > /dev/null %
+
+" Filetype
 autocmd BufNewFile,BufRead *.{html,htm,vue*} set filetype=html  " for vue.js
+
+"------------------------------------------------------------------------------- Buffer
+nnoremap <silent> [b :bprevious<CR>
+nnoremap <silent> ]b :bnext<CR>
+nnoremap <silent> [B :bfirst<CR>
+nnoremap <silent> ]B :blast<CR>
 
 "------------------------------------------------------------------------------- Tab and Indent
 set expandtab                                    " replace tab to space
@@ -68,15 +100,6 @@ inoremap <silent> jj <esc>
  
 "" Go into visual mode
 "nnoremap ,, <C-v>
-
-" Save as root user
-cabbr w!! w !sudo tee > /dev/null %
-
-" Create/edit file in the current directory
-cnoremap %ed edit %:p:h/
-
-" Auto change directory to match current file ,cd
-nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
 
 "------------------------------------------------------------------------------- moving cursor
 nnoremap k gk
@@ -149,7 +172,7 @@ endif
 cnoremap -- rightbelow sp<CR> 
 
 " virtical split
-cnoremap v-- rightbelow vsp<CR>
+cnoremap \\ rightbelow vsp<CR>
 
 " close window
 "nnoremap \2 :close<CR>
@@ -199,10 +222,8 @@ autocmd FileType php,ctp :set dictionary=~/.vim/dict/php.dict
 autocmd FileType php,ctp :set complete+=k/~/.vim/dict/php.dict
 
 "------------------------------------------------------------------------------ Command alias
-cnoremap vv source ~/.vimrc<CR>
-cnoremap qq q<CR>
-
-
+cnoremap %vv source ~/.vimrc<CR>
+cnoremap %qq q<CR>
 
 "------------------------------------------------------------------------------ Plug-ins
 " Plug-in installation
