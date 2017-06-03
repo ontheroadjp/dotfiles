@@ -212,6 +212,7 @@ fi
 
 alias cdh='cdla ${HOME}'
 alias c='clear && la'
+alias cc='clear'
 alias e='exit'
 alias jj=$(:)
 
