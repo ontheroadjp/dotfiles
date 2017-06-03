@@ -46,6 +46,9 @@ set nobackup                                     " disable backup file
 set noswapfile                                   " disable swap file
 
 
+"------------------------------------------------------------------------------- Lint
+cnoremap eslint !clear && node_modules/eslint/bin/eslint.js %<CR>
+
 "------------------------------------------------------------------------------- File/Directory
 " Create/edit file in the current directory
 "cnoremap %ed edit %:p:h/
