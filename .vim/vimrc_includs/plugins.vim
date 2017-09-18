@@ -80,6 +80,8 @@ NeoBundle 'ervandew/supertab'                       " auto completion
 "NeoBundle 'Shougo/neosnippet'                       " code snipet
 "NeoBundle 'Shougo/neosnippet-snippets'              " a collection of the code anipet
 
+NeoBundle 'mattn/emmet-vim'                         " snippets for HTML
+
 NeoBundle 'garbas/vim-snipmate'                     " snippets
 NeoBundle 'MarcWeber/vim-addon-mw-utils'            " snippets dependency
 NeoBundle 'tomtom/tlib_vim'                         " snippets dependency 
