@@ -17,14 +17,14 @@
 "---------------------------------------------------------------------------
 " settigs for man
 "---------------------------------------------------------------------------
-cnoremap man Ref man<Space>
+cnoremap dicman Ref man<Space>
 
 "---------------------------------------------------------------------------
 " settings for PHP Manual
 "---------------------------------------------------------------------------
 let g:ref_phpmanual_path = '/Users/hideaki/.vim/vim-ref/php-chunked-xhtml'
 "cnoremap phpm Ref phpmanual<Space>
-cnoremap refphp Unite ref/phpmanual<CR>
+cnoremap dicphp Unite ref/phpmanual<CR>
 
 "---------------------------------------------------------------------------
 " settings for using alc in the webdict
@@ -40,4 +40,4 @@ function! g:ref_source_webdict_sites.alc.filter(output)
 	return join(split(a:output, "\n")[29 :], "\n")
 endfunction
 
-cnoremap refen Ref webdict alc<Space>
+cnoremap dicen Ref webdict alc<Space>
