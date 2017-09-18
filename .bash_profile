@@ -63,7 +63,10 @@ if [ "$(uname)" == 'Darwin' ]; then
 	alias chrome='open -a "/Applications/Google Chrome.app"' 
 	
 	# Sublime Text 3
-	alias sub='open -a "/Applications/Sublime Text.app"'
+	alias subl='open -a "/Applications/Sublime Text.app"'
+	
+	# Bear Editor
+	alias bear='open -a "/Applications/Bear.app"'
 	
 	# Markdown Editor
 	alias md='open -a "/Applications/MacDown.app"'
