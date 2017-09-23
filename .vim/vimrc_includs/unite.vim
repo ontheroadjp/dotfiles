@@ -43,11 +43,11 @@ nmap    ,f [unite]
 nnoremap <silent> <c-p> :<C-u>Unite<Space>file_rec<CR>
 nnoremap <silent> <c-e> :<C-u>Unite<Space>file_mru<CR>
 
-nnoremap [unite]u  :<C-u>Unite -no-split<Space>
+"nnoremap [unite]u  :<C-u>Unite -no-split<Space>
 "nnoremap <silent> [unite]c :<C-u>Unite<Space>file<CR>
 nnoremap <silent> [unite]g :<C-u>Unite<Space>grep<CR>
-nnoremap <silent> [unite]b :<C-u>Unite<Space>buffer<CR>
-nnoremap <silent> [unite]m :<C-u>Unite<Space>bookmark<CR>
+"nnoremap <silent> [unite]b :<C-u>Unite<Space>buffer<CR>
+"nnoremap <silent> [unite]m :<C-u>Unite<Space>bookmark<CR>
 "nnoremap <silent> [unite]a :<C-u>UniteBookmarkAdd<CR>
 "nnoremap <silent> [unite]p :<C-u>Unite<Space>file_point<CR>
 "jnoremap <silent> [unite]y :<C-u>Unite<Space>register<CR>

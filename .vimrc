@@ -48,6 +48,7 @@ set noswapfile                                   " disable swap file
 
 "------------------------------------------------------------------------------- Lint
 cnoremap eslint !clear && node_modules/eslint/bin/eslint.js %<CR>
+autocmd BufWritePre * :%s/\s\+$//ge              " remove trailing whitespace when saved
 
 "------------------------------------------------------------------------------- File/Directory
 " Create/edit file in the current directory
@@ -83,7 +84,7 @@ set autoindent                                   " to continue indent width in n
 set smartindent                                  " to determining indent width automatically in new line
 
 "------------------------------------------------------------------------------- Cursor settings
-let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\" 
+let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
 let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
 let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
 
@@ -103,7 +104,7 @@ inoremap <silent> jj <esc>
 
 " changing <Leader>
 "let mapleader = "\<Space>"
- 
+
 "" Go into visual mode
 "nnoremap ,, <C-v>
 
@@ -139,7 +140,7 @@ nnoremap <Space>] g<c-]>
 " Jump to brackets to be paired
 nnoremap <Space>[ %
 
-" Jump to begining of the line 
+" Jump to begining of the line
 nnoremap <Space>h ^
 vnoremap <Space>h ^
 
@@ -148,7 +149,7 @@ nnoremap <Space>l $
 vnoremap <Space>l $
 
 " list all of them if multiple candidate of the distination when it tags jump
-nnoremap <C-]> g<C-]> 
+nnoremap <C-]> g<C-]>
 "------------------------------------------------------------------------------- yank & put
 nnoremap p gp
 nnoremap P gP
@@ -175,7 +176,7 @@ endif
 
 "------------------------------------------------------------------------------- window
 " horizon split
-cnoremap -- rightbelow sp<CR> 
+cnoremap -- rightbelow sp<CR>
 
 " virtical split
 cnoremap \\ rightbelow vsp<CR>
@@ -219,8 +220,7 @@ let php_noShortTags = 1                          " PHP settings
 let php_parent_error_close = 1                   " PHP settings
 let g:sql_type_default='mysql'                   " DB settings
 
-
-nnoremap ,a vap=vapvv
+nnoremap ,= vap=vapvv
 
 "------------------------------------------------------------------------------ Load dictionary
 "autocmd FileType php,ctp :set dictionary=~/.source ~/.vim/dict/php.dict
@@ -257,6 +257,7 @@ so ${HOME}/dotfiles/.vim/vimrc_includs/supertab.vim
 " snippets
 "so ${HOME}/dotfiles/.vim/vimrc_includs/neosnippet.vim
 so ${HOME}/dotfiles/.vim/vimrc_includs/snipmate.vim
+so ${HOME}/dotfiles/.vim/vimrc_includs/vim-emmet.vim
 
 " reference
 so ${HOME}/dotfiles/.vim/vimrc_includs/vim-ref.vim
@@ -269,10 +270,10 @@ so ${HOME}/dotfiles/.vim/vimrc_includs/qfixhome.vim
 so ${HOME}/dotfiles/.vim/vimrc_includs/vdebug.vim
 
 " PHP
-so ${HOME}/dotfiles/.vim/vimrc_includs/php.vim 
-so ${HOME}/dotfiles/.vim/vimrc_includs/vim-php-namespace.vim 
+so ${HOME}/dotfiles/.vim/vimrc_includs/php.vim
+so ${HOME}/dotfiles/.vim/vimrc_includs/vim-php-namespace.vim
 so ${HOME}/dotfiles/.vim/vimrc_includs/php-getter-setter.vim
-so ${HOME}/dotfiles/.vim/vimrc_includs/vim-php-cs-fixer.vim 
+so ${HOME}/dotfiles/.vim/vimrc_includs/vim-php-cs-fixer.vim
 so ${HOME}/dotfiles/.vim/vimrc_includs/pdv-phpdocumentor-for-vim.vim
 
 filetype on

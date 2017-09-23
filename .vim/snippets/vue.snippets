@@ -22,7 +22,7 @@ snippet vuenew
 				}).then( function(response) {
 				    this.$set('db_items',response.data)
 				}, function(response) {
-				
+
 				});
 			}
 		})
@@ -64,14 +64,3 @@ snippet vuecomponent
 			}
 		},
 	})
-
-# listener
-snippet listener
-	created() {
-	    const self = this;
-	    nutsBus.$on('${1:}', function() {
-	        console.log('$1');
-	    });
-	},
-
-

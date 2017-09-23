@@ -80,9 +80,11 @@ NeoBundle 'ervandew/supertab'                       " auto completion
 "NeoBundle 'Shougo/neosnippet'                       " code snipet
 "NeoBundle 'Shougo/neosnippet-snippets'              " a collection of the code anipet
 
+NeoBundle 'mattn/emmet-vim'                         " snippets for HTML
+
 NeoBundle 'garbas/vim-snipmate'                     " snippets
 NeoBundle 'MarcWeber/vim-addon-mw-utils'            " snippets dependency
-NeoBundle 'tomtom/tlib_vim'                         " snippets dependency 
+NeoBundle 'tomtom/tlib_vim'                         " snippets dependency
 
 "-------------------------------------------------------------
 " Base utilities
@@ -110,7 +112,7 @@ NeoBundle 'mattn/emmet-vim'
 "-------------------------
 "NeoBundle 'violetyk/neocomplete-php.vim'           " adding explanation in PHP auto complition
 NeoBundle 'arnaud-lb/vim-php-namespace'             " auto adding use statement
-NeoBundle 'docteurklein/php-getter-setter.vim'      " auto adding getter/setter 
+NeoBundle 'docteurklein/php-getter-setter.vim'      " auto adding getter/setter
 NeoBundle 'stephpy/vim-php-cs-fixer'                " auto formatting
 NeoBundle 'PDV--phpDocumentor-for-Vim'              " ease to insert Doc comments
 NeoBundle 'joonty/vdebug'	    		            " xdebug client
