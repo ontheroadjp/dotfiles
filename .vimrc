@@ -220,8 +220,7 @@ let php_noShortTags = 1                          " PHP settings
 let php_parent_error_close = 1                   " PHP settings
 let g:sql_type_default='mysql'                   " DB settings
 
-
-nnoremap ,a vap=vapvv
+nnoremap ,= vap=vapvv
 
 "------------------------------------------------------------------------------ Load dictionary
 "autocmd FileType php,ctp :set dictionary=~/.source ~/.vim/dict/php.dict
@@ -258,6 +257,7 @@ so ${HOME}/dotfiles/.vim/vimrc_includs/supertab.vim
 " snippets
 "so ${HOME}/dotfiles/.vim/vimrc_includs/neosnippet.vim
 so ${HOME}/dotfiles/.vim/vimrc_includs/snipmate.vim
+so ${HOME}/dotfiles/.vim/vimrc_includs/vim-emmet.vim
 
 " reference
 so ${HOME}/dotfiles/.vim/vimrc_includs/vim-ref.vim
