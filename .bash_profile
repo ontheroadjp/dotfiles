@@ -34,7 +34,10 @@ function laracast() {
 #-------------------------------------------------
 # For MacOSX only
 #-------------------------------------------------
-if [ "$(uname)" == 'Darwin' ]; then 
+if [ "$(uname)" == 'Darwin' ]; then
+
+    # remove .DS_Store file
+    alias dsrm='find . -name .DS_Store | xargs rm'
 
     # for Homebrew
     export PATH="/usr/local/sbin:$PATH"
@@ -46,7 +49,7 @@ if [ "$(uname)" == 'Darwin' ]; then
 
 	# opening the current directory of the Terminal.app in the Finder.app
 	alias finder='open .'
- 
+
 	# opening the current directory of the Finder.app in the Terminal.app
 	function terminal(){
 		target=`osascript -e 'tell application "Finder" to if(count of Finder windows) > 0 then get POSIX path of(target of front Finder window as text)'`
@@ -60,17 +63,18 @@ if [ "$(uname)" == 'Darwin' ]; then
 	}
 
 	# Chrome
-	alias chrome='open -a "/Applications/Google Chrome.app"' 
-	
+    # https://developers.google.com/web/updates/2017/04/headless-chrome
+	alias chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
+
 	# Sublime Text 3
 	alias subl='open -a "/Applications/Sublime Text.app"'
-	
+
 	# Bear Editor
 	alias bear='open -a "/Applications/Bear.app"'
-	
+
 	# Markdown Editor
 	alias md='open -a "/Applications/MacDown.app"'
-	
+
     # Cot Editor
     alias cot='open -a "/Applications/CotEditor.app"'
 
@@ -78,17 +82,17 @@ if [ "$(uname)" == 'Darwin' ]; then
 	#alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 	#alias vim='env_LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 	alias mvim='env_LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
-	
+
     # alias(directory change:Mac)
 	alias cdh='cdla ${HOME}'
 	alias cdd='cdla ${HOME}/Desktop'
 	alias cddoc='cdla ${HOME}/Documents'
 	alias cddl='cdla ${HOME}/Downloads'
-	
+
 	alias cdgd='cdla ${HOME}/Google\ Drive'
 	alias cdod='cdla ${HOME}/OneDrive'
 	alias cddb='cdla ${HOME}/Dropbox'
-	
+
 	alias cdmemo='cdla ${HOME}/Dropbox/アプリ/PlainText\ 2/INBOX'
 	alias cdv='cdla ${HOME}/Vagrant'
 
@@ -112,12 +116,14 @@ if [ "$(uname)" == 'Darwin' ]; then
 #		tmux
 #	fi
 #fi
-						  
+
 	#-------------------------------------------------
 	# tmux settings
 	# see：http://qiita.com/b4b4r07/items/01359e8a3066d1c37edc
 	# see：https://github.com/b4b4r07/dotfiles
 	#-------------------------------------------------
+
+    alias lat='tmux ls'
 
 	function is_exists() { type "$1" >/dev/null 2>&1; return $?; }
 	function is_osx() { [[ $OSTYPE == darwin* ]]; }
@@ -126,12 +132,12 @@ if [ "$(uname)" == 'Darwin' ]; then
 	function is_screen_or_tmux_running() { is_screen_running || is_tmux_runnning; }
 	function shell_has_started_interactively() { [ ! -z "$PS1" ]; }
 	function is_ssh_running() { [ ! -z "$SSH_CONECTION" ]; }
-	
+
 	function tmux_automatically_attach_session()
 	{
 		if is_screen_or_tmux_running; then
 			! is_exists 'tmux' && return 1
-	
+
 			if is_tmux_runnning; then
 				echo "${fg_bold[red]} _____ __  __ _   ___  __ ${reset_color}"
 				echo "${fg_bold[red]}|_   _|  \/  | | | \ \/ / ${reset_color}"
@@ -147,7 +153,7 @@ if [ "$(uname)" == 'Darwin' ]; then
 					echo 'Error: tmux command not found' 2>&1
 					return 1
 				fi
-	
+
 				if tmux has-session >/dev/null 2>&1 && tmux list-sessions | grep -qE '.*]$'; then
 					# detached session exists
 					tmux list-sessions
@@ -180,9 +186,9 @@ if [ "$(uname)" == 'Darwin' ]; then
 		fi
 	}
 	tmux_automatically_attach_session
-	
+
 	#---------------- end of tmux ------------------
-	
+
 	# kill notifyd process
 	function kill-notifyd-process() {
 		process=`ps ax | egrep "[0-9] /usr/sbin/notifyd" | awk '{print $1}'`
@@ -193,7 +199,7 @@ if [ "$(uname)" == 'Darwin' ]; then
 # For Linux only
 #-------------------------------------------------
 elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
-	echo 'Wellcome to Linux!'	
+	echo 'Wellcome to Linux!'
 
 #-------------------------------------------------
 # For Windows(Cygwin) only
@@ -350,6 +356,18 @@ if _is_exist vim; then
     echo "Load vim settings."
 fi
 
+function open_javascript_file_with_vim() {
+    [ ! -z "${1}" ] && {
+        place="$(find . -type d -name node_modules -prune -o -type d -name vendor -prune -o -type f -name "*.${1}" | peco)"
+        [ ! -z "${place}" ] && {
+            vim ${place}
+        }
+    } || {
+        echo 'need one argument must be file exension'
+    }
+}
+alias ee='open_javascript_file_with_vim'
+
 #-------------------------------------------------
 # Git
 #-------------------------------------------------
@@ -364,15 +382,15 @@ if _is_exist git; then
     alias gb='git branch'
     alias gc='git checkout'
     alias gm='git merge --no-ff'
-    
+
     function git_add_status() {
         git add "$@" && git status
     }
-    
+
     function git_reset_status() {
         git reset "$@" && git status
     }
-    
+
     # move project root dir of Git
     alias .g="cd $(git rev-parse --show-toplevel)"
     echo "Load Git settings."
@@ -414,12 +432,12 @@ if _is_exist vagrant; then
     alias vu='vagrant up'
     alias vh='vagrant halt'
     alias vd='vagrant destroy'
-    
+
     alias von='vagrant sandbox on'
     alias voff='vagrant sandbox off'
     alias vrb='vagrant sandbox rollback'
     alias vc='vagrant sandbox commit'
-    
+
     alias vbl='vagrant box list'
     alias vs='vagrant status'
 
@@ -449,7 +467,7 @@ alias pub='php artisan vendor:publish --force'
 alias sv='php artisan serve'
 alias rl='php artisan route:list'
 alias t='vendor/bin/phpunit --colors'
-	
+
 #-------------------------------------------------
 # dstat
 #-------------------------------------------------
@@ -469,9 +487,9 @@ function exdirs() {
 	dirs -v | awk '!colname[$2]++{print $1,": ",$2,"(",$1,")"}'
 	echo -n "no? "
 	read no
-	
+
 	line=`dirs -v | awk '!colname[$2]++{print $0}' |  egrep "^ *${no}  "`
-	if [ ! -z "${line}" ]  ; then 
+	if [ ! -z "${line}" ]  ; then
 		path=`echo ${line} | awk '{print $2}' | sed -e s:^~:${HOME}:`
 		cd ${path}
 	else
@@ -487,7 +505,7 @@ function sshx() {
 	read no
 
 	line=`cat ~/.ssh/config | egrep "^Host " | awk '{print NR, $0}' | egrep "${no}"`
-	if [ ! -z "${line}" ]  ; then 
+	if [ ! -z "${line}" ]  ; then
 		host=`echo ${line} | awk '{print $3}'`
 		#sudo tee -a ssh ${host}
 		ssh ${host}
@@ -501,9 +519,9 @@ function findx(){
 	find $1 -name "$2" | awk '{print NR, $0}'
 	echo -n 'no?'
 	read no
-	
+
 	line=`find $1 -name "$2" | awk '{print NR, $0}' | egrep "${no}"`
-	if [ ! -z "${line}" ]  ; then 
+	if [ ! -z "${line}" ]  ; then
 		path=`echo ${line} | awk '{print $2}' | sed -e s/$2//`
 		echo $path
 		cd $path
