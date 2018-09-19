@@ -368,6 +368,20 @@ composer global require fabpot/php-cs-fixer
 PATH=$PATH:${HOME}/.composer/bin
 ```
 
+## その他 Tool
+
+### youtube
+
+```bash
+youtube-dl <DLする動画ページの URL>
+```
+
+### mplayer
+
+```bash
+mplayer <再生する動画/音楽ファイル>
+```
+
 ## 変更履歴
 
 ### 1.3.0
