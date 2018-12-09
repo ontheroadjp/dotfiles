@@ -118,6 +118,15 @@ nnoremap gj j
 vnoremap gk k
 vnoremap gj j
 
+" move cursor in insert mode( like Emacs)
+imap <C-p> <Up>
+imap <C-n> <Down>
+"imap <C-b> <Left>
+"imap <C-f> <Right>
+
+imap <C-h> <Left>
+imap <C-l> <Right>
+
 " insert brank line to under cursor
 nnoremap 00 :<C-u>call append(expand('.'), '')<CR>j
 
