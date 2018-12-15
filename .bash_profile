@@ -280,7 +280,7 @@ function open_dockerhub() {
         open "https://${place}"
     }
 }
-alias rrdocker='open_dockerhub';
+alias rrhub='open_dockerhub';
 
 function dockerhub-build() {
     place="$(ghq list | sed "s:github.com:hub.docker.com/r:" | peco)"
@@ -422,6 +422,12 @@ if _is_exist docker; then
         source ${TOYBOX_HOME}/bin/complition.sh
     fi
     echo "Load Docker settings."
+
+    alias dd="docker-compose ${@}"
+    alias ddu="docker-compose up"
+    alias ddd="docker-compose down"
+    alias dde="docker-compose exec ${@}"
+    alias ddv="vim docker-compose.yml"
 fi
 
 #-------------------------------------------------

@@ -238,7 +238,9 @@
 
 * ``ghq`` で管理
 * なのでレポジトリ追加は ``ghq add xxx/xxx``
-* ``rr`` でレポジトリ一覧を ``peco`` で開いて移動
+* ``rr`` =  ``peco`` 経由で当該ディレクトリへ移動
+* ``rrgit`` = ``peco`` 経由で当該 github をブラウザで開く
+* ``rrhub`` = ``peco`` 経由で当該 Dockerhub をブラウザで開く
 
 ### ワークフロー
 
@@ -283,6 +285,12 @@
 ## Docker 関連
 
 docker がインストールされている場合、``nutsllc/docker-dd`` がインストールされる
+
+* ``dd`` = ``docker-compose ${@}``
+* ``ddu`` = ``docker-compose up``
+* ``ddd`` = ``docker-compose down``
+* ``dde`` = ``docker-compose exec ${@}``
+* ``ddv`` = ``vim docker-compose.yml``
 
 ## インストール
 
