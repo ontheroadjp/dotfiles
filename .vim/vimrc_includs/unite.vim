@@ -16,8 +16,8 @@ au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
 au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
 
 " twice "f" to close
-au FileType unite nnoremap <silent> <buffer> ff :q<CR>
-au FileType unite inoremap <silent> <buffer> ff <ESC>:q<CR>
+au FileType unite nnoremap <silent> <buffer> jj :q<CR>
+au FileType unite inoremap <silent> <buffer> jj <ESC>:q<CR>
 
 " twice "," to close
 au FileType unite nnoremap <silent> <buffer> ,, :q<CR>
