@@ -406,20 +406,30 @@ if _is_exist go; then
 fi
 
 #-------------------------------------------------
+# Peco
+#-------------------------------------------------
+if _is_exist peco; then
+    tar xvzf src/peco_linux_amd64.tar.gz -C ${HOME}/dotfiles/src
+    sudo cp ${HOME}/dotfiles/src/peco_linux_amd64/peco /usr/bin
+fi
+
+#-------------------------------------------------
 # Docker
 #-------------------------------------------------
 if _is_exist docker; then
-    if [ -d ~/dotfiles/docker-dd ]; then
-        source ~/dotfiles/docker-dd/docker-dd-common.fnc
-        source ~/dotfiles/docker-dd/docker-dd-network.fnc
-        source ~/dotfiles/docker-dd/docker-dd-volume.fnc
+    if [ ! -d ~/dotfiles/docker-dd ]; then
+        git clone https://github.com/nutsllc/docker-dd ${HOME}/dotfiles/docker-dd
     fi
 
-    export TOYBOX_HOME=/home/nobita/workspace/docker-toybox
-    export PATH=${TOYBOX_HOME}/bin:${PATH}
-    if [ -f ${TOYBOX_HOME}/bin/complition.sh ]; then
-        source ${TOYBOX_HOME}/bin/complition.sh
-    fi
+    source ~/dotfiles/docker-dd/docker-dd-common.fnc
+    source ~/dotfiles/docker-dd/docker-dd-network.fnc
+    source ~/dotfiles/docker-dd/docker-dd-volume.fnc
+
+    #export TOYBOX_HOME=/home/nobita/workspace/docker-toybox
+    #export PATH=${TOYBOX_HOME}/bin:${PATH}
+    #if [ -f ${TOYBOX_HOME}/bin/complition.sh ]; then
+    #    source ${TOYBOX_HOME}/bin/complition.sh
+    #fi
     echo "Load Docker settings."
 
     alias dd="docker-compose ${@}"
@@ -566,9 +576,6 @@ alias his="peco_history"
 #-------------------------------------------------
 # others
 #-------------------------------------------------
-export TOYBOX_HOME=${HOME}/Vagrant/toybox
-export PATH=$PATH:${TOYBOX_HOME}
-
-export DDD_HOME=${HOME}/dev/src/github.com/nutsllc/docker-dd-compose
-export DDD_SEARCH_DIR=${HOME}/dev/src
-source ${DDD_HOME}/docker-dd-compose
+#export DDD_HOME=${HOME}/dev/src/github.com/nutsllc/docker-dd-compose
+#export DDD_SEARCH_DIR=${HOME}/dev/src
+#source ${DDD_HOME}/docker-dd-compose
