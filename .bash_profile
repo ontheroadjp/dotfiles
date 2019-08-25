@@ -5,8 +5,6 @@ fi
 export EDITOR=vim
 export TERM=xterm
 
-alias dot='cd ${HOME}/dotfiles'
-
 function _is_exist {
     type $@ > /dev/null 2>&1
 }
@@ -430,7 +428,7 @@ fi
 #-------------------------------------------------
 # Peco
 #-------------------------------------------------
-if _is_exist peco; then
+if ! _is_exist peco; then
     tar xvzf src/peco_linux_amd64.tar.gz -C ${HOME}/dotfiles/src
     sudo cp ${HOME}/dotfiles/src/peco_linux_amd64/peco /usr/bin
 fi

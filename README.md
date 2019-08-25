@@ -28,6 +28,8 @@
 (2) ``~/.bash_profile`` で定義
 
 * alias ``dot``=``${HOME}/dotfiles``
+* alias ``vp`` で ``vim`` で ``.bash_profile`` を開く
+* alias ``sp`` で ``.bash_profile`` を再読み込み 
 
 (3) ``~/.bash_profile`` で定義（Mac のみ）
 
