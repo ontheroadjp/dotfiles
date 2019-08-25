@@ -266,7 +266,7 @@ function open_my_github() {
 alias mygit='open_my_github';
 alias editmygit='vim ${HOME}/dotfiles/.bash_profile_git_repository_list.txt'
 
-# -------------------------------- repository( project )
+# -------------------------------- Git repository( project )
 function cd_to_repository() {
     #place=$(ghq list -p | peco)
     place="$(ghq root)/$(ghq list | peco)"
@@ -278,14 +278,26 @@ alias rr='cd_to_repository'
 alias prj='cd_to_repository'
 alias rrr="cd ${HOME}/dev"
 
-function open_github() {
+function open_github_for_current_dir() {
+    if [ -d ".git" ]; then
+        place="$(basename $(pwd))"
+        vendor="$(basename $(pwd | xargs dirname))"
+        open "https://github.com/${vendor}/${place}"
+    else
+        echo "This directory is not managed by Github."
+    fi
+}
+alias opengit='open_github_for_current_dir';
+alias og='open_github_for_current_dir';
+
+function open_github_for_project() {
     place="$(ghq list | peco)"
     [ ! -z "${place}" ] && {
         open "https://${place}"
     }
 }
-alias rrgit='open_github';
-alias prjgit='open_github';
+alias rrgit='open_github_for_project';
+alias prjgit='open_github_for_project';
 
 function open_dockerhub() {
     place="$(ghq list | sed "s:github.com:hub.docker.com/r:" | peco)"
