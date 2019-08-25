@@ -5,6 +5,8 @@ fi
 export EDITOR=vim
 export TERM=xterm
 
+alias dot='cd ${HOME}/dotfiles'
+
 function _is_exist {
     type $@ > /dev/null 2>&1
 }
@@ -315,6 +317,8 @@ function mm() {
         cat ${dirmarks}/mm.txt
     fi
 }
+alias showmm='printf "mm: " && cat ${dirmarks}/mm.txt'
+
 function m() {
     if [ -f ${dirmarks}/mm.txt ]; then
         cd $(cat ${dirmarks}/mm.txt)
@@ -332,6 +336,8 @@ function nn() {
         cat ${dirmarks}/nn.txt
     fi
 }
+alias shownn='printf "nn: " && cat ${dirmarks}/nn.txt'
+
 function n() {
     if [ -f ${dirmarks}/nn.txt ]; then
         cd $(cat ${dirmarks}/nn.txt)
@@ -349,6 +355,9 @@ function bb() {
         cat ${dirmarks}/bb.txt
     fi
 }
+alias showbb='printf "bb: " && cat ${dirmarks}/bb.txt'
+alias showbm='showmm && shownn && showbb'
+
 function b() {
     if [ -f ${dirmarks}/bb.txt ]; then
         cd $(cat ${dirmarks}/bb.txt)
