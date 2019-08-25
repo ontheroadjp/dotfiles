@@ -5,6 +5,8 @@ fi
 export EDITOR=vim
 export TERM=xterm
 
+alias dot='cd ${HOME}/dotfiles'
+
 function _is_exist {
     type $@ > /dev/null 2>&1
 }
