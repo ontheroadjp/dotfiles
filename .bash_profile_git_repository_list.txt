@@ -1,2 +1,2 @@
 dev@ontheroad.jp ontheroadjp
-dev@nutsllc.jp nutsll
+dev@nutsllc.jp nutsllc
