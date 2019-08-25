@@ -254,7 +254,17 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 
-# -------------------------------- repository
+# -------------------------------- Git repository( my repository )
+function open_my_github() {
+    place="$(cat ${HOME}/dotfiles/.bash_profile_git_repository_list.txt | peco | cut -f 2 -d ' ')"
+    [ ! -z "${place}" ] && {
+        open "https://github.com/${place}?tab=repositories"
+    }
+}
+alias mygit='open_my_github';
+alias editmygit='vim ${HOME}/dotfiles/.bash_profile_git_repository_list.txt'
+
+# -------------------------------- repository( project )
 function cd_to_repository() {
     #place=$(ghq list -p | peco)
     place="$(ghq root)/$(ghq list | peco)"
@@ -263,6 +273,7 @@ function cd_to_repository() {
     }
 }
 alias rr='cd_to_repository'
+alias prj='cd_to_repository'
 alias rrr="cd ${HOME}/dev"
 
 function open_github() {
@@ -272,6 +283,7 @@ function open_github() {
     }
 }
 alias rrgit='open_github';
+alias prjgit='open_github';
 
 function open_dockerhub() {
     place="$(ghq list | sed "s:github.com:hub.docker.com/r:" | peco)"
@@ -279,7 +291,8 @@ function open_dockerhub() {
         open "https://${place}"
     }
 }
-alias rrhub='open_dockerhub';
+alias rrdocker='open_dockerhub';
+alias prjdocker='open_dockerhub';
 
 function dockerhub-build() {
     place="$(ghq list | sed "s:github.com:hub.docker.com/r:" | peco)"

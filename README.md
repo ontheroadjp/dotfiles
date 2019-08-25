@@ -65,7 +65,8 @@
 ## GHQ (レポジトリの管理)
 * ``ghq get https://github.com/[ベンダー名]/[レポジトリ名]`` でレポジトリ取得
 * レポジトリ保存場所は、``~/.gitconfig`` で設定（``~/dev/src`` 指定済み）
-* ``rr`` で peco が起動してレポジトリへ移動
+* ``rr`` または ``prj`` で peco が起動してレポジトリへ移動
+* ``mygit`` で peco が起動して Git レポジトリへ（選択肢は ``.bash_profile_git_repository_list.txt`` で指定）
 
 ## vim の設定
 
