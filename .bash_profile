@@ -1,4 +1,3 @@
-
 if [ -f ~/.bashrc ] ; then
 	. ~/.bashrc
 fi
@@ -6,10 +5,10 @@ fi
 export EDITOR=vim
 export TERM=xterm
 
-
 #-------------------------------------------------
 # utilities
 #-------------------------------------------------
+
 function _is_exist {
     type $@ > /dev/null 2>&1
 }
@@ -244,7 +243,6 @@ fi
 #-------------------------------------------------
 # OS common settings
 #-------------------------------------------------
-
 alias cdh='cdla ${HOME}'
 alias c='clear && la'
 alias cc='clear'
@@ -289,8 +287,17 @@ function open_dockerhub() {
     [ ! -z "${place}" ] && {
         open "https://${place}"
     }
+
+# -------------------------------- return previous directory
+function exdirs() {
+    selected="$(dirs -v | peco)"
+	if [ ! -z "${selected}" ]; then
+		path=`echo ${selected} | awk '{print $2}' | sed -e s:^~:${HOME}:`
+		cd ${path}
+        pwd
+	fi
 }
-alias rrhub='open_dockerhub';
+alias d='exdirs'
 
 function dockerhub-build() {
     place="$(ghq list | sed "s:github.com:hub.docker.com/r:" | peco)"
@@ -298,6 +305,7 @@ function dockerhub-build() {
         open "https://${place}/builds"
     }
 }
+
 
 #-------------------------------------------------
 # Changing directory(Mark)
@@ -314,6 +322,8 @@ function mm() {
         cat ${dirmarks}/mm.txt
     fi
 }
+alias showmm='printf "mm: " && cat ${dirmarks}/mm.txt'
+
 function m() {
     if [ -f ${dirmarks}/mm.txt ]; then
         cd $(cat ${dirmarks}/mm.txt)
@@ -331,6 +341,8 @@ function nn() {
         cat ${dirmarks}/nn.txt
     fi
 }
+alias shownn='printf "nn: " && cat ${dirmarks}/nn.txt'
+
 function n() {
     if [ -f ${dirmarks}/nn.txt ]; then
         cd $(cat ${dirmarks}/nn.txt)
@@ -348,6 +360,9 @@ function bb() {
         cat ${dirmarks}/bb.txt
     fi
 }
+alias showbb='printf "bb: " && cat ${dirmarks}/bb.txt'
+alias showbm='showmm && shownn && showbb'
+
 function b() {
     if [ -f ${dirmarks}/bb.txt ]; then
         cd $(cat ${dirmarks}/bb.txt)
@@ -463,6 +478,69 @@ if _is_exist git; then
 fi
 
 #-------------------------------------------------
+# Git repository( my repository )
+#-------------------------------------------------
+function open_my_github() {
+    place="$(cat ${HOME}/dotfiles/.bash_profile_git_repository_list.txt | peco | cut -f 2 -d ' ')"
+    [ ! -z "${place}" ] && {
+        open "https://github.com/${place}?tab=repositories"
+    }
+}
+alias mygit='open_my_github';
+alias editmygit='vim ${HOME}/dotfiles/.bash_profile_git_repository_list.txt'
+
+#-------------------------------------------------
+# Git repository( project )
+#-------------------------------------------------
+function cd_to_repository() {
+    #place=$(ghq list -p | peco)
+    place="$(ghq root)/$(ghq list | peco)"
+    [ ! -z "${place}" ] && {
+        cd ${place}
+    }
+}
+alias rr='cd_to_repository'
+alias prj='cd_to_repository'
+alias rrr="cd ${HOME}/dev"
+
+function open_github_for_current_dir() {
+    if [ -d ".git" ]; then
+        place="$(basename $(pwd))"
+        vendor="$(basename $(pwd | xargs dirname))"
+        open "https://github.com/${vendor}/${place}"
+    else
+        echo "This directory is not managed by Github."
+    fi
+}
+alias opengit='open_github_for_current_dir';
+alias og='open_github_for_current_dir';
+
+function open_github_for_project() {
+    place="$(ghq list | peco)"
+    [ ! -z "${place}" ] && {
+        open "https://${place}"
+    }
+}
+alias rrgit='open_github_for_project';
+alias prjgit='open_github_for_project';
+
+function open_dockerhub() {
+    place="$(ghq list | sed "s:github.com:hub.docker.com/r:" | peco)"
+    [ ! -z "${place}" ] && {
+        open "https://${place}"
+    }
+}
+alias rrdocker='open_dockerhub';
+alias prjdocker='open_dockerhub';
+
+function dockerhub-build() {
+    place="$(ghq list | sed "s:github.com:hub.docker.com/r:" | peco)"
+    [ ! -z "${place}" ] && {
+        open "https://${place}/builds"
+    }
+}
+
+#-------------------------------------------------
 # Go
 #-------------------------------------------------
 if _is_exist go; then
@@ -470,6 +548,14 @@ if _is_exist go; then
     #export GOBIN="${GOPATH}/bin"
     export PATH="${PATH}:${GOPATH}/bin"
     mkdir -p ${GOPATH}
+fi
+
+#-------------------------------------------------
+# Peco
+#-------------------------------------------------
+if ! _is_exist peco; then
+    tar xvzf src/peco_linux_amd64.tar.gz -C ${HOME}/dotfiles/src
+    sudo cp ${HOME}/dotfiles/src/peco_linux_amd64/peco /usr/bin
 fi
 
 #-------------------------------------------------
@@ -555,24 +641,8 @@ if _is_exist dstat; then
 fi
 
 #-------------------------------------------------
-# Functions( beta )
+# SSH
 #-------------------------------------------------
-function exdirs() {
-	dirs -v | awk '!colname[$2]++{print $1,": ",$2,"(",$1,")"}'
-	echo -n "no? "
-	read no
-
-	line=`dirs -v | awk '!colname[$2]++{print $0}' |  egrep "^ *${no}  "`
-	if [ ! -z "${line}" ]  ; then
-		path=`echo ${line} | awk '{print $2}' | sed -e s:^~:${HOME}:`
-		cd ${path}
-	else
-		echo "There is no number you input."
-	fi
-}
-alias d='exdirs'
-
-# SSH extension
 function sshx() {
 	cat ~/.ssh/config | egrep "^Host " | awk '{print NR, $0}'
 	echo -n "no?"
@@ -588,6 +658,9 @@ function sshx() {
 	fi
 }
 
+# --------------------------------------------
+# others( beta )
+# --------------------------------------------
 # find extension
 function findx(){
 	find $1 -name "$2" | awk '{print NR, $0}'
