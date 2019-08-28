@@ -30,24 +30,3 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
-
-#------------------------------
-# Netbeans
-#------------------------------
-
-nbproject/private/
-build/
-nbbuild/
-dist/
-nbdist/
-nbactions.xml
-nb-configuration.xml
-.nb-gradle/
-
-
-#------------------------------
-# Wordpress
-#------------------------------
-
-wp-content/cache/meta/wp-cache-*
-wp-content/cache/

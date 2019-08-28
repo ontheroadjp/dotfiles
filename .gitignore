@@ -17,9 +17,12 @@ peco/Changes
 peco/README.md
 peco/peco
 
-################################
-# for vim by github
-################################
+mm.txt
+nn.txt
+
+# ----------------------------------
+# for vim by github template
+# ----------------------------------
 
 [._]*.s[a-w][a-z]
 [._]s[a-w][a-z]
@@ -32,11 +35,12 @@ Session.vim
 *.swp
 .vim/backup/
 .vim/swap/
-.vim/bundle/
+.vim/bundle/*
+!.vim/bundle/neobundle.vim
 
-################################
-# for MacOSX by github
-################################
+# ----------------------------------
+# for MacOSX by github template
+# ----------------------------------
 
 .DS_Store
 .AppleDouble

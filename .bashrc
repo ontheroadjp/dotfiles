@@ -1,8 +1,4 @@
-
 # プロンプトに git のブランチ名を表示する
-#source /usr/local/etc/bash_completion.d/git-prompt.sh
-#source /usr/local/etc/bash_completion.d/git-completion.bash
-
 source ~/dotfiles/bin/git/git-prompt.sh
 source ~/dotfiles/bin/git/git-completion.bash
 
@@ -12,8 +8,8 @@ GIT_PS1_SHOWDIRTYSTATE=true
 #export PS1='[\[\033[32m\]\u@\h\[\033[00m\]:\[\033[34m\]\w\[\033[31m\]$(__git_ps1)\[\033[00m\]]\$ '
 
 
-# show time
-export PS1='[\[\033[32m\]\h\[\033[32m\]($(date +%H:%M)): \[\033[34m\]\W\[\033[31m\]$(__git_ps1)\[\033[00m\]]\$ '
+# show username, time
+export PS1='[\[\033[32m\]\u@\h\[\033[32m\]($(date +%H:%M)): \[\033[34m\]\W\[\033[31m\]$(__git_ps1)\[\033[00m\]]\$ '
 
 [[ -n "$VIMRUNTIME" ]] && {
     export PS1='[(\[\033[31m\]VIM\[\033[00m\]) \[\033[34m\]\W \[\033[00m\]\t ]$ '

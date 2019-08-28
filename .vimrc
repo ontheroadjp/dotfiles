@@ -85,7 +85,7 @@ set smartindent                                  " to determining indent width a
 
 "------------------------------------------------------------------------------- Cursor settings
 let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
+"let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
 let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
 
 "------------------------------------------------------------------------------- Search
@@ -117,6 +117,15 @@ nnoremap gk k
 nnoremap gj j
 vnoremap gk k
 vnoremap gj j
+
+" move cursor in insert mode( like Emacs)
+imap <C-p> <Up>
+imap <C-n> <Down>
+"imap <C-b> <Left>
+"imap <C-f> <Right>
+
+imap <C-h> <Left>
+imap <C-l> <Right>
 
 " insert brank line to under cursor
 nnoremap 00 :<C-u>call append(expand('.'), '')<CR>j
