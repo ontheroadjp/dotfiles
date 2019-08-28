@@ -100,6 +100,9 @@ if [ "$(uname)" == 'Darwin' ]; then
 	# Markdown Editor
 	alias md='open -a "/Applications/MacDown.app"'
 
+	# Markdown Editor
+	alias typora='open -a "/Applications/Typora.app"'
+
     # Cot Editor
     alias cot='open -a "/Applications/CotEditor.app"'
 
@@ -257,6 +260,8 @@ fi
 # Changing directory(Common)
 #-------------------------------------------------
 alias la='ls -laG'
+alias lla='la $(find . -type d | grep -v .git | peco)'
+alias laa='la $(find . -type d | grep -v .git | peco)'
 
 cdla() {
     if [ $# -eq 0 ]; then
@@ -395,64 +400,83 @@ if _is_exist git; then
     alias gs='git status'
     alias gd='git diff'
     alias gdni='git diff --no-index'
-    alias ga='git_add_status'
-    alias gr='git_reset_status'
     alias gcom='git commit -v'
     alias gb='git branch'
     alias gc='git checkout'
     alias gm='git merge --no-ff'
-
     alias gbk='git commit -m "[BK] wip"'
+    alias wip='git commit -m "[BK] wip"'
 
     function git_add_status() {
         git add "$@" && git status
     }
+    alias ga='git_add_status'
 
     function git_reset_status() {
         git reset "$@" && git status
     }
+    alias gr='git_reset_status'
 
-    # ------------------------------------
-    # move from outside of the repository
-    # ------------------------------------
-    function cd_to_repository() {
-        #place=$(ghq list -p | peco)
+    function cd_to_repository_root() {
+        now=$(pwd)
+        while [ ! -d $(pwd)/.git ]; do
+            if [ $(pwd) = / ]; then
+                cd ${now}
+                echo 'This directory is not managed by git.'
+                break
+            else
+                cd ..
+            fi
+        done
+    }
+    alias ggg="cd_to_repository_root"
+    #alias ggg=$(git rev-parse --show-toplevel)
+
+    function cd_to_repository_managed_by_ghq() {
         place="$(ghq root)/$(ghq list | peco)"
         [ ! -z "${place}" ] && {
             cd ${place}
         }
     }
-
+    function open_github_repository_managed_by_ghq() {
+        place="$(ghq list | peco)"
+        [ ! -z "${place}" ] && {
+            open "https://${place}"
+        }
+    }
     if _is_exist ghq; then
-        alias rr='cd_to_repository'
-        alias ,r='cd_to_repository'
+        alias rr='cd_to_repository_managed_by_ghq'
+        alias ,r='cd_to_repository_managed_by_ghq'
+        alias rrgit='open_github_repository_managed_by_ghq';
     fi
 
-    # ------------------------------------
-    # move from inside of the repository
-    # ------------------------------------
-
-    function get_repository_root_directory_path {
-        echo -n $(git rev-parse --show-toplevel)
-    }
-    alias ,g='cd $(get_repository_root_directory_path)'
-
-
-    function get_directories_in_repository {
+    function open_github_for_current_dir() {
         now=$(pwd)
-        rootpath=$(get_repository_root_directory_path) && cd ${rootpath}
-
-        dist=$(git ls-files | sed -e "/^[^\/]*$/d" -e "s/\/[^\/]*$//g" | sort | uniq | peco)
-
-        if [ ! -z ${dist} ]; then
-            cd ${rootpath}/${dist}
-        else
+        cd_to_repository_root && {
+            place="$(basename $(pwd))"
+            vendor="$(basename $(pwd | xargs dirname))"
+            open "https://github.com/${vendor}/${place}"
             cd ${now}
-        fi
+        }
     }
-    alias ,d='get_directories_in_repository'
+    alias github='open_github_for_current_dir';
 
-    #it doesn't work
+    # This doesn't work
+    #function get_directories_in_repository {
+    #    now=$(pwd)
+    #    rootpath=$(get_repository_root_directory_path) && cd ${rootpath}
+
+    #    dist=$(git ls-files | sed -e "/^[^\/]*$/d" -e "s/\/[^\/]*$//g" | sort | uniq | peco)
+
+    #    if [ ! -z ${dist} ]; then
+    #        cd ${rootpath}/${dist}
+    #    else
+    #        cd ${now}
+    #    fi
+    #}
+    #alias ,d='get_directories_in_repository'
+
+    # This doesn't work
     #function get_files_in_repository {
     #    ggg && target=$(git ls-files | sort | uniq | peco)
     #    if [ ! -z ${target} ]; then
@@ -461,25 +485,11 @@ if _is_exist git; then
     #}
     #alias hoge='get_files_in_repository'
 
-    # ------------------------------------
-    # open remote repository
-    # ------------------------------------
-
-    function open_github() {
-        place="$(ghq list | peco)"
-        [ ! -z "${place}" ] && {
-            open "https://${place}"
-        }
-    }
-    if _is_exist ghq; then
-        alias rrgit='open_github';
-    fi
-
     echo "Load Git settings."
 fi
 
 #-------------------------------------------------
-# Git repository( my repository )
+# WEB (Github)
 #-------------------------------------------------
 function open_my_github() {
     place="$(cat ${HOME}/dotfiles/.bash_profile_git_repository_list.txt | peco | cut -f 2 -d ' ')"
@@ -487,52 +497,20 @@ function open_my_github() {
         open "https://github.com/${place}?tab=repositories"
     }
 }
-alias mygit='open_my_github';
+alias mygithub='open_my_github';
 alias editmygit='vim ${HOME}/dotfiles/.bash_profile_git_repository_list.txt'
 
 #-------------------------------------------------
-# Git repository( project )
+# WEB (Dockerhub)
 #-------------------------------------------------
-function cd_to_repository() {
-    #place=$(ghq list -p | peco)
-    place="$(ghq root)/$(ghq list | peco)"
-    [ ! -z "${place}" ] && {
-        cd ${place}
-    }
-}
-alias rr='cd_to_repository'
-alias prj='cd_to_repository'
-alias rrr="cd ${HOME}/dev"
-
-function open_github_for_current_dir() {
-    if [ -d ".git" ]; then
-        place="$(basename $(pwd))"
-        vendor="$(basename $(pwd | xargs dirname))"
-        open "https://github.com/${vendor}/${place}"
-    else
-        echo "This directory is not managed by Github."
-    fi
-}
-alias opengit='open_github_for_current_dir';
-alias og='open_github_for_current_dir';
-
-function open_github_for_project() {
-    place="$(ghq list | peco)"
-    [ ! -z "${place}" ] && {
-        open "https://${place}"
-    }
-}
-alias rrgit='open_github_for_project';
-alias prjgit='open_github_for_project';
-
-function open_dockerhub() {
+function open_my_dockerhub() {
     place="$(ghq list | sed "s:github.com:hub.docker.com/r:" | peco)"
     [ ! -z "${place}" ] && {
         open "https://${place}"
     }
 }
-alias rrdocker='open_dockerhub';
-alias prjdocker='open_dockerhub';
+alias rrdocker='open_my_dockerhub';
+alias prjdocker='open_my_dockerhub';
 
 function dockerhub-build() {
     place="$(ghq list | sed "s:github.com:hub.docker.com/r:" | peco)"
