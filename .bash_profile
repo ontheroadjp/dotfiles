@@ -287,6 +287,7 @@ function open_dockerhub() {
     [ ! -z "${place}" ] && {
         open "https://${place}"
     }
+}
 
 # -------------------------------- return previous directory
 function exdirs() {
@@ -305,7 +306,6 @@ function dockerhub-build() {
         open "https://${place}/builds"
     }
 }
-
 
 #-------------------------------------------------
 # Changing directory(Mark)
@@ -391,6 +391,7 @@ alias ee='open_javascript_file_with_vim'
 #-------------------------------------------------
 if _is_exist git; then
     alias gg='git graph'
+    alias ggs='git graph --stat'
     alias gs='git status'
     alias gd='git diff'
     alias gdni='git diff --no-index'
@@ -401,7 +402,7 @@ if _is_exist git; then
     alias gc='git checkout'
     alias gm='git merge --no-ff'
 
-    alias gbk='git commit -m "[BK] wip"
+    alias gbk='git commit -m "[BK] wip"'
 
     function git_add_status() {
         git add "$@" && git status
