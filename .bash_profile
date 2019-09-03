@@ -313,68 +313,42 @@ function dockerhub-build() {
 }
 
 #-------------------------------------------------
-# Changing directory(Mark)
+# Directory mark and jump
 #-------------------------------------------------
 dirmarks="$HOME/dotfiles/.dirmarks"
 mkdir -p ${dirmarks}
-function mm() {
-    if [ $# -eq 0 ]; then
-        pwd | tee ${dirmarks}/mm.txt
-    elif [ $1 = "show" ]; then
-        [ ! -f ${dirmarks}/mm.txt ] && {
-            echo "not set." && return
-        }
-        cat ${dirmarks}/mm.txt
-    fi
-}
-alias showmm='printf "mm: " && cat ${dirmarks}/mm.txt'
 
-function m() {
-    if [ -f ${dirmarks}/mm.txt ]; then
-        cd $(cat ${dirmarks}/mm.txt)
-    else
-        echo "not set."
-    fi
+function _mark_to_directory() {
+    [ $# -eq 1 ] && {
+        pwd | tee ${dirmarks}/m${1}
+    }
 }
-function nn() {
-    if [ $# -eq 0 ]; then
-        pwd | tee ${dirmarks}/nn.txt
-    elif [ $1 = "show" ]; then
-        [ ! -f ${dirmarks}/nn.txt ] && {
-            echo "not set." && return
-        }
-        cat ${dirmarks}/nn.txt
-    fi
-}
-alias shownn='printf "nn: " && cat ${dirmarks}/nn.txt'
+alias mm='_mark_to_directory m'
+alias nn='_mark_to_directory n'
+alias bb='_mark_to_directory b'
+alias ii='_mark_to_directory i'
+alias oo='_mark_to_directory o'
 
-function n() {
-    if [ -f ${dirmarks}/nn.txt ]; then
-        cd $(cat ${dirmarks}/nn.txt)
-    else
-        echo "not set."
-    fi
-}
-function bb() {
-    if [ $# -eq 0 ]; then
-        pwd | tee ${dirmarks}/bb.txt
-    elif [ $1 = "show" ]; then
-        [ ! -f ${dirmarks}/bb.txt ] && {
-            echo "not set." && return
-        }
-        cat ${dirmarks}/bb.txt
-    fi
-}
-alias showbb='printf "bb: " && cat ${dirmarks}/bb.txt'
-alias showbm='showmm && shownn && showbb'
+function _markspeco() {
+    [ $(ls -U ${dirmarks} | wc -l) -ne 0 ] && {
+        to=$(for x in ${dirmarks}/*; do cat ${x}; done | sort | uniq | peco)
+    }
 
-function b() {
-    if [ -f ${dirmarks}/bb.txt ]; then
-        cd $(cat ${dirmarks}/bb.txt)
-    else
-        echo "not set."
-    fi
+    [ ! -z ${to} ] && cd ${to}
 }
+alias marks='_markspeco'
+alias dm='_markspeco'
+
+function _jump_to_directory() {
+    [ $# -eq 1 ] && [ -f ${dirmarks}/m${1} ] && {
+        cd $(cat ${dirmarks}/m${1})
+    } || echo "not set."
+}
+alias m='_jump_to_directory m'
+alias n='_jump_to_directory n'
+alias b='_jump_to_directory b'
+alias i='_jump_to_directory i'
+alias o='_jump_to_directory o'
 
 #-------------------------------------------------
 # Vim

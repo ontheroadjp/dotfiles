@@ -62,6 +62,13 @@ function _deploy_dotfiles() {
     #-------------------------------------------------
     elif [ "$(expr substr $(uname -s) 1 10)" == 'MINGW32_NT' ]; then
     	echo 'Welcome to Cygwin!'
+
+    #-------------------------------------------------
+    # for Windows Subsystem for Linux
+    #-------------------------------------------------
+#    elif [ "$(cat /proc/version_signature | grep -i 'microsoft')" ]; then
+    	echo 'Welcome to Windows Subsystem for Linux!'
+
     else
     #-------------------------------------------------
     # for other OS
