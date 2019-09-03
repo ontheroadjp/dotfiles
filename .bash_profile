@@ -264,20 +264,15 @@ alias lla='la $(find . -type d | grep -v .git | peco)'
 alias laa='la $(find . -type d | grep -v .git | peco)'
 
 cdla() {
-    if [ $# -eq 0 ]; then
-        place=${HOME}
-    else
-        place=$@
-    fi
-	#pushd "${place}" && clear && la
+    [ $# -eq 0 ] && place=${HOME} || place=$@
 	pushd ${place} && clear && la
 }
 alias cd='cdla'
 
-# back to the previous location
-alias p='popd && clear && la'
+# -------------------------------- back to the previous location
+alias b='popd && clear && la'
 
-# -------------------------------- base
+# -------------------------------- general settings
 alias home="cd ${HOME}"
 alias .="pwd"
 alias ..="cd .."
@@ -285,32 +280,27 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 
-alias cdd='cd "$(find . -type d | peco)"'
-# -------------------------------- dockerhub
-function open_dockerhub() {
-    place="$(ghq list | sed "s:github.com:hub.docker.com/r:" | peco)"
-    [ ! -z "${place}" ] && {
-        open "https://${place}"
+# -------------------------------- peco - cd to sub directory
+function _cd_to_sub_directory() {
+    [ $(ls -F | wc -l) -eq 0 ] && {
+        echo 'no sub directory.'
+        return 0
     }
+    to=$(find . -type d | grep -v ^.$ | grep -v .git | sort | uniq | peco)
+    [ ! -z ${to} ] && cd ${to}
 }
+alias cdd='_cd_to_sub_directory'
 
-# -------------------------------- return previous directory
-function exdirs() {
-    selected="$(dirs -v | peco)"
-	if [ ! -z "${selected}" ]; then
-		path=`echo ${selected} | awk '{print $2}' | sed -e s:^~:${HOME}:`
-		cd ${path}
-        pwd
-	fi
+# -------------------------------- peco - cd by history
+function _cd_by_dirspeco() {
+    to="$(dirs -v | sort | uniq | peco | awk '{print $2}' | sed -e s:^~:${HOME}:)"
+    [ ! -z ${to} ] && cd ${to}
+#	if [ ! -z "${to}" ]; then
+#        cd $(echo ${to} | awk '{print $2}' | sed -e s:^~:${HOME}:)
+#        pwd
+#	fi
 }
-alias d='exdirs'
-
-function dockerhub-build() {
-    place="$(ghq list | sed "s:github.com:hub.docker.com/r:" | peco)"
-    [ ! -z "${place}" ] && {
-        open "https://${place}/builds"
-    }
-}
+alias hh='_cd_by_dirspeco'
 
 #-------------------------------------------------
 # Directory mark and jump
@@ -319,41 +309,37 @@ dirmarks="$HOME/dotfiles/.dirmarks"
 mkdir -p ${dirmarks}
 
 function _mark_to_directory() {
-    [ $# -eq 1 ] && {
-        pwd | tee ${dirmarks}/m${1}
-    }
+    [ $# -eq 1 ] && pwd > ${dirmarks}/${1}${1}; echo 'markd!'
 }
+
+function _jump_to_directory() {
+    [ $# -eq 1 ] && [ -f ${dirmarks}/${1}${1} ] && {
+        cd $(cat ${dirmarks}/${1}${1})
+    } || echo "not set."
+}
+
 alias mm='_mark_to_directory m'
 alias nn='_mark_to_directory n'
-alias bb='_mark_to_directory b'
 alias ii='_mark_to_directory i'
 alias oo='_mark_to_directory o'
+
+alias m='_jump_to_directory m'
+alias n='_jump_to_directory n'
+alias i='_jump_to_directory i'
+alias o='_jump_to_directory o'
 
 function _markspeco() {
     [ $(ls -U ${dirmarks} | wc -l) -ne 0 ] && {
         to=$(for x in ${dirmarks}/*; do cat ${x}; done | sort | uniq | peco)
     }
-
     [ ! -z ${to} ] && cd ${to}
 }
-alias marks='_markspeco'
-alias dm='_markspeco'
-
-function _jump_to_directory() {
-    [ $# -eq 1 ] && [ -f ${dirmarks}/m${1} ] && {
-        cd $(cat ${dirmarks}/m${1})
-    } || echo "not set."
-}
-alias m='_jump_to_directory m'
-alias n='_jump_to_directory n'
-alias b='_jump_to_directory b'
-alias i='_jump_to_directory i'
-alias o='_jump_to_directory o'
+alias jj='_markspeco'
 
 #-------------------------------------------------
 # Vim
 #-------------------------------------------------
-function open_javascript_file_with_vim() {
+function _open_javascript_file_with_vim() {
     [ ! -z "${1}" ] && {
         place="$(find . -type d -name node_modules -prune -o -type d -name vendor -prune -o -type f -name "*.${1}" | peco)"
         [ ! -z "${place}" ] && {
@@ -363,7 +349,7 @@ function open_javascript_file_with_vim() {
         echo 'need one argument must be file exension'
     }
 }
-alias ee='open_javascript_file_with_vim'
+alias ee='_open_javascript_file_with_vim'
 
 #-------------------------------------------------
 # Git
@@ -386,78 +372,56 @@ if _is_exist git; then
     }
     alias ga='git_add_status'
 
-    function git_reset_status() {
-        git reset "$@" && git status
-    }
-    alias gr='git_reset_status'
+#    function _git_reset_status() {
+#        git reset "$@" && git status
+#    }
+#    alias gr='_git_reset_status'
 
-    function cd_to_repository_root() {
+    function _cd_to_repository_root() {
         now=$(pwd)
         while [ ! -d $(pwd)/.git ]; do
             if [ $(pwd) = / ]; then
                 cd ${now}
                 echo 'This directory is not managed by git.'
-                break
+                break 1
             else
                 cd ..
             fi
         done
     }
-    alias ggg="cd_to_repository_root"
+    alias ggg="_cd_to_repository_root"
     #alias ggg=$(git rev-parse --show-toplevel)
 
-    function cd_to_repository_managed_by_ghq() {
-        place="$(ghq root)/$(ghq list | peco)"
-        [ ! -z "${place}" ] && {
-            cd ${place}
-        }
+    function _cd_to_repository_managed_by_ghq() {
+        to="$(ghq list | peco)"
+        [ ! -z ${to} ] && cd $(ghq root)/${to}
+        echo ${to}
     }
-    function open_github_repository_managed_by_ghq() {
+    if _is_exist ghq; then
+        alias rr='_cd_to_repository_managed_by_ghq'
+        alias ,r='_cd_to_repository_managed_by_ghq'
+    fi
+
+    function _open_github_repository_managed_by_ghq() {
         place="$(ghq list | peco)"
-        [ ! -z "${place}" ] && {
+        [ ! -z ${place} ] && {
             open "https://${place}"
         }
     }
     if _is_exist ghq; then
-        alias rr='cd_to_repository_managed_by_ghq'
-        alias ,r='cd_to_repository_managed_by_ghq'
-        alias rrgit='open_github_repository_managed_by_ghq';
+        alias rrgit='_open_github_repository_managed_by_ghq';
     fi
 
-    function open_github_for_current_dir() {
+    function _open_github_for_current_dir() {
         now=$(pwd)
-        cd_to_repository_root && {
+        _cd_to_repository_root && {
             place="$(basename $(pwd))"
             vendor="$(basename $(pwd | xargs dirname))"
             open "https://github.com/${vendor}/${place}"
             cd ${now}
         }
     }
-    alias github='open_github_for_current_dir';
-
-    # This doesn't work
-    #function get_directories_in_repository {
-    #    now=$(pwd)
-    #    rootpath=$(get_repository_root_directory_path) && cd ${rootpath}
-
-    #    dist=$(git ls-files | sed -e "/^[^\/]*$/d" -e "s/\/[^\/]*$//g" | sort | uniq | peco)
-
-    #    if [ ! -z ${dist} ]; then
-    #        cd ${rootpath}/${dist}
-    #    else
-    #        cd ${now}
-    #    fi
-    #}
-    #alias ,d='get_directories_in_repository'
-
-    # This doesn't work
-    #function get_files_in_repository {
-    #    ggg && target=$(git ls-files | sort | uniq | peco)
-    #    if [ ! -z ${target} ]; then
-    #        echo -n ${target}
-    #    fi
-    #}
-    #alias hoge='get_files_in_repository'
+    alias github='_open_github_for_current_dir';
 
     echo "Load Git settings."
 fi
@@ -465,26 +429,25 @@ fi
 #-------------------------------------------------
 # WEB (Github)
 #-------------------------------------------------
-function open_my_github() {
+function _open_my_github() {
     place="$(cat ${HOME}/dotfiles/.bash_profile_git_repository_list.txt | peco | cut -f 2 -d ' ')"
     [ ! -z "${place}" ] && {
         open "https://github.com/${place}?tab=repositories"
     }
 }
-alias mygithub='open_my_github';
+alias mygithub='_open_my_github';
 alias editmygit='vim ${HOME}/dotfiles/.bash_profile_git_repository_list.txt'
 
 #-------------------------------------------------
 # WEB (Dockerhub)
 #-------------------------------------------------
-function open_my_dockerhub() {
+function _open_my_dockerhub() {
     place="$(ghq list | sed "s:github.com:hub.docker.com/r:" | peco)"
     [ ! -z "${place}" ] && {
         open "https://${place}"
     }
 }
-alias rrdocker='open_my_dockerhub';
-alias prjdocker='open_my_dockerhub';
+alias rrdh='_open_my_dockerhub';
 
 function dockerhub-build() {
     place="$(ghq list | sed "s:github.com:hub.docker.com/r:" | peco)"
@@ -632,14 +595,20 @@ function findx(){
 
 # files/directories backup
 function bk() {
-	prefix=bk_$(date +%Y%m%d)_
-	if [ -f $@ ]; then
-		cp "$@" ./${prefix}$@
-		echo ${prefix}" has been backuped."
-	else
-		zip -vr ${prefix}$@.zip $@
-	fi
+    [ -f ${1} ] && {
+        cp -r ${1} ${1}.bk
+    }
 }
+
+#function bk() {
+#	prefix=bk_$(date +%Y%m%d)_
+#	if [ -f $@ ]; then
+#		cp "$@" ./${prefix}$@
+#		echo ${prefix}" has been backuped."
+#	else
+#		zip -vr ${prefix}$@.zip $@
+#	fi
+#}
 
 #-------------------------------------------------
 # Functions for peco

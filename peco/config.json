@@ -4,5 +4,9 @@
 		"C-k": "peco.SelectUp",
 		"C-f": "peco.ScrollPageDown",
 		"C-b": "peco.ScrollPageUp"
-	}
+    },
+    "Style": {
+        "Selected": ["red"],
+        "Matched": ["blue"]
+    }
 }
