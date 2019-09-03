@@ -16,8 +16,8 @@ au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
 au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
 
 " twice "f" to close
-au FileType unite nnoremap <silent> <buffer> ff :q<CR>
-au FileType unite inoremap <silent> <buffer> ff <ESC>:q<CR>
+au FileType unite nnoremap <silent> <buffer> jj :q<CR>
+au FileType unite inoremap <silent> <buffer> jj <ESC>:q<CR>
 
 " twice "," to close
 au FileType unite nnoremap <silent> <buffer> ,, :q<CR>
@@ -38,8 +38,8 @@ nnoremap    [unite]   <Nop>
 nmap    ,f [unite]
 
 " unite.vim keymap
-"nnoremap <silent> [unite]f :<C-u>Unite<Space>file_rec<CR>
-"nnoremap <silent> [unite]r :<C-u>Unite<Space>file_mru<CR>
+nnoremap <silent> [unite]f :<C-u>Unite<Space>file_rec<CR>
+nnoremap <silent> [unite]r :<C-u>Unite<Space>file_mru<CR>
 nnoremap <silent> <c-p> :<C-u>Unite<Space>file_rec<CR>
 nnoremap <silent> <c-e> :<C-u>Unite<Space>file_mru<CR>
 

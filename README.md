@@ -50,6 +50,8 @@
 ### ペイン
 * ``Prefix`` + ``-`` でペインを横分割
 * ``Prefix`` + ``\`` でペインを縦分割
+* ``prefix`` + ``z`` でペインの最大化
+
 * ``Prefix`` + ``o`` でペインをローテーションしながら移動
 
 * ``prefixkey`` + ``j`` でペインの境界を下へ移動
@@ -57,8 +59,10 @@
 * ``prefixkey`` + ``h`` でペインの境界を左へ移動
 * ``prefixkey`` + ``l`` でペインの境界を右へ移動
 
-## GHQ (レポジトリの管理)
+### その他
+* ``prefix`` + ``t`` で時刻表示
 
+## GHQ (レポジトリの管理)
 * ``ghq get https://github.com/[ベンダー名]/[レポジトリ名]`` でレポジトリ取得
 * レポジトリ保存場所は、``~/.gitconfig`` で設定（``~/dev/src`` 指定済み）
 * ``rr`` で peco が起動してレポジトリへ移動
@@ -75,6 +79,8 @@
 * ``<Leader>`` は、デフォルト（``\``） のまま
 * ``00`` で空行挿入
 * ``0i`` で空行挿入して下に1行開ける（自動的に挿入モードへ）
+* インサートモードで、`<C-h>` でカーソルを左へ移動
+* インサートモードで、`<C-l>` でカーソルを右へ移動
 * ファイルをまたぐ（複数ファイルを扱う）操作は、基本的に ``,`` に統一
 	* ``NERDTree`` の開閉は、``,e``
 	* ``Tagbar`` の開閉は、``,t``
@@ -96,7 +102,7 @@
 * ``]B`` で最後のバッファへ
 
 ### ウインドウ
-* ``:--`` で水平分割
+* ``:--`` で水平分割 （``<C-k>`` でも水平分割）
 * ``:\\`` で垂直分割
 * ``Ctrl + w + h`` で左のウインドウへ移動(vim デフォルト)
 * ``Ctrl + w + j`` で下のウインドウへ移動(vim デフォルト)
@@ -118,7 +124,7 @@
 ## vim の使い方 (Unite)
 
 * とりあえず、``<C-p>``（最近開いたファイル一覧） だけで十分便利
-* ``<esc><esc>``, ``ff`` または ``,,`` で Unite を抜ける
+* ``<esc><esc>``, ``jj`` または ``,,`` で Unite を抜ける
 * ``,,`` で、Unite ウインドウを前回閉じた状態で開く（:UniteResume） * 現在無効
 * ``,g`` でカレントディレクトリ以下を grep 検索(Unite grep:)
 * ``,cg`` でカーソル位置の単語を grep 検索(Unite grep:)
@@ -127,9 +133,9 @@
 
 |コマンド|内容|
 |:---|:---|
-|`<C-e>`|最近開いたファイル一覧（file_mru）|
-|`<C-p>`|カレントディレクトリ以下のファイル一覧（file_rec）|
-|,fg|カレントディレクトリ以下を grep|
+|``<C-e>``または``,,fr``|最近開いたファイル一覧（file_mru）|
+|``<C-p>``または``,,ff``|カレントディレクトリ以下のファイル一覧（file_rec）|
+|``,fg``|カレントディレクトリ以下を grep|
 
 * 新規ディレクトリ作成（``,fd``）と新規ファイル作成（``,fn``）は NERDTree で行った方がわかりやすい。
 
@@ -162,8 +168,11 @@
 
 ## vim の使い方（入力補完： vim-emmet)
 
-* `<emmet-leader>` は `,,`
+* `<emmet-leader>` は `<C-y>` (デフォルトのまま)
 * `div.hoge` と入力して、`<emmet-leader>,` で `<div class="hoge"></div>` に展開
+* ``div.hoge.foo[style="display: flex;"]`` で `<div class="hoge foo" style="display: flex;">` に展開
+* [Emmit 公式チートシート](https://docs.emmet.io/cheat-sheet/)
+
 
 ## vim の使い方 (スニペット: SnipMate)
 
@@ -233,17 +242,17 @@
 
 * ``ghq`` で管理
 * なのでレポジトリ追加は ``ghq add xxx/xxx``
-* ``rr`` でレポジトリ一覧を ``peco`` で開いて移動
+* ``rr`` =  ``peco`` 経由で当該ディレクトリへ移動
+* ``rrgit`` = ``peco`` 経由で当該 github をブラウザで開く
+* ``rrhub`` = ``peco`` 経由で当該 Dockerhub をブラウザで開く
 
 ### ワークフロー
-
 * ``gg`` で git log 確認
 * ``gs``, ``gd`` で変更箇所の確認
 * ``ga`` でステージング
 * ``gc`` でコミット
 
 ### 主なエイリアス
-
 (1) ``~/.bash_profile`` で定義
 
 * ``gg``		= ``git graph``
@@ -256,7 +265,7 @@
 (2) ``~/gitconfig`` で定義
 
 * ``graph`` = ``log --graph --date-order --all --pretty=format:'%h %Cred%d %Cgreen%ad %Cblue%cn %Creset%s' --date=short``
- 
+
 ## vagrant 関連
 
 ### 主なエイリアス
@@ -278,6 +287,12 @@
 ## Docker 関連
 
 docker がインストールされている場合、``nutsllc/docker-dd`` がインストールされる
+
+* ``dd`` = ``docker-compose ${@}``
+* ``ddu`` = ``docker-compose up``
+* ``ddd`` = ``docker-compose down``
+* ``dde`` = ``docker-compose exec ${@}``
+* ``ddv`` = ``vim docker-compose.yml``
 
 ## インストール
 
