@@ -3,7 +3,7 @@
 	autoCRLF = false
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
+	path =
 [mergetool "sourcetree"]
 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
@@ -13,6 +13,7 @@
 	cm = commit
 	df = diff
     graph = log --graph --date-order --all --pretty=format:'%h %Cred%d %Cgreen%ad %Cblue%cn %Creset%s' --date=short
+    ls = !"f(){ git ls-files | sed -e '/^[^\\/]*$/d' -e 's/\\/[^\\/]*$//g' | sort | uniq; }; f"
 [user]
 	name = @ontheroad_jp
 	email = dev@ontheroad.jp
@@ -20,3 +21,5 @@
     ui = true
 [ghq]
     root = ~/dev/src
+[url "https://5ca4a03069d18ecbc8b40926fcbf67eb85a3b8c3:x-oauth-basic@github.com/"]
+	insteadOf = https://github.com/
