@@ -556,11 +556,11 @@ if _is_exist docker; then
     #fi
     echo "Load Docker settings."
 
+    # for docker-compose.yml
     alias dd="docker-compose ${@}"
-    alias ddu="docker-compose up"
-    alias ddd="docker-compose down"
-    alias dde="docker-compose exec ${@}"
-    alias ddv="vim docker-compose.yml"
+    alias ddup="docker-compose up ${@}"
+    alias ddupd="docker-compose up -d ${@}"
+    alias dddown="docker-compose down"
 fi
 
 #-------------------------------------------------
