@@ -113,7 +113,7 @@ if [ "$(uname)" == 'Darwin' ]; then
 
     # alias(directory change:Mac)
 	alias cdh='cdla ${HOME}'
-	alias cdd='cdla ${HOME}/Desktop'
+	#alias cdd='cdla ${HOME}/Desktop'
 	alias cddoc='cdla ${HOME}/Documents'
 	alias cddl='cdla ${HOME}/Downloads'
 
@@ -286,7 +286,8 @@ function _cd_to_sub_directory() {
         echo 'no sub directory.'
         return 0
     }
-    to=$(find . -type d | grep -v ^.$ | grep -v .git | sort | uniq | peco)
+    [[ ${1} -lt 1 ]] && ${1}='alpine'
+    to=$(find . -type d | grep -v ^.$ | grep -v .git | sort | uniq | peco --prompt "to SUB DIR.>" --query "${1}" 2>/dev/null)
     [ ! -z ${to} ] && cd ${to}
 }
 alias cdd='_cd_to_sub_directory'
@@ -392,10 +393,14 @@ if _is_exist git; then
     alias ggg="_cd_to_repository_root"
     #alias ggg=$(git rev-parse --show-toplevel)
 
+# not working
+#    function _pecorin() {
+#        peco --prompt="${2}" --query="${3}" ${1} 2>/dev/null
+#    }
+
     function _cd_to_repository_managed_by_ghq() {
-        to="$(ghq list | peco --prompt "GIT REPOSITORY>")"
+        to=$(ghq list | peco --prompt "Git Repository>" --query "${*}" 2>/dev/null)
         [ ! -z ${to} ] && cd $(ghq root)/${to}
-        echo ${to}
     }
     if _is_exist ghq; then
         alias rr='_cd_to_repository_managed_by_ghq'
