@@ -393,7 +393,7 @@ if _is_exist git; then
     #alias ggg=$(git rev-parse --show-toplevel)
 
     function _cd_to_repository_managed_by_ghq() {
-        to="$(ghq list | peco)"
+        to="$(ghq list | peco --prompt "GIT REPOSITORY>")"
         [ ! -z ${to} ] && cd $(ghq root)/${to}
         echo ${to}
     }
