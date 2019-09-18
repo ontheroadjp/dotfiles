@@ -9,7 +9,7 @@ export TERM=xterm
 # utilities
 #-------------------------------------------------
 
-function _is_exist {
+function _is_exist() {
     type $@ > /dev/null 2>&1
 }
 
@@ -250,7 +250,7 @@ alias cdh='cdla ${HOME}'
 alias c='clear && la'
 alias cc='clear'
 alias e='exit'
-alias jj=$(:)
+#alias jj=$(:)
 
 if [ -f ${HOME}/dotfiles/peco/peco ]; then
     export PATH=${PATH}:${HOME}/dotfiles/peco
@@ -282,23 +282,25 @@ alias .....="cd ../../../.."
 
 # -------------------------------- peco - cd to sub directory
 function _cd_to_sub_directory() {
-    [ $(ls -F | wc -l) -eq 0 ] && {
+    [[ $(ls -F | wc -l) -eq 0 ]] && {
         echo 'no sub directory.'
         return 0
     }
-    to=$(find . -type d | grep -v ^.$ | grep -v .git | sort | uniq | peco)
-    [ ! -z ${to} ] && cd ${to}
+    to=$(find . -type d | grep -v ^.$ | grep -v .git | sort | uniq | peco --prompt "cd to >")
+    [[ ! -z ${to} ]] && cd ${to}
 }
 alias cdd='_cd_to_sub_directory'
 
 # -------------------------------- peco - cd by history
 function _cd_by_dirspeco() {
-    to="$(dirs -v | sort | uniq | peco | awk '{print $2}' | sed -e s:^~:${HOME}:)"
-    [ ! -z ${to} ] && cd ${to}
-#	if [ ! -z "${to}" ]; then
-#        cd $(echo ${to} | awk '{print $2}' | sed -e s:^~:${HOME}:)
-#        pwd
-#	fi
+    [ is_exists peco -ne 0 ] && {
+        echo "peco is not installed."
+        return 1
+    }
+
+    to="$(dirs -v | awk '{print $2}' | sort | uniq | peco --prompt "cd to >" | sed -e s:^~:${HOME}:)"
+    [[ ! -z ${to} ]] && cd ${to}
+    echo ${to}
 }
 alias hh='_cd_by_dirspeco'
 
@@ -330,7 +332,7 @@ alias o='_jump_to_directory o'
 
 function _markspeco() {
     [ $(ls -U ${dirmarks} | wc -l) -ne 0 ] && {
-        to=$(for x in ${dirmarks}/*; do cat ${x}; done | sort | uniq | peco)
+        to=$(for x in ${dirmarks}/*; do cat ${x}; done | sort | uniq | peco --prompt "cd to >" )
     }
     [ ! -z ${to} ] && cd ${to}
 }
