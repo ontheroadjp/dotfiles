@@ -7,7 +7,6 @@ GIT_PS1_SHOWDIRTYSTATE=true
 # show username
 #export PS1='[\[\033[32m\]\u@\h\[\033[00m\]:\[\033[34m\]\w\[\033[31m\]$(__git_ps1)\[\033[00m\]]\$ '
 
-
 # show username, time
 export PS1='[\[\033[32m\]\u@\h\[\033[32m\]($(date +%H:%M)): \[\033[34m\]\W\[\033[31m\]$(__git_ps1)\[\033[00m\]]\$ '
 
@@ -142,3 +141,4 @@ export PS1='[\[\033[32m\]\u@\h\[\033[32m\]($(date +%H:%M)): \[\033[34m\]\W\[\033
 #        . /etc/bash_completion
 #    fi
 #fi
+# ------------------------ end of WSL (Windows) --------------------

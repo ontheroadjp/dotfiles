@@ -246,9 +246,7 @@ fi
 #-------------------------------------------------
 # OS common settings
 #-------------------------------------------------
-alias cdh='cdla ${HOME}'
 alias c='clear && la'
-alias cc='clear'
 alias e='exit'
 #alias jj=$(:)
 
@@ -272,6 +270,7 @@ function _print_la() {
 #alias la='ls -laG'
 alias la='_print_la'
 
+# show sub directories
 alias lla='la $(find . -type d | grep -v .git | peco)'
 alias laa='la $(find . -type d | grep -v .git | peco)'
 
@@ -298,7 +297,6 @@ function _cd_to_sub_directory() {
         echo 'no sub directory.'
         return 0
     }
-    [[ ${1} -lt 1 ]] && ${1}='alpine'
     to=$(find . -type d | grep -v ^.$ | grep -v .git | sort | uniq | peco --prompt "to SUB DIR.>" --query "${*}" 2>/dev/null)
     [ ! -z ${to} ] && cd ${to}
 }
@@ -448,14 +446,14 @@ fi
 #-------------------------------------------------
 # WEB (Github)
 #-------------------------------------------------
-function _open_my_github() {
+function _open_my_repository_on_github() {
     place="$(cat ${HOME}/dotfiles/.bash_profile_git_repository_list.txt | peco | cut -f 2 -d ' ')"
     [ ! -z "${place}" ] && {
         open "https://github.com/${place}?tab=repositories"
     }
 }
-alias mygithub='_open_my_github';
-alias editmygit='vim ${HOME}/dotfiles/.bash_profile_git_repository_list.txt'
+alias myrepo='_open_my_repository_on_github';
+alias editmyrepo='vim ${HOME}/dotfiles/.bash_profile_git_repository_list.txt'
 
 #-------------------------------------------------
 # WEB (Dockerhub)
@@ -581,7 +579,7 @@ fi
 #-------------------------------------------------
 function sshx() {
 	cat ~/.ssh/config | egrep "^Host " | awk '{print NR, $0}'
-	echo -n "no?"
+	echo -n "Number: "
 	read no
 
 	line=`cat ~/.ssh/config | egrep "^Host " | awk '{print NR, $0}' | egrep "${no}"`
@@ -615,20 +613,15 @@ function findx(){
 
 # files/directories backup
 function bk() {
-    [ -f ${1} ] && {
-        cp -r ${1} ${1}.bk
-    }
+    if [ $# -eq 0 ]; then
+        echo 'no such file or directory.'
+    else
+        [ $# -ne 0 ] && [ -f ${1} ] && {
+            cp -r ${1} ${1}.bk
+            echo "backed up! (${1})"
+        }
+    fi
 }
-
-#function bk() {
-#	prefix=bk_$(date +%Y%m%d)_
-#	if [ -f $@ ]; then
-#		cp "$@" ./${prefix}$@
-#		echo ${prefix}" has been backuped."
-#	else
-#		zip -vr ${prefix}$@.zip $@
-#	fi
-#}
 
 #-------------------------------------------------
 # Functions for peco

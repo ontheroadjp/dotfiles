@@ -148,24 +148,26 @@ nnoremap <Space>i <C-i>zz
 nnoremap <Space>[ %
 nnoremap <Space>] %
 
-" Jump to begining of the line
-nnoremap <S-h> ^
-vnoremap <S-h> ^
+" Jump to top/middle/bottom line
 nnoremap <Space>k H
 nnoremap <Space>m M
 nnoremap <Space>j L
+
+" Jump to begining of the line
+nnoremap <S-h> ^
+vnoremap <S-h> ^
 
 " Jump to end ot the line
 nnoremap <S-l> $
 vnoremap <S-l> $
 
 " Jump to paragraph (reverse)
-nnoremap <S-k> {
-vnoremap <S-k> {
+"nnoremap <S-k> {
+"vnoremap <S-k> {
 
 " Jump to paragraph (forword)
-nnoremap <S-j> }
-vnoremap <S-j> }
+"nnoremap <S-j> }
+"vnoremap <S-j> }
 
 " list all of them if multiple candidate of the distination when it tags jump
 nnoremap <C-]> g<C-]>
