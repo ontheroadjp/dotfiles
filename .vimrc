@@ -1,3 +1,4 @@
+"================================================================================ vimgrep
 " open vimgrep result in quickfix
 autocmd QuickfixCmdPost *grep* cwindow
 
@@ -118,14 +119,11 @@ nnoremap gj j
 vnoremap gk k
 vnoremap gj j
 
-" move cursor in insert mode( like Emacs)
-imap <C-p> <Up>
-imap <C-n> <Down>
-"imap <C-b> <Left>
-"imap <C-f> <Right>
-
-imap <C-h> <Left>
-imap <C-l> <Right>
+"" move cursor in insert mode( like Emacs)
+"imap <C-p> <Up>
+"imap <C-n> <Down>
+"imap <C-h> <Left>
+"imap <C-l> <Right>
 
 " insert brank line to under cursor
 nnoremap 00 :<C-u>call append(expand('.'), '')<CR>j
@@ -138,27 +136,44 @@ nnoremap 0i :<C-u>call append(expand('.'), '')<CR>o
 nnoremap <Space> `
 
 " Jump list (reverse)
-nnoremap <Space>o <c-o>zz
+nnoremap <Space>o <C-o>zz
 
 " Jump list (forword)
-nnoremap <Space>i <c-i>zz
+nnoremap <Space>i <C-i>zz
 
 "Jump to definition source
-nnoremap <Space>] g<c-]>
+"nnoremap <Space>@ g<C-]>
 
 " Jump to brackets to be paired
 nnoremap <Space>[ %
+nnoremap <Space>] %
 
 " Jump to begining of the line
-nnoremap <Space>h ^
-vnoremap <Space>h ^
+nnoremap <S-h> ^
+vnoremap <S-h> ^
+nnoremap <Space>k H
+nnoremap <Space>m M
+nnoremap <Space>j L
 
 " Jump to end ot the line
-nnoremap <Space>l $
-vnoremap <Space>l $
+nnoremap <S-l> $
+vnoremap <S-l> $
+
+" Jump to paragraph (reverse)
+nnoremap <S-k> {
+vnoremap <S-k> {
+
+" Jump to paragraph (forword)
+nnoremap <S-j> }
+vnoremap <S-j> }
 
 " list all of them if multiple candidate of the distination when it tags jump
 nnoremap <C-]> g<C-]>
+"------------------------------------------------------------------------------- folding
+
+" fold
+vnoremap <S-z> zf
+
 "------------------------------------------------------------------------------- yank & put
 nnoremap p gp
 nnoremap P gP
