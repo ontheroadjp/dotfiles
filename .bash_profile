@@ -416,7 +416,6 @@ if _is_exist git; then
     }
     if _is_exist ghq; then
         alias rr='_cd_to_repository_managed_by_ghq'
-        alias ,r='_cd_to_repository_managed_by_ghq'
     fi
 
     function _open_github_repository_managed_by_ghq() {
