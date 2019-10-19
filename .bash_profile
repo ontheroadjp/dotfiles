@@ -259,7 +259,19 @@ fi
 #-------------------------------------------------
 # Changing directory(Common)
 #-------------------------------------------------
-alias la='ls -laG'
+function _print_la() {
+    ls -laG $@
+    if [ $# -ne 0 ]; then
+        if [ ${1:0:1} == '/' ]; then
+            printf "\e[31m$1\e[m\n"
+        else
+            printf "\e[31m$(pwd)/$1\e[m\n"
+        fi
+    fi
+}
+#alias la='ls -laG'
+alias la='_print_la'
+
 alias lla='la $(find . -type d | grep -v .git | peco)'
 alias laa='la $(find . -type d | grep -v .git | peco)'
 
@@ -287,7 +299,7 @@ function _cd_to_sub_directory() {
         return 0
     }
     [[ ${1} -lt 1 ]] && ${1}='alpine'
-    to=$(find . -type d | grep -v ^.$ | grep -v .git | sort | uniq | peco --prompt "to SUB DIR.>" --query "${1}" 2>/dev/null)
+    to=$(find . -type d | grep -v ^.$ | grep -v .git | sort | uniq | peco --prompt "to SUB DIR.>" --query "${*}" 2>/dev/null)
     [ ! -z ${to} ] && cd ${to}
 }
 alias cdd='_cd_to_sub_directory'
@@ -503,6 +515,7 @@ if _is_exist docker; then
     alias ddup="docker-compose up ${@}"
     alias ddupd="docker-compose up -d ${@}"
     alias dddown="docker-compose down"
+    alias ddrestart="docker-compose restart"
 fi
 
 #-------------------------------------------------
@@ -628,7 +641,7 @@ peco_history() {
     if [ `uname` = "Darwin" ]; then
         ${READLINE_LINE}
     fi
-    echo ${l}
+    ${l}
 }
 alias his="peco_history"
 
