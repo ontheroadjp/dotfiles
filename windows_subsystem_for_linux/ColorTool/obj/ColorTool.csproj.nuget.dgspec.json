@@ -1,0 +1,51 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\ishihara_hideaki\\Desktop\\terminal-0.2.1831.0\\src\\tools\\ColorTool\\ColorTool\\ColorTool.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\ishihara_hideaki\\Desktop\\terminal-0.2.1831.0\\src\\tools\\ColorTool\\ColorTool\\ColorTool.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\ishihara_hideaki\\Desktop\\terminal-0.2.1831.0\\src\\tools\\ColorTool\\ColorTool\\ColorTool.csproj",
+        "projectName": "ColorTool",
+        "projectPath": "C:\\Users\\ishihara_hideaki\\Desktop\\terminal-0.2.1831.0\\src\\tools\\ColorTool\\ColorTool\\ColorTool.csproj",
+        "packagesPath": "C:\\Users\\ishihara_hideaki\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ishihara_hideaki\\Desktop\\terminal-0.2.1831.0\\src\\tools\\ColorTool\\ColorTool\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\ishihara_hideaki\\Desktop\\terminal-0.2.1831.0\\NuGet.Config",
+          "C:\\Users\\ishihara_hideaki\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net461"
+        ],
+        "sources": {
+          "C:\\Users\\ishihara_hideaki\\Desktop\\terminal-0.2.1831.0\\dep\\packages": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net461": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net461": {}
+      },
+      "runtimes": {
+        "win7-x86": {
+          "#import": []
+        }
+      }
+    }
+  }
+}

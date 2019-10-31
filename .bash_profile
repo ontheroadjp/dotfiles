@@ -1,4 +1,3 @@
-
 if [ -f ~/.bashrc ] ; then
 	. ~/.bashrc
 fi
@@ -6,10 +5,30 @@ fi
 export EDITOR=vim
 export TERM=xterm
 
-function _is_exist {
+#-------------------------------------------------
+# utilities
+#-------------------------------------------------
+
+function _is_exist() {
     type $@ > /dev/null 2>&1
 }
 
+#-------------------------------------------------
+# dotfiles
+#-------------------------------------------------
+alias dot='cd ${HOME}/dotfiles'
+alias sp='source ~/.bash_profile'
+
+if _is_exist vim; then
+    alias vp='vim ~/.bash_profile'
+    alias vv='vim ~/.vimrc'
+    alias v='vim'
+    echo "Load vim settings."
+fi
+
+#-------------------------------------------------
+# test
+#-------------------------------------------------
 function opeco() {
     if [ $# -eq 0 ]; then
         search_dir=$(pwd)
@@ -24,7 +43,13 @@ function opeco() {
         search_dir="${search_dir}/${item}"
         item=$(ls "${search_dir}" | peco) && [ -z "${item}" ] && return
     done
-    open "${search_dir}/${item}"
+
+    if [ -f ${item} ]; then
+        cat ${item}
+    fi
+
+    #open "${search_dir}/${item}"
+    cd "${search_dir}/${item}"
 }
 
 function laracast() {
@@ -75,6 +100,9 @@ if [ "$(uname)" == 'Darwin' ]; then
 	# Markdown Editor
 	alias md='open -a "/Applications/MacDown.app"'
 
+	# Markdown Editor
+	alias typora='open -a "/Applications/Typora.app"'
+
     # Cot Editor
     alias cot='open -a "/Applications/CotEditor.app"'
 
@@ -85,7 +113,7 @@ if [ "$(uname)" == 'Darwin' ]; then
 
     # alias(directory change:Mac)
 	alias cdh='cdla ${HOME}'
-	alias cdd='cdla ${HOME}/Desktop'
+	#alias cdd='cdla ${HOME}/Desktop'
 	alias cddoc='cdla ${HOME}/Documents'
 	alias cddl='cdla ${HOME}/Downloads'
 
@@ -218,12 +246,9 @@ fi
 #-------------------------------------------------
 # OS common settings
 #-------------------------------------------------
-
-alias cdh='cdla ${HOME}'
 alias c='clear && la'
-alias cc='clear'
 alias e='exit'
-alias jj=$(:)
+#alias jj=$(:)
 
 if [ -f ${HOME}/dotfiles/peco/peco ]; then
     export PATH=${PATH}:${HOME}/dotfiles/peco
@@ -232,131 +257,102 @@ fi
 #-------------------------------------------------
 # Changing directory(Common)
 #-------------------------------------------------
-alias la='ls -laG'
+function _print_la() {
+    ls -laG $@
+    if [ $# -ne 0 ]; then
+        if [ ${1:0:1} == '/' ]; then
+            printf "\e[31m$1\e[m\n"
+        else
+            printf "\e[31m$(pwd)/$1\e[m\n"
+        fi
+    fi
+}
+#alias la='ls -laG'
+alias la='_print_la'
+
+# show sub directories
+alias lla='la $(find . -type d | grep -v .git | peco)'
+alias laa='la $(find . -type d | grep -v .git | peco)'
 
 cdla() {
-    if [ $# -eq 0 ]; then
-        place=${HOME}
-    else
-        place=$@
-    fi
-	clear && pushd "${place}" && la
+    [ $# -eq 0 ] && place=${HOME} || place=$@
+	pushd ${place} && clear && la
 }
 alias cd='cdla'
 
-# back to the previous location
-alias p='popd && la'
+# -------------------------------- back to the previous location
+alias b='popd && clear && la'
 
-# -------------------------------- base
-alias hh="cd ${HOME}"
+# -------------------------------- general settings
+alias home="cd ${HOME}"
 alias .="pwd"
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 
-# -------------------------------- repository
-function cd_to_repository() {
-    #place=$(ghq list -p | peco)
-    place="$(ghq root)/$(ghq list | peco)"
-    [ ! -z "${place}" ] && {
-        cd ${place}
+# -------------------------------- peco - cd to sub directory
+function _cd_to_sub_directory() {
+    [[ $(ls -F | wc -l) -eq 0 ]] && {
+        echo 'no sub directory.'
+        return 0
     }
+    to=$(find . -type d | grep -v ^.$ | grep -v .git | sort | uniq | peco --prompt "to SUB DIR.>" --query "${*}" 2>/dev/null)
+    [ ! -z ${to} ] && cd ${to}
 }
-alias rr='cd_to_repository'
-alias rrr="cd ${HOME}/dev"
+alias cdd='_cd_to_sub_directory'
 
-function open_github() {
-    place="$(ghq list | peco)"
-    [ ! -z "${place}" ] && {
-        open "https://${place}"
+# -------------------------------- peco - cd by history
+function _cd_by_dirspeco() {
+    [ is_exists peco -ne 0 ] && {
+        echo "peco is not installed."
+        return 1
     }
-}
-alias rrgit='open_github';
 
-function open_dockerhub() {
-    place="$(ghq list | sed "s:github.com:hub.docker.com/r:" | peco)"
-    [ ! -z "${place}" ] && {
-        open "https://${place}"
-    }
+    to="$(dirs -v | awk '{print $2}' | sort | uniq | peco --prompt "cd to >" | sed -e s:^~:${HOME}:)"
+    [[ ! -z ${to} ]] && cd ${to}
+    echo ${to}
 }
-alias rrhub='open_dockerhub';
+alias hh='_cd_by_dirspeco'
 
-function dockerhub-build() {
-    place="$(ghq list | sed "s:github.com:hub.docker.com/r:" | peco)"
-    [ ! -z "${place}" ] && {
-        open "https://${place}/builds"
-    }
-}
 #-------------------------------------------------
-# Changing directory(Mark)
+# Directory mark and jump
 #-------------------------------------------------
 dirmarks="$HOME/dotfiles/.dirmarks"
 mkdir -p ${dirmarks}
-function mm() {
-    if [ $# -eq 0 ]; then
-        pwd | tee ${dirmarks}/mm.txt
-    elif [ $1 = "show" ]; then
-        [ ! -f ${dirmarks}/mm.txt ] && {
-            echo "not set." && return
-        }
-        cat ${dirmarks}/mm.txt
-    fi
+
+function _mark_to_directory() {
+    [ $# -eq 1 ] && pwd > ${dirmarks}/${1}${1}; echo 'markd!'
 }
-function m() {
-    if [ -f ${dirmarks}/mm.txt ]; then
-        cd $(cat ${dirmarks}/mm.txt)
-    else
-        echo "not set."
-    fi
+
+function _jump_to_directory() {
+    [ $# -eq 1 ] && [ -f ${dirmarks}/${1}${1} ] && {
+        cd $(cat ${dirmarks}/${1}${1})
+    } || echo "not set."
 }
-function nn() {
-    if [ $# -eq 0 ]; then
-        pwd | tee ${dirmarks}/nn.txt
-    elif [ $1 = "show" ]; then
-        [ ! -f ${dirmarks}/nn.txt ] && {
-            echo "not set." && return
-        }
-        cat ${dirmarks}/nn.txt
-    fi
+
+alias mm='_mark_to_directory m'
+alias nn='_mark_to_directory n'
+alias ii='_mark_to_directory i'
+alias oo='_mark_to_directory o'
+
+alias m='_jump_to_directory m'
+alias n='_jump_to_directory n'
+alias i='_jump_to_directory i'
+alias o='_jump_to_directory o'
+
+function _markspeco() {
+    [ $(ls -U ${dirmarks} | wc -l) -ne 0 ] && {
+        to=$(for x in ${dirmarks}/*; do cat ${x}; done | sort | uniq | peco --prompt "cd to >" )
+    }
+    [ ! -z ${to} ] && cd ${to}
 }
-function n() {
-    if [ -f ${dirmarks}/nn.txt ]; then
-        cd $(cat ${dirmarks}/nn.txt)
-    else
-        echo "not set."
-    fi
-}
-function bb() {
-    if [ $# -eq 0 ]; then
-        pwd | tee ${dirmarks}/bb.txt
-    elif [ $1 = "show" ]; then
-        [ ! -f ${dirmarks}/bb.txt ] && {
-            echo "not set." && return
-        }
-        cat ${dirmarks}/bb.txt
-    fi
-}
-function b() {
-    if [ -f ${dirmarks}/bb.txt ]; then
-        cd $(cat ${dirmarks}/bb.txt)
-    else
-        echo "not set."
-    fi
-}
+alias jj='_markspeco'
 
 #-------------------------------------------------
 # Vim
 #-------------------------------------------------
-if _is_exist vim; then
-    alias vp='vim ~/.bash_profile'
-    alias sp='source ~/.bash_profile'
-    alias vv='vim ~/.vimrc'
-    alias v='vim'
-    echo "Load vim settings."
-fi
-
-function open_javascript_file_with_vim() {
+function _open_javascript_file_with_vim() {
     [ ! -z "${1}" ] && {
         place="$(find . -type d -name node_modules -prune -o -type d -name vendor -prune -o -type f -name "*.${1}" | peco)"
         [ ! -z "${place}" ] && {
@@ -366,35 +362,115 @@ function open_javascript_file_with_vim() {
         echo 'need one argument must be file exension'
     }
 }
-alias ee='open_javascript_file_with_vim'
+alias ee='_open_javascript_file_with_vim'
 
 #-------------------------------------------------
 # Git
 #-------------------------------------------------
 if _is_exist git; then
     alias gg='git graph'
+    alias ggs='git graph --stat'
     alias gs='git status'
     alias gd='git diff'
     alias gdni='git diff --no-index'
-    alias ga='git_add_status'
-    alias gr='git_reset_status'
     alias gcom='git commit -v'
     alias gb='git branch'
     alias gc='git checkout'
     alias gm='git merge --no-ff'
+    alias gbk='git commit -m "[BK] wip"'
+    alias wip='git commit -m "[BK] wip"'
 
     function git_add_status() {
         git add "$@" && git status
     }
+    alias ga='git_add_status'
 
-    function git_reset_status() {
-        git reset "$@" && git status
+#    function _git_reset_status() {
+#        git reset "$@" && git status
+#    }
+#    alias gr='_git_reset_status'
+
+    function _cd_to_repository_root() {
+        now=$(pwd)
+        while [ ! -d $(pwd)/.git ]; do
+            if [ $(pwd) = / ]; then
+                cd ${now}
+                echo 'This directory is not managed by git.'
+                break 1
+            else
+                cd ..
+            fi
+        done
     }
+    alias ggg="_cd_to_repository_root"
+    #alias ggg=$(git rev-parse --show-toplevel)
 
-    # move project root dir of Git
-    alias .g="cd $(git rev-parse --show-toplevel)"
+# not working
+#    function _pecorin() {
+#        peco --prompt="${2}" --query="${3}" ${1} 2>/dev/null
+#    }
+
+    function _cd_to_repository_managed_by_ghq() {
+        to=$(ghq list | peco --prompt "Git Repository>" --query "${*}" 2>/dev/null)
+        [ ! -z ${to} ] && cd $(ghq root)/${to}
+    }
+    if _is_exist ghq; then
+        alias rr='_cd_to_repository_managed_by_ghq'
+    fi
+
+    function _open_github_repository_managed_by_ghq() {
+        place="$(ghq list | peco)"
+        [ ! -z ${place} ] && {
+            open "https://${place}"
+        }
+    }
+    if _is_exist ghq; then
+        alias rrgit='_open_github_repository_managed_by_ghq';
+    fi
+
+    function _open_github_for_current_dir() {
+        now=$(pwd)
+        _cd_to_repository_root && {
+            place="$(basename $(pwd))"
+            vendor="$(basename $(pwd | xargs dirname))"
+            open "https://github.com/${vendor}/${place}"
+            cd ${now}
+        }
+    }
+    alias github='_open_github_for_current_dir';
+
     echo "Load Git settings."
 fi
+
+#-------------------------------------------------
+# WEB (Github)
+#-------------------------------------------------
+function _open_my_repository_on_github() {
+    place="$(cat ${HOME}/dotfiles/.bash_profile_git_repository_list.txt | peco | cut -f 2 -d ' ')"
+    [ ! -z "${place}" ] && {
+        open "https://github.com/${place}?tab=repositories"
+    }
+}
+alias myrepo='_open_my_repository_on_github';
+alias editmyrepo='vim ${HOME}/dotfiles/.bash_profile_git_repository_list.txt'
+
+#-------------------------------------------------
+# WEB (Dockerhub)
+#-------------------------------------------------
+function _open_my_dockerhub() {
+    place="$(ghq list | sed "s:github.com:hub.docker.com/r:" | peco)"
+    [ ! -z "${place}" ] && {
+        open "https://${place}"
+    }
+}
+alias rrdh='_open_my_dockerhub';
+
+function dockerhub-build() {
+    place="$(ghq list | sed "s:github.com:hub.docker.com/r:" | peco)"
+    [ ! -z "${place}" ] && {
+        open "https://${place}/builds"
+    }
+}
 
 #-------------------------------------------------
 # Go
@@ -407,27 +483,38 @@ if _is_exist go; then
 fi
 
 #-------------------------------------------------
+# Peco
+#-------------------------------------------------
+if ! _is_exist peco; then
+    tar xvzf src/peco_linux_amd64.tar.gz -C ${HOME}/dotfiles/src
+    sudo cp ${HOME}/dotfiles/src/peco_linux_amd64/peco /usr/bin
+fi
+
+#-------------------------------------------------
 # Docker
 #-------------------------------------------------
 if _is_exist docker; then
-    if [ -d ~/dotfiles/docker-dd ]; then
-        source ~/dotfiles/docker-dd/docker-dd-common.fnc
-        source ~/dotfiles/docker-dd/docker-dd-network.fnc
-        source ~/dotfiles/docker-dd/docker-dd-volume.fnc
+    if [ ! -d ~/dotfiles/docker-dd ]; then
+        git clone https://github.com/nutsllc/docker-dd ${HOME}/dotfiles/docker-dd
     fi
 
-    export TOYBOX_HOME=/home/nobita/workspace/docker-toybox
-    export PATH=${TOYBOX_HOME}/bin:${PATH}
-    if [ -f ${TOYBOX_HOME}/bin/complition.sh ]; then
-        source ${TOYBOX_HOME}/bin/complition.sh
-    fi
+    source ~/dotfiles/docker-dd/docker-dd-common.fnc
+    source ~/dotfiles/docker-dd/docker-dd-network.fnc
+    source ~/dotfiles/docker-dd/docker-dd-volume.fnc
+
+    #export TOYBOX_HOME=/home/nobita/workspace/docker-toybox
+    #export PATH=${TOYBOX_HOME}/bin:${PATH}
+    #if [ -f ${TOYBOX_HOME}/bin/complition.sh ]; then
+    #    source ${TOYBOX_HOME}/bin/complition.sh
+    #fi
     echo "Load Docker settings."
 
+    # for docker-compose.yml
     alias dd="docker-compose ${@}"
-    alias ddu="docker-compose up"
-    alias ddd="docker-compose down"
-    alias dde="docker-compose exec ${@}"
-    alias ddv="vim docker-compose.yml"
+    alias ddup="docker-compose up ${@}"
+    alias ddupd="docker-compose up -d ${@}"
+    alias dddown="docker-compose down"
+    alias ddrestart="docker-compose restart"
 fi
 
 #-------------------------------------------------
@@ -487,27 +574,11 @@ if _is_exist dstat; then
 fi
 
 #-------------------------------------------------
-# Functions( beta )
+# SSH
 #-------------------------------------------------
-function exdirs() {
-	dirs -v | awk '!colname[$2]++{print $1,": ",$2,"(",$1,")"}'
-	echo -n "no? "
-	read no
-
-	line=`dirs -v | awk '!colname[$2]++{print $0}' |  egrep "^ *${no}  "`
-	if [ ! -z "${line}" ]  ; then
-		path=`echo ${line} | awk '{print $2}' | sed -e s:^~:${HOME}:`
-		cd ${path}
-	else
-		echo "There is no number you input."
-	fi
-}
-alias d='exdirs'
-
-# SSH extension
 function sshx() {
 	cat ~/.ssh/config | egrep "^Host " | awk '{print NR, $0}'
-	echo -n "no?"
+	echo -n "Number: "
 	read no
 
 	line=`cat ~/.ssh/config | egrep "^Host " | awk '{print NR, $0}' | egrep "${no}"`
@@ -520,6 +591,9 @@ function sshx() {
 	fi
 }
 
+# --------------------------------------------
+# others( beta )
+# --------------------------------------------
 # find extension
 function findx(){
 	find $1 -name "$2" | awk '{print NR, $0}'
@@ -538,13 +612,14 @@ function findx(){
 
 # files/directories backup
 function bk() {
-	prefix=bk_$(date +%Y%m%d)_
-	if [ -f $@ ]; then
-		cp "$@" ./${prefix}$@
-		echo ${prefix}" has been backuped."
-	else
-		zip -vr ${prefix}$@.zip $@
-	fi
+    if [ $# -eq 0 ]; then
+        echo 'no such file or directory.'
+    else
+        [ $# -ne 0 ] && [ -f ${1} ] && {
+            cp -r ${1} ${1}.bk
+            echo "backed up! (${1})"
+        }
+    fi
 }
 
 #-------------------------------------------------
@@ -560,16 +635,13 @@ peco_history() {
     if [ `uname` = "Darwin" ]; then
         ${READLINE_LINE}
     fi
-    echo ${l}
+    ${l}
 }
 alias his="peco_history"
 
 #-------------------------------------------------
 # others
 #-------------------------------------------------
-export TOYBOX_HOME=${HOME}/Vagrant/toybox
-export PATH=$PATH:${TOYBOX_HOME}
-
-export DDD_HOME=${HOME}/dev/src/github.com/nutsllc/docker-dd-compose
-export DDD_SEARCH_DIR=${HOME}/dev/src
-source ${DDD_HOME}/docker-dd-compose
+#export DDD_HOME=${HOME}/dev/src/github.com/nutsllc/docker-dd-compose
+#export DDD_SEARCH_DIR=${HOME}/dev/src
+#source ${DDD_HOME}/docker-dd-compose
