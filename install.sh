@@ -117,28 +117,34 @@ function _getPhpDocument() {
 #-------------------------------------------------
 # Peco
 #-------------------------------------------------
-function _install_peco() {
-    printf ">>> install peco..."
-    if _is_exist wget; then
-        if ! _is_exist "peco"; then
-            if [ "$(uname)" == 'Darwin' ]; then
-                wget https://github.com/peco/peco/releases/download/v0.4.3/peco_darwin_386.zip -P ${DOTPATH}
-                tar xzf peco_darwin_386.zip -C peco --strip-components 1
-                rm ${DOTPATH}/peco_darwin_386.zip
-            elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
-                wget https://github.com/peco/peco/releases/download/v0.2.9/peco_linux_amd64.tar.gz -P ${DOTPATH}
-                tar xzf peco_linux_amd64.tar.gz -C peco --strip-components 1
-                rm ${DOTPATH}/peco_linux_amd64.tar.gz
-            fi
-            mkdir -p ${HOME}/.peco && ln -sf ${DOYPATH}/peco/config.json ~/.peco/config.json
-	        echo "done"
-        else
-            echo "skip: already installed."
-        fi
-    else
-        echo "skip: you need to install wget first."
-    fi
-}
+#
+########################################################
+# This is the function for the installing peco manually.
+# now peco is going to be installed by Homebrew.
+########################################################
+#
+#function _install_peco() {
+#    printf ">>> install peco..."
+#    if _is_exist wget; then
+#        if ! _is_exist "peco"; then
+#            if [ "$(uname)" == 'Darwin' ]; then
+#                wget https://github.com/peco/peco/releases/download/v0.4.3/peco_darwin_386.zip -P ${DOTPATH}
+#                tar xzf peco_darwin_386.zip -C peco --strip-components 1
+#                rm ${DOTPATH}/peco_darwin_386.zip
+#            elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
+#                wget https://github.com/peco/peco/releases/download/v0.2.9/peco_linux_amd64.tar.gz -P ${DOTPATH}
+#                tar xzf peco_linux_amd64.tar.gz -C peco --strip-components 1
+#                rm ${DOTPATH}/peco_linux_amd64.tar.gz
+#            fi
+#            mkdir -p ${HOME}/.peco && ln -sf ${DOTPATH}/peco/config.json ~/.peco/config.json
+#	        echo "done"
+#        else
+#            echo "skip: already installed."
+#        fi
+#    else
+#        echo "skip: you need to install wget first."
+#    fi
+#}
 
 #-------------------------------------------------
 # go & ghq
