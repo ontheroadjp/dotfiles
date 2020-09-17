@@ -108,17 +108,15 @@ if [ is_osx ];then
 	alias mvim='env_LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 
     # alias(directory change:Mac)
-	alias cdh='cdla ${HOME}'
-	#alias cdd='cdla ${HOME}/Desktop'
-	alias cddoc='cdla ${HOME}/Documents'
-	alias cddl='cdla ${HOME}/Downloads'
+	alias Desktop='cdla ${HOME}/Desktop'
+	alias Documents='cdla ${HOME}/Documents'
+	alias Downloads='cdla ${HOME}/Downloads'
 
-	alias cdgd='cdla ${HOME}/Google\ Drive'
-	alias cdod='cdla ${HOME}/OneDrive'
-	alias cddb='cdla ${HOME}/Dropbox'
+	alias googledrive='cdla ${HOME}/WORKSPACE/Google\ Drive'
+	alias onedrive='cdla ${HOME}/WORKSPACE/OneDrive'
+	alias dropbox='cdla ${HOME}/WORKSPACE/Dropbox'
 
-	alias cdmemo='cdla ${HOME}/Dropbox/アプリ/PlainText\ 2/INBOX'
-	alias cdv='cdla ${HOME}/Vagrant'
+	alias cdmemo='cdla ${HOME}/WORKSPACE/Dropbox/アプリ/PlainText\ 2/INBOX'
 
 	# alias（for ctag）
 	# changing the BSD version to the version installed by Homebrew
@@ -130,141 +128,6 @@ if [ is_osx ];then
 
     # Python
 	export PATH="/usr/local/share:$PATH"
-
-	#-------------------------------------------------
-	# tmux settings
-	# see：http://qiita.com/b4b4r07/items/01359e8a3066d1c37edc
-	# see：https://github.com/b4b4r07/dotfiles
-	#-------------------------------------------------
-
-    function is_exists() { type "$1" >/dev/null 2>&1; return $?; }
-    function is_osx() { [[ $OSTYPE == darwin* ]]; }
-    function is_screen_running() { [ ! -z "$STY" ]; }
-    function is_tmux_runnning() { [ ! -z "$TMUX" ]; }
-    function is_screen_or_tmux_running() { is_screen_running || is_tmux_runnning; }
-    function shell_has_started_interactively() { [ ! -z "$PS1" ]; }
-    function is_ssh_running() { [ ! -z "$SSH_CONECTION" ]; }
-
-    function tmux_automatically_attach_session()
-    {
-        if is_screen_or_tmux_running; then
-            ! is_exists 'tmux' && return 1
-
-            if is_tmux_runnning; then
-                echo "${fg_bold[blue]} _____ __  __ _   ___  __ ${reset_color}"
-                echo "${fg_bold[blue]}|_   _|  \/  | | | \ \/ / ${reset_color}"
-                echo "${fg_bold[blue]}  | | | |\/| | | | |\  /  ${reset_color}"
-                echo "${fg_bold[blue]}  | | | |  | | |_| |/  \  ${reset_color}"
-                echo "${fg_bold[blue]}  |_| |_|  |_|\___//_/\_\ ${reset_color}"
-            elif is_screen_running; then
-                echo "This is on screen."
-            fi
-        else
-            if shell_has_started_interactively && ! is_ssh_running; then
-                if ! is_exists 'tmux'; then
-                    echo 'Error: tmux command not found' 2>&1
-                    return 1
-                fi
-
-                if tmux has-session >/dev/null 2>&1 && tmux list-sessions | grep -qE '.*]$'; then
-                    # detached session exists
-                    tmux list-sessions
-                    echo -n "Tmux: attach? (y/N/num) "
-                    read
-                    if [[ "$REPLY" =~ ^[Yy]$ ]] || [[ "$REPLY" == '' ]]; then
-                        tmux attach-session
-                        if [ $? -eq 0 ]; then
-                            echo "$(tmux -V) attached session"
-                            return 0
-                        fi
-                    elif [[ "$REPLY" =~ ^[0-9]+$ ]]; then
-                        tmux attach -t "$REPLY"
-                        if [ $? -eq 0 ]; then
-                            echo "$(tmux -V) attached session"
-                            return 0
-                        fi
-                    fi
-                fi
-
-                if is_osx && is_exists 'reattach-to-user-namespace'; then
-                    # on OS X force tmux's default command
-                    # to spawn a shell in the user's namespace
-                    tmux_config=$(cat $HOME/.tmux.conf <(echo 'set-option -g default-command "reattach-to-user-namespace -l $SHELL"'))
-                    tmux -f <(echo "$tmux_config") new-session && echo "$(tmux -V) created new session supported OS X"
-                else
-                    tmux new-session && echo "tmux created new session"
-                fi
-            fi
-        fi
-    }
-    tmux_automatically_attach_session
-
-# for BASH
-#    alias lat='tmux ls'
-#
-#	function is_exists() { type "$1" >/dev/null 2>&1; return $?; }
-#	function is_osx() { [[ $OSTYPE == darwin* ]]; }
-#	function is_screen_running() { [ ! -z "$STY" ]; }
-#	function is_tmux_runnning() { [ ! -z "$TMUX" ]; }
-#	function is_screen_or_tmux_running() { is_screen_running || is_tmux_runnning; }
-#	function shell_has_started_interactively() { [ ! -z "$PS1" ]; }
-#	function is_ssh_running() { [ ! -z "$SSH_CONECTION" ]; }
-#
-#	function tmux_automatically_attach_session()
-#	{
-#		if is_screen_or_tmux_running; then
-#			! is_exists 'tmux' && return 1
-#
-#			if is_tmux_runnning; then
-#				echo "${fg_bold[blue]} _____ __  __ _   ___  __ ${reset_color}"
-#				echo "${fg_bold[blue]}|_   _|  \/  | | | \ \/ / ${reset_color}"
-#				echo "${fg_bold[blue]}  | | | |\/| | | | |\  /  ${reset_color}"
-#				echo "${fg_bold[blue]}  | | | |  | | |_| |/  \  ${reset_color}"
-#				echo "${fg_bold[blue]}  |_| |_|  |_|\___//_/\_\ ${reset_color}"
-#			elif is_screen_running; then
-#				echo "This is on screen."
-#			fi
-#		else
-#			if shell_has_started_interactively && ! is_ssh_running; then
-#				if ! is_exists 'tmux'; then
-#					echo 'Error: tmux command not found' 2>&1
-#					return 1
-#				fi
-#
-#				if tmux has-session >/dev/null 2>&1 && tmux list-sessions | grep -qE '.*]$'; then
-#					# detached session exists
-#					tmux list-sessions
-#					echo -n "Tmux: attach? (y/N/num) "
-#					read
-#					if [[ "$REPLY" =~ ^[Yy]$ ]] || [[ "$REPLY" == '' ]]; then
-#						tmux attach-session
-#						if [ $? -eq 0 ]; then
-#							echo "$(tmux -V) attached session"
-#							return 0
-#						fi
-#					elif [[ "$REPLY" =~ ^[0-9]+$ ]]; then
-#						tmux attach -t "$REPLY"
-#						if [ $? -eq 0 ]; then
-#							echo "$(tmux -V) attached session"
-#							return 0
-#						fi
-#					fi
-#				fi
-#
-#				if is_osx && is_exists 'reattach-to-user-namespace'; then
-#					# on OS X force tmux's default command
-#					# to spawn a shell in the user's namespace
-#					#tmux_config=$(cat $HOME/.tmux.conf <(echo 'set-option -g default-command "reattach-to-user-namespace -l $SHELL"'))
-#					tmux -f < $(echo "$tmux_config") new-session && echo "$(tmux -V) created new session supported OS X"
-#				else
-#					tmux new-session && echo "tmux created new session"
-#				fi
-#			fi
-#		fi
-#	}
-#	tmux_automatically_attach_session
-#
-	#---------------- end of tmux ------------------
 
 	# kill notifyd process
 	function kill-notifyd-process() {
@@ -294,15 +157,16 @@ if [ is_osx ];then
 fi
 
 #-------------------------------------------------
+# tmux
+#-------------------------------------------------
+source ${HOME}/dotfiles/.zprofile_conf/tmux.profile
+
+#-------------------------------------------------
 # OS common settings
 #-------------------------------------------------
 alias c='clear && la'
 alias e='exit'
 #alias jj=$(:)
-
-#if [ -f ${HOME}/dotfiles/peco/peco ]; then
-#    export PATH=${PATH}:${HOME}/dotfiles/peco
-#fi
 
 #-------------------------------------------------
 # Changing directory(Common)
@@ -320,10 +184,6 @@ function _print_la() {
 #alias la='ls -laG'
 alias la='_print_la'
 
-# show sub directories
-alias lla='la $(find . -type d | grep -v .git | peco)'
-alias laa='la $(find . -type d | grep -v .git | peco)'
-
 cdla() {
     [ $# -eq 0 ] && place=${HOME} || place=$@
 	pushd ${place} && clear && la
@@ -340,30 +200,6 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
-
-# -------------------------------- peco - cd to sub directory
-function _cd_to_sub_directory() {
-    [[ $(ls -F | wc -l) -eq 0 ]] && {
-        echo 'no sub directory.'
-        return 0
-    }
-    to=$(find . -type d | grep -v ^.$ | grep -v .git | sort | uniq | peco --prompt "to SUB DIR.>" --query "${*}" 2>/dev/null)
-    [ ! -z ${to} ] && cd ${to}
-}
-alias cdd='_cd_to_sub_directory'
-
-# -------------------------------- peco - cd by history
-function _cd_by_dirspeco() {
-    [ is_exists peco -ne 0 ] && {
-        echo "peco is not installed."
-        return 1
-    }
-
-    to="$(dirs -v | awk '{print $2}' | sort | uniq | peco --prompt "cd to >" | sed -e s:^~:${HOME}:)"
-    [[ ! -z ${to} ]] && cd ${to}
-    echo ${to}
-}
-alias hh='_cd_by_dirspeco'
 
 #-------------------------------------------------
 # Directory mark and jump
@@ -391,18 +227,10 @@ alias n='_jump_to_directory n'
 alias i='_jump_to_directory i'
 alias o='_jump_to_directory o'
 
-function _markspeco() {
-    [ $(ls -U ${dirmarks} | wc -l) -ne 0 ] && {
-        to=$(for x in ${dirmarks}/*; do cat ${x}; done | sort | uniq | peco --prompt "cd to >" )
-    }
-    [ ! -z ${to} ] && cd ${to}
-}
-alias jj='_markspeco'
-
 #-------------------------------------------------
 # Vim
 #-------------------------------------------------
-function _open_javascript_file_with_vim() {
+function _open_file_specify_file_extension() {
     [ ! -z "${1}" ] && {
         place="$(find . -type d -name node_modules -prune -o -type d -name vendor -prune -o -type f -name "*.${1}" | peco)"
         [ ! -z "${place}" ] && {
@@ -412,97 +240,27 @@ function _open_javascript_file_with_vim() {
         echo 'need one argument must be file exension'
     }
 }
-alias ee='_open_javascript_file_with_vim'
+alias ee='_open_file_specify_file_extension'
+
+#-------------------------------------------------
+# Go
+#-------------------------------------------------
+if _is_exist go; then
+    export GOPATH="${HOME}/dev"
+    #export GOBIN="${GOPATH}/bin"
+    export PATH="${PATH}:${GOPATH}/bin"
+    mkdir -p ${GOPATH}
+fi
+
+##-------------------------------------------------
+## Peco
+##-------------------------------------------------
+source ${HOME}/dotfiles/.zprofile_conf/peco.profile
 
 #-------------------------------------------------
 # Git
 #-------------------------------------------------
-if _is_exist git; then
-    alias gg='git graph'
-    alias ggs='git graph --stat'
-    alias gs='git status'
-    alias gd='git diff'
-    alias gdni='git diff --no-index'
-    alias gcom='git commit -v'
-    alias gb='git branch'
-    alias gc='git checkout'
-    alias gm='git merge --no-ff'
-    alias gbk='git commit -m "[BK] wip"'
-    alias wip='git commit -m "[BK] wip"'
-
-    function git_add_status() {
-        git add "$@" && git status
-    }
-    alias ga='git_add_status'
-
-#    function _git_reset_status() {
-#        git reset "$@" && git status
-#    }
-#    alias gr='_git_reset_status'
-
-    function _cd_to_repository_root() {
-        now=$(pwd)
-        while [ ! -d $(pwd)/.git ]; do
-            if [ $(pwd) = / ]; then
-                cd ${now}
-                echo 'This directory is not managed by git.'
-                break 1
-            else
-                cd ..
-            fi
-        done
-    }
-    alias ggg="_cd_to_repository_root"
-    #alias ggg=$(git rev-parse --show-toplevel)
-
-# not working
-#    function _pecorin() {
-#        peco --prompt="${2}" --query="${3}" ${1} 2>/dev/null
-#    }
-
-    function _cd_to_repository_managed_by_ghq() {
-        to=$(ghq list | peco --prompt "Git Repository>" --query "${*}" 2>/dev/null)
-        [ ! -z ${to} ] && cd $(ghq root)/${to}
-    }
-    if _is_exist ghq; then
-        alias rr='_cd_to_repository_managed_by_ghq'
-    fi
-
-    function _open_github_repository_managed_by_ghq() {
-        place="$(ghq list | peco)"
-        [ ! -z ${place} ] && {
-            open "https://${place}"
-        }
-    }
-    if _is_exist ghq; then
-        alias rrgit='_open_github_repository_managed_by_ghq';
-    fi
-
-    function _open_github_for_current_dir() {
-        now=$(pwd)
-        _cd_to_repository_root && {
-            place="$(basename $(pwd))"
-            vendor="$(basename $(pwd | xargs dirname))"
-            open "https://github.com/${vendor}/${place}"
-            cd ${now}
-        }
-    }
-    alias github='_open_github_for_current_dir';
-
-    echo "Load Git settings."
-fi
-
-#-------------------------------------------------
-# WEB (Github)
-#-------------------------------------------------
-function _open_my_repository_on_github() {
-    place="$(cat ${HOME}/dotfiles/.bash_profile_git_repository_list.txt | peco | cut -f 2 -d ' ')"
-    [ ! -z "${place}" ] && {
-        open "https://github.com/${place}?tab=repositories"
-    }
-}
-alias myrepo='_open_my_repository_on_github';
-alias editmyrepo='vim ${HOME}/dotfiles/.bash_profile_git_repository_list.txt'
+source ${HOME}/dotfiles/.zprofile_conf/git.profile
 
 #-------------------------------------------------
 # WEB (Dockerhub)
@@ -521,24 +279,6 @@ function dockerhub-build() {
         open "https://${place}/builds"
     }
 }
-
-#-------------------------------------------------
-# Go
-#-------------------------------------------------
-if _is_exist go; then
-    export GOPATH="${HOME}/dev"
-    #export GOBIN="${GOPATH}/bin"
-    export PATH="${PATH}:${GOPATH}/bin"
-    mkdir -p ${GOPATH}
-fi
-
-#-------------------------------------------------
-# Peco
-#-------------------------------------------------
-if ! _is_exist peco; then
-    tar xvzf src/peco_linux_amd64.tar.gz -C ${HOME}/dotfiles/src
-    sudo cp ${HOME}/dotfiles/src/peco_linux_amd64/peco /usr/bin
-fi
 
 #-------------------------------------------------
 # Docker
@@ -695,3 +435,7 @@ alias his="peco_history"
 #export DDD_HOME=${HOME}/dev/src/github.com/nutsllc/docker-dd-compose
 #export DDD_SEARCH_DIR=${HOME}/dev/src
 #source ${DDD_HOME}/docker-dd-compose
+
+if [ -f ${HOME}/dotfiles/peco/peco.conf ]; then
+    source ${HOME}/dotfiles/peco/peco.conf
+fi
