@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /bin/sh
 
 DOTPATH=${HOME}/dotfiles
 
@@ -14,7 +14,16 @@ function _deploy_dotfiles() {
     	echo "Welcome to MacOSX !"
 
         echo ">>> deploy dotfiles..."
-        dotfiles=(.bash_profile .bashrc .gitconfig .gitignore_global .tmux.conf .vim .vimrc)
+        dotfiles=(
+            .bash_profile
+            .bashrc
+            .gitconfig
+            .gitignore_global
+            .tmux.conf
+            .vim
+            .vimrc
+        )
+
     	for f in ${dotfiles[@]}
     	do
     		[ "${f}" = ".git" ] && continue
