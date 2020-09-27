@@ -1,54 +1,18 @@
-#echo "Load .zprofile."
+DOTPATH=${HOME}/dotfiles
 
 export EDITOR=vim
 export TERM=xterm
+autoload -Uz colors && colors   # use color
 
 #-------------------------------------------------
-# use color
-#-------------------------------------------------
-autoload -Uz colors && colors
-
-#-------------------------------------------------
-# utilities
-# usage:
-#    if _is_exist vim; then
-#        alias vp='vim ~/.zprofile'
-#        alias vv='vim ~/.zshrc'
-#    fi
-#
+# Functions
 #-------------------------------------------------
 function _is_exist() {
     type $@ > /dev/null 2>&1
 }
 
-#-------------------------------------------------
-# test
-#-------------------------------------------------
-function opeco() {
-    if [ $# -eq 0 ]; then
-        search_dir=$(pwd)
-    elif [ ! -d $1 ]; then
-        echo "bad argument." && return
-    else
-        search_dir=$1
-    fi
-
-    item=$(ls "${search_dir}" | peco) && [ -z "${item}" ] && return
-    while [ -d "${search_dir}/${item}" ]; do
-        search_dir="${search_dir}/${item}"
-        item=$(ls "${search_dir}" | peco) && [ -z "${item}" ] && return
-    done
-
-    if [ -f ${item} ]; then
-        cat ${item}
-    fi
-
-    #open "${search_dir}/${item}"
-    cd "${search_dir}/${item}"
-}
-
-function laracast() {
-    opeco $HOME/dev/src/github.com/iamfreee/laracasts-downloader/Downloads
+function _display_directory_size() {
+    du -sh $(pwd)/* 2>&1 | grep -v "Operation not permitted" | sort -hr
 }
 
 #-------------------------------------------------
@@ -58,20 +22,27 @@ if [ is_osx ];then
     #echo "MacOSX with ..."
 
     # remove .DS_Store file
-    alias rmds='find . -name .DS_Store | xargs rm'
+    alias rmds='rm $(find . type -f -name .DS_Store)'
 
     # for Homebrew
     export PATH="/usr/local/sbin:$PATH"
+
+#    function _cacheclean() {
+#        # Homebrew
+#        if [ -d ${HOME}/Library/Caches/Homebrew ]; then
+#            brew cleanup -s
+#        fi
+#    }
 
     # Ruby
     #RBENV_ROOT="$HOME/.rbenv"
     #export PATH="$RBENV_ROOT/bin:$PATH"
     #eval "$(rbenv init -)"
 
-	# opening the current directory of the Terminal.app in the Finder.app
+    # open finder
 	alias finder='open .'
 
-	# opening the current directory of the Finder.app in the Terminal.app
+	# open terminal into current finder dir
 	function terminal(){
 		target=`osascript -e 'tell application "Finder" to if(count of Finder windows) > 0 then get POSIX path of(target of front Finder window as text)'`
 		if [ "$target" != "" ]
@@ -82,6 +53,14 @@ if [ is_osx ];then
 			echo 'No Finder window found.' >&2
 		fi
 	}
+
+    WORKSPACE_DIR="/Users/hideaki/WORKSPACE"
+
+    # Memo
+    alias memo='vim $(find "${WORKSPACE_DIR}/Dropbox/アプリ/PlainText_2/開発" -type f | peco)'
+
+	# Safari
+	alias safari='open -a "/Applications/Safari.app"'
 
 	# Chrome
     # https://developers.google.com/web/updates/2017/04/headless-chrome
@@ -111,20 +90,13 @@ if [ is_osx ];then
 	alias Desktop='cdla ${HOME}/Desktop'
 	alias Documents='cdla ${HOME}/Documents'
 	alias Downloads='cdla ${HOME}/Downloads'
-
-	alias googledrive='cdla ${HOME}/WORKSPACE/Google\ Drive'
-	alias onedrive='cdla ${HOME}/WORKSPACE/OneDrive'
-	alias dropbox='cdla ${HOME}/WORKSPACE/Dropbox'
-
-	alias cdmemo='cdla ${HOME}/WORKSPACE/Dropbox/アプリ/PlainText\ 2/INBOX'
+	alias googledrive='cdla ${WORKSPACE}/Google\ Drive'
+	alias onedrive='cdla ${WORKSPACE}/OneDrive'
+	alias dropbox='cdla ${WORKSPACE}/Dropbox'
 
 	# alias（for ctag）
 	# changing the BSD version to the version installed by Homebrew
 	alias ctags="`brew --prefix`/bin/ctags"
-
-	# MacPorts Installer addition on 2015-10-09_at_13:13:23: adding an appropriate PATH variable for use with MacPorts.
-	export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
-	# Finished adapting your PATH environment variable for use with MacPorts.
 
     # Python
 	export PATH="/usr/local/share:$PATH"
@@ -164,25 +136,46 @@ source ${HOME}/dotfiles/.zprofile_conf/tmux.profile
 #-------------------------------------------------
 # OS common settings
 #-------------------------------------------------
-alias c='clear && la'
+alias c='clear'
 alias e='exit'
+alias dot='cd ${HOME}/dotfiles'
 #alias jj=$(:)
+
+#-------------------------------------------------
+# History
+#-------------------------------------------------
+
+# history
+HISTFILE=${HOME}/.zsh-history
+HISTSIZE=100000
+SAVEHIST=1000000
+
+# share .zshhistory
+setopt inc_append_history
+setopt share_history
 
 #-------------------------------------------------
 # Changing directory(Common)
 #-------------------------------------------------
 function _print_la() {
     ls -laG $@
-    if [ $# -ne 0 ]; then
-        if [ ${1:0:1} == '/' ]; then
-            printf "\e[31m$1\e[m\n"
-        else
-            printf "\e[31m$(pwd)/$1\e[m\n"
-        fi
-    fi
+#    if [ $# -ne 0 ]; then
+#        if [ ${1:0:1} == '/' ]; then
+#            printf "\e[31m$1\e[m\n"
+#        else
+#            printf "\e[31m$(pwd)/$1\e[m\n"
+#        fi
+#    fi
+
+    current=$(pwd)
+    items=$(ls -la $@ | wc -l | tr -d ' ') > /dev/null 2>&1
+    #dirs=$(ls -ld */ | wc -l | tr -d ' ') > /dev/null 2>&1
+    #print "${items} items: dir ${dirs} items"
+    print "${items} items"
 }
 #alias la='ls -laG'
 alias la='_print_la'
+alias lad='la -d */'
 
 cdla() {
     [ $# -eq 0 ] && place=${HOME} || place=$@
@@ -200,6 +193,12 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
+
+#-------------------------------------------------
+# find
+#-------------------------------------------------
+alias ff="find . -type f"
+alias fd="find . -type d"
 
 #-------------------------------------------------
 # Directory mark and jump
@@ -228,6 +227,30 @@ alias i='_jump_to_directory i'
 alias o='_jump_to_directory o'
 
 #-------------------------------------------------
+# Go
+#-------------------------------------------------
+if _is_exist go; then
+    export GOPATH="${HOME}/dev"
+    #export GOBIN="${GOPATH}/bin"
+    export PATH="${PATH}:${GOPATH}/bin"
+    mkdir -p ${GOPATH}
+fi
+
+#-------------------------------------------------
+# Peco
+#-------------------------------------------------
+if _is_exist peco; then
+    source ${DOTPATH}/.zprofile_conf/peco.profile
+fi
+
+#-------------------------------------------------
+# Git
+#-------------------------------------------------
+if _is_exist git; then
+    source ${DOTPATH}/.zprofile_conf/git.profile
+fi
+
+#-------------------------------------------------
 # Vim
 #-------------------------------------------------
 function _open_file_specify_file_extension() {
@@ -243,24 +266,11 @@ function _open_file_specify_file_extension() {
 alias ee='_open_file_specify_file_extension'
 
 #-------------------------------------------------
-# Go
+# exiftool
 #-------------------------------------------------
-if _is_exist go; then
-    export GOPATH="${HOME}/dev"
-    #export GOBIN="${GOPATH}/bin"
-    export PATH="${PATH}:${GOPATH}/bin"
-    mkdir -p ${GOPATH}
+if _is_exist exiftool; then
+    alias exif="exiftools $@"
 fi
-
-##-------------------------------------------------
-## Peco
-##-------------------------------------------------
-source ${HOME}/dotfiles/.zprofile_conf/peco.profile
-
-#-------------------------------------------------
-# Git
-#-------------------------------------------------
-source ${HOME}/dotfiles/.zprofile_conf/git.profile
 
 #-------------------------------------------------
 # WEB (Dockerhub)
@@ -297,7 +307,6 @@ if _is_exist docker; then
     #if [ -f ${TOYBOX_HOME}/bin/complition.sh ]; then
     #    source ${TOYBOX_HOME}/bin/complition.sh
     #fi
-    echo "Load Docker settings."
 
     # for docker-compose.yml
     alias dd="docker-compose ${@}"
@@ -305,6 +314,8 @@ if _is_exist docker; then
     alias ddupd="docker-compose up -d ${@}"
     alias dddown="docker-compose down"
     alias ddrestart="docker-compose restart"
+
+    echo "Load Docker settings."
 fi
 
 #-------------------------------------------------
@@ -413,29 +424,9 @@ function bk() {
 }
 
 #-------------------------------------------------
-# Functions for peco
-#-------------------------------------------------
-# http://qiita.com/uchiko/items/f6b1528d7362c9310da0
-
-peco_history() {
-    declare l=$(HISTTIMEFORMAT= history | sort -k1,1nr | perl -ne 'BEGIN { my @lines = (); } s/^\s*\d+\s*//; $in=$_; if (!(grep {$in eq $_} @lines)) { push(@lines, $in); print $in; }' | peco --query "$READLINE_LINE")
-    READLINE_LINE="$l"
-    READLINE_POINT=${#l}
-    # for OSX
-    if [ `uname` = "Darwin" ]; then
-        ${READLINE_LINE}
-    fi
-    ${l}
-}
-alias his="peco_history"
-
-#-------------------------------------------------
 # others
 #-------------------------------------------------
 #export DDD_HOME=${HOME}/dev/src/github.com/nutsllc/docker-dd-compose
 #export DDD_SEARCH_DIR=${HOME}/dev/src
 #source ${DDD_HOME}/docker-dd-compose
 
-if [ -f ${HOME}/dotfiles/peco/peco.conf ]; then
-    source ${HOME}/dotfiles/peco/peco.conf
-fi

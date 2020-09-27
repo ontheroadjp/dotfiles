@@ -7,7 +7,6 @@ nnoremap ]q :cnext<CR>
 nnoremap [q :cprevious<CR>
 
 "nmap ,c :!open -a Google\ Chrome<CR>
-
 "================================================================================ visuals
 "color schema
 so ${HOME}/dotfiles/.vim/vimrc_includs/color-schema.vim
@@ -18,10 +17,25 @@ nmap <C-N><C-N> :set invnumber<CR>
 
 "vim status-line
 "so ${HOME}/dotfiles/.vim/vimrc_includs/vim-status-line.vim
-set laststatus=2                                " 2:always show the status-line
-au InsertEnter * hi StatusLine guifg=Blue guibg=DarkYellow gui=none ctermfg=Black ctermbg=Blue cterm=none
-au InsertLeave * hi StatusLine guifg=Blue guibg=DarkGray gui=none ctermfg=Blue ctermbg=DarkGray cterm=none
-au VimEnter * hi StatusLineNC guifg=Blue guibg=DarkYellow gui=none ctermfg=DarkGray ctermbg=DarkGray cterm=none
+
+" 0: none
+" 1: show when more than two windows
+" 2:always show the status-line
+set laststatus=0
+
+" status-line color
+"au InsertEnter * hi StatusLine guifg=Blue guibg=DarkYellow gui=none ctermfg=Black ctermbg=Blue cterm=none
+"au InsertLeave * hi StatusLine guifg=Blue guibg=DarkGray gui=none ctermfg=Blue ctermbg=DarkGray cterm=none
+"au VimEnter * hi StatusLineNC guifg=Blue guibg=DarkYellow gui=none ctermfg=DarkGray ctermbg=DarkGray cterm=none
+
+"set statusline=%F       " show filename
+"set statusline+=%m      " show edit status
+"set statusline+=%r      " show read only or not
+"set statusline+=%h      " show [HELP] if Help page
+"set statusline+=%w      " show [Preview] if Preview window
+"set statusline+=%=      " below settings is shown on right side
+"set statusline+=[ENC=%{&fileencoding}]  " file encoding
+"set statusline+=[LOW=%l/%L]             " current row number/total row number
 
 " window split bar
 au VimEnter * hi VertSplit guifg=Blue guibg=DarkGray gui=none ctermfg=DarkGray ctermbg=none cterm=none
@@ -45,7 +59,6 @@ set nobackup                                     " disable backup file
 "set swapfile                                    " enable swap file
 "set directory=~/.vim/swap                       " set swap file directory
 set noswapfile                                   " disable swap file
-
 
 "------------------------------------------------------------------------------- Lint
 cnoremap eslint !clear && node_modules/eslint/bin/eslint.js %<CR>
@@ -119,11 +132,11 @@ nnoremap gj j
 vnoremap gk k
 vnoremap gj j
 
-"" move cursor in insert mode( like Emacs)
-"imap <C-p> <Up>
-"imap <C-n> <Down>
-"imap <C-h> <Left>
-"imap <C-l> <Right>
+" move cursor in insert mode
+imap <C-k> <Up>
+imap <C-j> <Down>
+imap <C-h> <Left>
+imap <C-l> <Right>
 
 " insert brank line to under cursor
 nnoremap 00 :<C-u>call append(expand('.'), '')<CR>j
@@ -147,11 +160,11 @@ nnoremap <Space>i <C-i>zz
 " Jump to brackets to be paired
 nnoremap <Space>[ %
 nnoremap <Space>] %
-
+"
 " Jump to top/middle/bottom line
-nnoremap <Space>k H
-nnoremap <Space>m M
-nnoremap <Space>j L
+"nnoremap <S-k> H
+"nnoremap <S-m> M
+"nnoremap <S-j> L " the same as default(connect line)
 
 " Jump to begining of the line
 nnoremap <S-h> ^
@@ -273,7 +286,7 @@ so ${HOME}/dotfiles/.vim/vimrc_includs/taglist.vim
 so ${HOME}/dotfiles/.vim/vimrc_includs/srcexplorer.vim
 
 " moving cursor
-so ${HOME}/dotfiles/.vim/vimrc_includs/vim-easymotion.vim
+"so ${HOME}/dotfiles/.vim/vimrc_includs/vim-easymotion.vim
 
 " completion
 "so ${HOME}/dotfiles/.vim/vimrc_includs/neocomplete.vim
@@ -281,7 +294,7 @@ so ${HOME}/dotfiles/.vim/vimrc_includs/vim-easymotion.vim
 so ${HOME}/dotfiles/.vim/vimrc_includs/supertab.vim
 
 " snippets
-"so ${HOME}/dotfiles/.vim/vimrc_includs/neosnippet.vim
+so ${HOME}/dotfiles/.vim/vimrc_includs/neosnippet.vim
 so ${HOME}/dotfiles/.vim/vimrc_includs/snipmate.vim
 so ${HOME}/dotfiles/.vim/vimrc_includs/vim-emmet.vim
 
