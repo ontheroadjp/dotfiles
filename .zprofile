@@ -22,7 +22,7 @@ if [ is_osx ];then
     #echo "MacOSX with ..."
 
     # remove .DS_Store file
-    alias rmds='find . -name .DS_Store | xargs rm'
+    alias rmds='rm $(find . type -f -name .DS_Store)'
 
     # for Homebrew
     export PATH="/usr/local/sbin:$PATH"
@@ -54,6 +54,14 @@ if [ is_osx ];then
 		fi
 	}
 
+    WORKSPACE_DIR="/Users/hideaki/WORKSPACE"
+
+    # Memo
+    alias memo='vim $(find "${WORKSPACE_DIR}/Dropbox/アプリ/PlainText_2/開発" -type f | peco)'
+
+	# Safari
+	alias safari='open -a "/Applications/Safari.app"'
+
 	# Chrome
     # https://developers.google.com/web/updates/2017/04/headless-chrome
 	alias chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
@@ -82,11 +90,9 @@ if [ is_osx ];then
 	alias Desktop='cdla ${HOME}/Desktop'
 	alias Documents='cdla ${HOME}/Documents'
 	alias Downloads='cdla ${HOME}/Downloads'
-	alias googledrive='cdla ${HOME}/WORKSPACE/Google\ Drive'
-	alias onedrive='cdla ${HOME}/WORKSPACE/OneDrive'
-	alias dropbox='cdla ${HOME}/WORKSPACE/Dropbox'
-
-	alias cdmemo='cdla ${HOME}/WORKSPACE/Dropbox/アプリ/PlainText\ 2/INBOX'
+	alias googledrive='cdla ${WORKSPACE}/Google\ Drive'
+	alias onedrive='cdla ${WORKSPACE}/OneDrive'
+	alias dropbox='cdla ${WORKSPACE}/Dropbox'
 
 	# alias（for ctag）
 	# changing the BSD version to the version installed by Homebrew
@@ -132,6 +138,7 @@ source ${HOME}/dotfiles/.zprofile_conf/tmux.profile
 #-------------------------------------------------
 alias c='clear && la'
 alias e='exit'
+alias dot='cd ${HOME}/dotfiles'
 #alias jj=$(:)
 
 #-------------------------------------------------

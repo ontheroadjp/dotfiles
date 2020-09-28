@@ -8,11 +8,18 @@ alias laa='la $(find . -type d | grep -v .git | peco)'
 # cd to sub directory
 # -------------------------------------------------
 function _cd_to_sub_directory() {
-    [[ $(ls -F | wc -l) -eq 0 ]] && {
+    [[ $(ls -d | wc -l) -eq 1 ]] && {
         echo 'no sub directory.'
         return 0
     }
-    to=$(find . -type d | grep -v ^.$ | grep -v .git | sort | uniq | peco --prompt "to SUB DIR.>" --query "${*}" 2>/dev/null)
+    to=$(\
+        find . -type d | \
+        grep -v ^.$ | \
+        grep -v .git | \
+        sort | \
+        uniq | \
+        peco --prompt "$(pwd)" --query "${*}" 2>/dev/null \
+            )
     [ ! -z ${to} ] && cd ${to}
 }
 alias cdd='_cd_to_sub_directory'
