@@ -100,11 +100,16 @@ bindkey '^H' peco-history-selection
 # -------------------------------------------------
 function _markspeco() {
     [ $(ls -U ${dirmarks} | wc -l) -ne 0 ] && {
-        local to=$(for x in ${dirmarks}/*; do cat ${x}; done | sort | uniq | peco --prompt "cd to >" )
+        local to=$(
+            for x in ${dirmarks}/*; do
+               [ -e $(cat ${x}) ] && {
+                   cat ${x};
+               }
+            done | sort | uniq | peco --prompt "cd to >"
+        )
     }
     [ ! -z ${to} ] && cd ${to}
 }
-alias cddm='_markspeco'
 alias cdm='_markspeco'
 
 #-------------------------------------------------
