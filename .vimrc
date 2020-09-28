@@ -7,7 +7,6 @@ nnoremap ]q :cnext<CR>
 nnoremap [q :cprevious<CR>
 
 "nmap ,c :!open -a Google\ Chrome<CR>
-
 "================================================================================ visuals
 "color schema
 so ${HOME}/dotfiles/.vim/vimrc_includs/color-schema.vim
@@ -143,7 +142,7 @@ imap <C-l> <Right>
 nnoremap 00 :<C-u>call append(expand('.'), '')<CR>j
 
 " insert two brank line and to be inline mode
-nnoremap 0i :<C-u>call append(expand('.'), '')<CR>o<CR>
+nnoremap 0i :<C-u>call append(expand('.'), '')<CR>o
 
 "------------------------------------------------------------------------------- Jump to
 " motion prefix ` to <space>
@@ -290,8 +289,8 @@ so ${HOME}/dotfiles/.vim/vimrc_includs/srcexplorer.vim
 "so ${HOME}/dotfiles/.vim/vimrc_includs/vim-easymotion.vim
 
 " completion
-so ${HOME}/dotfiles/.vim/vimrc_includs/neocomplete.vim
-so ${HOME}/dotfiles/.vim/vimrc_includs/neocomplete-php.vim
+"so ${HOME}/dotfiles/.vim/vimrc_includs/neocomplete.vim
+"so ${HOME}/dotfiles/.vim/vimrc_includs/neocomplete-php.vim
 so ${HOME}/dotfiles/.vim/vimrc_includs/supertab.vim
 
 " snippets
