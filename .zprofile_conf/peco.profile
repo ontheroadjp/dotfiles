@@ -62,6 +62,7 @@ function _cd_by_dirspeco() {
 alias cdh='_cd_by_dirspeco'
 
 #-------------------------------------------------
+<<<<<<< HEAD
 # re execute by command history
 #-------------------------------------------------
 # http://qiita.com/uchiko/items/f6b1528d7362c9310da0
@@ -94,6 +95,23 @@ function peco-history-selection() {
 zle -N peco-history-selection
 bindkey '^H' peco-history-selection
 #alias his='peco-history-selection' # doesn't work
+=======
+# cd by history 2
+#-------------------------------------------------
+# http://qiita.com/uchiko/items/f6b1528d7362c9310da0
+
+function peco_history() {
+    declare l=$(HISTTIMEFORMAT= history | sort -k1,1nr | perl -ne 'BEGIN { my @lines = (); } s/^\s*\d+\s*//; $in=$_; if (!(grep {$in eq $_} @lines)) { push(@lines, $in); print $in; }' | peco --query "$READLINE_LINE")
+    READLINE_LINE="$l"
+    READLINE_POINT=${#l}
+    # for OSX
+    if [ `uname` = "Darwin" ]; then
+        ${READLINE_LINE}
+    fi
+    ${l}
+}
+alias his="peco_history"
+>>>>>>> a68a5f49796cee6d914edd55598fb3ffcd50b408
 
 # -------------------------------------------------
 # cd to directory mark
