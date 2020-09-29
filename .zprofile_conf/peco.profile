@@ -5,26 +5,34 @@ alias lla='la $(find . -type d | grep -v .git | peco)'
 alias laa='la $(find . -type d | grep -v .git | peco)'
 
 # -------------------------------------------------
-# cd to directory with in WORKSPACE
+# cd to directory within WORKSPACE
 # -------------------------------------------------
 function _cd_to_workspace() {
-    [[ $(find ${WORKSPACE_DIR} -type d -maxdepth 1 | wc -l) -eq 1 ]] && {
-        echo 'no sub directory.'
-        return 0
-    }
+#    [[ $(find ${WORKSPACE} -type d -maxdepth 1 | wc -l) -eq 1 ]] && {
+#        echo 'no sub directory.'
+#        return 0
+#    }
+#    to=$(\
+#        find ${WORKSPACE} -type d | \
+#        grep -v ^.$ | \
+#        grep -v .git | \
+#        sort | \
+#        uniq | \
+#        peco --prompt "${WORKSPACE}/" --query "${*}" 2>/dev/null \
+#    )
     to=$(\
-        find ${WORKSPACE_DIR} -type d | \
+        find ${WORKSPACE} -type d -maxdepth 1 | \
         grep -v ^.$ | \
         grep -v .git | \
         sort | \
         uniq | \
-        peco --prompt "${WORKSPACE_DIR}/" --query "${*}" 2>/dev/null \
+        peco --prompt "${WORKSPACE}/" --query "${*}" 2>/dev/null \
     )
     [ ! -z ${to} ] && cd ${to}
 }
-alias cdd='_cd_to_workspace'
-zle -N _cd_to_workspace
-bindkey '^R' _cd_to_workspace
+alias ww='_cd_to_workspace'
+#zle -N _cd_to_workspace
+#bindkey '^W' _cd_to_workspace
 
 # -------------------------------------------------
 # cd to sub directory: cd
@@ -42,12 +50,13 @@ function _cd_to_sub_directory() {
         uniq | \
         peco --prompt "$(pwd)/" --query "${*}" 2>/dev/null \
     )
+
     [ ! -z ${to} ] && clear && cd ${to}
 }
-alias cds='_cd_to_sub_directory'
+alias cdd='_cd_to_sub_directory'
 
 # -------------------------------------------------
-# cd by history: cd
+# cd history
 # -------------------------------------------------
 function _cd_by_dirspeco() {
     [ is_exists peco -ne 0 ] && {
@@ -62,38 +71,17 @@ function _cd_by_dirspeco() {
 alias cdh='_cd_by_dirspeco'
 
 #-------------------------------------------------
-# re execute by command history
+# command history
 #-------------------------------------------------
-# http://qiita.com/uchiko/items/f6b1528d7362c9310da0
-
-# for bash
-#function peco_history() {
-#     local command=$( \
-#        history 1 | \
-#        uniq | \
-#        sort -k1,1nr | \
-#        sed -e 's/^[0-9\| ]\+//' -e 's/ \+$//' | \
-#        perl -ne 'BEGIN { my @lines = (); } s/^\s*\d+\s*//; $in=$_; if (!(grep {$in eq $_} @lines)) { push(@lines, $in); print $in; }' | \
-#        peco
-#    )
-#    READLINE_POINT=${#command}
-#    # for OSX
-#    if [ `uname` = "Darwin" ]; then
-#        ${READLINE_LINE}
-#    fi
-#    ${command}
-#}
-#alias his="his"
 
 # for zsh
 function peco-history-selection() {
-    BUFFER=`history -n 1 | tac  | awk '!a[$0]++' | peco`
+    BUFFER=$(history -n 1 | tac  | awk '!a[$0]++' | peco --prompt 'zsh Command History>')
     CURSOR=$#BUFFER
     zle reset-prompt
 }
 zle -N peco-history-selection
 bindkey '^H' peco-history-selection
-#alias his='peco-history-selection' # doesn't work
 
 # -------------------------------------------------
 # cd to directory mark
@@ -115,10 +103,106 @@ alias cdm='_markspeco'
 #-------------------------------------------------
 # SSH
 #-------------------------------------------------
-function _connect_vpn() {
-    ssh $(cat .ssh/config | grep ^Host | cut -d " " -f 2 | peco)
+function _connect_vps() {
+    local ssh_server=$(cat ${HOME}/.ssh/config | \
+            grep ^Host | \
+            cut -d " " -f 2 | \
+            peco --prompt "SSH>"
+        )
+    [ ! -z ${ssh_server} ] && ssh ${ssh_server}
 }
-alias vpn='_connect_vpn'
+alias vps='_connect_vps'
+
+#-------------------------------------------------
+# My Note
+#-------------------------------------------------
+function _my_note() {
+    local my_note_dir="${WORKSPACE}/Dropbox/アプリ/PlainText_2/開発"
+    local dir=$(find ${my_note_dir} -type d | peco --prompt "My Note>")
+    local md=$(find ${dir} -type f | peco --prompt "My Note>")
+	[ ! -z ${md}  ] && open -a ${MARKDOWN_EDITOR} ${md}
+}
+alias note="_my_note"
+
+#-------------------------------------------------
+# WEB Bookmark
+#-------------------------------------------------
+function _open_web_bookmark() {
+    local bookmark_dir="${DOTPATH}/.web_bookmark"
+    [ ! $(find ${bookmark_dir} -type f -name '*.csv' > /dev/null 2>&1 | wc -l) -gt 1 ] && {
+        echo "Error: no Bookmark(csv) file locate at ${bookmark_dir}."
+        return
+    }
+    [ -z $1 ] && {
+        url=$(
+            cat $(find ${bookmark_dir} -type f -name "*.csv") | \
+            column -s ',' -t | \
+            peco --prompt "WEB Bookmarks>" | \
+            sed -e 's#^.*\(https*://\)#\1#g'
+        )
+    } || {
+        url=$1
+        [ $(echo ${url} | grep -E "^https?://" | wc -l) -eq 0 ] && url='http://'${url}
+    }
+    [ ! -z ${url} ] && open -a ${WEB_BROWSER} "${url}"
+}
+alias web="_open_web_bookmark $@"
+
+# --------------------------------------------
+# show world time
+# --------------------------------------------
+function _show_worldtime() {
+#    sh ${DOTPATH}/bin/worldtime.sh
+    local tz;
+    [ $# -eq 0 ] && {
+        local tz_version="2020a.1.0"
+        tz=$(find /var/db/timezone/tz/${tz_version}/zoneinfo -type f | \
+            sed -e 's#/var/db/timezone/tz/2020a.1.0/zoneinfo/##g' | \
+            peco --prompt "Time Zone>")
+    } || {
+        tz=${1}
+    }
+    [ ! -z ${tz} ] && printf "${tz}: "; TZ=${tz} date
+}
+alias clock="_show_worldtime"
+alias wt="_show_worldtime"
+
+#-------------------------------------------------
+# Search Stock Price
+#-------------------------------------------------
+function _stock_search() {
+    local stock_search_dir="${DOTPATH}/.stock_jp"
+    local security_code
+    # curl https://www.jpx.co.jp/markets/statistics-equities/misc/tvdivq0000001vg2-att/data_j.xls -o ${stock_search_dir}/stock.xls
+
+    local double_big_letters="ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ"
+    local double_small_letters="ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏpｑｒｓｔｕｖｗｘｙｚ"
+    local single_big_letters="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    local single_small_letters="abcdefghijklmnopqrstuvwxyz"
+    local double_numbers="０１２３４５６７８９"
+    local single_numbers="0123456789"
+    local double_marks="　／＆（）\［\］：；"
+    local single_marks=" \/&()\[\]:;"
+
+    security_code=$(
+            cat ${stock_search_dir}/stock.csv | \
+            cut -d ',' -f 2-4 | \
+            sed -e "y/${double_big_letters}/${single_big_letters}/" | \
+            sed -e "y/${double_small_letters}/${single_small_letters}/" | \
+            sed -e "y/${double_numbers}/${single_numbers}/" | \
+            sed -e "y/${double_marks}/${single_marks}/" | \
+            column -s ',' -t | \
+            peco --prompt "JP Stock>"| \
+            sed -e 's/^.*\([0-9]\{4\}\).*/\1/g'
+        )
+
+    [ ! -z ${security_code} ] && {
+        #local url="https://www.google.com/search?q=${security_code}"
+        local url="https://stocks.finance.yahoo.co.jp/stocks/detail/?code=${security_code}"
+        open -a "/Applications/Safari.app" ${url}
+    }
+}
+alias stock="_stock_search"
 
 #-------------------------------------------------
 # test

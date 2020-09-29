@@ -31,8 +31,7 @@ colorscheme base16-ocean
 "let base16colorspace="256"
 "set background=dark
 
-"hi MatchParen ctermfg=LightGreen ctermbg=blue
-"hi MatchParen cterm=none ctermbg=green ctermfg=blue
+hi MatchParen ctermfg=LightGreen ctermbg=blue
 "hi MatchParen cterm=bold ctermbg=none ctermfg=Magenta
 "set noshowmatch
 "let loaded_matchparen = 2
@@ -41,4 +40,3 @@ colorscheme base16-ocean
 "set matchtime=1
 "set matchpairs& matchpairs+=<:>
 " ------------------------- temp ---------------------
-

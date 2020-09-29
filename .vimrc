@@ -1,4 +1,4 @@
-"================================================================================ vimgrep
+"================================================================ vimgrep
 " open vimgrep result in quickfix
 autocmd QuickfixCmdPost *grep* cwindow
 
@@ -7,9 +7,22 @@ nnoremap ]q :cnext<CR>
 nnoremap [q :cprevious<CR>
 
 "nmap ,c :!open -a Google\ Chrome<CR>
-"================================================================================ visuals
+
+
+"================================================================ Keybind
+" File type
+" <Leader> = \ (default)
+nmap <C-S><C-S> :set filetype=bash<CR>
+nmap <Leader>ft :set filetype?<CR>
+nmap <Leader>vv :source ~/.vimrc<CR>
+
+"================================================================ visuals
 "color schema
 so ${HOME}/dotfiles/.vim/vimrc_includs/color-schema.vim
+
+" Clipboard
+set clipboard+=unnamed
+"set clipboard^=unnamed  # if doesn't work above, use this
 
 " line number
 au VimEnter * hi LineNr guifg=Blue guibg=DarkGray gui=none ctermfg=gray ctermbg=none cterm=none
@@ -40,7 +53,7 @@ set laststatus=0
 " window split bar
 au VimEnter * hi VertSplit guifg=Blue guibg=DarkGray gui=none ctermfg=DarkGray ctermbg=none cterm=none
 
-"================================================================================ General settings
+"================================================================ General settings
 "set encoding=utf-8                              " set charactor code
 set encoding=utf-8 nobomb                        " set charactor code
 set fileencodings=utf-8,ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932
@@ -51,7 +64,7 @@ set backspace=indent,eol,start                   " it can delete newline charact
 "set cursorline                                   " show cursor line
 set linespace=4
 
-"------------------------------------------------------------------------------- Buff file/Swap file
+"--------------------------------------------------------------- Buff file/Swap file
 "set backup                                      " enable swap file
 "set backupdir=~/.vim/backup                     " set backup file directory
 set nobackup                                     " disable backup file
@@ -60,11 +73,11 @@ set nobackup                                     " disable backup file
 "set directory=~/.vim/swap                       " set swap file directory
 set noswapfile                                   " disable swap file
 
-"------------------------------------------------------------------------------- Lint
+"--------------------------------------------------------------- Lint
 cnoremap eslint !clear && node_modules/eslint/bin/eslint.js %<CR>
 autocmd BufWritePre * :%s/\s\+$//ge              " remove trailing whitespace when saved
 
-"------------------------------------------------------------------------------- File/Directory
+"--------------------------------------------------------------- File/Directory
 " Create/edit file in the current directory
 "cnoremap %ed edit %:p:h/
 
@@ -83,13 +96,13 @@ autocmd BufNewFile *.vue 0r $HOME/dotfiles/.vim/templates/vue.tpl
 " Filetype
 autocmd BufNewFile,BufRead *.{html,htm,vue*} set filetype=html  " for vue.js
 
-"------------------------------------------------------------------------------- Buffer
+"--------------------------------------------------------------- Buffer
 nnoremap <silent> [b :bprevious<CR>
 nnoremap <silent> ]b :bnext<CR>
 nnoremap <silent> [B :bfirst<CR>
 nnoremap <silent> ]B :blast<CR>
 
-"------------------------------------------------------------------------------- Tab and Indent
+"--------------------------------------------------------------- Tab and Indent
 set expandtab                                    " replace tab to space
 set tabstop=4                                    " indent width
 set shiftwidth=4                                 " auto indent width
@@ -97,19 +110,19 @@ set softtabstop=4                                " moving width of the consecuti
 set autoindent                                   " to continue indent width in new line
 set smartindent                                  " to determining indent width automatically in new line
 
-"------------------------------------------------------------------------------- Cursor settings
+"--------------------------------------------------------------- Cursor settings
 let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
 "let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
 let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
 
-"------------------------------------------------------------------------------- Search
+"--------------------------------------------------------------- Search
 set ignorecase                                   " search regardress capital note or small note if search word is small note (noignorecase)
 set smartcase                                    " if capital note in search words, it doesn't regardress capital note or small note (nosmartcase)
 set incsearch                                    " to enable incremental search
 nnoremap n nzz
 nnoremap N Nzz
 
-"================================================================================== Key bindings
+"================================================================== Key bindings
 " JJ to <esc>
 inoremap <silent> jj <esc>
 
@@ -122,7 +135,7 @@ inoremap <silent> jj <esc>
 "" Go into visual mode
 "nnoremap ,, <C-v>
 
-"------------------------------------------------------------------------------- moving cursor
+"--------------------------------------------------------------- moving cursor
 nnoremap k gk
 nnoremap j gj
 vnoremap k gk
@@ -144,7 +157,7 @@ nnoremap 00 :<C-u>call append(expand('.'), '')<CR>j
 " insert two brank line and to be inline mode
 nnoremap 0i :<C-u>call append(expand('.'), '')<CR>o
 
-"------------------------------------------------------------------------------- Jump to
+"--------------------------------------------------------------- Jump to
 " motion prefix ` to <space>
 nnoremap <Space> `
 
