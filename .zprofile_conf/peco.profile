@@ -113,6 +113,14 @@ function _markspeco() {
 alias cdm='_markspeco'
 
 #-------------------------------------------------
+# SSH
+#-------------------------------------------------
+function _connect_vpn() {
+    ssh $(cat .ssh/config | grep ^Host | cut -d " " -f 2 | peco)
+}
+alias vpn='_connect_vpn'
+
+#-------------------------------------------------
 # test
 #-------------------------------------------------
 function opeco() {
