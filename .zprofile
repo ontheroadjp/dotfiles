@@ -1,8 +1,13 @@
-DOTPATH=${HOME}/dotfiles
-
+#-------------------------------------------------
+# Variables
+#-------------------------------------------------
 export EDITOR=vim
 export TERM=xterm
+#export LANG=ja_JP.UTF-8
 autoload -Uz colors && colors   # use color
+
+export DOTPATH=${HOME}/dotfiles
+export PATH=.:${DOTPATH}/bin:${PATH}
 
 #-------------------------------------------------
 # Functions
@@ -11,21 +16,34 @@ function _is_exist() {
     type $@ > /dev/null 2>&1
 }
 
-function _display_directory_size() {
-    du -sh $(pwd)/* 2>&1 | grep -v "Operation not permitted" | sort -hr
-}
+#-------------------------------------------------
+# My tools
+#-------------------------------------------------
+export PATH=${HOME}/dev/src/github.com/ontheroadjp/dazai:${PATH}
+export PATH=${HOME}/dev/src/github.com/ontheroadjp/tidyphoto/bin:${PATH}
 
 #-------------------------------------------------
 # For MacOSX only
 #-------------------------------------------------
-if [ is_osx ];then
+if [ $(uname) = "Darwin" ]; then
     #echo "MacOSX with ..."
 
-    # remove .DS_Store file
-    alias rmds='rm $(find . type -f -name .DS_Store)'
+    # variables
+    export PATH="/usr/local/sbin:${PATH}"   # for Homebrew
+	export PATH="/usr/local/share:$PATH"    # for Python
+    export WORKSPACE="/Users/hideaki/WORKSPACE"
+    export WEB_BROWSER="/Applications/Safari.app"
+    #export WEB_BROWSER="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
+    #export MARKDOWN_EDITOR="/Applications/MacDown.app"  # MacDown
+    export MARKDOWN_EDITOR="/Applications/Typora.app"   # Typora
+    #export MARKDOWN_EDITOR="/Applications/Bear.app"     # Bear
 
-    # for Homebrew
-    export PATH="/usr/local/sbin:$PATH"
+    # Normal command
+    alias tree='tree -N'    # for display Japanese char
+
+    # remove .DS_Store file
+    alias rmds='find . -type f -name .DS_Store -print0 | xargs -0 rm'
+    alias c='rmds && clear'
 
 #    function _cacheclean() {
 #        # Homebrew
@@ -34,52 +52,58 @@ if [ is_osx ];then
 #        fi
 #    }
 
+    # show smtp(d) log
+    alias smtplog='sudo log stream --predicater'\''(process == "smtpd") || (process == "smtp")'\'' --info'
+
     # Ruby
     #RBENV_ROOT="$HOME/.rbenv"
-    #export PATH="$RBENV_ROOT/bin:$PATH"
+    #export PATH="${RBENV_ROOT}/bin:${PATH}"
     #eval "$(rbenv init -)"
 
     # open finder
 	alias finder='open .'
 
-	# open terminal into current finder dir
-	function terminal(){
-		target=`osascript -e 'tell application "Finder" to if(count of Finder windows) > 0 then get POSIX path of(target of front Finder window as text)'`
-		if [ "$target" != "" ]
-		then
-			cd "$target"
-			pwd
-		else
+	# open terminal the same as current finder dir
+	function _cd_to_finder_window_opened(){
+		target=$(osascript -e 'tell application "Finder" to if(count of Finder windows) > 0 then get POSIX path of(target of front Finder window as text)')
+		if [ "$target" != "" ]; then
+			cd "$target" && pwd
+#		else
 			echo 'No Finder window found.' >&2
 		fi
 	}
+    alias terminal='_cd_to_finder_window_opened'
 
-    WORKSPACE_DIR="/Users/hideaki/WORKSPACE"
-
-    # Memo
-    alias memo='vim $(find "${WORKSPACE_DIR}/Dropbox/アプリ/PlainText_2/開発" -type f | peco)'
+    # Preview
+    alias preview='open -a Preview'
 
 	# Safari
-	alias safari='open -a "/Applications/Safari.app"'
+	alias safari='open -a "/Applications/Safari.app" $@'
 
 	# Chrome
     # https://developers.google.com/web/updates/2017/04/headless-chrome
 	alias chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
 
+	# Spark
+	alias spark='open -a "/Applications/Spark.app" $@'
+	alias mailer='spark'
+
 	# Sublime Text 3
-	alias subl='open -a "/Applications/Sublime Text.app"'
 
-	# Bear Editor
-	alias bear='open -a "/Applications/Bear.app"'
-
-	# Markdown Editor
-	alias md='open -a "/Applications/MacDown.app"'
-
-	# Markdown Editor
-	alias typora='open -a "/Applications/Typora.app"'
-
-    # Cot Editor
+    # Text Editor
     alias cot='open -a "/Applications/CotEditor.app"'
+	alias subl='open -a "/Applications/Sublime Text.app"'
+	alias atom='open -a "/Applications/Atom.app"'
+    alias drafts='open -a "/Applications/Drafts.app"'
+
+    # Markdown Editor
+    alias typora='open -a "/Applications/Typora.app"'
+    alias macdown='open -a "/Applications/MacDown.app"'
+    alias bear='open -a "/Applications/Bear.app"'
+    alias md="open -a ${MARKDOWN_EDITOR}"
+
+    # Typinator
+    alias typinator="open -a /Applications/Typinator.app"
 
 	# changing vi and vim to MacVim
 	#alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
@@ -87,19 +111,17 @@ if [ is_osx ];then
 	alias mvim='env_LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 
     # alias(directory change:Mac)
-	alias Desktop='cdla ${HOME}/Desktop'
-	alias Documents='cdla ${HOME}/Documents'
-	alias Downloads='cdla ${HOME}/Downloads'
-	alias googledrive='cdla ${WORKSPACE}/Google\ Drive'
-	alias onedrive='cdla ${WORKSPACE}/OneDrive'
-	alias dropbox='cdla ${WORKSPACE}/Dropbox'
+	alias Desktop='cd ${HOME}/Desktop'
+	alias Documents='cd ${HOME}/Documents'
+	alias Downloads='cd ${HOME}/Downloads'
+    alias WORKSPACE='cd ${WORKSPACE}'
+	alias GoogleDrive='cd ${WORKSPACE}/Google\ Drive'
+	alias OneDrive='cd ${WORKSPACE}/OneDrive'
+	alias Dropbox='cd ${WORKSPACE}/Dropbox'
 
 	# alias（for ctag）
 	# changing the BSD version to the version installed by Homebrew
 	alias ctags="`brew --prefix`/bin/ctags"
-
-    # Python
-	export PATH="/usr/local/share:$PATH"
 
 	# kill notifyd process
 	function kill-notifyd-process() {
@@ -107,24 +129,24 @@ if [ is_osx ];then
 		sudo kill -9 ${process}
 	}
 
-##-------------------------------------------------
-## For Linux only
-##-------------------------------------------------
-#elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
-#	echo 'Wellcome to Linux!'
-#
-##-------------------------------------------------
-## For Windows(Cygwin) only
-##-------------------------------------------------
-#elif [ "$(expr substr $(uname -s) 1 10)" == 'MINGW32_NT' ]; then
-#	echo 'Wellcome to Cygwin!'
-#else
-#
-##-------------------------------------------------
-## For other OS only
-##-------------------------------------------------
-#	echo "Your platform ($(uname -a)) is not supported."
-#	exit 1
+#-------------------------------------------------
+# For Linux only
+#-------------------------------------------------
+elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
+	echo 'Wellcome to Linux!'
+
+#-------------------------------------------------
+# For Windows(Cygwin) only
+#-------------------------------------------------
+elif [ "$(expr substr $(uname -s) 1 10)" == 'MINGW32_NT' ]; then
+	echo 'Wellcome to Cygwin!'
+else
+
+#-------------------------------------------------
+# For other OS only
+#-------------------------------------------------
+	echo "Your platform ($(uname -a)) is not supported."
+	exit 1
 
 fi
 
@@ -199,6 +221,12 @@ alias .....="cd ../../../.."
 #-------------------------------------------------
 alias ff="find . -type f"
 alias fd="find . -type d"
+IMAGE_EXTENTION="(JPG|jpg|jpeg|PNG|png|TIFF|TIF|tiff|tif|CR2|NEF|ARW|MOV|mov|AVI|avi)"
+alias ffi='find -E . -type f -regex "^.*\.${IMAGE_EXTENTION}$"'
+
+alias ffc='ff | wc -l'
+alias fdc="fd | wc -l"
+alias ffic='ffi | wc -l'
 
 #-------------------------------------------------
 # Directory mark and jump
@@ -229,21 +257,30 @@ alias o='_jump_to_directory o'
 #-------------------------------------------------
 # note
 #-------------------------------------------------
-function _one_note() {
+function _quick_memo() {
     if ! _is_exist gsed; then
         echo "error: you need to install gsed(gnu-sed)"
         echo "install: brew install gnu-sed"
         return
     fi
 
-    local note_dir="${WORKSPACE_DIR}/Dropbox/note"
-    #header="=====> $(date '+%Y%m%d %H:%M:%S') <=====\n\n"
-    header="=====> $(date) <=====\n\n"
+    local note_dir="${WORKSPACE}/Dropbox/note"
+    #header="## =====> $(date '+%Y%m%d %H:%M:%S') <=====\n\n"
+    header="## =====> $(date) <=====\n\n"
     gsed -i -e "1s/^/${header}/" ${note_dir}/INBOX/note.md
     vim ${note_dir}/INBOX/note.md
 }
-alias one="_one_note"
-alias q="_one_note"
+alias qmemo="_quick_memo"
+alias q="_quick_memo"
+
+function _send_mail_quick_memo() {
+    local subject="Quick Memo ($(date))"
+    local to='hishihara1975@gmail.com'
+    cat ${WORKSPACE}/Dropbox/note/INBOX/note.md \
+        | mail -s ${subject} ${to}
+    echo "mail (quick memo) sent!"
+}
+alias qmail='_send_mail_quick_memo'
 
 #-------------------------------------------------
 # Go
@@ -288,7 +325,7 @@ alias ee='_open_file_specify_file_extension'
 # exiftool
 #-------------------------------------------------
 if _is_exist exiftool; then
-    alias exif="exiftools $@"
+    alias exif="exiftool $@"
 fi
 
 #-------------------------------------------------
@@ -300,7 +337,7 @@ function _open_my_dockerhub() {
         open "https://${place}"
     }
 }
-alias rrdh='_open_my_dockerhub';
+alias dockerhub='_open_my_dockerhub';
 
 function dockerhub-build() {
     place="$(ghq list | sed "s:github.com:hub.docker.com/r:" | peco)"
@@ -313,13 +350,15 @@ function dockerhub-build() {
 # Docker
 #-------------------------------------------------
 if _is_exist docker; then
-    if [ ! -d ~/dotfiles/docker-dd ]; then
-        git clone https://github.com/nutsllc/docker-dd ${HOME}/dotfiles/docker-dd
-    fi
+#    if [ ! -d ~/dotfiles/docker-dd ]; then
+#        git clone https://github.com/nutsllc/docker-dd ${HOME}/dotfiles/docker-dd
+#    fi
 
-    source ~/dotfiles/docker-dd/docker-dd-common.fnc
-    source ~/dotfiles/docker-dd/docker-dd-network.fnc
-    source ~/dotfiles/docker-dd/docker-dd-volume.fnc
+    [ -e ~/dotfiles/docker-dd ] && {
+        source ~/dotfiles/docker-dd/docker-dd-common.fnc
+        source ~/dotfiles/docker-dd/docker-dd-network.fnc
+        source ~/dotfiles/docker-dd/docker-dd-volume.fnc
+    }
 
     #export TOYBOX_HOME=/home/nobita/workspace/docker-toybox
     #export PATH=${TOYBOX_HOME}/bin:${PATH}
@@ -365,7 +404,7 @@ if _is_exist vagrant; then
 fi
 
 #-------------------------------------------------
-# PHP
+# PHP: composer
 #-------------------------------------------------
 if _is_exist composer; then
     export PATH="${PATH}:${HOME}/.composer/vendor/bin"
@@ -384,7 +423,7 @@ if _is_exist php; then
 fi
 
 #-------------------------------------------------
-# dstat
+# dstat - Server resourse monitoring
 #-------------------------------------------------
 if _is_exist dstat; then
     alias dfull='dstat -Tclmdrn'
@@ -395,53 +434,62 @@ if _is_exist dstat; then
     alias dplugins='la /usr/share/dstat/*.py'
 fi
 
-#-------------------------------------------------
-# SSH
-#-------------------------------------------------
-function sshx() {
-	cat ~/.ssh/config | egrep "^Host " | awk '{print NR, $0}'
-	echo -n "Number: "
-	read no
-
-	line=`cat ~/.ssh/config | egrep "^Host " | awk '{print NR, $0}' | egrep "${no}"`
-	if [ ! -z "${line}" ]  ; then
-		host=`echo ${line} | awk '{print $3}'`
-		#sudo tee -a ssh ${host}
-		ssh ${host}
-	else
-		echo "There is no number you inputed."
-	fi
+# --------------------------------------------
+# System Utilities
+# --------------------------------------------
+# show sub directory size
+function _display_directory_size() {
+    du -sh ${1:-$(pwd)}/* 2>&1 | grep -v "Operation not permitted" | sort -hr
 }
+alias dirsize="_display_directory_size"
 
 # --------------------------------------------
-# others( beta )
+# show wareki and century
 # --------------------------------------------
-# files/directories backup
-#function bk() {
-#    if [ $# -eq 0 ]; then
-#        echo 'error: you need one parameter'
-#    else
-#        [ $# -ne 0 ] && [ -f ${1} ] && {
-#            cp -r ${1} ${1}.bk
-#            echo "backed up! (${1})"
-#        }
-#    fi
-#}
+source ${DOTPATH}/bin/wareki/wareki.fnc
 
-function bk() {
-    [ $# -ne 1 ] && {
-        echo 'error: param must be one file/directory.'
-        return
-    }
-
-    [ ! -e $1 ] && {
-        echo "error: file doesn't exist."
-        return
-    }
-
-    cp -r ${1} ${1}.bk
-    echo "backed up! (${1})"
+# --------------------------------------------
+# show wareki and century
+# --------------------------------------------
+function _honyaku() {
+    safari "https://translate.google.co.jp/?hl=ja#view=home&op=translate&sl=auto&tl=en&text=${1}"
 }
+alias honyaku='_honyaku "$@"'
+
+# --------------------------------------------
+# make backup files/directories
+# --------------------------------------------
+function _create_backup() {
+    [ $# -ne 1 ] && echo 'no file/dir' && return
+    [ ! -e $(basename $1) ] && echo 'no file/dir' && return
+    #cp -r ${1} ${1}.bk
+    tar czf $(basename $1).tar.gz $1
+    echo "backed up! ($1)"
+}
+alias bk="_create_backup"
+
+function _restore_backup() {
+    local strip=$(echo $1 | sed -e 's/\.tar\.gz$//g')
+
+    [ $# -ne 1 ] && echo 'no file/dir' && return
+    [ ! -e $1 ] && [ ! -e ${strip}.tar.gz ] && echo 'no file/dir' && return
+
+    local target=$(echo $1 | sed 's/\.tar\.gz//g')
+    tar xzf ${strip}.tar.gz
+    echo "Restored! (${strip}.tar.gz)"
+}
+alias restore="_restore_backup"
+alias re="_restore_backup"
+
+# --------------------------------------------
+# Google WEB Search
+# --------------------------------------------
+function _google_web_search() {
+    local url="https://www.google.com/search?q=$@"
+    open -a "/Applications/Safari.app" ${url}
+}
+alias google="_google_web_search"
+alias g="_google_web_search"
 
 #-------------------------------------------------
 # others
@@ -449,4 +497,5 @@ function bk() {
 #export DDD_HOME=${HOME}/dev/src/github.com/nutsllc/docker-dd-compose
 #export DDD_SEARCH_DIR=${HOME}/dev/src
 #source ${DDD_HOME}/docker-dd-compose
+
 

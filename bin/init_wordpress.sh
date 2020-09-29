@@ -10,7 +10,7 @@ echo "What is your theme name?(shud be dir name)"
 read themename
 
 #基本設定
-export WPROOT=$wproot
+export WPROOT=${wproot}
 export WPTHEME=${WPROOT}/wp-content/themes/${themename}
 export WPPLUGIN=${WPROOT}/wp-content/plugins
 

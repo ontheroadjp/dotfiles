@@ -1,13 +1,21 @@
 # dotfiles
 
-* ``bash/zsh``, ``tmux``, ``vim``, ``git``, ``karabiner``(Mac only) の設定が中心
+* ``bash``, ``tmux``, ``vim``, ``git``, ``karabiner``(Mac only) の設定が中心
 * 主な連携ツール： ``peco``, ``ghq``, ``ag``, ``ctags``
 
-## shell
 
-### ディレクトリ移動（基本）
 
-* ``ls -laG`` は ``la`` で
+## shell (bash/zsh)
+
+### ディレクトリ表示
+* ``la`` で ``clear && ls -laG``
+* ``lla`` または ``laa`` で サブディレクトリ 一覧を表示/選択して ``la`` 実行（peco）
+* ``dirsize`` でディレクトリのサイズ表示（対象ディレクトリ指定ない場合はカレント）
+
+### ディレクトリ移動
+
+#### 基本
+
 * ``cd`` すると自動的に ``la`` (``cd`` は ``pushd`` のエイリアス)
 * ``b`` で一つ前の場所へ戻る (``popd``)
 * ``.`` で ``pwd``
@@ -15,48 +23,123 @@
 * ``...`` で二つ上の階層へ
 * ``....`` で三つ上の階層へ
 
-### ディレクトリ移動（ジャンプ）
-* ``cdd`` で ``peco`` が起動して ``~/WORKSPACE`` 配下のディレクトリへ移動
-* ``cds`` で ``peco`` が起動して配下のサブディレクトリへ移動
-* ``cdh`` で ``peco`` が起動して訪問履歴のあるディレクトリへ移動
-* ``cdm`` でマーク一覧を `peco` で表示/選択して移動
 
-``zsh`` の場合は、
-* ``^R`` でも ``cdd`` (``^`` は ``Ctrl``)
 
-### ローカルレポジトリ移動
-* ``rr`` で ``ghq`` 管理のレポジトリ一覧を ``peco`` で表示/選択してディレクトリ移動
-* ``ggg`` でレポジトリルートへ移動
+#### ジャンプ & マーク
 
-### リモートレポジトリ移動
-* ``rrgit`` で ``ghq`` 管理のレポジトリ一覧を ``peco`` で表示/選択してブラウザで開く
-* ``myrepo`` で自分の Git リポジトリ一覧を ``peco`` で表示/選択してブラウザで開く
-* ``github`` でカレントディレクトリの GitHub をブラウザで開く
-
-### ジャンプ & マーク
 * ``mm`` でカレントディレクトリを記憶し `m` で記憶したディレクトリへ移動
 * ``nn`` でカレントディレクトリを記憶し `n` で記憶したディレクトリへ移動
 * ``ii`` でカレントディレクトリを記憶し `i` で記憶したディレクトリへ移動
 * ``oo`` でカレントディレクトリを記憶し `o` で記憶したディレクトリへ移動
 
-### その他
+
+
+#### ジャンプ & マーク（by peco）
+
+* ``cdd`` で ``~/WORKSPACE`` 内のディレクトリを表示/選択してディレクトリ移動
+	* ``zsh`` の場合は、``^R`` でも OK（``^`` は ``Ctrl``）
+* ``cds`` でカレントディレクトリ内のサブディレクトリを表示/選択してディレクトリ移動
+* ``cdh`` でディレクトリの訪問履歴を表示/選択してディレクトリ移動
+* ``cdm`` でディレクトリマーク一覧を表示/選択してディレクトリ移動
+
+
+
+#### ジャンプ & マーク（by peco: web）
+
+* ``vpn`` で VPN サーバー一覧を表示/選択してディレクトリ移動
+* ``google <検索ワード>`` または ``g 検索ワード`` で Google 検索
+* ``web`` で ``peco`` でブックマーク一覧を表示/選択してブラウザで表示
+    * ブックマークは ``~/dotfiles/.web_bookmark``
+* ``stock`` で ``peco`` で上場銘柄一覧を表示/選択してブラウザで表示
+* ``clock`` で ``peco`` でタイムゾーン一覧を表示/選択して日時を表示
+
+
+
+#### ローカルレポジトリへ移動
+
+* ``rr`` で ``ghq`` 管理のレポジトリ一覧を ``peco`` で表示/選択してディレクトリ移動
+* ``ggg`` でレポジトリルートへ移動
+
+
+
+#### リモートレポジトリへ移動（web）
+
+* ``rrgit`` で ``ghq`` 管理のレポジトリ一覧を ``peco`` で表示/選択してブラウザで開く
+* ``myrepo`` で自分の Git リポジトリ一覧を ``peco`` で表示/選択してブラウザで開く
+* ``github`` でカレントディレクトリの GitHub をブラウザで開く
+
+
+
+### その他ディレクトリへ移動
+
 * ``dot``で ``${HOME}/dotfiles`` へ移動
+
+
+
+### 検索
+
+* ``ff`` でカレントディレクトリ以下のファイル検索 (``find . -type f``)
+* ``fd`` でカレントディレクトリ以下のディレクトリ検索 (``find . -type d``)
+
+
+
+### その他エイリアス
+
 * ``vp`` で ``.bash_profile`` を ``vim`` で開く
 * ``sp`` で ``.bash_profile`` を再読み込み
 
-### コマンド履歴
-``zsh`` の場合、
-    * ``^H`` で ``peco`` が起動してコマンド履歴からコマンド実行
+
+
+### 関数 & ミニアプリ
+
+#### メモ
+
+* ``p <メモ>`` で PromptMemo 追加（``p`` でプロンプトメモ消去）
+* ``q`` で QuickMemo ファイル開く（``~/WORKSPACE/Dropbox/note/INBOX/note.md``）
+* ``note`` で Note 一覧を ``peco`` で表示/選択して${MARKDOWN_EDITOR}で開く
+
+
+
+#### その他
+
+* ``bk <対象ファイル or ディレクトリ>`` で、バックアップ作成（*.bk)
+
+* ``note`` で``Typora`` で ``~/WORKSPACE/Dropbox/note/INBOX/note.md`` 開く
+
+	* ``note.md`` 開いた時刻が先頭行に自動追加
+
+* ``clock`` でタイムゾーン一覧が  ``peco`` で表示/選択して日時を表示する
+
+    ```bash
+    $ clock
+    America/New_York: Wed Sep 30 06:09:47 EDT 2020
+    ```
+
+* ``warei <数値>`` で和暦÷西暦 対応を表示
+
+    ```bash
+    $ wareki 2020
+    令和2年  2020
+    ```
+
+
 
 ## tmux
+
 * 設定は ``~/.tmux.conf``
 * プレフィックスキーは ``Ctrl`` + ``b`` （デフォルト）
 
+
+
 ### セッション（キーバインドは全てデフォルト）
+
 * ``prefix`` + ``s`` でセッション一覧 & セッション移動
 * ``prefix`` + ``d`` でデタッチ
 
+
+
 ### ウインドウ（キーバインドは全てデフォルト）
+
 * ``prefix`` + ``w`` でウインドウ一覧 & ウインドウ移動
 * ``prefix`` + ``c`` で新規ウインドウ作成
 * ``prefix`` + ``n`` で次のウインドウへ移動
@@ -64,7 +147,10 @@
 * ``prefix`` + ``,`` でウインドウ名の変更
 * ``prefix`` + ``.`` でウインドウ番号の変更
 
+
+
 ### ペイン
+
 * ``Prefix`` + ``-`` でペインを横分割
 * ``Prefix`` + ``\`` でペインを縦分割
 * ``prefix`` + ``z`` でペインの最大化
@@ -76,8 +162,13 @@
 * ``prefixkey`` + ``h`` でペインの境界を左へ移動
 * ``prefixkey`` + ``l`` でペインの境界を右へ移動
 
+
+
 ### その他
+
 * ``prefix`` + ``t`` で時刻表示
+
+
 
 ## vim の設定
 
@@ -100,10 +191,14 @@
 	* ``grep`` は、``,g`` (``grep`` は Unite grep で ag を使用する)
 	* ``Unite`` の開閉のみは、``<C-e>`` (最近開いたファイル) ``<C-p>`` （カレントディレクトリ）など
 
+
+
 ## vim の使い方（新規ファイル作成）
 
 * ``:e%%`` に続けて新規作成するファイル名でカレントディレクトリにファイル作成
 * または、`,e` で NERDTree 開いて、`ma`
+
+
 
 ## vim の使い方（移動編）
 
@@ -113,7 +208,10 @@
 * ``[B`` で最初のバッファへ
 * ``]B`` で最後のバッファへ
 
+
+
 ### ウインドウ
+
 * ``:--`` で水平分割 （``<C-k>`` でも水平分割）
 * ``:\\`` で垂直分割
 * ``Ctrl + w + h`` で左のウインドウへ移動(vim デフォルト)
@@ -121,6 +219,8 @@
 * ``Ctrl + w + k`` で上のウインドウへ移動(vim デフォルト)
 * ``Ctrl + w + l`` で右のウインドウへ移動(vim デフォルト)
 * ``Ctrl + ww`` でウインドウ間ローテーション
+
+
 
 ### ジャンプ
 
@@ -137,12 +237,16 @@
 	* ``<Shift>h`` で、行頭へ
 	* ``<Shift>l`` で、行末へ
 
+
+
 ### その他
 
 * 対象の行を選択して ``zf`` で折り畳み（開くときは ``l``）
 * 範囲を選択して ``=`` でインデント整形(vim デフォルト)
 * 右インデントは ``<Shift>>>``(vim デフォルト)
 * 左インデントは ``<Shift><<``(vim デフォルト)
+
+
 
 ## vim の使い方 (Unite)
 
@@ -151,6 +255,8 @@
 * ``,,`` で、Unite ウインドウを前回閉じた状態で開く（:UniteResume） * 現在無効
 * ``,g`` でカレントディレクトリ以下を grep 検索(Unite grep:)
 * ``,cg`` でカーソル位置の単語を grep 検索(Unite grep:)
+
+
 
 ### Unite コマンド
 
@@ -162,11 +268,15 @@
 
 * 新規ディレクトリ作成（``,fd``）と新規ファイル作成（``,fn``）は NERDTree で行った方がわかりやすい。
 
+
+
 ## vim の使い方 (NERDTree)
 
 * ツリーのルートを変更すると自動的にカレントディレクトリも変更する
 * ファイルを開くと自動的にツリーを閉じる
 * NERDTree ウインドウ内での操作（キーバインド）はデフォルトのまま
+
+
 
 ### NERDTree 基本コマンド
 
@@ -184,10 +294,14 @@
 |``md``|ファイル/ディレクトリ削除|
 |``I``|隠しファイルの表示/非表示切りかえ|
 
+
+
 ## vim の使い方 (入力補完: SupreTab)
 
 * ``TAB`` で入力補完
 * スニペット展開可能であればスニペット展開 (SnipMate) が優先
+
+
 
 ## vim の使い方（入力補完： vim-emmet)
 
@@ -210,6 +324,8 @@
 * スニペット登録ファイルは ``ファイルタイプ.snippets``
 * なので PHP ファイル (xxx.php) に適用するには ``~/.vim/snippets/php.snippets``
 
+
+
 ### tags と PHP 辞書の作成
 
 * 補完候補元は ``tags`` と PHP 辞書
@@ -217,11 +333,15 @@
 * PHP 辞書作成は ``php -r '$f=get_defined_functions();echo join("\n",$f["internal"]);'|sort > ~/.vim/dict/php.dict``
 
 
+
 ## vim の使い方 (辞書/マニュアル検索: vim-ref)
 
-* ``:refphp`` で PHP マニュアル検索（w/Unite）
-* ``:refen <検索語句>`` で英語辞書で単語検索
+* ``:dicphp`` で PHP マニュアル検索（w/Unite）
+* ``:dicfen <検索語句>`` で英語辞書で単語検索
 * PHP 語句の上で ``Shift + k`` で PHP マニュアル検索
+* 設定は ``.vim/vimdc_includs/vim-ref.vim``
+
+
 
 ## vim の使い方 (grep 検索)
 
@@ -230,9 +350,13 @@
 * ``:Ag % <検索文字列>`` でカレントバッファ内を検索して quickfix で開く
 * ``:Ag <検索文字列>`` でカレントディレクトリ以下も再帰的に検索して quickfix で開く
 
+
+
 ## vim の使い方 (開発)
 
 * ``,=`` でインデント整形
+
+
 
 ## vim の使い方 (PHP)
 
@@ -244,6 +368,8 @@
 * 上記 ``<Leader>n`` と ``<Leader>nf`` は vim の カレントディレクトリに ``tags`` 必要
 * ``use`` 文全体を選択して ``<Leader>su`` で短いもの順にソート
 
+
+
 ### getter/setter
 
 * 変数宣言の行で ``<Leader>g`` で getter を自動挿入
@@ -251,9 +377,13 @@
 * 変数宣言の行で ``<Leader>b`` で setter/getter を自動挿入
 * 変数宣言の行で ``<Leader>p`` で setter/getter/both の自動挿入プロンプト表示
 
+
+
 ### コメント
 
 * クラス/関数宣言の行で ``<Leader>d`` でドキュメントコメントを自動生成
+
+
 
 ### フォーマット
 
@@ -263,6 +393,7 @@
 * レポジトリ保存場所は、``~/.gitconfig`` で設定（``~/dev/src`` 指定済み）
 
 
+
 ## git 関連
 
 ### レポジトリ管理
@@ -270,14 +401,19 @@
 * ``ghq`` で管理
 * なのでレポジトリ追加は ``ghq add xxx/xxx``
 
+
+
 ### ワークフロー
+
 * ``gg`` で git log 確認
 * ``gs``, ``gd`` で変更箇所の確認
 * ``ga`` でステージング
 * ``gc`` でコミット
-* ``wip`` で ``git commit -m "[wip] still working"
+
+
 
 ### 主なエイリアス
+
 (1) ``~/.bash_profile`` で定義
 
 * ``gg``		= ``git graph``
@@ -290,6 +426,8 @@
 (2) ``~/gitconfig`` で定義
 
 * ``graph`` = ``log --graph --date-order --all --pretty=format:'%h %Cred%d %Cgreen%ad %Cblue%cn %Creset%s' --date=short``
+
+
 
 ## vagrant 関連
 
@@ -309,6 +447,8 @@
 * ``vrb`` = ``vagrant sandbox rollback``
 * ``vc`` = ``vagrant sandbox commit``
 
+
+
 ## Docker 関連
 
 docker がインストールされている場合、``nutsllc/docker-dd`` がインストールされる
@@ -318,6 +458,8 @@ docker がインストールされている場合、``nutsllc/docker-dd`` がイ
 * ``ddd`` = ``docker-compose down``
 * ``dde`` = ``docker-compose exec ${@}``
 * ``ddv`` = ``vim docker-compose.yml``
+
+
 
 ## インストール
 
@@ -329,6 +471,8 @@ $ git clone -b bk https://github.com/ontheroadjp/dotfiles.git ~/
 $ sh ~/dotfiles/install.sh
 $ source ~/.bash_profile
 ```
+
+
 
 ### vim + lua のインストール
 
@@ -347,6 +491,8 @@ $ make -j4
 $ make install
 ```
 
+
+
 ### NeoBundle のインストール
 
 * ``install.sh`` 実行時に実行される
@@ -356,6 +502,8 @@ mkdir -p ~/.vim/bundle
 git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 ```
 
+
+
 ### vim プラグインのインストール
 
 ```bash
@@ -363,17 +511,25 @@ $ vim
 :NeoBundleInstall
 ```
 
+
+
 ### peco のインストール
 
 ```bash
 $ sh ~/dotfiles/bin/install_peco.sh
 ```
 
-### tmux インストール（Mac のみ）
+* 設定ファイル ``~/.config/peco/config.json``
 
-```
+
+
+### tmux インストール（Mac）
+
+```bash
 $ brew install tmux
 ```
+
+
 
 ### PHP マニュアルのインストール
 
@@ -383,11 +539,15 @@ wget -O ${HOME}/.vim/ref/php-manual.tar.gz http://jp2.php.net/get/php_manual_ja.
 tar xzf ${HOME}/.vim/ref/php-manual.tar.gz -C ${HOME}/.vim/ref
 ```
 
+
+
 ### PHP 辞書の作成
 
 ```bash
 php -r '$f=get_defined_functions();echo join("\n",$f["internal"]);'|sort > ~/.vim/dict/php.dict
 ```
+
+
 
 ### tags ファイルの作成
 
@@ -395,11 +555,15 @@ php -r '$f=get_defined_functions();echo join("\n",$f["internal"]);'|sort > ~/.vi
 ctags --languages=php -f tags `pwd`
 ```
 
+
+
 ### ag のインストール
 
 ```bash
 brew install ag
 ```
+
+
 
 ### php-cs-fixer のインストール
 
@@ -408,19 +572,25 @@ composer global require fabpot/php-cs-fixer
 PATH=$PATH:${HOME}/.composer/bin
 ```
 
-## その他 Tool
 
-### youtube
+
+## その他主な Tool
+
+### YouTube
 
 ```bash
 youtube-dl <DLする動画ページの URL>
 ```
+
+
 
 ### mplayer
 
 ```bash
 mplayer <再生する動画/音楽ファイル>
 ```
+
+
 
 ## 変更履歴
 
