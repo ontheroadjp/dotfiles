@@ -227,6 +227,25 @@ alias i='_jump_to_directory i'
 alias o='_jump_to_directory o'
 
 #-------------------------------------------------
+# note
+#-------------------------------------------------
+function _one_note() {
+    if ! _is_exist gsed; then
+        echo "error: you need to install gsed(gnu-sed)"
+        echo "install: brew install gnu-sed"
+        return
+    fi
+
+    local note_dir="${WORKSPACE_DIR}/Dropbox/note"
+    #header="=====> $(date '+%Y%m%d %H:%M:%S') <=====\n\n"
+    header="=====> $(date) <=====\n\n"
+    gsed -i -e "1s/^/${header}/" ${note_dir}/INBOX/note.md
+    vim ${note_dir}/INBOX/note.md
+}
+alias one="_one_note"
+alias q="_one_note"
+
+#-------------------------------------------------
 # Go
 #-------------------------------------------------
 if _is_exist go; then
@@ -353,14 +372,16 @@ if _is_exist composer; then
 fi
 
 #-------------------------------------------------
-# Laravel
+# PHP: Laravel
 #-------------------------------------------------
-alias art='php artisan '
-alias tinker='php artisan tinker'
-alias pub='php artisan vendor:publish --force'
-alias sv='php artisan serve'
-alias rl='php artisan route:list'
-alias t='vendor/bin/phpunit --colors'
+if _is_exist php; then
+    alias art='php artisan '
+    alias tinker='php artisan tinker'
+    alias pub='php artisan vendor:publish --force'
+    alias sv='php artisan serve'
+    alias rl='php artisan route:list'
+    alias t='vendor/bin/phpunit --colors'
+fi
 
 #-------------------------------------------------
 # dstat
@@ -395,32 +416,31 @@ function sshx() {
 # --------------------------------------------
 # others( beta )
 # --------------------------------------------
-# find extension
-function findx(){
-	find $1 -name "$2" | awk '{print NR, $0}'
-	echo -n 'no?'
-	read no
-
-	line=`find $1 -name "$2" | awk '{print NR, $0}' | egrep "${no}"`
-	if [ ! -z "${line}" ]  ; then
-		path=`echo ${line} | awk '{print $2}' | sed -e s/$2//`
-		echo $path
-		cd $path
-	else
-		echo "There is no number you inputed."
-	fi
-}
-
 # files/directories backup
+#function bk() {
+#    if [ $# -eq 0 ]; then
+#        echo 'error: you need one parameter'
+#    else
+#        [ $# -ne 0 ] && [ -f ${1} ] && {
+#            cp -r ${1} ${1}.bk
+#            echo "backed up! (${1})"
+#        }
+#    fi
+#}
+
 function bk() {
-    if [ $# -eq 0 ]; then
-        echo 'no such file or directory.'
-    else
-        [ $# -ne 0 ] && [ -f ${1} ] && {
-            cp -r ${1} ${1}.bk
-            echo "backed up! (${1})"
-        }
-    fi
+    [ $# -ne 1 ] && {
+        echo 'error: param must be one file/directory.'
+        return
+    }
+
+    [ ! -e $1 ] && {
+        echo "error: file doesn't exist."
+        return
+    }
+
+    cp -r ${1} ${1}.bk
+    echo "backed up! (${1})"
 }
 
 #-------------------------------------------------
