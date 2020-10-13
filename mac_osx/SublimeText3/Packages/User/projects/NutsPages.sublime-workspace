@@ -1,0 +1,1220 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"class",
+				"class	New_Class"
+			],
+			[
+				"NutsPage",
+				"NutsPagesController"
+			],
+			[
+				"U",
+				"UserSite"
+			],
+			[
+				"Nu",
+				"NutsPages"
+			],
+			[
+				"pu",
+				"public_dir"
+			],
+			[
+				"acti",
+				"activity_master"
+			],
+			[
+				"sea",
+				"searchTarget"
+			],
+			[
+				"current",
+				"currentLocale"
+			],
+			[
+				"margin",
+				"margin-bottom"
+			],
+			[
+				"backg",
+				"background-color"
+			],
+			[
+				"font",
+				"font-family"
+			],
+			[
+				"login",
+				"login"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/User/markdown_to_html.sublime-build",
+					""
+				],
+				[
+					"Packages/User/untitled.sublime-build",
+					""
+				]
+			],
+			[
+				"Packages/User/markdown_to_html.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 400.0,
+		"last_filter": "inst",
+		"selected_items":
+		[
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"artis controll",
+				"Laravel Artisan 5: Make:Controller"
+			],
+			[
+				"delelte",
+				"ANF: Delete Current File"
+			],
+			[
+				"artisan cont",
+				"Laravel Artisan 5: Make:Controller"
+			],
+			[
+				"new",
+				"ANF: New File"
+			],
+			[
+				"rename",
+				"ANF: Rename File"
+			],
+			[
+				"lara stop",
+				"Laravel Artisan 5: Stop Serving"
+			],
+			[
+				"newfi",
+				"ANF: New File"
+			],
+			[
+				"artisan stop",
+				"Laravel Artisan 5: Stop Serving"
+			],
+			[
+				"atrisan stop",
+				"Laravel Artisan 5: Stop Serving"
+			],
+			[
+				"artisan sto",
+				"Laravel Artisan 5: Stop Serving"
+			],
+			[
+				"artisan",
+				"Laravel Artisan 5: Serve"
+			],
+			[
+				"atrisan",
+				"Laravel Artisan 5: List"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"dele",
+				"ANF: Delete Current File"
+			],
+			[
+				"delete",
+				"ANF: Delete Current File"
+			],
+			[
+				"delete file",
+				"ANF: Delete File"
+			],
+			[
+				"remove pac",
+				"Package Control: Remove Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"getter",
+				"PHP: Generate Getters and Setters"
+			],
+			[
+				"getter  setter",
+				"Generate Getter and Setter for ..."
+			],
+			[
+				"java",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"clear",
+				"Xdebug: Clear All Breakpoints"
+			],
+			[
+				"run",
+				"Xdebug: Breakpoint - Run"
+			],
+			[
+				"xdebug",
+				"Xdebug: Breakpoint - Run"
+			],
+			[
+				"x",
+				"Xdebug: Stop Debugging"
+			],
+			[
+				"xdebu",
+				"Xdebug: Stop Debugging"
+			],
+			[
+				"xdebut",
+				"Xdebug: Set Watch Expression"
+			],
+			[
+				"ctag",
+				"CTags: Rebuild Tags"
+			],
+			[
+				"ctags",
+				"CTags: Rebuild Tags"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"gutter the",
+				"SublimeLinter: Choose Gutter Theme"
+			],
+			[
+				"pref linter",
+				"Preferences: SublimeLinter Settings – User"
+			],
+			[
+				"choose",
+				"SublimeLinter: Choose Lint Mode"
+			],
+			[
+				"foldin",
+				"Code Folding: Unfold All"
+			],
+			[
+				"stop",
+				"Xdebug: Stop Debugging (Close Windows)"
+			],
+			[
+				"start",
+				"View: Toggle Status Bar"
+			],
+			[
+				"rest",
+				"Xdebug: Restart Session"
+			],
+			[
+				"restart",
+				"Xdebug: Restart Session"
+			],
+			[
+				"remo",
+				"Package Control: Remove Package"
+			],
+			[
+				"terminal",
+				"Open in terminal"
+			],
+			[
+				"open ",
+				"Open in terminal"
+			],
+			[
+				"package",
+				"Package Control: Remove Package"
+			],
+			[
+				"blade",
+				"Set Syntax: PHP - Laravel Blade"
+			],
+			[
+				"javasc",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"construc",
+				"Snippet: function __construct"
+			],
+			[
+				"companion",
+				"PHPCompanion:Insert Constructor Property"
+			],
+			[
+				"defini",
+				"PHPCompanion:Goto Definition Scope"
+			],
+			[
+				"javas",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"use",
+				"PHPCompanion:Find Use"
+			],
+			[
+				"php",
+				"Set Syntax: PHP"
+			],
+			[
+				"sublime view",
+				"Sublimerge: Compare to View..."
+			],
+			[
+				"sublimer",
+				"Sublimerge"
+			],
+			[
+				"git",
+				"Git: Graph All"
+			],
+			[
+				"gitstatus",
+				"Git: Status"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"w",
+				"Word Wrap: Toggle"
+			],
+			[
+				"syntax mark",
+				"Set Syntax: Markdown Extended"
+			],
+			[
+				"settin ",
+				"Preferences: Settings - User"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"list",
+				"Package Control: List Packages"
+			],
+			[
+				"package list",
+				"Package Control: List Packages"
+			],
+			[
+				"fuzzy",
+				"FuzzyFilePath: Show current settings"
+			],
+			[
+				"key defaul",
+				"Preferences: Key Bindings - Default"
+			],
+			[
+				"key defau",
+				"Preferences: Key Bindings - Default"
+			],
+			[
+				"key user",
+				"Preferences: Key Bindings - User"
+			],
+			[
+				"key defa",
+				"Preferences: Key Bindings - Default"
+			],
+			[
+				"sett user",
+				"Preferences: Settings - User"
+			],
+			[
+				"setting ",
+				"Preferences: Settings - Default"
+			],
+			[
+				"setti user",
+				"Preferences: Settings - User"
+			],
+			[
+				"key ",
+				"Preferences: Key Bindings - Default"
+			],
+			[
+				"setting defaul",
+				"Preferences: Settings - Default"
+			],
+			[
+				"user",
+				"Preferences: Settings - User"
+			],
+			[
+				"bin",
+				"Preferences: Key Bindings - User"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Add Channel"
+			],
+			[
+				"view",
+				"View In Browser"
+			],
+			[
+				"web",
+				"View In Browser"
+			],
+			[
+				"settings",
+				"Preferences: Settings - Default"
+			],
+			[
+				"disable",
+				"Package Control: Disable Package"
+			],
+			[
+				"remove packa",
+				"Package Control: Remove Package"
+			],
+			[
+				"markdo",
+				"Set Syntax: Markdown Extended"
+			],
+			[
+				"markdown",
+				"Set Syntax: Markdown Extended"
+			],
+			[
+				"mark style",
+				"SublimeLinter: Choose Mark Style"
+			],
+			[
+				"makefi",
+				"Preferences: Markmon Key Bindings – Default"
+			],
+			[
+				"add",
+				"Project: Add Folder"
+			],
+			[
+				":w",
+				":w - Save"
+			],
+			[
+				"book",
+				"Bookmarks: Toggle"
+			],
+			[
+				"setting",
+				"Preferences: Settings - User"
+			],
+			[
+				"line",
+				"Sort Lines"
+			],
+			[
+				"html",
+				"Set Syntax: HTML"
+			],
+			[
+				"php	",
+				"Snippet: <?php else: ?>"
+			]
+		],
+		"width": 529.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"sublime.log_commands(True)",
+			"sublime.log_commands(true)",
+			"import urllib.request,os,hashlib; h = 'eb2297e1a458f27d836c04bb0cbaf282' + 'd0e7a3098092775ccb37ca9d6b2e4b7d'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/hideaki/Desktop/test/NutsPages",
+		"/Users/hideaki/Desktop/test/NutsPages/app",
+		"/Users/hideaki/Desktop/test/NutsPages/app/Http",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/ontheroadjp",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/ontheroadjp/laravel-appbase",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/ontheroadjp/laravel-appbase/src",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/ontheroadjp/laravel-appbase/src/Providers",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/ontheroadjp/laravel-appbase/src/views/nuts-components",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/ontheroadjp/laravel-user",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/ontheroadjp/laravel-user/src",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/ontheroadjp/laravel-user/src/Providers"
+	],
+	"file_history":
+	[
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/ontheroadjp/laravel-appbase/src/Providers/LaravelAppBaseServiceProvider.php",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/laravel/framework/src/Illuminate/Foundation/AliasLoader.php",
+		"/Users/hideaki/Desktop/test/NutsPages 2/app/User.php",
+		"/Users/hideaki/Library/Application Support/Sublime Text 3/Packages/User/AdvancedNewFile.sublime-settings",
+		"/Users/hideaki/Desktop/test/NutsPages 2/app/Http/Controllers/Hoge.php",
+		"/Users/hideaki/Library/Application Support/Sublime Text 3/Packages/AdvancedNewFile/AdvancedNewFile.sublime-settings",
+		"/Users/hideaki/Library/Application Support/Sublime Text 3/Packages/Laravel 5 Artisan/Laravel 5 Artisan.sublime-settings",
+		"/Users/hideaki/Library/Application Support/Sublime Text 3/Packages/User/Laravel 5 Artisan.sublime-commands",
+		"/Users/hideaki/Desktop/test/NutsPages 2/app/Http/Controllers/HogeController.php.php",
+		"/Users/hideaki/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/hideaki/Dropbox/Apps/SublimeText3/Packages/User/snippets/Public_Function-sublime-snippets",
+		"/Users/hideaki/Desktop/test/NutsPages 2/artisan",
+		"/Users/hideaki/Desktop/test/NutsPages 2/app/Http/Controllers/Controller.php",
+		"/Users/hideaki/Dropbox/Apps/SublimeText3/Packages/User/snippets/php/Protected_Function.sublime-snippet",
+		"/Users/hideaki/Library/Application Support/Sublime Text 3/Packages/User/Default (OSX).sublime-keymap",
+		"/Users/hideaki/Library/Application Support/Sublime Text 3/Packages/User/PHP Companion.sublime-settings",
+		"/Users/hideaki/Library/Application Support/Sublime Text 3/Packages/PHP Companion/PHP Companion.sublime-settings",
+		"/Users/hideaki/Desktop/test/NutsPages 2/app/Http/routes.php",
+		"/Users/hideaki/Library/Application Support/Sublime Text 3/Packages/AdvancedNewFile/Default (OSX).sublime-keymap",
+		"/Users/hideaki/Desktop/test/NutsPages 2/app/Http/testhogehoge.php",
+		"/Users/hideaki/Desktop/test/NutsPages 2/app/Http/test23143.php",
+		"/Users/hideaki/Desktop/test/NutsPages 2/app/Http/test.php",
+		"/Users/hideaki/Desktop/test/NutsPages 2/app/Http/test2224.php",
+		"/Users/hideaki/Desktop/test/NutsPages 2/test22.php",
+		"/Users/hideaki/Desktop/test/NutsPages 2/app/Http/test2.php",
+		"/Users/hideaki/Desktop/test/NutsPages 2/newtest.php",
+		"/Users/hideaki/Desktop/test/NutsPages 2/app/Http/test3.php",
+		"/Users/hideaki/Desktop/test/NutsPages 2/test3.php",
+		"/Users/hideaki/Dropbox/Apps/SublimeText3/Packages/User/untitled",
+		"/Users/hideaki/Dropbox/Apps/SublimeText3/Packages/User/snippets/php/Private_Function.sublime-snippet",
+		"/Users/hideaki/Desktop/test.php",
+		"/Users/hideaki/Library/Application Support/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/Users/hideaki/Desktop/test/chef-centoos-setup/html/memo/static/atom/shortcut.html",
+		"/Users/hideaki/Desktop/test/daux.io/static/index.html",
+		"/Users/hideaki/.ssh/id_rsa.pub",
+		"/Users/hideaki/Desktop/test/NutsPages/.env",
+		"/Users/hideaki/Desktop/test/chef-centoos-setup/chef-repo/readline",
+		"/Users/hideaki/Desktop/test/chef-centoos-setup/chef-repo/password.txt",
+		"/Users/hideaki/Desktop/test/chef-centoos-setup/chef-repo/site-cookbooks/daemonctrl/metadata.rb",
+		"/Users/hideaki/Desktop/download",
+		"/Users/hideaki/Desktop/httpd.conf.erb",
+		"/Users/hideaki/Desktop/test/chef-centoos-setup/chef-repo/site-cookbooks/apache2/templates/default/httpd.conf.erb",
+		"/Users/hideaki/Desktop/test/chef-centoos-setup/chef-repo/site-cookbooks/apache2/templates/default/httpd.conf",
+		"/Users/hideaki/Desktop/test/chef-centoos-setup/chef-repo/site-cookbooks/php55/recipes/default.rb",
+		"/Users/hideaki/Desktop/test/chef-centoos-setup/chef-repo/site-cookbooks/mysql56/recipes/default.rb",
+		"/Users/hideaki/Desktop/test/chef-centoos-setup/chef-repo/site-cookbooks/mysql/recipes/default.rb",
+		"/Users/hideaki/Desktop/test/test.php",
+		"/Users/hideaki/Desktop/page/index.html",
+		"/Users/hideaki/Desktop/page/js/max_img.js",
+		"/Users/hideaki/Vagrant/lara5_spa01/vagrant/artisan.rb",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/ontheroadjp/laravel-appbase/gulpfile.js",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/ontheroadjp/laravel-appbase/src/views/single_page.blade.php",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/ontheroadjp/laravel-appbase/src/views/errors/404.blade.php",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/ontheroadjp/laravel-appbase/src/views/app.blade.php",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/ontheroadjp/laravel-appbase/src/views/errors/unsigned/404.blade.php",
+		"/Users/hideaki/Desktop/test/NutsPages/resources/views/errors/503.blade.php",
+		"/Users/hideaki/Desktop/test/NutsPages/resources/views/errors/500.blade.php",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/ontheroadjp/laravel-appbase/Providers/LaravelAppBaseServiceProvider.php",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/ontheroadjp/laravel-user/README.md",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/ontheroadjp/laravel-user/src/views/home.blade.php",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/ontheroadjp/laravel-user/src/views/welcome.blade.php",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/ontheroadjp/NutsPages/src/views/ajax/delete.blade.php",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/ontheroadjp/laravel-appbase/src/Controllers/AppBaseController.php",
+		"/Users/hideaki/Desktop/test/NutsPages/users/public/OkVWwu/index.php",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/symfony/http-kernel/HttpKernelInterface.php",
+		"/Users/hideaki/Desktop/test/NutsPages/larabel.sublime-project",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/ontheroadjp/NutsPages/src/Models/UserSite.php",
+		"/Users/hideaki/dotfiles/.vimrc",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/ontheroadjp/Utilities/phpunit.xml",
+		"/Users/hideaki/dotfiles/karabiner/private.xml",
+		"/Users/hideaki/Desktop/test/NutsPages/tags",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/ontheroadjp/NutsPages/tests/unit/NutsServiceProviderTest.php",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/ontheroadjp/NutsPages/tests/unit/TestCase.php",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/ontheroadjp/NutsPages/src/Providers/NutsPagesServiceProvider.php",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/ontheroadjp/NutsPages/src/Controllers/NutsPagesController.php",
+		"/Users/hideaki/Library/Application Support/Sublime Text 3/Packages/User/CTags.sublime-settings",
+		"/Users/hideaki/Library/Application Support/Sublime Text 3/Packages/CTags/CTags.sublime-settings",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/ontheroadjp/NutsPages/src/views/newsite.blade.php",
+		"/Users/hideaki/Library/Application Support/Sublime Text 3/Packages/User/SublimeLinter.sublime-settings",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/ontheroadjp/laravel-user/src/Controllers/auth/ExAuthController.php",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/ontheroadjp/laravel-user/src/Models/UserActivity.php",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/ontheroadjp/NutsPages/src/views/dashboard.blade.php",
+		"/Users/hideaki/Library/Application Support/Sublime Text 3/Packages/Default/Default (OSX).sublime-keymap",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/ontheroadjp/test.sublime-project",
+		"/Users/hideaki/Library/Application Support/Sublime Text 3/Packages/Xdebug Client/Xdebug.sublime-settings",
+		"/Users/hideaki/Library/Application Support/Sublime Text 3/Packages/User/Xdebug.sublime-settings",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/laravel/framework/src/Illuminate/Events/Dispatcher.php",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/ontheroadjp/NutsPages/src/Listeners/UserSiteObserver.php",
+		"/Users/hideaki/Library/Application Support/Sublime Text 3/Packages/MacTerminal/Default.sublime-keymap",
+		"/Users/hideaki/Library/Application Support/Sublime Text 3/Packages/Terminal/Default (OSX).sublime-keymap",
+		"/Users/hideaki/Library/Application Support/Sublime Text 3/Packages/User/MacTerminal.sublime-settings",
+		"/Users/hideaki/Library/Application Support/Sublime Text 3/Packages/MacTerminal/MacTerminal.sublime-settings",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/ontheroadjp/NutsPages/tests/RootingTest.php",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/ontheroadjp/NutsPages/tests/TestCase.php",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/ontheroadjp/NutsPages/tests/unit/RootingTest.php",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/ontheroadjp/NutsPages/src/views/ajax/publish.js",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/ontheroadjp/NutsPages/tests/LaravelTestCase.php",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/ontheroadjp/NutsPages/tests/BaseTestCase.php",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/ontheroadjp/NutsPages/src/Services/NutsPages.php",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/ontheroadjp/NutsPages/src/views/ajax/edit.js",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/laravel/framework/src/Illuminate/Foundation/Auth/AuthenticatesAndRegistersUsers.php",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/laravel/framework/src/Illuminate/Foundation/Auth/AuthenticatesUsers.php",
+		"/Users/hideaki/Desktop/test/NutsPages/node_modules/laravel-elixir/node_modules/gulp-less/node_modules/accord/node_modules/when/when.js",
+		"/Users/hideaki/Desktop/test/NutsPages/app/Http/Controllers/Controller.php",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/laravel/framework/src/Illuminate/Foundation/Auth/RegistersUsers.php",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/laravel/framework/src/Illuminate/Support/Arr.php",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/laravel/framework/src/Illuminate/Auth/Guard.php",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/laravel/framework/src/Illuminate/Auth/AuthManager.php",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/laravel/framework/src/Illuminate/Auth/EloquentUserProvider.php",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/laravel/framework/src/Illuminate/Contracts/Auth/UserProvider.php",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/laravel/framework/src/Illuminate/Support/Facades/Auth.php",
+		"/Users/hideaki/Desktop/test/NutsPages/node_modules/browser-sync/node_modules/localtunnel/node_modules/request/request.js",
+		"/Users/hideaki/Desktop/test/NutsPages/node_modules/laravel-elixir/node_modules/browser-sync/node_modules/chokidar/node_modules/fsevents/node_modules/request/request.js",
+		"/Users/hideaki/Desktop/test/NutsPages/app/User.php",
+		"/Users/hideaki/Desktop/test/NutsPages/config/app.php",
+		"/Users/hideaki/Desktop/test/NutsPages/app/Http/Controllers/Auth/PasswordController.php",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/laravel/framework/src/Illuminate/Foundation/Auth/ResetsPasswords.php",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/laravel/framework/src/Illuminate/Auth/Passwords/PasswordBroker.php",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/laravel/framework/src/Illuminate/Auth/Passwords/PasswordResetServiceProvider.php",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/laravel/framework/src/Illuminate/Support/Facades/Password.php",
+		"/Users/hideaki/Desktop/test/NutsPages/app/Http/Controllers/Auth/AuthController.php",
+		"/Users/hideaki/Desktop/test/NutsPages/bower_components/AdminLTE/plugins/ckeditor/plugins/wsc/dialogs/tmp.html",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/laravel/framework/src/Illuminate/Contracts/Auth/PasswordBroker.php",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/laravel/framework/src/Illuminate/Routing/Controller.php",
+		"/Users/hideaki/Desktop/test/NutsPages/storage/framework/messages/c74a1fea30fd887af5aa0059dc5875a5.php",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/laravel/framework/src/Illuminate/Contracts/Auth/Access/Authorizable.php",
+		"/Users/hideaki/Desktop/test/NutsPages/vendor/laravel/framework/src/Illuminate/Contracts/Auth/Authenticatable.php"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 112.0,
+		"where_history":
+		[
+			"/Users/hideaki/Desktop/test/NutsPages",
+			"/Users/hideaki/Desktop/test/NutsPages/vendor/spatie/laravel-medialibrary/src",
+			"/Users/hideaki/Desktop/test/NutsPages",
+			"/Users/hideaki/Vagrant/LAMP/www/PixelAdmin-1.3.0/html",
+			"/Users/hideaki/Desktop/test/Gulp-PHP-AdminLTE/src,*.blade.php",
+			"/Users/hideaki/Desktop/test/Gulp-PHP-AdminLTE/src/",
+			"/Users/hideaki/Desktop/test/Gulp-PHP-AdminLTE/src",
+			"/Users/hideaki/Vagrant/hoge/lara2",
+			"/Users/hideaki/Vagrant/Laravel5.1-AdminLTE",
+			"/Users/hideaki/Vagrant/Laravel5.1-AdminLTE/vendor/acacha/admin-lte-template-laravel/src/resources",
+			"/Users/hideaki/Vagrant/Laravel5.1-AdminLTE/vendor/acacha/admin-lte-template-laravel/src/resources/assets",
+			"/Users/hideaki/Vagrant/Laravel5.1-AdminLTE/vendor/acacha/admin-lte-template-laravel/src/resources",
+			"/Users/hideaki/Vagrant/Laravel5.1-AdminLTE/vendor/acacha/admin-lte-template-laravel/src/resources/assets",
+			"/Users/hideaki/Vagrant/Laravel5.1-AdminLTE",
+			"/Users/hideaki/Vagrant/hoge/sample/resources/views",
+			"/Users/hideaki/Vagrant/lara5_spa01/www",
+			"/Users/hideaki/Vagrant/lara5_spa01/www/vendor/laravel/framework/src/Illuminate/Foundation/Auth",
+			"/Users/hideaki/Vagrant/lara5_spa01/www",
+			"/Users/hideaki/Dropbox/アプリ/PlainText 2/開発/git/",
+			"/Users/hideaki/Dropbox/アプリ/PlainText 2/開発/SublimeText3/",
+			"<current file>"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"false",
+			"private",
+			"python",
+			"hello",
+			"python",
+			"hello",
+			"public",
+			"python",
+			"hello",
+			"public",
+			"<%=",
+			"serveradmin",
+			"loader",
+			"P",
+			"Kernel",
+			"kernel",
+			"->",
+			"NutsPagesController",
+			"function",
+			"public",
+			"getMessage",
+			"hash",
+			"UserSite",
+			"\\Exception",
+			"\\DB",
+			"\\Exception",
+			"creatingFailed",
+			"item",
+			"handle",
+			"this",
+			"create",
+			"getFailedLoginMessage",
+			"loginPath",
+			"attempt",
+			"authenticated",
+			"session",
+			"created",
+			"fireModelEvent",
+			"created",
+			"getObservableEvents",
+			"increment",
+			"create",
+			"User::",
+			"fireModelEvent",
+			"fireModelEvent('uodated",
+			"fire",
+			"get",
+			"grtOriginal",
+			"setAttri",
+			"attribute",
+			"attributes",
+			"state",
+			"performUpdate",
+			"->fire",
+			"get",
+			"original",
+			"attribute",
+			"create",
+			"AuthManager.php",
+			"new Guard",
+			"EloquentUserProvider",
+			"attempt",
+			"events",
+			"function attempt(",
+			"attempt(",
+			"attempt( ",
+			"attempt(",
+			"attempt",
+			"loginUsername",
+			"authenticated",
+			"emailView",
+			"sendResetLink",
+			"DispatcherContract",
+			"                'password' => 'ExPasswordController',\nDispatchContract",
+			"ActivityMaster",
+			"views",
+			"is not available",
+			"out",
+			"html",
+			"btn-label",
+			"btnLabel",
+			"false",
+			"label",
+			"md",
+			"'label'=>'select'",
+			"domain",
+			"$val",
+			"name",
+			"\"is not available\"",
+			"sm",
+			"md",
+			"false",
+			"\"false\"",
+			" => [",
+			"false",
+			"$val.",
+			"[",
+			"array(",
+			"step-caption",
+			"panel",
+			"GenericUser",
+			"btn-",
+			"btn-primary",
+			"btn",
+			"li",
+			"img",
+			"user",
+			"page-settings",
+			"My Account",
+			"Account",
+			"My Account",
+			"upload",
+			"uploadg",
+			"upload",
+			"id",
+			"polyglot",
+			"change",
+			"successModal",
+			"alert-close",
+			"close",
+			"id",
+			"Input",
+			"name",
+			"createfor",
+			"collection_name",
+			"toMediaLibrary",
+			"guarded",
+			"model_id"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			".skin-nuts",
+			"<",
+			"\"",
+			">",
+			"<",
+			"<img src=\"{{asset('/img/adminlte/",
+			"/img/adminlte",
+			"<img src=\"/img/adminlte",
+			";",
+			"<?php echo $",
+			" ?>",
+			"<?php "
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 34.0
+	},
+	"input":
+	{
+		"height": 40.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 372.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.xdebug":
+	{
+		"height": 498.0
+	},
+	"pinned_build_system": "",
+	"project": "NutsPages.sublime-project",
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"aliasloader",
+				"vendor/laravel/framework/src/Illuminate/Foundation/AliasLoader.php"
+			],
+			[
+				"laravelbase",
+				"vendor/ontheroadjp/laravel-appbase/src/Providers/LaravelAppBaseServiceProvider.php"
+			],
+			[
+				"hoge",
+				"app/Http/Controllers/Hoge.php"
+			],
+			[
+				"user.php",
+				"app/User.php"
+			],
+			[
+				"route",
+				"app/Http/routes.php"
+			],
+			[
+				"testhogehoge",
+				"app/Http/testhogehoge.php"
+			],
+			[
+				"test.php",
+				"app/Http/test.php"
+			],
+			[
+				"test2224",
+				"app/Http/test2224.php"
+			],
+			[
+				"keymap",
+				"~/Library/Application Support/Sublime Text 3/Packages/User/Default (OSX).sublime-keymap"
+			],
+			[
+				"test",
+				"app/Http/test.php"
+			],
+			[
+				"",
+				"~/Library/Application Support/Sublime Text 3/Packages/User/PHP Companion.sublime-settings"
+			],
+			[
+				"public_func",
+				"~/Dropbox/Apps/SublimeText3/Packages/User/snippets/Public_Function-sublime-snippets"
+			],
+			[
+				"controller",
+				"app/Http/Controllers/Controller.php"
+			],
+			[
+				"authenticatesusers",
+				"vendor/laravel/framework/src/Illuminate/Foundation/Auth/AuthenticatesUsers.php"
+			],
+			[
+				"authenticatesandregistersusers",
+				"vendor/laravel/framework/src/Illuminate/Foundation/Auth/AuthenticatesAndRegistersUsers.php"
+			],
+			[
+				"authcontro",
+				"app/Http/Controllers/Auth/AuthController.php"
+			],
+			[
+				"model",
+				"vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php"
+			],
+			[
+				"registersusers",
+				"vendor/laravel/framework/src/Illuminate/Foundation/Auth/RegistersUsers.php"
+			],
+			[
+				"model.pp",
+				"vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php"
+			],
+			[
+				"userpro",
+				"vendor/laravel/framework/src/Illuminate/Auth/EloquentUserProvider.php"
+			],
+			[
+				"resetspasswords",
+				"vendor/laravel/framework/src/Illuminate/Foundation/Auth/ResetsPasswords.php"
+			],
+			[
+				"illuminate/foundation/auth/authenticatesandregistersusers",
+				"vendor/laravel/framework/src/Illuminate/Foundation/Auth/AuthenticatesAndRegistersUsers.php"
+			],
+			[
+				"nutspageservi",
+				"NutsPages/src/Providers/NutsPagesServiceProvider.php"
+			],
+			[
+				"sidesimple",
+				"laravel-auth/src/views/partials/sidebar/simple.blade.php"
+			],
+			[
+				"illuminate/auth/authmanager",
+				"vendor/laravel/framework/src/Illuminate/Auth/AuthManager.php"
+			],
+			[
+				"illuminate/support/facades/auth",
+				"vendor/laravel/framework/src/Illuminate/Support/Facades/Auth.php"
+			],
+			[
+				"authservice",
+				"app/Providers/AuthServiceProvider.php"
+			],
+			[
+				"userprovi",
+				"vendor/laravel/framework/src/Illuminate/Auth/EloquentUserProvider.php"
+			],
+			[
+				"user",
+				"vendor/ontheroadjp/laravel-user/src/Providers/LaravelUserServiceProvider.php"
+			],
+			[
+				"database",
+				"vendor/laravel/framework/src/Illuminate/Redis/Database.php"
+			],
+			[
+				"app.php",
+				"config/app.php"
+			],
+			[
+				".en",
+				".env"
+			],
+			[
+				"mail",
+				"config/mail.php"
+			],
+			[
+				"authorizesrequests",
+				"vendor/laravel/framework/src/Illuminate/Foundation/Auth/Access/AuthorizesRequests.php"
+			],
+			[
+				"throttleslogins",
+				"vendor/laravel/framework/src/Illuminate/Foundation/Auth/ThrottlesLogins.php"
+			],
+			[
+				"home",
+				"src/app/views/home.blade.php"
+			],
+			[
+				"footer",
+				"src/app/views/partials/footer.blade.php"
+			],
+			[
+				"app.bl",
+				"src/app/views/app.blade.php"
+			],
+			[
+				"sidebarsimple",
+				"src/app/views/partials/sidebar_simple.blade.php"
+			],
+			[
+				"side",
+				"src/app/views/partials/sidebar.blade.php"
+			],
+			[
+				"sideba",
+				"bower_components/AdminLTE/build/less/sidebar.less"
+			],
+			[
+				"mainhead",
+				"src/app/views/partials/mainheader.blade.php"
+			],
+			[
+				"mainheader_sim",
+				"src/app/views/partials/mainheader_simple.blade.php"
+			],
+			[
+				"mainheader",
+				"src/app/views/partials/mainheader.blade.php"
+			],
+			[
+				"htmlheader",
+				"vendor/Ontheroad/start-on-laravel/src/resources/views/partials/htmlheader.blade.php"
+			],
+			[
+				"html",
+				"resources/views/partials/htmlheader.blade.php"
+			],
+			[
+				"auth.",
+				"resources/views/auth/auth.blade.php"
+			],
+			[
+				"login",
+				"resources/views/auth/login.blade.php"
+			],
+			[
+				"homea",
+				"vendor/acacha/admin-lte-template-laravel/src/resources/views/home.blade.php"
+			],
+			[
+				"guard",
+				"vendor/laravel/framework/src/Illuminate/Auth/Guard.php"
+			],
+			[
+				"authcont",
+				"app/Http/Controllers/Auth/AuthController.php"
+			],
+			[
+				"kernel",
+				"app/Http/Kernel.php"
+			],
+			[
+				"well",
+				"resources/views/welcome.blade.php"
+			],
+			[
+				"vho",
+				"resources/views/home.blade.php"
+			],
+			[
+				"home.bl",
+				"resources/views/home.blade.php"
+			],
+			[
+				"rou",
+				"app/Http/routes.php"
+			],
+			[
+				"passwordcon",
+				"app/Http/Controllers/Auth/PasswordController.php"
+			],
+			[
+				"authcon",
+				"app/Http/Controllers/Auth/AuthController.php"
+			],
+			[
+				"authconto",
+				"app/Http/Controllers/Auth/AuthController.php"
+			],
+			[
+				"nav",
+				"resources/views/navbar.blade.php"
+			],
+			[
+				"app.",
+				"config/app.php"
+			],
+			[
+				"routes",
+				"app/Providers/RouteServiceProvider.php"
+			],
+			[
+				"root",
+				"vendor/league/flysystem/src/RootViolationException.php"
+			],
+			[
+				"layou",
+				"resources/views/layout.blade.php"
+			],
+			[
+				"rout",
+				"app/Http/routes.php"
+			],
+			[
+				"lay",
+				"resources/views/layout.blade.php"
+			],
+			[
+				"style",
+				"public/style.css"
+			],
+			[
+				"passwordcont",
+				"app/Http/Controllers/Auth/PasswordController.php"
+			],
+			[
+				"laravel",
+				"storage/logs/laravel.log"
+			],
+			[
+				"welcome",
+				"resources/views/welcome.blade.php"
+			],
+			[
+				"prob",
+				"~/Library/Application Support/Sublime Text 3/Packages/User/problems_of_sublime_text_3.md"
+			],
+			[
+				"ext/index",
+				"src/ext/index.php"
+			],
+			[
+				"src/ext/inde",
+				"src/ext/index.php"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"~/SublimeText3_Projects/SPA-01-src.sublime-project"
+			],
+			[
+				"src",
+				"~/SublimeText3_Projects/SPA-01-src.sublime-project"
+			],
+			[
+				"spa",
+				"~/SublimeText3_Projects/spa-01/spa-01.sublime-project"
+			],
+			[
+				"sp",
+				"~/SublimeText3_Projects/spa-01/spa-01.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 239.0,
+		"last_filter": "delete",
+		"selected_items":
+		[
+			[
+				"delete",
+				"delete"
+			]
+		],
+		"width": 403.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 253.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+		"max_columns": 2
+	}
+}

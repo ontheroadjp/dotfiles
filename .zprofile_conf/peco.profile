@@ -114,15 +114,15 @@ function _connect_vps() {
 alias vps='_connect_vps'
 
 #-------------------------------------------------
-# My Note
+# My Memo
 #-------------------------------------------------
-function _my_note() {
-    local my_note_dir="${WORKSPACE}/Dropbox/アプリ/PlainText_2/開発"
-    local dir=$(find ${my_note_dir} -type d | peco --prompt "My Note>")
-    local md=$(find ${dir} -type f | peco --prompt "My Note>")
+function _my_memo() {
+    local my_memo_dir="${WORKSPACE}/Dropbox/Documents/memo"
+    local dir=$(find ${my_memo_dir} -type d | peco --prompt "My Memo>")
+    local md=$(find ${dir} -type f | peco --prompt "My Memo>")
 	[ ! -z ${md}  ] && open -a ${MARKDOWN_EDITOR} ${md}
 }
-alias note="_my_note"
+alias memo="_my_memo"
 
 #-------------------------------------------------
 # WEB Bookmark

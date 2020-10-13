@@ -1,0 +1,154 @@
+{
+    "title": "iterm2",
+    "rules": [
+        {
+            "description": "iterm2: Command to Ctrl",
+            "manipulators": [
+                {
+                    "type": "basic",
+                    "conditions" : [
+                        {
+                            "type": "frontmost_application_if",
+                            "bundle_identifiers": [
+                                "^com\\.googlecode\\.iterm2"
+                            ]
+                        }
+                    ],
+                    "from": {
+                        "key_code": "caps_lock",
+                        "modifiers": {
+                            "optional": [
+                                "any"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "left_control"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "iTerm2: Toggle FEP (en/ja)",
+            "manipulators": [
+                {
+                    "conditions" : [
+                        {
+                            "type": "frontmost_application_if",
+                            "bundle_identifiers": [
+                                "^com\\.googlecode\\.iterm2"
+                            ]
+                        }
+                    ],
+                    "type": "basic",
+                    "from": {
+                        "key_code": "spacebar",
+                        "modifiers": {
+                            "mandatory": ["left_control"]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "spacebar",
+                            "modifiers": [
+                                "left_command"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "iTerm2: Alfred Window",
+            "manipulators": [
+                {
+                    "conditions" : [
+                        {
+                            "type": "frontmost_application_if",
+                            "bundle_identifiers": [
+                                "^com\\.googlecode\\.iterm2"
+                            ]
+                        }
+                    ],
+                    "type": "basic",
+                    "from": {
+                        "key_code": "spacebar",
+                        "modifiers": {
+                            "mandatory": ["left_control", "shift"]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "spacebar",
+                            "modifiers": [
+                                "left_command", "shift"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "iTerm2: Paste (⌘ + v)",
+            "manipulators": [
+                {
+                    "conditions" : [
+                        {
+                            "type": "frontmost_application_if",
+                            "bundle_identifiers": [
+                                "^com\\.googlecode\\.iterm2"
+                            ]
+                        }
+                    ],
+                    "type": "basic",
+                    "from": {
+                        "key_code": "v",
+                        "modifiers": {
+                            "mandatory": ["left_control"]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "v",
+                            "modifiers": [
+                                "left_command"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "iTerm2: Copy (⌘ + c)",
+            "manipulators": [
+                {
+                    "conditions" : [
+                        {
+                            "type": "frontmost_application_if",
+                            "bundle_identifiers": [
+                                "^com\\.googlecode\\.iterm2"
+                            ]
+                        }
+                    ],
+                    "type": "basic",
+                    "from": {
+                        "key_code": "c",
+                        "modifiers": {
+                            "mandatory": ["left_control"]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "c",
+                            "modifiers": [
+                                "left_command"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

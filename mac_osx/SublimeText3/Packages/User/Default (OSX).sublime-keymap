@@ -1,0 +1,73 @@
+[
+    // ---------------------------------------------------
+    // for ctag plugin
+    // ---------------------------------------------------
+    { "command": "navigate_to_definition", "keys": ["super+t", "super+t"] },
+
+    // ---------------------------------------------------
+    // for SublimePHPCompanion 
+    // ---------------------------------------------------
+    // nemespace フルパス挿入
+    { "command": "expand_fqcn", "keys": ["f9"] },
+
+    // use 挿入
+    { "command": "find_use", "keys": ["f10"] },
+
+    // コンストラクタ 挿入
+    { "command": "insert_php_constructor_property", "keys": ["f7"] },
+
+    // ---------------------------------------------------
+    // for Vintage Mode 
+    // ---------------------------------------------------
+    { "keys": ["j","j"], "command": "exit_insert_mode",
+        "context":
+        [
+            { "key": "setting.command_mode", "operand": false },
+            { "key": "setting.is_widget", "operand": false }
+        ]
+    },
+
+    // ---------------------------------------------------
+
+    // ジャンプバック
+    { "keys": ["command+left"], "command": "jump_back" },
+
+    // ジャンプフォワード
+    { "keys": ["command+right"], "command": "jump_forward" },
+
+    // コードの折りたたみ
+    { "keys": ["super+shift+["], "command": "fold" },
+    { "keys": ["super+shift+]"], "command": "unfold" },
+
+	// Expand Selection to Scope @ Expand Region
+	{ "keys": ["super+shift+'"], "command": "expand_region" },
+	{
+		"keys": ["super+u"],
+		"command": "expand_region",
+		"args": {"undo": true},
+		"context": [{ "key": "expand_region_soft_undo" }]
+	},
+
+	{ "keys": ["super+shift+="], "command": "reindent" , "args": { "single_line": false } },
+
+    // { "keys": ["super+shift+k"], "command": "run_macro_file", "args": {"file": "res://Packages/Default/Delete Line.sublime-macro"} },
+
+    // { "keys": ["option+j"], "command": "run_macro_file", "args": {"file": "res://Packages/Default/Delete Line.sublime-macro"} },
+
+    // Select text between brackets @ Bracket Highlighter
+   {
+        "no_outside_adj": true,
+        "keys": ["ctrl+shift+m"],
+        "command": "bh_key",
+        "args":
+        {
+            "lines" : true,
+            "plugin":
+            {
+                "type": ["__all__"],
+                "command": "bh_modules.bracketselect"
+            }
+        }
+    },
+
+]
