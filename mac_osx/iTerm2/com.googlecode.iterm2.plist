@@ -27,7 +27,7 @@
 	<key>CommandSelection</key>
 	<true/>
 	<key>Control</key>
-	<integer>7</integer>
+	<integer>1</integer>
 	<key>CopyLastNewline</key>
 	<false/>
 	<key>CopySelection</key>
@@ -454,7 +454,7 @@
 	<key>JobName</key>
 	<true/>
 	<key>LeftCommand</key>
-	<integer>1</integer>
+	<integer>7</integer>
 	<key>LeftOption</key>
 	<integer>2</integer>
 	<key>LoadPrefsFromCustomFolder</key>
@@ -521,7 +521,7 @@
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>494 336 987 77 0 0 1920 1200 </string>
 	<key>NSWindow Frame NSNavPanelAutosaveName</key>
-	<string>419 435 841 470 0 0 1680 1050 </string>
+	<string>440 451 799 448 0 0 1680 1050 </string>
 	<key>NSWindow Frame Preferences</key>
 	<string>786 475 606 456 0 0 1920 1200 </string>
 	<key>NSWindow Frame SUStatusFrame</key>
@@ -535,7 +535,7 @@
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>155 616 592 584 0 0 1920 1200 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 0 1680 1050 0 0 1680 1050 </string>
+	<string>701 180 730 752 0 0 1680 1050 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>962 441 730 752 0 0 1920 1200 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
@@ -3765,8 +3765,8 @@
 		<string>3.3.2</string>
 		<string>3.3.3</string>
 		<string>3.3.9</string>
-		<string>3.3.0</string>
 		<string>3.2.9</string>
+		<string>3.3.0</string>
 		<string>3.3.4</string>
 	</array>
 	<key>NoSyncFrame_SharedPreferences</key>
@@ -3774,7 +3774,7 @@
 		<key>screenFrame</key>
 		<string>{{0, 0}, {1680, 1050}}</string>
 		<key>topLeft</key>
-		<string>{552, 700}</string>
+		<string>{1002, 345}</string>
 	</dict>
 	<key>NoSyncHaveRequestedFullDiskAccess</key>
 	<true/>
@@ -3787,7 +3787,7 @@
 	<key>NoSyncLastTipTime</key>
 	<real>501208379.13592398</real>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>152</integer>
+	<integer>180</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -4149,6 +4149,14 @@
 				<true/>
 				<key>name</key>
 				<string>currentTab.currentSession.terminalIconName</string>
+				<key>nonterminalContext</key>
+				<integer>0</integer>
+			</dict>
+			<dict>
+				<key>isTerminal</key>
+				<true/>
+				<key>name</key>
+				<string>currentTab.currentSession.terminalWindowName</string>
 				<key>nonterminalContext</key>
 				<integer>0</integer>
 			</dict>
@@ -4575,7 +4583,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-10-03T00:52:45Z</date>
+	<date>2020-10-13T02:41:53Z</date>
 	<key>SUUpdateGroupIdentifier</key>
 	<integer>1377394633</integer>
 	<key>SUUpdateRelaunchingMarker</key>

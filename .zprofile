@@ -264,11 +264,11 @@ function _quick_memo() {
         return
     fi
 
-    local note_dir="${WORKSPACE}/Dropbox/note"
+    local quick_memo_dir="${WORKSPACE}/Dropbox/Documents/memo"
     #header="## =====> $(date '+%Y%m%d %H:%M:%S') <=====\n\n"
     header="## =====> $(date) <=====\n\n"
-    gsed -i -e "1s/^/${header}/" ${note_dir}/INBOX/note.md
-    vim ${note_dir}/INBOX/note.md
+    gsed -i -e "1s/^/${header}/" ${quick_memo_dir}/quick_memo.md
+    vim ${quick_memo_dir}/quick_memo.md
 }
 alias qmemo="_quick_memo"
 alias q="_quick_memo"

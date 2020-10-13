@@ -1,18 +1,50 @@
 # dotfiles
 
-* ``bash``, ``tmux``, ``vim``, ``git``, ``karabiner``(Mac only) の設定が中心
-* 主な連携ツール： ``peco``, ``ghq``, ``ag``, ``ctags``
+* ``bash/zsh``, ``tmux``, ``vim``, ``git``, ``Docker`` の設定が中心
+* 主なツール： ``peco``, ``ghq``, ``ag``, ``ctags``
+
+
+
+### Mac
+
+- ``Homebrew``, ``iTerm2``, ``karabiner``
+
+
+
+## 主なディレクトリ構成
+
+| ディレクトリ | パス                              |移動エイリアス|
+| :--- | :--- | ---- |
+| dotfiles | ``${HOME}/dotfiles``                              |``dot``|
+| リポジトリ     | ``${HOME}/dev``                                    |``rr``|
+| ワークスペース | ``${HOME}/WORKSPACE``                              |``ww``|
+| クイックメモ | ``${HOME}/WORKSPACE/Dropbox/Documents/memo`` |``q``|
+| メモ           | ``${HOME}/WORKSPACE/Dropbox/Documents/memo``       |``memo``|
+
+
+
+## 主な PATH
+
+- ``.``
+- ``${HOME}/dotfiles/bin``
 
 
 
 ## shell (bash/zsh)
 
+
+
 ### ディレクトリ表示
+
 * ``la`` で ``clear && ls -laG``
 * ``lla`` または ``laa`` で サブディレクトリ 一覧を表示/選択して ``la`` 実行（peco）
 * ``dirsize`` でディレクトリのサイズ表示（対象ディレクトリ指定ない場合はカレント）
 
+
+
 ### ディレクトリ移動
+
+
 
 #### 基本
 
@@ -34,24 +66,23 @@
 
 
 
-#### ジャンプ & マーク（by peco）
+#### ジャンプ & マーク（ローカル）
 
-* ``cdd`` で ``~/WORKSPACE`` 内のディレクトリを表示/選択してディレクトリ移動
-	* ``zsh`` の場合は、``^R`` でも OK（``^`` は ``Ctrl``）
-* ``cds`` でカレントディレクトリ内のサブディレクトリを表示/選択してディレクトリ移動
-* ``cdh`` でディレクトリの訪問履歴を表示/選択してディレクトリ移動
-* ``cdm`` でディレクトリマーク一覧を表示/選択してディレクトリ移動
+* ``cdd`` でカレントディレクトリ内のサブディレクトリを ``peco`` 表示/選択してディレクトリ移動
+* ``cdh`` でディレクトリの訪問履歴を ``peco`` で表示/選択してディレクトリ移動
+* ``cdm`` でディレクトリマーク一覧を ``peco`` で表示/選択してディレクトリ移動
+* ``ww`` で ``~/WORKSPACE`` 内のディレクトリを ``peco`` で表示/選択してディレクトリ移動
+* ``rr`` でリポジトリ（``${HOME}/dev``) を ``peco`` で表示/選択して移動
 
 
 
-#### ジャンプ & マーク（by peco: web）
+#### ジャンプ & マーク（リモート）
 
-* ``vpn`` で VPN サーバー一覧を表示/選択してディレクトリ移動
+* ``vpn`` で SSH接続一覧 (``${HOME}/.ssh/config``) を ``peco`` で表示/選択してディレクトリ移動
 * ``google <検索ワード>`` または ``g 検索ワード`` で Google 検索
 * ``web`` で ``peco`` でブックマーク一覧を表示/選択してブラウザで表示
     * ブックマークは ``~/dotfiles/.web_bookmark``
 * ``stock`` で ``peco`` で上場銘柄一覧を表示/選択してブラウザで表示
-* ``clock`` で ``peco`` でタイムゾーン一覧を表示/選択して日時を表示
 
 
 
@@ -80,6 +111,9 @@
 
 * ``ff`` でカレントディレクトリ以下のファイル検索 (``find . -type f``)
 * ``fd`` でカレントディレクトリ以下のディレクトリ検索 (``find . -type d``)
+* ``fd --empty`` でかれんんとディレクトリ 以下の空のディレクトリ検索
+* ``ffi`` でカレントディレクトリ以下の画像ファイル検索
+* ``ffic`` でカレントディレクトリ以下の画像ファイル数カウント
 
 
 
@@ -94,19 +128,16 @@
 
 #### メモ
 
-* ``p <メモ>`` で PromptMemo 追加（``p`` でプロンプトメモ消去）
-* ``q`` で QuickMemo ファイル開く（``~/WORKSPACE/Dropbox/note/INBOX/note.md``）
-* ``note`` で Note 一覧を ``peco`` で表示/選択して${MARKDOWN_EDITOR}で開く
+* ``p <メモの内容>`` で PromptMemo 追加（``p`` のみでプロンプトメモ消去）
+* ``q`` で QuickMemo ファイル開く（``~/WORKSPACE/Dropbox/Documents/quick_note.md``）
+    * ``quick_note.md`` 開いた日時が先頭行に自動追加
+* ``memo`` で Note 一覧を ``peco`` で表示/選択して ``${MARKDOWN_EDITOR}`` で開く
 
 
 
 #### その他
 
-* ``bk <対象ファイル or ディレクトリ>`` で、バックアップ作成（*.bk)
-
-* ``note`` で``Typora`` で ``~/WORKSPACE/Dropbox/note/INBOX/note.md`` 開く
-
-	* ``note.md`` 開いた時刻が先頭行に自動追加
+* ``bk <対象ファイル or ディレクトリ>`` で、同じディレクトリにバックアップ作成（*.tag.gz)
 
 * ``clock`` でタイムゾーン一覧が  ``peco`` で表示/選択して日時を表示する
 
@@ -115,7 +146,7 @@
     America/New_York: Wed Sep 30 06:09:47 EDT 2020
     ```
 
-* ``warei <数値>`` で和暦÷西暦 対応を表示
+* ``wareki <数値>`` で和暦÷西暦 対応を表示
 
     ```bash
     $ wareki 2020
