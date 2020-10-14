@@ -499,6 +499,43 @@ function _google_web_search() {
 alias google="_google_web_search"
 alias g="_google_web_search"
 
+# --------------------------------------------
+# TrashBox
+# --------------------------------------------
+function _trashbox() {
+    local trash=${DOTPATH}/.TrashBox
+
+    [ ${#@} -eq 0 ] && {
+        local list=$(ls -lAG ${trash} | grep -v .gitkeep | sed '1d')
+        echo "================== Trash Box =================="
+        echo ${list}
+        echo "$(echo ${list} | wc -l) item(s) in TrashBox."
+        return 0
+    }
+
+    [ $1 = "empty" ] && {
+        find ${trash} -maxdepth 1 | sort | sed '1d' | grep -v .gitkeep | xargs -0 rm -rf
+        echo "Empty TrashBox."
+        return 0
+    }
+
+    [ -e ${1} ] && {
+        [ ! -e ${trash}/$1 ] && {
+            mv $1 ${trash}
+            echo "OK"
+        } || {
+            for i in $(seq 99); do
+                filename="$1-$i"
+                [ ! -e ${trash}/${filename} ] && {
+                    mv $1 ${trash}/${filename}
+                    break;
+                }
+            done
+        }
+    } || echo 'no file/dir'
+}
+alias del="_trashbox"
+
 #-------------------------------------------------
 # others
 #-------------------------------------------------

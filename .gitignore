@@ -3,6 +3,8 @@
 .gitmodules
 
 .dirmarks/
+.TrashBox/*
+!.TrashBox/.gitkeep
 
 .atom/packages/
 .atom/storage/
