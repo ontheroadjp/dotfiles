@@ -117,6 +117,36 @@
             ]
         },
         {
+            "description": "iTerm2: Change App (⌘ + Tab)",
+            "manipulators": [
+                {
+                    "conditions" : [
+                        {
+                            "type": "frontmost_application_if",
+                            "bundle_identifiers": [
+                                "^com\\.googlecode\\.iterm2"
+                            ]
+                        }
+                    ],
+                    "type": "basic",
+                    "from": {
+                        "key_code": "tab",
+                        "modifiers": {
+                            "mandatory": ["left_control"]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "tab",
+                            "modifiers": [
+                                "left_command"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
             "description": "iTerm2: Copy (⌘ + c)",
             "manipulators": [
                 {
@@ -132,7 +162,7 @@
                     "from": {
                         "key_code": "c",
                         "modifiers": {
-                            "mandatory": ["left_control"]
+                            "mandatory": ["left_control", "shift"]
                         }
                     },
                     "to": [
@@ -162,7 +192,7 @@
                     "from": {
                         "key_code": "v",
                         "modifiers": {
-                            "mandatory": ["left_control"]
+                            "mandatory": ["left_control", "shift"]
                         }
                     },
                     "to": [
