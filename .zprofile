@@ -219,14 +219,22 @@ alias .....="cd ../../../.."
 #-------------------------------------------------
 # find
 #-------------------------------------------------
-alias ff="find . -type f"
-alias fd="find . -type d"
-IMAGE_EXTENTION="(JPG|jpg|jpeg|PNG|png|TIFF|TIF|tiff|tif|CR2|NEF|ARW|MOV|mov|AVI|avi)"
-alias ffi='find -E . -type f -regex "^.*\.${IMAGE_EXTENTION}$"'
+function _find_file() { find ${@:-.} -type f | sort }
+function _find_file_count() { _find_file $@ | wc -l }
+function _find_directory() { find ${@:-.} -type d | sort }
+function _find_directory_count() { _find_directory $@ | wc -l }
+function _find_image() {
+    local image_extention="(JPG|jpg|jpeg|PNG|png|TIFF|TIF|tiff|tif|CR2|NEF|ARW|MOV|mov|AVI|avi)"
+    find -E ${1:-.} -type f -regex "^.*\.${image_extention}$"
+}
+function _find_image_count() { _find_image $@ | wc -l }
 
-alias ffc='ff | wc -l'
-alias fdc="fd | wc -l"
-alias ffic='ffi | wc -l'
+alias ff="_find_file"
+alias ffc='_find_file_count'
+alias fd="_find_directory"
+alias fdc="_find_directory_count"
+alias ffi='_find_image'
+alias ffic='_find_image_count'
 
 #-------------------------------------------------
 # Directory mark and jump

@@ -1,0 +1,15 @@
+#!/bin/bash
+
+function _echo_min_value() {
+        #vals=(20140923 20051106 20110314 20110315)
+        local min_value=${1}
+        shift
+
+        for v in $@; do
+            [ ${min_value} -gt ${v} ] && min_value=${v}
+        done
+
+        echo ${min_value}
+}
+
+_echo_min_value $@
