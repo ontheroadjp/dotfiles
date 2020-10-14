@@ -132,6 +132,7 @@
 * ``q`` で QuickMemo ファイル開く（``~/WORKSPACE/Dropbox/Documents/quick_note.md``）
     * ``quick_note.md`` 開いた日時が先頭行に自動追加
 * ``memo`` で Note 一覧を ``peco`` で表示/選択して ``${MARKDOWN_EDITOR}`` で開く
+* ``yubin`` で ``peco`` で郵便番号一覧を表示して検索
 
 
 
@@ -146,12 +147,14 @@
     America/New_York: Wed Sep 30 06:09:47 EDT 2020
     ```
 
-* ``wareki <数値>`` で和暦÷西暦 対応を表示
+* ``wareki <数値>`` で和暦/西暦 対応を表示
 
     ```bash
     $ wareki 2020
     令和2年  2020
     ```
+    
+* ``holiday`` で日本の祝日・休日一覧を表示
 
 
 

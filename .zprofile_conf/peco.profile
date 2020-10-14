@@ -180,34 +180,21 @@ function _stock_search() {
     local security_code
     # curl https://www.jpx.co.jp/markets/statistics-equities/misc/tvdivq0000001vg2-att/data_j.xls -o ${stock_search_dir}/stock.xls
 
-    local double_big_letters="ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ"
-    local double_small_letters="ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏpｑｒｓｔｕｖｗｘｙｚ"
-    local single_big_letters="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    local single_small_letters="abcdefghijklmnopqrstuvwxyz"
-    local double_numbers="０１２３４５６７８９"
-    local single_numbers="0123456789"
-    local double_marks="　／＆（）\［\］：；"
-    local single_marks=" \/&()\[\]:;"
-
     security_code=$(
             cat ${stock_search_dir}/stock.csv | \
             cut -d ',' -f 2-4 | \
-            sed -e "y/${double_big_letters}/${single_big_letters}/" | \
-            sed -e "y/${double_small_letters}/${single_small_letters}/" | \
-            sed -e "y/${double_numbers}/${single_numbers}/" | \
-            sed -e "y/${double_marks}/${single_marks}/" | \
+            nkf -Z1 | \
             column -s ',' -t | \
             peco --prompt "JP Stock>" --query ${@:-''} | \
             sed -e 's/^.*\([0-9]\{4\}\).*/\1/g'
         )
-
+    [ ! -z ${security_code} ] && {
         site=$({
             echo "Google"
             echo "Yahoo! Finance"
             echo "SBI"
         } | peco )
 
-    [ ! -z ${security_code} ] && {
         local url=''
         case ${site} in
             "Google" )
