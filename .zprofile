@@ -504,17 +504,17 @@ alias g="_google_web_search"
 # --------------------------------------------
 function _trashbox() {
     local trash=${DOTPATH}/.TrashBox
+    mkdir -p ${trash}
 
     [ ${#@} -eq 0 ] && {
-        local list=$(ls -lAG ${trash} | grep -v .gitkeep | sed '1d')
         echo "================== Trash Box =================="
-        echo ${list}
-        echo "$(echo ${list} | wc -l) item(s) in TrashBox."
+        ls -lAG ${trash}
+        echo "$(ls -lAG ${trash} | sed '1d' | wc -l) item(s) in TrashBox."
         return 0
     }
 
     [ $1 = "empty" ] && {
-        find ${trash} -maxdepth 1 | sort | sed '1d' | grep -v .gitkeep | xargs -0 rm -rf
+        rm -rf ${trash}
         echo "Empty TrashBox."
         return 0
     }
