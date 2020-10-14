@@ -64,7 +64,7 @@ function _cd_by_dirspeco() {
         return 1
     }
 
-    to="$(dirs -v | awk '{print $2}' | sort | uniq | peco --prompt "cd to >" | sed -e s:^~:${HOME}:)"
+    to="$(dirs -v | awk '{print $2}' | sort | uniq | peco --prompt "cd to>" | sed -e s:^~:${HOME}:)"
     [[ ! -z ${to} ]] && cd ${to}
     echo ${to}
 }
@@ -76,7 +76,12 @@ alias cdh='_cd_by_dirspeco'
 
 # for zsh
 function peco-history-selection() {
-    BUFFER=$(history -n 1 | tac  | awk '!a[$0]++' | peco --prompt 'zsh Command History>')
+    BUFFER=$(history -n 1 | \
+        tac  | \
+        awk '!a[$0]++' | \
+        peco --prompt 'zsh Command History>'
+    )
+
     CURSOR=$#BUFFER
     zle reset-prompt
 }
@@ -168,7 +173,7 @@ alias clock="_show_worldtime"
 alias wt="_show_worldtime"
 
 #-------------------------------------------------
-# Search Stock Price
+# Search Stock
 #-------------------------------------------------
 function _stock_search() {
     local stock_search_dir="${DOTPATH}/.stock_jp"
@@ -192,14 +197,30 @@ function _stock_search() {
             sed -e "y/${double_numbers}/${single_numbers}/" | \
             sed -e "y/${double_marks}/${single_marks}/" | \
             column -s ',' -t | \
-            peco --prompt "JP Stock>"| \
+            peco --prompt "JP Stock>" --query ${@:-''} | \
             sed -e 's/^.*\([0-9]\{4\}\).*/\1/g'
         )
 
+        site=$({
+            echo "Google"
+            echo "Yahoo! Finance"
+            echo "SBI"
+        } | peco )
+
     [ ! -z ${security_code} ] && {
-        #local url="https://www.google.com/search?q=${security_code}"
-        local url="https://stocks.finance.yahoo.co.jp/stocks/detail/?code=${security_code}"
-        open -a "/Applications/Safari.app" ${url}
+        local url=''
+        case ${site} in
+            "Google" )
+                url="https://www.google.com/search?q=${security_code}"
+                ;;
+            "Yahoo! Finance" )
+                url="https://stocks.finance.yahoo.co.jp/stocks/detail/?code=${security_code}"
+                ;;
+            "SBI" )
+                url="https://site1.sbisec.co.jp/ETGate/?_ControlID=WPLETsiR001Control&_PageID=WPLETsiR001Idtl10&_DataStoreID=DSWPLETsiR001Control&_ActionID=stockDetail&s_rkbn=2&s_btype=&i_stock_sec=${security_code}&i_dom_flg=1&i_exchange_code=JPN&i_output_type=0&exchange_code=TKY&stock_sec_code_mul=${security_code}&ref_from=1&ref_to=20&infoview_kbn=2&PER=&wstm4130_sort_id=&wstm4130_sort_kbn=&qr_keyword=1&qr_suggest=1&qr_sort=1"
+                ;;
+        esac
+        open ${url}
     }
 }
 alias stock="_stock_search"

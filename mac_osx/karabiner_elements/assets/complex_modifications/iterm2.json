@@ -82,8 +82,64 @@
                     "to": [
                         {
                             "key_code": "spacebar",
+                            "modifiers": ["left_command", "shift"]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "iTerm2: Alfred Clipboard History",
+            "manipulators": [
+                {
+                    "conditions" : [
+                        {
+                            "type": "frontmost_application_if",
+                            "bundle_identifiers": [
+                                "^com\\.googlecode\\.iterm2"
+                            ]
+                        }
+                    ],
+                    "type": "basic",
+                    "from": {
+                        "key_code": "backslash",
+                        "modifiers": {
+                            "mandatory": ["left_control", "shift"]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "backslash",
+                            "modifiers": ["left_command", "shift"]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "iTerm2: Copy (⌘ + c)",
+            "manipulators": [
+                {
+                    "conditions" : [
+                        {
+                            "type": "frontmost_application_if",
+                            "bundle_identifiers": [
+                                "^com\\.googlecode\\.iterm2"
+                            ]
+                        }
+                    ],
+                    "type": "basic",
+                    "from": {
+                        "key_code": "c",
+                        "modifiers": {
+                            "mandatory": ["left_control"]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "c",
                             "modifiers": [
-                                "left_command", "shift"
+                                "left_command"
                             ]
                         }
                     ]
@@ -112,36 +168,6 @@
                     "to": [
                         {
                             "key_code": "v",
-                            "modifiers": [
-                                "left_command"
-                            ]
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "iTerm2: Copy (⌘ + c)",
-            "manipulators": [
-                {
-                    "conditions" : [
-                        {
-                            "type": "frontmost_application_if",
-                            "bundle_identifiers": [
-                                "^com\\.googlecode\\.iterm2"
-                            ]
-                        }
-                    ],
-                    "type": "basic",
-                    "from": {
-                        "key_code": "c",
-                        "modifiers": {
-                            "mandatory": ["left_control"]
-                        }
-                    },
-                    "to": [
-                        {
-                            "key_code": "c",
                             "modifiers": [
                                 "left_command"
                             ]

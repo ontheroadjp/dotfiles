@@ -25,10 +25,10 @@ if _is_exist git; then
     alias gbk='git commit -m "[WIP] still working"'
     alias wip='git commit -m "[wip] still working"'
 
-    function git_add_status() {
+    function git_add_to_status() {
         git add "$@" && git status
     }
-    alias ga='git_add_status'
+    alias ga='git_add_to_status'
 
 #    function _git_reset_status() {
 #        git reset "$@" && git status

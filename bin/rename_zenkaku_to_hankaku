@@ -1,0 +1,53 @@
+#!/bin/bash
+
+set -Ceu
+
+function _rename_zenkaku_to_hankaku() {
+    local double_big_letters="ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ"
+    local double_small_letters="ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏpｑｒｓｔｕｖｗｘｙｚ"
+    local single_big_letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    local single_small_letters='abcdefghijklmnopqrstuvwxyz'
+    local double_numbers='０１２３４５６７８９'
+    local single_numbers='0123456789'
+    local double_marks='　／\［\］：；〜｀！＠＃＄％＾＆＊（）＋＝｜￥'
+    local single_marks=' \/\[\]:;~`!@#$%^&*()+=|\\'
+
+    # $1: file
+    function _exec() {
+        new_file=$(echo "${1}" | \
+            sed -e "y/${double_big_letters}/${single_big_letters}/" | \
+            sed -e "y/${double_small_letters}/${single_small_letters}/" | \
+            sed -e "y/${double_numbers}/${single_numbers}/" | \
+            sed -e "y/${double_marks}/${single_marks}/"
+        )
+        new_dir=$(dirname ${new_file})
+        [ ! -e ${new_dir} ] && {
+            mkdir ${new_dir}
+            [ $(find $(dirname ${1}) -type f | wc -l) -eq 0 ] && {
+                rm -rf "$(dirname ${1})"
+            }
+        }
+        mv -n "${1}" "${new_file}"
+        echo ${new_file}
+    }
+
+    for file in $@; do
+        if [ -d "$1" ]; then
+            for file in $(find $1 -mindepth 1 -type f); do
+                _exec "${file}"
+            done
+        else
+            _exec "${file}"
+        fi
+        shift
+    done
+}
+
+STASH_IFS=${IFS}
+IFS=$'\n'
+if [ -p /dev/stdin ]; then
+    _rename_zenkaku_to_hankaku $(cat -)
+else
+    _rename_zenkaku_to_hankaku "$@"
+fi
+IFS=${STASH_IFS}
