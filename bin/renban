@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -Ceu
+EXT="(JPG|jpg|jpeg|PNG|png|TIFF|TIF|tiff|tif|CR2|NEF|ARW|MOV|mov|AVI|avi|MPG|mpg|mp4)"
+
+function _renban() {
+    STASH_IFS=${IFS}; IFS=$'\n'
+    current_dir=''
+
+    for file in $(find -E ${1} -type f -regex "^.*\.${EXT}$" | sort); do
+        if [ "$(dirname ${file})" != "${current_dir}" ]; then
+            current_dir=$(dirname ${file})
+            counter=1
+        fi
+        renban=$(printf "%06d\n" "${counter}")
+        echo "[mv] ${file} ===> $(dirname ${file})/${renban}.${file##*.}"
+        mv -n "${file}" "$(dirname ${file})/${renban}.${file##*.}"
+        aa=$((counter++))
+    done
+    IFS=${STASH_IFS}
+}

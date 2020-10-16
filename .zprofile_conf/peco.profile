@@ -26,7 +26,7 @@ function _cd_to_workspace() {
         grep -v .git | \
         sort | \
         uniq | \
-        peco --prompt "${WORKSPACE}/" --query "${*}" 2>/dev/null \
+        peco --prompt "${WORKSPACE}/" --query "${*}" \
     )
     [ ! -z ${to} ] && cd ${to}
 }

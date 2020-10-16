@@ -77,8 +77,8 @@ NeoBundle 'ervandew/supertab'                       " auto completion
 "-------------------------------------------------------------
 " Snippets
 "-------------------------------------------------------------
-"NeoBundle 'Shougo/neosnippet'                       " code snipet
-"NeoBundle 'Shougo/neosnippet-snippets'              " a collection of the code anipet
+NeoBundle 'Shougo/neosnippet'                       " code snipet
+NeoBundle 'Shougo/neosnippet-snippets'              " a collection of the code anipet
 
 NeoBundle 'garbas/vim-snipmate'                     " snippets
 NeoBundle 'MarcWeber/vim-addon-mw-utils'            " snippets dependency
@@ -87,7 +87,7 @@ NeoBundle 'tomtom/tlib_vim'                         " snippets dependency
 "-------------------------------------------------------------
 " Base utilities
 "-------------------------------------------------------------
-NeoBundle 'easymotion/vim-easymotion'               " easy cursor moving
+"NeoBundle 'easymotion/vim-easymotion'               " easy cursor moving
 NeoBundle 'tpope/vim-surround'                      " easy to add/chenge/delete quote
 
 "-------------------------
@@ -98,7 +98,7 @@ NeoBundle 'thinca/vim-quickrun'
 "-------------------------
 " for Git
 "-------------------------
-NeoBundle 'tpope/vim-fugitive'
+"NeoBundle 'tpope/vim-fugitive'
 
 "-------------------------
 " for HTML, CSS
@@ -120,7 +120,7 @@ NeoBundle 'joonty/vdebug'	    		            " xdebug client
 "-------------------------
 NeoBundle 'rking/ag.vim'                            " using ag in grep
 NeoBundle 'thinca/vim-ref'                          " search dictionary (PHP mnual/English dictionary)
-NeoBundle 'fuenor/qfixhowm'                         " ease to create memo
+"NeoBundle 'fuenor/qfixhowm'                         " ease to create memo
 
 "-------------------------
 " minor leage

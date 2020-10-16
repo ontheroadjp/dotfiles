@@ -9,12 +9,13 @@ nnoremap [q :cprevious<CR>
 "nmap ,c :!open -a Google\ Chrome<CR>
 
 
-"================================================================ Keybind
+"================================================================ File
 " File type
 " <Leader> = \ (default)
 nmap <C-S><C-S> :set filetype=bash<CR>
 nmap <Leader>ft :set filetype?<CR>
 nmap <Leader>vv :source ~/.vimrc<CR>
+nmap <Leader>fp :echo expand("%:p")<CR>
 
 "================================================================ visuals
 "color schema
@@ -92,6 +93,7 @@ cabbr w!! w !sudo tee > /dev/null %
 
 " New File Template
 autocmd BufNewFile *.vue 0r $HOME/dotfiles/.vim/templates/vue.tpl
+autocmd BufNewFile *.{sh,bash} 0r $HOME/dotfiles/.vim/templates/sh.tpl
 
 " Filetype
 autocmd BufNewFile,BufRead *.{html,htm,vue*} set filetype=html  " for vue.js
@@ -310,6 +312,9 @@ so ${HOME}/dotfiles/.vim/vimrc_includs/supertab.vim
 so ${HOME}/dotfiles/.vim/vimrc_includs/neosnippet.vim
 so ${HOME}/dotfiles/.vim/vimrc_includs/snipmate.vim
 so ${HOME}/dotfiles/.vim/vimrc_includs/vim-emmet.vim
+
+" input
+so ${HOME}/dotfiles/.vim/vimrc_includs/surround.vim
 
 " reference
 so ${HOME}/dotfiles/.vim/vimrc_includs/vim-ref.vim
