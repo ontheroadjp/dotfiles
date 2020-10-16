@@ -52,7 +52,6 @@ if _is_exist git; then
         alias rr='_cd_to_repository_from_ghq_list'
     fi
 
-
     #-------------------------------------------------
     # Go to the github.com
     #-------------------------------------------------

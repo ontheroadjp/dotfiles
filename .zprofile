@@ -180,7 +180,7 @@ setopt share_history
 # Changing directory(Common)
 #-------------------------------------------------
 function _print_la() {
-    ls -laG $@
+    ls -laGh $@
 #    if [ $# -ne 0 ]; then
 #        if [ ${1:0:1} == '/' ]; then
 #            printf "\e[31m$1\e[m\n"
@@ -193,7 +193,6 @@ function _print_la() {
     items=$(ls -la $@ | wc -l | tr -d ' ') > /dev/null 2>&1
     #dirs=$(ls -ld */ | wc -l | tr -d ' ') > /dev/null 2>&1
     #print "${items} items: dir ${dirs} items"
-    print "${items} items"
 }
 #alias la='ls -laG'
 alias la='_print_la'
@@ -221,7 +220,10 @@ alias .....="cd ../../../.."
 #-------------------------------------------------
 function _find_file() { find ${@:-.} -type f | sort }
 function _find_file_count() { _find_file $@ | wc -l }
-function _find_directory() { find ${@:-.} -type d | sort }
+#function _find_directory() { find ${@:-.} -type d | sort }
+function _find_directory() {
+    find ${@:-.} -type d | sort
+}
 function _find_directory_count() { _find_directory $@ | wc -l }
 function _find_image() {
     local image_extention="(JPG|jpg|jpeg|PNG|png|TIFF|TIF|tiff|tif|CR2|NEF|ARW|MOV|mov|AVI|avi)"
@@ -487,7 +489,6 @@ function _restore_backup() {
     echo "Restored! (${strip}.tar.gz)"
 }
 alias restore="_restore_backup"
-alias re="_restore_backup"
 
 # --------------------------------------------
 # Google WEB Search
@@ -502,39 +503,48 @@ alias g="_google_web_search"
 # --------------------------------------------
 # TrashBox
 # --------------------------------------------
-function _trashbox() {
-    local trash=${DOTPATH}/.TrashBox
-    mkdir -p ${trash}
+function _shell_stash() {
+    local stash=${DOTPATH}/.Stash
+    mkdir -p ${stash}
 
     [ ${#@} -eq 0 ] && {
-        echo "================== Trash Box =================="
-        ls -lAG ${trash}
-        echo "$(ls -lAG ${trash} | sed '1d' | wc -l) item(s) in TrashBox."
+        echo "========================== Stash =========================="
+        ls -lAGhF ${stash} | sed '1d'
+        echo "==========================================================="
+        echo "$(ls -lAG ${stash} | sed '1d' | wc -l) item(s) in Shell Stash."
         return 0
     }
 
-    [ $1 = "empty" ] && {
-        rm -rf ${trash}
-        echo "Empty TrashBox."
+    [ $1 = "drop" ] && {
+        rm -rf ${stash} && echo "empty stash."
         return 0
     }
 
-    [ -e ${1} ] && {
-        [ ! -e ${trash}/$1 ] && {
-            mv $1 ${trash}
-            echo "OK"
+    [ $1 = "pop" ] && {
+        [ -e ${stash}/${2} ] && {
+            mv ${stash}/${2} ${3}
+        }
+        return 0
+    }
+
+    [ -e "${1}" ] && {
+        [ ! -e "${stash}/$1" ] && {
+            mv "$1" ${stash}
+            echo "put: ${1}"
         } || {
             for i in $(seq 99); do
                 filename="$1-$i"
-                [ ! -e ${trash}/${filename} ] && {
-                    mv $1 ${trash}/${filename}
+                [ ! -e "${stash}/${filename}" ] && {
+                    mv "$1" "${stash}/${filename}"
+                    echo "put: ${filename}"
                     break;
                 }
             done
         }
     } || echo 'no file/dir'
 }
-alias del="_trashbox"
+alias stash="_shell_stash"
+alias ss="_shell_stash"
 
 #-------------------------------------------------
 # others
