@@ -1,5 +1,6 @@
 #! /bin/sh
 
+
 DOTPATH=${HOME}/dotfiles
 
 function _is_exist {
@@ -29,6 +30,9 @@ function _deploy_dotfiles() {
         # vim
         .vim
         .vimrc
+
+        # ag
+        .agignore
     )
 
 	for f in ${dotfiles[@]}

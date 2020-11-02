@@ -6,8 +6,8 @@ autocmd QuickfixCmdPost *grep* cwindow
 nnoremap ]q :cnext<CR>
 nnoremap [q :cprevious<CR>
 
-"nmap ,c :!open -a Google\ Chrome<CR>
-
+nmap ,c :!open -a Google\ Chrome<CR>
+nmap ,s :!open -a Safari<CR>
 
 "================================================================ File
 " File type
@@ -16,7 +16,7 @@ nmap <C-S><C-S> :set filetype=bash<CR>
 nmap <Leader>ft :set filetype?<CR>
 nmap <Leader>vv :source ~/.vimrc<CR>
 nmap <Leader>fp :echo expand("%:p")<CR>
-
+nmap <Leader>enc :set enc?<CR>
 "================================================================ visuals
 "color schema
 so ${HOME}/dotfiles/.vim/vimrc_includs/color-schema.vim
@@ -83,10 +83,11 @@ autocmd BufWritePre * :%s/\s\+$//ge              " remove trailing whitespace wh
 "cnoremap %ed edit %:p:h/
 
 " %% to expand current directory
-cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h/').'/' : '%%'
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:p:h/').'/' : '%%'
 
 " Auto change directory to match current file ,cd
-nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
+nnoremap <Leader>cd :cd %:p:h<CR>:pwd<CR>
+nnoremap <Leader>ww :cd ~/WORKSPACE<CR>:pwd<CR>
 
 " Save as root user
 cabbr w!! w !sudo tee > /dev/null %
@@ -99,28 +100,29 @@ autocmd BufNewFile *.{sh,bash} 0r $HOME/dotfiles/.vim/templates/sh.tpl
 autocmd BufNewFile,BufRead *.{html,htm,vue*} set filetype=html  " for vue.js
 
 "--------------------------------------------------------------- Buffer
+nnoremap <silent> <Leader>b :buffers<CR>
 nnoremap <silent> [b :bprevious<CR>
 nnoremap <silent> ]b :bnext<CR>
-nnoremap <silent> [B :bfirst<CR>
-nnoremap <silent> ]B :blast<CR>
+"nnoremap <silent> [B :bfirst<CR>
+"nnoremap <silent> ]B :blast<CR>
 
 "--------------------------------------------------------------- Tab and Indent
-set expandtab                                    " replace tab to space
-set tabstop=4                                    " indent width
-set shiftwidth=4                                 " auto indent width
-set softtabstop=4                                " moving width of the consecutive white space
-set autoindent                                   " to continue indent width in new line
-set smartindent                                  " to determining indent width automatically in new line
+set expandtab                  " replace tab to space
+set tabstop=4                  " indent width
+set shiftwidth=4               " auto indent width
+set softtabstop=4              " moving width of the consecutive white space
+set autoindent                 " to continue indent width in new line
+set smartindent                " to determining indent width automatically in new line
 
-"--------------------------------------------------------------- Cursor settings
-let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-"let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
-let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+"-------------------------------------------------- Cursor settings(window only?)
+"let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+""let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
+"let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
 
 "--------------------------------------------------------------- Search
-set ignorecase                                   " search regardress capital note or small note if search word is small note (noignorecase)
-set smartcase                                    " if capital note in search words, it doesn't regardress capital note or small note (nosmartcase)
-set incsearch                                    " to enable incremental search
+set ignorecase                 " search regardress capital note or small note if search word is small note (noignorecase)
+set smartcase                  " if capital note in search words, it doesn't regardress capital note or small note (nosmartcase)
+set incsearch                  " to enable incremental search
 nnoremap n nzz
 nnoremap N Nzz
 
@@ -175,7 +177,7 @@ nnoremap <Space>i <C-i>zz
 " Jump to brackets to be paired
 nnoremap <Space>[ %
 nnoremap <Space>] %
-"
+
 " Jump to top/middle/bottom line
 "nnoremap <S-k> H
 "nnoremap <S-m> M
@@ -185,7 +187,7 @@ nnoremap <Space>] %
 nnoremap <S-h> ^
 vnoremap <S-h> ^
 
-" Jump to end ot the line
+" Jump to end of the line
 nnoremap <S-l> $
 vnoremap <S-l> $
 
@@ -199,12 +201,12 @@ vnoremap <S-l> $
 
 " list all of them if multiple candidate of the distination when it tags jump
 nnoremap <C-]> g<C-]>
-"------------------------------------------------------------------------------- folding
+"------------------------------------------------------------------------ folding
 
 " fold
 vnoremap <S-z> zf
 
-"------------------------------------------------------------------------------- yank & put
+"------------------------------------------------------------------------ yank & put
 nnoremap p gp
 nnoremap P gP
 nnoremap gp p
@@ -228,37 +230,22 @@ if &term =~ "xterm"
     cnoremap <special> <Esc>[201~ <nop>
 endif
 
-"------------------------------------------------------------------------------- window
-" horizon split
-cnoremap -- rightbelow sp<CR>
-
-" virtical split
-cnoremap \\ rightbelow vsp<CR>
-
-" close window
-"nnoremap \2 :close<CR>
-
-" move to left window
-"nnoremap \h <C-w>h
-
-" move to bottom window
-"nnoremap \j <C-w>j
-
-" move to above window
-"nnoremap \k <C-w>k
-
-" move to right window
-"nnoremap \l <C-w>l
-
-" move between window
-"nnoremap \q <c-w><c-w>
+"------------------------------------------------------------------------ window
+cnoremap -- rightbelow sp<CR>       " horizon split
+cnoremap \\ rightbelow vsp<CR>      " virtical split
+"nnoremap \2 :close<CR>             " close window
+"nnoremap \h <C-w>h                 " move to left window
+"nnoremap \j <C-w>j                 " move to bottom window
+"nnoremap \k <C-w>k                 " move to above window
+"nnoremap \l <C-w>l                 " move to right window
+"nnoremap \q <c-w><c-w>             " move between window
 
 "------------------------------------------------------------------------
 "brackets
-inoremap {<Enter> {}<Left><CR><ESC><S-o>
-inoremap [<Enter> []<Left><CR><ESC><S-o>
-inoremap (<Enter> ()<Left><CR><ESC><S-o>
-inoremap ({<Enter> ({})<Left><Left><CR><ESC><S-o>
+"inoremap {<Enter> {}<Left><CR><ESC><S-o>
+"inoremap [<Enter> []<Left><CR><ESC><S-o>
+"inoremap (<Enter> ()<Left><CR><ESC><S-o>
+"inoremap ({<Enter> ({})<Left><Left><CR><ESC><S-o>
 "inoremap { {}<LEFT>
 "inoremap [ []<LEFT>
 "inoremap ( ()<LEFT>
@@ -266,7 +253,7 @@ inoremap ({<Enter> ({})<Left><Left><CR><ESC><S-o>
 "inoremap " ""<LEFT>
 "inoremap ' ''<LEFT>
 
-"-------------------------------------------------------- PHP settings (note ":help" in vim)
+"--------------------------------------------------- PHP settings (note ":help" in vim)
 let php_sql_query = 1                            " PHP settings
 let php_baselib = 1                              " PHP settings
 let php_htmlInStrings = 1                        " PHP settings
@@ -276,16 +263,16 @@ let g:sql_type_default='mysql'                   " DB settings
 
 nnoremap ,= vap=vapvv
 
-"------------------------------------------------------------------------------ Load dictionary
+"------------------------------------------------------------------ Load dictionary
 "autocmd FileType php,ctp :set dictionary=~/.source ~/.vim/dict/php.dict
 autocmd FileType php,ctp :set dictionary=~/.vim/dict/php.dict
 autocmd FileType php,ctp :set complete+=k/~/.vim/dict/php.dict
 
-"------------------------------------------------------------------------------ Command alias
+"------------------------------------------------------------------ Command alias
 cnoremap %vv source ~/.vimrc<CR>
 cnoremap %qq q<CR>
 
-"------------------------------------------------------------------------------ Plug-ins
+"------------------------------------------------------------------ Plug-ins
 " Plug-in installation
 so ${HOME}/dotfiles/.vim/vimrc_includs/plugins.vim
 "so ${HOME}/dotfiles/.vim/vimrc_includs/plugins_dirs.vim
@@ -296,9 +283,9 @@ so ${HOME}/dotfiles/.vim/vimrc_includs/plugins.vim
 " directory browser
 so ${HOME}/dotfiles/.vim/vimrc_includs/unite.vim
 so ${HOME}/dotfiles/.vim/vimrc_includs/nerdtree.vim
-so ${HOME}/dotfiles/.vim/vimrc_includs/tagbar.vim
-so ${HOME}/dotfiles/.vim/vimrc_includs/taglist.vim
-so ${HOME}/dotfiles/.vim/vimrc_includs/srcexplorer.vim
+"so ${HOME}/dotfiles/.vim/vimrc_includs/tagbar.vim
+"so ${HOME}/dotfiles/.vim/vimrc_includs/taglist.vim
+"so ${HOME}/dotfiles/.vim/vimrc_includs/srcexplorer.vim
 
 " moving cursor
 "so ${HOME}/dotfiles/.vim/vimrc_includs/vim-easymotion.vim
@@ -322,8 +309,8 @@ so ${HOME}/dotfiles/.vim/vimrc_includs/dash.vim
 
 " utilities
 so ${HOME}/dotfiles/.vim/vimrc_includs/ag.vim
-so ${HOME}/dotfiles/.vim/vimrc_includs/quickrun.vim
-so ${HOME}/dotfiles/.vim/vimrc_includs/qfixhome.vim
+"so ${HOME}/dotfiles/.vim/vimrc_includs/quickrun.vim
+"so ${HOME}/dotfiles/.vim/vimrc_includs/qfixhome.vim
 so ${HOME}/dotfiles/.vim/vimrc_includs/vdebug.vim
 
 " PHP
@@ -332,5 +319,14 @@ so ${HOME}/dotfiles/.vim/vimrc_includs/vim-php-namespace.vim
 so ${HOME}/dotfiles/.vim/vimrc_includs/php-getter-setter.vim
 so ${HOME}/dotfiles/.vim/vimrc_includs/vim-php-cs-fixer.vim
 so ${HOME}/dotfiles/.vim/vimrc_includs/pdv-phpdocumentor-for-vim.vim
+
+"----------------------------------------------------------------------- "Colors
+" tab bar
+:hi TabLineFill ctermfg=White ctermbg=None
+:hi TabLine ctermfg=White ctermbg=White
+:hi TabLineSel ctermfg=White ctermbg=Blue
+
+" match brackets
+hi MatchParen ctermfg=LightGreen ctermbg=blue
 
 filetype on

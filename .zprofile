@@ -38,7 +38,7 @@ if [ $(uname) = "Darwin" ]; then
     export MARKDOWN_EDITOR="/Applications/Typora.app"   # Typora
     #export MARKDOWN_EDITOR="/Applications/Bear.app"     # Bear
 
-    # Normal command
+    # Normal command replace
     alias tree='tree -N'    # for display Japanese char
 
     # remove .DS_Store file
@@ -181,20 +181,11 @@ setopt share_history
 #-------------------------------------------------
 function _print_la() {
     ls -laGh $@
-#    if [ $# -ne 0 ]; then
-#        if [ ${1:0:1} == '/' ]; then
-#            printf "\e[31m$1\e[m\n"
-#        else
-#            printf "\e[31m$(pwd)/$1\e[m\n"
-#        fi
-#    fi
-
     current=$(pwd)
     items=$(ls -la $@ | wc -l | tr -d ' ') > /dev/null 2>&1
     #dirs=$(ls -ld */ | wc -l | tr -d ' ') > /dev/null 2>&1
     #print "${items} items: dir ${dirs} items"
 }
-#alias la='ls -laG'
 alias la='_print_la'
 alias lad='la -d */'
 
@@ -214,20 +205,26 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
+alias ......="cd ../../../../.."
+alias .......="cd ../../../../../.."
+alias ........="cd ../../../../../../.."
+alias .........="cd ../../../../../../../.."
+alias ..........="cd ../../../../../../../../.."
+alias ...........="cd ../../../../../../../../../.."
+
+alias '.pb=. | ghead -c -1 | pbcopy'
+alias 'pb.=. | ghead -c -1 | pbcopy'
 
 #-------------------------------------------------
 # find
 #-------------------------------------------------
 function _find_file() { find ${@:-.} -type f | sort }
-function _find_file_count() { _find_file $@ | wc -l }
-#function _find_directory() { find ${@:-.} -type d | sort }
-function _find_directory() {
-    find ${@:-.} -type d | sort
-}
-function _find_directory_count() { _find_directory $@ | wc -l }
+function _find_file_count() { _find_file ${@:-.} | wc -l | tr -d ' '}
+function _find_directory() { find ${@:-.} -type d -mindepth 1 | sort }
+function _find_directory_count() { _find_directory ${@:-.} | wc -l | tr -d ' '}
 function _find_image() {
-    local image_extention="(JPG|jpg|jpeg|PNG|png|TIFF|TIF|tiff|tif|CR2|NEF|ARW|MOV|mov|AVI|avi)"
-    find -E ${1:-.} -type f -regex "^.*\.${image_extention}$"
+    local image_extention="(JPG|jpg|jpeg|PNG|png|TIFF|TIF|tiff|tif|CR2|NEF|ARW|MOV|mov|AVI|avi|MPG|mpg|mpeg|mp4)"
+    find -E ${@:-.} -type f -regex "^.*\.${image_extention}$"
 }
 function _find_image_count() { _find_image $@ | wc -l }
 
@@ -237,6 +234,14 @@ alias fd="_find_directory"
 alias fdc="_find_directory_count"
 alias ffi='_find_image'
 alias ffic='_find_image_count'
+
+#-------------------------------------------------
+# grep
+#-------------------------------------------------
+if _is_exist ag; then
+    alias ag='ag -S --stats --pager "less -F"'
+    alias agh='ag --hidden'
+fi
 
 #-------------------------------------------------
 # Directory mark and jump
@@ -291,6 +296,17 @@ function _send_mail_quick_memo() {
     echo "mail (quick memo) sent!"
 }
 alias qmail='_send_mail_quick_memo'
+
+#-------------------------------------------------
+# Dammy Image
+#-------------------------------------------------
+function _create_dammy_image() {
+     convert -size "${1:=320}x${2:=200}" \
+            -background "#95a5a6" \
+            -fill "#2c3e50" \
+            -gravity center label:"$1x$2" $1x$2.${3:=jpg}
+}
+alias dammy='_create_dammy_image'
 
 #-------------------------------------------------
 # Go
@@ -447,11 +463,22 @@ fi
 # --------------------------------------------
 # System Utilities
 # --------------------------------------------
+
+# show IP Address
+alias ip='ipconfig getifaddr en0'
+#alias ip='ipconfig getifaddr en1'
+
 # show sub directory size
 function _display_directory_size() {
-    du -sh ${1:-$(pwd)}/* 2>&1 | grep -v "Operation not permitted" | sort -hr
+    du -sh ${1:-"$(pwd)"}/* 2>&1 | grep -v "Operation not permitted" | sort -hr
 }
 alias dirsize="_display_directory_size"
+
+# show image size
+function _display_image_size() {
+    identify $@
+}
+alias imgsize="_display_image_size"
 
 # --------------------------------------------
 # show wareki and century
@@ -459,8 +486,10 @@ alias dirsize="_display_directory_size"
 source ${DOTPATH}/bin/wareki/wareki.fnc
 
 # --------------------------------------------
-# show wareki and century
+# Mini Applications
 # --------------------------------------------
+alias now='worldtime'
+
 function _honyaku() {
     safari "https://translate.google.co.jp/?hl=ja#view=home&op=translate&sl=auto&tl=en&text=${1}"
 }
@@ -501,50 +530,99 @@ alias google="_google_web_search"
 alias g="_google_web_search"
 
 # --------------------------------------------
-# TrashBox
+# Shell Stash
 # --------------------------------------------
 function _shell_stash() {
-    local stash=${DOTPATH}/.Stash
-    mkdir -p ${stash}
+    local stashDir=${DOTPATH}/.ShellStash
+    mkdir -p ${stashDir}
 
     [ ${#@} -eq 0 ] && {
         echo "========================== Stash =========================="
-        ls -lAGhF ${stash} | sed '1d'
+        ls -lAGhF ${stashDir} | sed '1d'
         echo "==========================================================="
-        echo "$(ls -lAG ${stash} | sed '1d' | wc -l) item(s) in Shell Stash."
+        echo "$(ls -lAG ${stashDir} | sed '1d' | wc -l) item(s) in Shell Stash."
         return 0
     }
 
-    [ $1 = "drop" ] && {
-        rm -rf ${stash} && echo "empty stash."
-        return 0
-    }
+    local mvORcp=mv
+    local arg=()
 
-    [ $1 = "pop" ] && {
-        [ -e ${stash}/${2} ] && {
-            mv ${stash}/${2} ${3}
-        }
-        return 0
-    }
+    while (( $# > 0 )); do
+        case $1 in
+            -* )
+                if [[ "$1" =~ 'c' ]]; then
+                    mvORcp=cp
+                fi
+                shift
+                ;;
+            * )
+                arg+=$1
+                shift
+                ;;
+        esac
+    done
 
-    [ -e "${1}" ] && {
-        [ ! -e "${stash}/$1" ] && {
-            mv "$1" ${stash}
-            echo "put: ${1}"
-        } || {
-            for i in $(seq 99); do
-                filename="$1-$i"
-                [ ! -e "${stash}/${filename}" ] && {
-                    mv "$1" "${stash}/${filename}"
-                    echo "put: ${filename}"
-                    break;
+#    echo "arg: ${arg}"
+#    echo "arg[0]: ${arg[0]}"
+#    echo "arg[1]: ${arg[1]}"
+#    echo "arg[2]: ${arg[2]}"
+#    echo "mvORcp: ${mvORcp}"
+
+    case ${arg[1]} in
+        drop )
+            rm -rf ${stashDir} && echo "empty shell stash."
+            return 0
+            ;;
+        pop )
+            [ -z ${arg[2]} ] && {
+                local target=$(
+                    find ${stashDir} -mindepth 1 -maxdepth 1 | \
+                    peco --prompt "Shell Stash>"
+                )
+            } || target=${stashDir}/${arg[2]}
+
+            [ -e "$(basename ${target})" ] && {
+                echo "$(basename ${target}) is already exist."
+                return 1
+            }
+
+            [ ! -z ${target} ] && {
+                [ ${mvORcp} = 'cp' ] && {
+                    ${mvORcp} -r "${target}" .
+                } || {
+                    ${mvORcp} "${target}" .
                 }
-            done
-        }
-    } || echo 'no file/dir'
+                echo "pop: $(basename ${target})"
+            }
+            ;;
+        * )
+            [ ! -e "${arg}" ] && {
+                echo "no file/dir"
+                return 1
+            }
+
+            [ ! -e "${stashDir}/${arg}" ] && {
+                [ ${mvORcp} = 'cp' ] && {
+                    ${mvORcp} -r "${arg}" ${stashDir}
+                } || {
+                    ${mvORcp} "${arg}" ${stashDir}
+                }
+                echo "put: ${arg}"
+            } || {
+                for i in $(seq 99); do
+                    filename="${arg}-$i"
+                    [ ! -e "${stashDir}/${filename}" ] && {
+                        ${mvORcp} "${arg}" "${stashDir}/${filename}"
+                        echo "put: ${filename}"
+                        break;
+                    }
+                done
+            }
+            ;;
+    esac
 }
-alias stash="_shell_stash"
 alias ss="_shell_stash"
+alias ssp="_shell_stash pop"
 
 #-------------------------------------------------
 # others
@@ -552,5 +630,3 @@ alias ss="_shell_stash"
 #export DDD_HOME=${HOME}/dev/src/github.com/nutsllc/docker-dd-compose
 #export DDD_SEARCH_DIR=${HOME}/dev/src
 #source ${DDD_HOME}/docker-dd-compose
-
-
