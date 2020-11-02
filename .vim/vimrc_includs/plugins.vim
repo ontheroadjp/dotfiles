@@ -34,22 +34,22 @@ NeoBundle 'Shougo/vimproc', {
 \    }
 \ }
 
-NeoBundle 'powerline/powerline'
+"NeoBundle 'powerline/powerline'
 "-------------------------------------------------------------
 " Unite, NERDTree, Tagbar, SourceExplorer
 "-------------------------------------------------------------
 NeoBundle 'Shougo/unite.vim'    	        	" Adding Unite to easy to open files
 NeoBundle 'Shougo/neomru.vim'   	        	" Unite: using MRU in Unite
 NeoBundle 'Shougo/unite-outline'	        	" Unite: show functions/variables
-NeoBundle 'tsukkee/unite-tag'                  	" Unite: using ctags in Unite
+"NeoBundle 'tsukkee/unite-tag'                  	" Unite: using ctags in Unite
 NeoBundle 'scrooloose/nerdtree'               	" Adding NERDTree to view file tree
 
-NeoBundle 'majutsushi/tagbar'                   " Adding Tagbar
+"NeoBundle 'majutsushi/tagbar'                   " Adding Tagbar
 "NeoBundleLazy 'majutsushi/tagbar',         {   " Adding Tagbar
 "    \ 'autoload': { 'commands': ['TagbarToggle'] }
 "    \ }
 
-NeoBundle 'wesleyche/SrcExpl'                   " show file at cursor in new window
+"NeoBundle 'wesleyche/SrcExpl'                   " show file at cursor in new window
 "NeoBundleLazy 'wesleyche/SrcExpl', {           " show file at cursor in new window
 "    \ 'autoload' : { 'commands': ['SrcExplToggle'] }
 "    \ }
@@ -92,8 +92,11 @@ NeoBundle 'tpope/vim-surround'                      " easy to add/chenge/delete 
 
 "-------------------------
 " for Development
+" see: https://qiita.com/us10096698/items/1ac05c5c9543d2f79fa3
 "-------------------------
-NeoBundle 'thinca/vim-quickrun'
+"NeoBundle 'thinca/vim-quickrun'
+"NeoBundle 'tpope/vim-markdown'                     " for Markdown
+"NeoBundle 'tyru/open-browser.vim'                  " browser preview
 
 "-------------------------
 " for Git
@@ -125,8 +128,6 @@ NeoBundle 'thinca/vim-ref'                          " search dictionary (PHP mnu
 "-------------------------
 " minor leage
 "-------------------------
-"NeoBundle 'tpope/vim-markdown'                     " for Markdown
-"NeoBundle 'tyru/open-browser.vim'                  " browser preview
 
 "NeoBundle 'chriskempson/base16-vim'                " color schema
 "NeoBundle 'jpalardy/vim-slime'

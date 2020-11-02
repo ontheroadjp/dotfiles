@@ -26,17 +26,3 @@ colorscheme base16-ocean
 "colorscheme simple-dark
 "colorscheme dogrun
 
-" ------------------------- temp ---------------------
-"let g:base16_shell_path = expand('~/.config/base16-shell/')
-"let base16colorspace="256"
-"set background=dark
-
-hi MatchParen ctermfg=LightGreen ctermbg=blue
-"hi MatchParen cterm=bold ctermbg=none ctermfg=Magenta
-"set noshowmatch
-"let loaded_matchparen = 2
-"
-"set showmatch
-"set matchtime=1
-"set matchpairs& matchpairs+=<:>
-" ------------------------- temp ---------------------

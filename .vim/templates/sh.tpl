@@ -1,12 +1,12 @@
 #!/bin/bash
 
--set Ceu
+set -Ceu
 
-PROGNAME=$(basename $0)
+SCRIPT_NAME=$(basename $0)
 VERSION="1.0"
 
 function _usage() {
-    echo "Usage: ${PROGNAME} [OPTIONS] FILE"
+    echo "Usage: ${SCRIPT_NAME} [OPTIONS] FILE"
     echo "  This script is ~."
     echo
     echo "Options:"
@@ -54,7 +54,7 @@ do
             ;;
         -a | --long-a) # Must have argument
             if [[ -z "$2" ]] || [[ "$2" =~ ^-+ ]]; then
-                echo "$PROGNAME: option requires an argument -- $1" 1>&2
+                echo "$SCRIPT_NAME: option requires an argument -- $1" 1>&2
                 exit 1
             fi
             ARG_A=$2
@@ -98,3 +98,4 @@ done
 _main
 
 exit 0
+

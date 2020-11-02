@@ -1,6 +1,8 @@
 #!/bin/bash
 
-function _show() {
+set -Ceu
+
+function _show_world_time() {
     printf "Sydney:\t\t" && TZ=Australia/Sydney date
     printf "Tokyo:\t\t" && TZ=Asia/Tokyo date
     printf "Hong Kong:\t" && TZ=Asia/Hong_Kong date
@@ -10,6 +12,13 @@ function _show() {
     printf "Los Angeles:\t" && TZ=America/Los_Angeles date
 }
 
-_show
+[ $# -eq 0 ] && {
+    _show_world_time
+} || {
+    while (( $# > 0 )); do
+        _show_world_time | grep -i ${1:-''}
+        shift
+    done
+}
 
 exit 0

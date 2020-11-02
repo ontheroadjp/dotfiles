@@ -36,6 +36,15 @@ if _is_exist git; then
 #    alias gr='_git_reset_status'
 
     #-------------------------------------------------
+    # HTML5 (new site)
+    #-------------------------------------------------
+    function _get_html5_boiler_plate() {
+        local url='https://github.com/ontheroadjp/webpack-boilerplate-for-static-website'
+        git clone ${url} html5
+    }
+    alias html5="_get_html5_boiler_plate"
+
+    #-------------------------------------------------
     # cd
     #-------------------------------------------------
     function _go_to_repository_root() {

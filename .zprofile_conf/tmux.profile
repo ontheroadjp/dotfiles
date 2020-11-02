@@ -23,6 +23,7 @@ function tmux_automatically_attach_session()
             echo "${fg_bold[blue]}  | | | |\/| | | | |\  /  ${reset_color}"
             echo "${fg_bold[blue]}  | | | |  | | |_| |/  \  ${reset_color}"
             echo "${fg_bold[blue]}  |_| |_|  |_|\___//_/\_\ ${reset_color}"
+            echo $(date)
         elif is_screen_running; then
             echo "This is on screen."
         fi
