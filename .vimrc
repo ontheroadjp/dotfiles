@@ -1,4 +1,4 @@
-"================================================================ vimgrep
+"================================================================ Quickfix
 " open vimgrep result in quickfix
 autocmd QuickfixCmdPost *grep* cwindow
 
@@ -6,24 +6,22 @@ autocmd QuickfixCmdPost *grep* cwindow
 nnoremap ]q :cnext<CR>
 nnoremap [q :cprevious<CR>
 
-nmap ,c :!open -a Google\ Chrome<CR>
-nmap ,s :!open -a Safari<CR>
+nmap <Leader>c :!open -a Google\ Chrome<CR>
+nmap <Leader>s :!open -a Safari<CR>
 
-"================================================================ File
-" File type
+"================================================================ main
 " <Leader> = \ (default)
-nmap <C-S><C-S> :set filetype=bash<CR>
-nmap <Leader>ft :set filetype?<CR>
 nmap <Leader>vv :source ~/.vimrc<CR>
-nmap <Leader>fp :echo expand("%:p")<CR>
-nmap <Leader>enc :set enc?<CR>
-"================================================================ visuals
-"color schema
-so ${HOME}/dotfiles/.vim/vimrc_includs/color-schema.vim
 
+"================================================================ system
 " Clipboard
 set clipboard+=unnamed
 "set clipboard^=unnamed  # if doesn't work above, use this
+
+
+"================================================================ visuals
+"color schema
+so ${HOME}/dotfiles/.vim/vimrc_includs/color-schema.vim
 
 " line number
 au VimEnter * hi LineNr guifg=Blue guibg=DarkGray gui=none ctermfg=gray ctermbg=none cterm=none
@@ -79,15 +77,17 @@ cnoremap eslint !clear && node_modules/eslint/bin/eslint.js %<CR>
 autocmd BufWritePre * :%s/\s\+$//ge              " remove trailing whitespace when saved
 
 "--------------------------------------------------------------- File/Directory
-" Create/edit file in the current directory
-"cnoremap %ed edit %:p:h/
+" File/Directory info
+nnoremap <C-S><C-S> :set filetype=bash<CR>
+nnoremap ,ft :set filetype?<CR>
+nnoremap ,fp :echo expand("%:p")<CR>
+nnoremap ,fe :set enc?<CR>
+nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
+nnoremap ,ww :cd ~/WORKSPACE<CR>:pwd<CR>
+nnoremap ,dd :pwd<CR>
 
-" %% to expand current directory
+" %% to expand current directory in command mode
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:p:h/').'/' : '%%'
-
-" Auto change directory to match current file ,cd
-nnoremap <Leader>cd :cd %:p:h<CR>:pwd<CR>
-nnoremap <Leader>ww :cd ~/WORKSPACE<CR>:pwd<CR>
 
 " Save as root user
 cabbr w!! w !sudo tee > /dev/null %
@@ -100,13 +100,13 @@ autocmd BufNewFile *.{sh,bash} 0r $HOME/dotfiles/.vim/templates/sh.tpl
 autocmd BufNewFile,BufRead *.{html,htm,vue*} set filetype=html  " for vue.js
 
 "--------------------------------------------------------------- Buffer
-nnoremap <silent> <Leader>b :buffers<CR>
-nnoremap <silent> [b :bprevious<CR>
-nnoremap <silent> ]b :bnext<CR>
-"nnoremap <silent> [B :bfirst<CR>
-"nnoremap <silent> ]B :blast<CR>
+nnoremap <silent> bl :buffers<CR>
+nnoremap <silent> b[ :bprevious<CR>
+nnoremap <silent> b] :bnext<CR>
+"nnoremap <silent> B[ :bfirst<CR>
+"nnoremap <silent> B] :blast<CR>
 
-"--------------------------------------------------------------- Tab and Indent
+"--------------------------------------------------------------- Indent
 set expandtab                  " replace tab to space
 set tabstop=4                  " indent width
 set shiftwidth=4               " auto indent width
@@ -114,9 +114,9 @@ set softtabstop=4              " moving width of the consecutive white space
 set autoindent                 " to continue indent width in new line
 set smartindent                " to determining indent width automatically in new line
 
-"-------------------------------------------------- Cursor settings(window only?)
-"let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-""let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
+"--------------------------------------------------------------- Cursor settings
+let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+"let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
 "let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
 
 "--------------------------------------------------------------- Search
@@ -127,7 +127,7 @@ nnoremap n nzz
 nnoremap N Nzz
 
 "================================================================== Key bindings
-" JJ to <esc>
+" JJ as <esc>
 inoremap <silent> jj <esc>
 
 " <Leader><Leader> to <esc>
@@ -198,7 +198,6 @@ vnoremap <S-l> $
 " Jump to paragraph (forword)
 "nnoremap <S-j> }
 "vnoremap <S-j> }
-
 " list all of them if multiple candidate of the distination when it tags jump
 nnoremap <C-]> g<C-]>
 "------------------------------------------------------------------------ folding
@@ -231,14 +230,23 @@ if &term =~ "xterm"
 endif
 
 "------------------------------------------------------------------------ window
-cnoremap -- rightbelow sp<CR>       " horizon split
-cnoremap \\ rightbelow vsp<CR>      " virtical split
-"nnoremap \2 :close<CR>             " close window
-"nnoremap \h <C-w>h                 " move to left window
-"nnoremap \j <C-w>j                 " move to bottom window
-"nnoremap \k <C-w>k                 " move to above window
-"nnoremap \l <C-w>l                 " move to right window
-"nnoremap \q <c-w><c-w>             " move between window
+"nnoremap -- :rightbelow sp<CR>          " horizon split
+"nnoremap \\ :rightbelow vsp<CR>         " virtical split
+nnoremap -- :split<CR>
+nnoremap \\ :vsplit<CR>
+"nnoremap \2 :close<CR>                 " close window
+"nnoremap \h <C-w>h                     " move to left window
+"nnoremap \j <C-w>j                     " move to bottom window
+"nnoremap \k <C-w>k                     " move to above window
+"nnoremap \l <C-w>l                     " move to right window
+"nnoremap \q <c-w><c-w>                 " move between window
+
+"------------------------------------------------------------------------ Tab
+nnoremap <silent> tn :tabnew<CR>        " open new tab
+nnoremap <silent> <Tab> :tabn<CR>       " change to next tab
+nnoremap <silent> <S-Tab> :tabp<CR>     " change to previous tab
+nnoremap <silent> t] :tabmove +<CR>     " move tab to right
+nnoremap <silent> t[ :tabmove -<CR>     " move tab to left
 
 "------------------------------------------------------------------------
 "brackets
@@ -322,9 +330,9 @@ so ${HOME}/dotfiles/.vim/vimrc_includs/pdv-phpdocumentor-for-vim.vim
 
 "----------------------------------------------------------------------- "Colors
 " tab bar
-:hi TabLineFill ctermfg=White ctermbg=None
-:hi TabLine ctermfg=White ctermbg=White
-:hi TabLineSel ctermfg=White ctermbg=Blue
+:hi TabLineSel ctermfg=White ctermbg=Blue   " current tab
+:hi TabLine ctermfg=White ctermbg=None      " tab
+:hi TabLineFill ctermfg=White ctermbg=None  " tabbar
 
 " match brackets
 hi MatchParen ctermfg=LightGreen ctermbg=blue
