@@ -46,11 +46,18 @@ function _deploy_dotfiles() {
 		fi
 	done
 
-	# Karabiner
-    karabiner_path="${HOME}/Library/Application\ Support/Karabiner/private.xml"
+#	# Karabiner
+#    karabiner_path="${HOME}/Library/Application\ Support/Karabiner/private.xml"
+#	if [ -e "${karabiner_path}" ]; then
+#	    ln -sf ${DOTPATH}/karabiner/private.xml ${karabiner_path} > /dev/null
+#	    echo "success: Karabiner - private.xml"
+#    fi
+
+	# Karabiner-elements
+    karabiner_path="${HOME}/.config/karabiner"
 	if [ -e "${karabiner_path}" ]; then
-	    ln -sf ${DOTPATH}/karabiner/private.xml ${karabiner_path} > /dev/null
-	    echo "success: Karabiner - private.xml"
+	    ln -sf ${DOTPATH}/mac_osx/karabiner_elements/karabiner.json ${karabiner_path} > /dev/null
+	    echo "success: Karabiner-elements - karabiner.json"
     fi
 }
 
