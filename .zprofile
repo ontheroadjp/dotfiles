@@ -58,6 +58,10 @@ if [ $(uname) = "Darwin" ]; then
     alias '.pb=. | ghead -c -1 | pbcopy'
     alias 'pb.=. | ghead -c -1 | pbcopy'
 
+    ## display dot files on Finder
+    #defaults write com.apple.finder AppleShowAllFiles TRUE && killall Finder
+    #defaults write com.apple.finder AppleShowAllFiles FALSE && killall Finder
+
     # Normal command replace
     alias tree='tree -N'    # for display Japanese char
 
@@ -275,29 +279,29 @@ fi
 #-------------------------------------------------
 # Directory mark and jump
 #-------------------------------------------------
-#dirmarks="${HOME}/dotfiles/.dirmarks"
-#mkdir -p ${dirmarks}
-#
-#function _mark_to_directory() {
-#    [ $# -eq 1 ] && pwd > ${dirmarks}/${1}${1}; echo 'markd!'
-#}
-#
-#function _jump_to_directory() {
-#    [ $# -eq 1 ] && [ -f ${dirmarks}/${1}${1} ] && {
-#        cd $(cat ${dirmarks}/${1}${1})
-#    } || echo "not set."
-#}
-#
-#alias mm='_mark_to_directory m'
-#alias nn='_mark_to_directory n'
-#alias ii='_mark_to_directory i'
-#alias oo='_mark_to_directory o'
-#
-#alias m='_jump_to_directory m'
-#alias n='_jump_to_directory n'
-#alias i='_jump_to_directory i'
-#alias o='_jump_to_directory o'
-#
+dirmarks="${HOME}/dotfiles/.dirmarks"
+mkdir -p ${dirmarks}
+
+function _mark_to_directory() {
+    [ $# -eq 1 ] && pwd > ${dirmarks}/${1}${1}; echo 'markd!'
+}
+
+function _jump_to_directory() {
+    [ $# -eq 1 ] && [ -f ${dirmarks}/${1}${1} ] && {
+        cd $(cat ${dirmarks}/${1}${1})
+    } || echo "not set."
+}
+
+alias mm='_mark_to_directory m'
+alias nn='_mark_to_directory n'
+alias ii='_mark_to_directory i'
+alias oo='_mark_to_directory o'
+
+alias m='_jump_to_directory m'
+alias n='_jump_to_directory n'
+alias i='_jump_to_directory i'
+alias o='_jump_to_directory o'
+
 ##-------------------------------------------------
 ## note
 ##-------------------------------------------------
