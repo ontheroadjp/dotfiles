@@ -1,1 +1,5 @@
-[10/28/2020 08:15:41AM] INFO - ==== Loading "Xdebug Client.sublime-package" package ====
+[11/04/2021 09:18:12AM] INFO - ==== Loading "Xdebug Client.sublime-package" package ====
+[11/04/2021 09:18:26AM] WARNING - jshint cannot locate 'jshint'
+Please refer to the readme of this plugin and our troubleshooting guide: http://www.sublimelinter.com/en/stable/troubleshooting.html
+[11/04/2021 09:19:44AM] WARNING - jshint cannot locate 'jshint'
+Please refer to the readme of this plugin and our troubleshooting guide: http://www.sublimelinter.com/en/stable/troubleshooting.html

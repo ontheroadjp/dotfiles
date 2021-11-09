@@ -12,8 +12,7 @@ function is_screen_or_tmux_running() { is_screen_running || is_tmux_runnning; }
 function shell_has_started_interactively() { [ ! -z "$PS1" ]; }
 function is_ssh_running() { [ ! -z "$SSH_CONECTION" ]; }
 
-function tmux_automatically_attach_session()
-{
+function tmux_automatically_attach_session() {
     if is_screen_or_tmux_running; then
         ! is_exists 'tmux' && return 1
 
@@ -34,25 +33,28 @@ function tmux_automatically_attach_session()
                 return 1
             fi
 
-            if tmux has-session >/dev/null 2>&1 && tmux list-sessions | grep -qE '.*]$'; then
-                # detached session exists
-                tmux list-sessions
-                echo -n "Tmux: attach? (y/N/num) "
-                read
-                if [[ "$REPLY" =~ ^[Yy]$ ]] || [[ "$REPLY" == '' ]]; then
-                    tmux attach-session
-                    if [ $? -eq 0 ]; then
-                        echo "$(tmux -V) attached session"
-                        return 0
-                    fi
-                elif [[ "$REPLY" =~ ^[0-9]+$ ]]; then
-                    tmux attach -t "$REPLY"
-                    if [ $? -eq 0 ]; then
-                        echo "$(tmux -V) attached session"
-                        return 0
-                    fi
-                fi
+            if tmux has-session >/dev/null 2>&1 && tmux list-sessions; then
+                tmux attach -t WORKSPACE
             fi
+#            if tmux has-session >/dev/null 2>&1 && tmux list-sessions; then
+#                # detached session exists
+#                tmux list-sessions
+#                echo -n "Tmux: attach? (y/N/num) "
+#                read
+#                if [[ "$REPLY" =~ ^[Yy]$ ]] || [[ "$REPLY" == '' ]]; then
+#                    tmux attach-session
+#                    if [ $? -eq 0 ]; then
+#                        echo "$(tmux -V) attached session"
+#                        return 0
+#                    fi
+#                elif [[ "$REPLY" =~ ^[0-9]+$ ]]; then
+#                    tmux attach -t "$REPLY"
+#                    if [ $? -eq 0 ]; then
+#                        echo "$(tmux -V) attached session"
+#                        return 0
+#                    fi
+#                fi
+#            fi
 
             if is_osx && is_exists 'reattach-to-user-namespace'; then
                 # on OS X force tmux's default command
