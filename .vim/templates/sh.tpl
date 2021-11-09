@@ -2,8 +2,10 @@
 
 set -Ceu
 
-SCRIPT_NAME=$(basename $0)
-VERSION="1.0"
+FILE_NAME=$(basename $0)
+SCRIPT_NAME=${FILE_NAME%.*}
+SELF=$(cd $(dirname $0); pwd)
+VERSION="1.0.0"
 
 function _usage() {
     echo "Usage: ${SCRIPT_NAME} [OPTIONS] FILE"
@@ -11,25 +13,24 @@ function _usage() {
     echo
     echo "Options:"
     echo "  -h, --help"
-    echo "      --version"
+    echo "  -v, --version"
     echo "  -a, --long-a ARG"
     echo "  -b, --long-b [ARG]"
     echo "  -c, --long-c"
-    echo "  -v, --verbose    Print various debugging information"
+    echo "      --verbose    Print various debugging information"
     echo
     exit 1
 }
 
 function _log() {
-    [ ${LOGGING} -eq 0 ] && echo $1
+    [ "${LOGGING}" ] && echo $1
 }
 
 
 # -------------------------------------------------------------
 
 function _main() {
-    _log "Hello World"
-    echo "Hellow World"
+    _log "Wellcome to ${SCRIPT_NAME}"
 }
 
 # -------------------------------------------------------------
@@ -45,11 +46,11 @@ do
             _usage
             exit 1
             ;;
-        --version)
+        -v | --version)
             echo ${VERSION}
             exit 1
             ;;
-        -v | --verbose)
+        --verbose)
             LOGGING=true
             ;;
         -a | --long-a) # Must have argument

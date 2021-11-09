@@ -26,5 +26,5 @@
 	"theme": "Spacegray.sublime-theme",
 	"use_simple_full_screen": "enabled",
 	"vintage_start_in_command_mode": true,
-	"word_wrap": true
+	"word_wrap": true,
 }

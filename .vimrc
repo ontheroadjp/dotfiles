@@ -6,8 +6,9 @@ autocmd QuickfixCmdPost *grep* cwindow
 nnoremap ]q :cnext<CR>
 nnoremap [q :cprevious<CR>
 
-nmap <Leader>c :!open -a Google\ Chrome<CR>
 nmap <Leader>s :!open -a Safari<CR>
+nmap <Leader>c :!open -a Google\ Chrome<CR>
+nmap <Leader>md :!open -a Typora %<CR>
 
 "================================================================ main
 " <Leader> = \ (default)
@@ -36,9 +37,9 @@ nmap <C-N><C-N> :set invnumber<CR>
 set laststatus=0
 
 " status-line color
-"au InsertEnter * hi StatusLine guifg=Blue guibg=DarkYellow gui=none ctermfg=Black ctermbg=Blue cterm=none
-"au InsertLeave * hi StatusLine guifg=Blue guibg=DarkGray gui=none ctermfg=Blue ctermbg=DarkGray cterm=none
-"au VimEnter * hi StatusLineNC guifg=Blue guibg=DarkYellow gui=none ctermfg=DarkGray ctermbg=DarkGray cterm=none
+au InsertEnter * hi StatusLine guifg=Blue guibg=DarkYellow gui=none ctermfg=Black ctermbg=Blue cterm=none
+au InsertLeave * hi StatusLine guifg=Blue guibg=DarkGray gui=none ctermfg=Blue ctermbg=White  cterm=none
+au VimEnter * hi StatusLineNC guifg=Blue guibg=DarkYellow gui=none ctermfg=DarkGray ctermbg=Green cterm=none
 
 "set statusline=%F       " show filename
 "set statusline+=%m      " show edit status
@@ -50,7 +51,7 @@ set laststatus=0
 "set statusline+=[LOW=%l/%L]             " current row number/total row number
 
 " window split bar
-au VimEnter * hi VertSplit guifg=Blue guibg=DarkGray gui=none ctermfg=DarkGray ctermbg=none cterm=none
+au VimEnter * hi VertSplit guifg=Blue guibg=DarkGray gui=none ctermfg=DarkGray ctermbg=DarkGray cterm=none
 
 "================================================================ General settings
 "set encoding=utf-8                              " set charactor code
@@ -97,7 +98,7 @@ autocmd BufNewFile *.vue 0r $HOME/dotfiles/.vim/templates/vue.tpl
 autocmd BufNewFile *.{sh,bash} 0r $HOME/dotfiles/.vim/templates/sh.tpl
 
 " Filetype
-autocmd BufNewFile,BufRead *.{html,htm,vue*} set filetype=html  " for vue.js
+autocmd BufNewFile,BufRead *.{html,htm,ejs,vue*} set filetype=html  " for ejs/vue.js
 
 "--------------------------------------------------------------- Buffer
 nnoremap <silent> bl :buffers<CR>
@@ -117,14 +118,17 @@ set smartindent                " to determining indent width automatically in ne
 "--------------------------------------------------------------- Cursor settings
 let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
 "let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
-"let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
 
 "--------------------------------------------------------------- Search
+set hlsearch                    " highlight search word
+nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
 set ignorecase                 " search regardress capital note or small note if search word is small note (noignorecase)
 set smartcase                  " if capital note in search words, it doesn't regardress capital note or small note (nosmartcase)
 set incsearch                  " to enable incremental search
 nnoremap n nzz
 nnoremap N Nzz
+nnoremap <silent> <Space><Space> "zyiw:let @/ = '\<' . @z . '\>'<CR>:set hlsearch<CR>
 
 "================================================================== Key bindings
 " JJ as <esc>
@@ -229,17 +233,16 @@ if &term =~ "xterm"
     cnoremap <special> <Esc>[201~ <nop>
 endif
 
-"------------------------------------------------------------------------ window
-"nnoremap -- :rightbelow sp<CR>          " horizon split
-"nnoremap \\ :rightbelow vsp<CR>         " virtical split
-nnoremap -- :split<CR>
-nnoremap \\ :vsplit<CR>
+"------------------------------------------------------------------------ Window
+nnoremap -- :split<CR>                  " horizontal split
+nnoremap \\ :rightbelow vsp<CR>         " virtical split
 "nnoremap \2 :close<CR>                 " close window
 "nnoremap \h <C-w>h                     " move to left window
 "nnoremap \j <C-w>j                     " move to bottom window
 "nnoremap \k <C-w>k                     " move to above window
 "nnoremap \l <C-w>l                     " move to right window
 "nnoremap \q <c-w><c-w>                 " move between window
+nnoremap TT <C-w>T
 
 "------------------------------------------------------------------------ Tab
 nnoremap <silent> tn :tabnew<CR>        " open new tab
@@ -336,5 +339,8 @@ so ${HOME}/dotfiles/.vim/vimrc_includs/pdv-phpdocumentor-for-vim.vim
 
 " match brackets
 hi MatchParen ctermfg=LightGreen ctermbg=blue
+
+" search highlight
+hi Search ctermbg=Blue ctermfg=White
 
 filetype on
