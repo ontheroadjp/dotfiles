@@ -1,8 +1,38 @@
+#--------------------------------------------------
+# vi mode
 # -------------------------------------------------
+function zle-line-init zle-keymap-select {
+    VIM_NORMAL="%K{208}%F{black}(%k%f%K{208}%F{white}% NORMAL%k%f%K{black}%F{208})%k%f"
+    VIM_INSERT="%K{051}%F{051}(%k%f%K{051}%F{051}% INSERT%k%f%K{051}%F{051})%k%f"
+    RPS1="${${KEYMAP/vicmd/$VIM_NORMAL}/(main|viins)/$VIM_INSERT}"
+    RPS2=$RPS1
+    zle reset-prompt
+}
+zle -N zle-line-init
+zle -N zle-keymap-select
+
+# jj to return normal mode
+bindkey -M viins 'jj' vi-cmd-mode
+
+#--------------------------------------------------
 # show sub directories: la (ls -laG)
 # -------------------------------------------------
 alias lla='la $(find . -type d | grep -v .git | peco)'
 alias laa='la $(find . -type d | grep -v .git | peco)'
+
+# -------------------------------------------------
+# open application
+# -------------------------------------------------
+function _open_application() {
+    app=$(find /Applications -name '*.app' -maxdepth 2 \
+            | sed -e 's:/Applications/::' \
+            | peco --prompt 'Application > ' \
+        );
+    [ ! -z ${app} ] && { open "/Applications/${app}" }
+}
+alias app=_open_application $@
+zle -N _open_application
+bindkey '^A' _open_application
 
 # -------------------------------------------------
 # cd to directory within WORKSPACE
@@ -149,7 +179,8 @@ function _open_web_bookmark() {
         url=$1
         [ $(echo ${url} | grep -E "^https?://" | wc -l) -eq 0 ] && url='http://'${url}
     }
-    [ ! -z ${url} ] && open "${url}"
+    #[ ! -z ${url} ] && open "${url}"
+    [ ! -z ${url} ] && open ${WEB_BROWSER} "${url}"
 }
 alias web="_open_web_bookmark $@"
 
@@ -190,7 +221,6 @@ function _stock_search() {
         )
     [ ! -z ${security_code} ] && {
         site=$({
-            echo "Google"
             echo "Yahoo! Finance"
             echo "SBI"
         } | peco )
@@ -227,10 +257,21 @@ function _search_yubin_bangou() {
         sed 's/"//g' | \
         awk -F',' '{ printf("%10d %-60s\n", $3, $7$8$9) }' | \
         sed 's/〜/-/g' | \
-        peco --prompt 'Search Yubin bangou>' --query $@
+        peco --prompt 'Search Yubin bangou>' --query ${@:-''}
 }
 alias yubin='_search_yubin_bangou $@'
 alias yubinbangou='_search_yubin_bangou $@'
+
+#-------------------------------------------------
+# Utilities
+#-------------------------------------------------
+function 256() {
+    for c in {000..255}; do
+        echo -n "\e[38;5;${c}m $c"
+        [ $(($c%16)) -eq 15 ] && echo
+    done
+    echo
+}
 
 #-------------------------------------------------
 # test

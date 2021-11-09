@@ -1,13 +1,25 @@
 #-------------------------------------------------
+# MarsEdit
+#-------------------------------------------------
+function searchMarsEditImage() {
+    imgDir=$(find "${HOME}/Library/Application Support/MarsEdit/UploadedFiles" -name ${1} -exec dirname {} \;)
+    [ -e ${imgDir} ] && {
+        finder ${imgDir}
+    } || { echo "${1} does not exitst." }
+}
+alias me='searchMarsEditImage $@'
+
+#-------------------------------------------------
 # Variables
 #-------------------------------------------------
 export EDITOR=vim
 export TERM=xterm
 #export LANG=ja_JP.UTF-8
-autoload -Uz colors && colors   # use color
-
 export DOTPATH=${HOME}/dotfiles
 export PATH=.:${DOTPATH}/bin:${PATH}
+export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH
+
+autoload -Uz colors && colors   # use color
 
 #-------------------------------------------------
 # Functions
@@ -15,6 +27,14 @@ export PATH=.:${DOTPATH}/bin:${PATH}
 function _is_exist() {
     type $@ > /dev/null 2>&1
 }
+
+function _urlencode {
+  echo "$1" | nkf -WwMQ | sed 's/=$//g' | tr = % | tr -d '\n'
+}
+
+function _red() { xargs -I{} echo $'\e[31m{}\e[m' }
+function _yellow() { xargs -I{} echo $'\e[33m{}\e[m' }
+function _green() { xargs -I{} echo $'\e[32m{}\e[m' }
 
 #-------------------------------------------------
 # My tools
@@ -29,14 +49,14 @@ if [ $(uname) = "Darwin" ]; then
     #echo "MacOSX with ..."
 
     # variables
-    export PATH="/usr/local/sbin:${PATH}"   # for Homebrew
-	export PATH="/usr/local/share:$PATH"    # for Python
+    export PATH="/usr/local/sbin:${PATH}"       # for Homebrew
+	export PATH="/usr/local/share:${PATH}"      # for Python
+    export PATH="${HOME}/dotfiles/mac_osx/HandBrakeCLI1.4.2/HandBrakeCLI:${PATH}"   # for HandBrakeCLI
     export WORKSPACE="/Users/hideaki/WORKSPACE"
-    export WEB_BROWSER="/Applications/Safari.app"
-    #export WEB_BROWSER="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
-    #export MARKDOWN_EDITOR="/Applications/MacDown.app"  # MacDown
-    export MARKDOWN_EDITOR="/Applications/Typora.app"   # Typora
-    #export MARKDOWN_EDITOR="/Applications/Bear.app"     # Bear
+
+    # clipboard
+    alias '.pb=. | ghead -c -1 | pbcopy'
+    alias 'pb.=. | ghead -c -1 | pbcopy'
 
     # Normal command replace
     alias tree='tree -N'    # for display Japanese char
@@ -51,6 +71,11 @@ if [ $(uname) = "Darwin" ]; then
 #            brew cleanup -s
 #        fi
 #    }
+
+    # markdown editor
+    alias md="open -a /Applications/Typora.app"     # Typora
+    #alias md="open -a /Applications/MacDown.app"   # MacDown
+    #alias md="open -a /Applications/Bear.app"      # Bear
 
     # show smtp(d) log
     alias smtplog='sudo log stream --predicater'\''(process == "smtpd") || (process == "smtp")'\'' --info'
@@ -68,56 +93,55 @@ if [ $(uname) = "Darwin" ]; then
 		target=$(osascript -e 'tell application "Finder" to if(count of Finder windows) > 0 then get POSIX path of(target of front Finder window as text)')
 		if [ "$target" != "" ]; then
 			cd "$target" && pwd
-#		else
+		else
 			echo 'No Finder window found.' >&2
 		fi
 	}
     alias terminal='_cd_to_finder_window_opened'
 
-    # Preview
-    alias preview='open -a Preview'
-
-	# Safari
-	alias safari='open -a "/Applications/Safari.app" $@'
-
-	# Chrome
-    # https://developers.google.com/web/updates/2017/04/headless-chrome
-	alias chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
-
-	# Spark
-	alias spark='open -a "/Applications/Spark.app" $@'
-	alias mailer='spark'
-
-	# Sublime Text 3
-
-    # Text Editor
-    alias cot='open -a "/Applications/CotEditor.app"'
-	alias subl='open -a "/Applications/Sublime Text.app"'
-	alias atom='open -a "/Applications/Atom.app"'
-    alias drafts='open -a "/Applications/Drafts.app"'
-
-    # Markdown Editor
-    alias typora='open -a "/Applications/Typora.app"'
-    alias macdown='open -a "/Applications/MacDown.app"'
-    alias bear='open -a "/Applications/Bear.app"'
-    alias md="open -a ${MARKDOWN_EDITOR}"
-
-    # Typinator
-    alias typinator="open -a /Applications/Typinator.app"
-
-	# changing vi and vim to MacVim
-	#alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
-	#alias vim='env_LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
-	alias mvim='env_LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+#    # Preview
+#    alias preview='open -a Preview'
+#
+#	# Safari
+#    alias safari='open -a "/Applications/Safari.app" "$(_urlencode $@)"'
+#
+#	# Chrome
+#    # https://developers.google.com/web/updates/2017/04/headless-chrome
+#	alias chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
+#
+#	# Spark
+#	alias spark='open -a "/Applications/Spark.app" $@'
+#	alias mailer='spark'
+#
+#    # Text Editor
+#    alias cot='open -a "/Applications/CotEditor.app"'
+#	alias subl='open -a "/Applications/Sublime Text.app"'
+#	alias atom='open -a "/Applications/Atom.app"'
+#    alias drafts='open -a "/Applications/Drafts.app"'
+#
+#    # Markdown Editor
+#    alias typora='open -a "/Applications/Typora.app"'
+#    alias macdown='open -a "/Applications/MacDown.app"'
+#    alias bear='open -a "/Applications/Bear.app"'
+#
+#    # Typinator
+#    alias typinator="open -a /Applications/Typinator.app"
+#
+#	# changing vi and vim to MacVim
+#	#alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+#	#alias vim='env_LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+#	alias mvim='env_LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 
     # alias(directory change:Mac)
-	alias Desktop='cd ${HOME}/Desktop'
-	alias Documents='cd ${HOME}/Documents'
-	alias Downloads='cd ${HOME}/Downloads'
+	alias DESKTOP='cd ${HOME}/Desktop'
+	alias DOCUMENTS='cd ${HOME}/Documents'
+	alias DOWNLOADS='cd ${HOME}/Downloads'
+    alias HOME='cd ~'
     alias WORKSPACE='cd ${WORKSPACE}'
-	alias GoogleDrive='cd ${WORKSPACE}/Google\ Drive'
-	alias OneDrive='cd ${WORKSPACE}/OneDrive'
-	alias Dropbox='cd ${WORKSPACE}/Dropbox'
+    alias WS='cd ${WORKSPACE}'
+	alias GOOGLEDRIVE='cd ${WORKSPACE}/Google\ Drive'
+	alias ONEDRIVE='cd ${WORKSPACE}/OneDrive'
+	alias DROPBOX='cd ${WORKSPACE}/Dropbox'
 
 	# alias（for ctag）
 	# changing the BSD version to the version installed by Homebrew
@@ -160,7 +184,7 @@ source ${HOME}/dotfiles/.zprofile_conf/tmux.profile
 #-------------------------------------------------
 alias c='clear'
 alias e='exit'
-alias dot='cd ${HOME}/dotfiles'
+alias DOT='cd ${HOME}/dotfiles'
 #alias jj=$(:)
 
 #-------------------------------------------------
@@ -199,7 +223,7 @@ alias cd='cdla'
 alias b='popd && clear && la'
 
 # -------------------------------- general settings
-alias home="cd ${HOME}"
+alias HOME="cd ${HOME}"
 alias .="pwd"
 alias ..="cd .."
 alias ...="cd ../.."
@@ -212,31 +236,36 @@ alias .........="cd ../../../../../../../.."
 alias ..........="cd ../../../../../../../../.."
 alias ...........="cd ../../../../../../../../../.."
 
-alias '.pb=. | ghead -c -1 | pbcopy'
-alias 'pb.=. | ghead -c -1 | pbcopy'
+#-------------------------------------------------
+# find count
+#-------------------------------------------------
+function _find_count() {
+    [ -z $3 ] && {
+        find $1 -type $2 -maxdepth 1 | grep -v "^\.$" | sort
+        local count=$(find $1 -type $2 -maxdepth 1 | \
+            grep -v "^\.$" | wc -l | tr -d ' ')
+    } || {
+        find -E $1 -type $2 -regex "^.*\.${3}$" | grep -v "^.$" | sort
+        local count=$(find -E $1 -type $2 -regex "^.*\.${3}$" | wc -l)
+    }
 
-#-------------------------------------------------
-# find
-#-------------------------------------------------
-function _find_file() { find ${@:-.} -type f | sort }
-function _find_file_count() { _find_file ${@:-.} | wc -l | tr -d ' '}
-function _find_directory() { find ${@:-.} -type d -mindepth 1 | sort }
-function _find_directory_count() { _find_directory ${@:-.} | wc -l | tr -d ' '}
-function _find_image() {
-    local image_extention="(JPG|jpg|jpeg|PNG|png|TIFF|TIF|tiff|tif|CR2|NEF|ARW|MOV|mov|AVI|avi|MPG|mpg|mpeg|mp4)"
-    find -E ${@:-.} -type f -regex "^.*\.${image_extention}$"
+    echo "------------------"
+    [ ${count} -gt 1 ] && {
+        [ $2 = f ] && { label="files" } || { label="directories" }
+    } || {
+        [ $2 = f ] && { label="file" } || { label="directory" }
+    }
+    echo "${count} ${label}."
 }
-function _find_image_count() { _find_image $@ | wc -l }
 
-alias ff="_find_file"
-alias ffc='_find_file_count'
-alias fd="_find_directory"
-alias fdc="_find_directory_count"
-alias ffi='_find_image'
-alias ffic='_find_image_count'
+alias ff='(){_find_count ${1:-.} f}'
+alias fd='(){_find_count ${1:-.} d}'
+alias fimg='(){_find_count ${1:-.} f "(JPG|jpg|jpeg|PNG|png|TIFF|TIF|tiff|tif|CR2|NEF|ARW)"}'
+alias fmov='(){_find_count ${1:-.} f "(MOV|mov|AVI|avi|MPG|mpg|mpeg|mp4)"}'
+alias fmus='(){_find_count ${1:-.} f "(mp3)"}'
 
 #-------------------------------------------------
-# grep
+# AG (grep)
 #-------------------------------------------------
 if _is_exist ag; then
     alias ag='ag -S --stats --pager "less -F"'
@@ -246,56 +275,55 @@ fi
 #-------------------------------------------------
 # Directory mark and jump
 #-------------------------------------------------
-dirmarks="$HOME/dotfiles/.dirmarks"
-mkdir -p ${dirmarks}
-
-function _mark_to_directory() {
-    [ $# -eq 1 ] && pwd > ${dirmarks}/${1}${1}; echo 'markd!'
-}
-
-function _jump_to_directory() {
-    [ $# -eq 1 ] && [ -f ${dirmarks}/${1}${1} ] && {
-        cd $(cat ${dirmarks}/${1}${1})
-    } || echo "not set."
-}
-
-alias mm='_mark_to_directory m'
-alias nn='_mark_to_directory n'
-alias ii='_mark_to_directory i'
-alias oo='_mark_to_directory o'
-
-alias m='_jump_to_directory m'
-alias n='_jump_to_directory n'
-alias i='_jump_to_directory i'
-alias o='_jump_to_directory o'
-
-#-------------------------------------------------
-# note
-#-------------------------------------------------
-function _quick_memo() {
-    if ! _is_exist gsed; then
-        echo "error: you need to install gsed(gnu-sed)"
-        echo "install: brew install gnu-sed"
-        return
-    fi
-
-    local quick_memo_dir="${WORKSPACE}/Dropbox/Documents/memo"
-    #header="## =====> $(date '+%Y%m%d %H:%M:%S') <=====\n\n"
-    header="## =====> $(date) <=====\n\n"
-    gsed -i -e "1s/^/${header}/" ${quick_memo_dir}/quick_memo.md
-    vim ${quick_memo_dir}/quick_memo.md
-}
-alias qmemo="_quick_memo"
-alias q="_quick_memo"
-
-function _send_mail_quick_memo() {
-    local subject="Quick Memo ($(date))"
-    local to='hishihara1975@gmail.com'
-    cat ${WORKSPACE}/Dropbox/note/INBOX/note.md \
-        | mail -s ${subject} ${to}
-    echo "mail (quick memo) sent!"
-}
-alias qmail='_send_mail_quick_memo'
+#dirmarks="${HOME}/dotfiles/.dirmarks"
+#mkdir -p ${dirmarks}
+#
+#function _mark_to_directory() {
+#    [ $# -eq 1 ] && pwd > ${dirmarks}/${1}${1}; echo 'markd!'
+#}
+#
+#function _jump_to_directory() {
+#    [ $# -eq 1 ] && [ -f ${dirmarks}/${1}${1} ] && {
+#        cd $(cat ${dirmarks}/${1}${1})
+#    } || echo "not set."
+#}
+#
+#alias mm='_mark_to_directory m'
+#alias nn='_mark_to_directory n'
+#alias ii='_mark_to_directory i'
+#alias oo='_mark_to_directory o'
+#
+#alias m='_jump_to_directory m'
+#alias n='_jump_to_directory n'
+#alias i='_jump_to_directory i'
+#alias o='_jump_to_directory o'
+#
+##-------------------------------------------------
+## note
+##-------------------------------------------------
+#function _quick_memo() {
+#    if ! _is_exist gsed; then
+#        echo "error: you need to install gsed(gnu-sed)"
+#        echo "install: brew install gnu-sed"
+#        return
+#    fi
+#
+#    local quick_memo_dir="${WORKSPACE}/Dropbox/Documents/QuickMemo"
+#    #header="## =====> $(date '+%Y%m%d %H:%M:%S') <=====\n\n"
+#    header="## =====> $(date) <=====\n\n"
+#    gsed -i -e "1s/^/${header}/" ${quick_memo_dir}/quick_memo.md
+#    vim ${quick_memo_dir}/quick_memo.md
+#}
+#alias qm="_quick_memo"
+#
+#function _send_mail_quick_memo() {
+#    local subject="Quick Memo ($(date))"
+#    local to='hishihara1975@gmail.com'
+#    cat ${WORKSPACE}/Dropbox/note/INBOX/note.md \
+#        | mail -s ${subject} ${to}
+#    echo "mail (quick memo) sent!"
+#}
+#alias qmail='_send_mail_quick_memo'
 
 #-------------------------------------------------
 # Dammy Image
@@ -306,7 +334,7 @@ function _create_dammy_image() {
             -fill "#2c3e50" \
             -gravity center label:"$1x$2" $1x$2.${3:=jpg}
 }
-alias dammy='_create_dammy_image'
+alias dammyimg='_create_dammy_image'
 
 #-------------------------------------------------
 # Go
@@ -319,21 +347,21 @@ if _is_exist go; then
 fi
 
 #-------------------------------------------------
-# Peco
+# peco
 #-------------------------------------------------
 if _is_exist peco; then
     source ${DOTPATH}/.zprofile_conf/peco.profile
 fi
 
 #-------------------------------------------------
-# Git
+# git
 #-------------------------------------------------
 if _is_exist git; then
     source ${DOTPATH}/.zprofile_conf/git.profile
 fi
 
 #-------------------------------------------------
-# Vim
+# vim
 #-------------------------------------------------
 function _open_file_specify_file_extension() {
     [ ! -z "${1}" ] && {
@@ -346,6 +374,7 @@ function _open_file_specify_file_extension() {
     }
 }
 alias ee='_open_file_specify_file_extension'
+# usage: $ee md, $ee README etc.
 
 #-------------------------------------------------
 # exiftool
@@ -410,7 +439,6 @@ if _is_exist vagrant; then
     alias vu='vagrant up'
     alias vh='vagrant halt'
     alias vd='vagrant destroy'
-
     alias von='vagrant sandbox on'
     alias voff='vagrant sandbox off'
     alias vrb='vagrant sandbox rollback'
@@ -481,152 +509,28 @@ function _display_image_size() {
 alias imgsize="_display_image_size"
 
 # --------------------------------------------
-# show wareki and century
-# --------------------------------------------
-source ${DOTPATH}/bin/wareki/wareki.fnc
-
-# --------------------------------------------
 # Mini Applications
 # --------------------------------------------
+SHELL_TOOLS_DIR="${HOME}/WORKSPACE/shell-tools"
+#export PATH=${SHELL_TOOLS_DIR}/dirmarks:${PATH}
+#source ${SHELL_TOOLS_DIR}/dirmarks/dirmarks
+#alias mm='_dirmarks mark m'
+#alias nn='_dirmarks mark n'
+#alias ii='_dirmarks mark i'
+#alias oo='_dirmarks mark o'
+#alias m='_dirmarks jump m'
+#alias n='_dirmarks jump n'
+#alias i='_dirmarks jump i'
+#alias o='_dirmarks jump o'
+
+export PATH=${SHELL_TOOLS_DIR}/ShellStash:${PATH}
+export PATH=${SHELL_TOOLS_DIR}/Backup:${PATH}
+export PATH=${SHELL_TOOLS_DIR}/QuickMemo:${PATH}
+
+export PATH=${SHELL_TOOLS_DIR}/Colors:${PATH}
+export PATH=${SHELL_TOOLS_DIR}/WifiCheck:${PATH}
+
+export PATH=${SHELL_TOOLS_DIR}/Wareki:${PATH}
+export PATH=${SHELL_TOOLS_DIR}/HolidayJP:${PATH}
+export PATH=${SHELL_TOOLS_DIR}/WorldTime:${PATH}
 alias now='worldtime'
-
-function _honyaku() {
-    safari "https://translate.google.co.jp/?hl=ja#view=home&op=translate&sl=auto&tl=en&text=${1}"
-}
-alias honyaku='_honyaku "$@"'
-
-# --------------------------------------------
-# make backup files/directories
-# --------------------------------------------
-function _create_backup() {
-    [ $# -ne 1 ] && echo 'no file/dir' && return
-    [ ! -e $(basename $1) ] && echo 'no file/dir' && return
-    #cp -r ${1} ${1}.bk
-    tar czf $(basename $1).tar.gz $1
-    echo "backed up! ($1)"
-}
-alias bk="_create_backup"
-
-function _restore_backup() {
-    local strip=$(echo $1 | sed -e 's/\.tar\.gz$//g')
-
-    [ $# -ne 1 ] && echo 'no file/dir' && return
-    [ ! -e $1 ] && [ ! -e ${strip}.tar.gz ] && echo 'no file/dir' && return
-
-    local target=$(echo $1 | sed 's/\.tar\.gz//g')
-    tar xzf ${strip}.tar.gz
-    echo "Restored! (${strip}.tar.gz)"
-}
-alias restore="_restore_backup"
-
-# --------------------------------------------
-# Google WEB Search
-# --------------------------------------------
-function _google_web_search() {
-    local url="https://www.google.com/search?q=$@"
-    open -a "/Applications/Safari.app" ${url}
-}
-alias google="_google_web_search"
-alias g="_google_web_search"
-
-# --------------------------------------------
-# Shell Stash
-# --------------------------------------------
-function _shell_stash() {
-    local stashDir=${DOTPATH}/.ShellStash
-    mkdir -p ${stashDir}
-
-    [ ${#@} -eq 0 ] && {
-        echo "========================== Stash =========================="
-        ls -lAGhF ${stashDir} | sed '1d'
-        echo "==========================================================="
-        echo "$(ls -lAG ${stashDir} | sed '1d' | wc -l) item(s) in Shell Stash."
-        return 0
-    }
-
-    local mvORcp=mv
-    local arg=()
-
-    while (( $# > 0 )); do
-        case $1 in
-            -* )
-                if [[ "$1" =~ 'c' ]]; then
-                    mvORcp=cp
-                fi
-                shift
-                ;;
-            * )
-                arg+=$1
-                shift
-                ;;
-        esac
-    done
-
-#    echo "arg: ${arg}"
-#    echo "arg[0]: ${arg[0]}"
-#    echo "arg[1]: ${arg[1]}"
-#    echo "arg[2]: ${arg[2]}"
-#    echo "mvORcp: ${mvORcp}"
-
-    case ${arg[1]} in
-        drop )
-            rm -rf ${stashDir} && echo "empty shell stash."
-            return 0
-            ;;
-        pop )
-            [ -z ${arg[2]} ] && {
-                local target=$(
-                    find ${stashDir} -mindepth 1 -maxdepth 1 | \
-                    peco --prompt "Shell Stash>"
-                )
-            } || target=${stashDir}/${arg[2]}
-
-            [ -e "$(basename ${target})" ] && {
-                echo "$(basename ${target}) is already exist."
-                return 1
-            }
-
-            [ ! -z ${target} ] && {
-                [ ${mvORcp} = 'cp' ] && {
-                    ${mvORcp} -r "${target}" .
-                } || {
-                    ${mvORcp} "${target}" .
-                }
-                echo "pop: $(basename ${target})"
-            }
-            ;;
-        * )
-            [ ! -e "${arg}" ] && {
-                echo "no file/dir"
-                return 1
-            }
-
-            [ ! -e "${stashDir}/${arg}" ] && {
-                [ ${mvORcp} = 'cp' ] && {
-                    ${mvORcp} -r "${arg}" ${stashDir}
-                } || {
-                    ${mvORcp} "${arg}" ${stashDir}
-                }
-                echo "put: ${arg}"
-            } || {
-                for i in $(seq 99); do
-                    filename="${arg}-$i"
-                    [ ! -e "${stashDir}/${filename}" ] && {
-                        ${mvORcp} "${arg}" "${stashDir}/${filename}"
-                        echo "put: ${filename}"
-                        break;
-                    }
-                done
-            }
-            ;;
-    esac
-}
-alias ss="_shell_stash"
-alias ssp="_shell_stash pop"
-
-#-------------------------------------------------
-# others
-#-------------------------------------------------
-#export DDD_HOME=${HOME}/dev/src/github.com/nutsllc/docker-dd-compose
-#export DDD_SEARCH_DIR=${HOME}/dev/src
-#source ${DDD_HOME}/docker-dd-compose

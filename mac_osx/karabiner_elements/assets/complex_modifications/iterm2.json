@@ -117,6 +117,34 @@
             ]
         },
         {
+            "description": "iTerm2: Typinator window",
+            "manipulators": [
+                {
+                    "conditions" : [
+                        {
+                            "type": "frontmost_application_if",
+                            "bundle_identifiers": [
+                                "^com\\.googlecode\\.iterm2"
+                            ]
+                        }
+                    ],
+                    "type": "basic",
+                    "from": {
+                        "key_code": "u",
+                        "modifiers": {
+                            "mandatory": ["left_control", "shift"]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "u",
+                            "modifiers": ["left_command", "shift"]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
             "description": "iTerm2: Change App (⌘ + Tab)",
             "manipulators": [
                 {
