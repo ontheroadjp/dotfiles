@@ -1,8 +1,0 @@
-C:\Users\ishihara_hideaki\Desktop\terminal-0.2.1831.0\src\tools\ColorTool\ColorTool\bin\Release\net461\ColorTool.exe.config
-C:\Users\ishihara_hideaki\Desktop\terminal-0.2.1831.0\src\tools\ColorTool\ColorTool\bin\Release\net461\ColorTool.exe
-C:\Users\ishihara_hideaki\Desktop\terminal-0.2.1831.0\src\tools\ColorTool\ColorTool\bin\Release\net461\ColorTool.pdb
-C:\Users\ishihara_hideaki\Desktop\terminal-0.2.1831.0\src\tools\ColorTool\ColorTool\obj\Release\net461\ColorTool.csproj.CoreCompileInputs.cache
-C:\Users\ishihara_hideaki\Desktop\terminal-0.2.1831.0\src\tools\ColorTool\ColorTool\obj\Release\net461\ColorTool.Resources.resources
-C:\Users\ishihara_hideaki\Desktop\terminal-0.2.1831.0\src\tools\ColorTool\ColorTool\obj\Release\net461\ColorTool.csproj.GenerateResource.cache
-C:\Users\ishihara_hideaki\Desktop\terminal-0.2.1831.0\src\tools\ColorTool\ColorTool\obj\Release\net461\ColorTool.exe
-C:\Users\ishihara_hideaki\Desktop\terminal-0.2.1831.0\src\tools\ColorTool\ColorTool\obj\Release\net461\ColorTool.pdb

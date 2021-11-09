@@ -17,7 +17,7 @@ alias p="_zsh_prompt_memo"
 # 補完機能有効にする
 # -----------------------------------
 ## zsh 補完
-#source ~/dotfiles/bin/git/git-completion.zsh
+#source ~/dotfiles/bin/git-completion.zsh
 
 autoload -U compinit
 compinit -u
@@ -25,7 +25,7 @@ compinit -u
 # -----------------------------------
 # プロンプトに git のブランチ名を表示する
 # -----------------------------------
-source ~/dotfiles/bin/git/git-prompt.sh
+source ~/dotfiles/bin/git-prompt.sh
 
 GIT_PS1_SHOWDIRTYSTATE=true         # unstaged (*) and staged (+)
 GIT_PS1_SHOWUNTRACKEDFILES=true     # untracked file (%)
@@ -44,4 +44,3 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
         eval "$("$BASE16_SHELL/profile_helper.sh")"
 
 echo "Load .zshrc"
-

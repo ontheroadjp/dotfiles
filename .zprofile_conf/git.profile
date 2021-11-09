@@ -25,15 +25,24 @@ if _is_exist git; then
     alias gbk='git commit -m "[WIP] still working"'
     alias wip='git commit -m "[wip] still working"'
 
-    function git_add_to_status() {
+    function _git_add_to_status() {
         git add "$@" && git status
     }
-    alias ga='git_add_to_status'
+    alias ga='_git_add_to_status'
 
 #    function _git_reset_status() {
 #        git reset "$@" && git status
 #    }
 #    alias gr='_git_reset_status'
+
+    #-------------------------------------------------
+    # .gitignore
+    #-------------------------------------------------
+    function _get_gitignore() {
+        local url="https://raw.githubusercontent.com/github/gitignore/master/Global/macOS.gitignore"
+        curl -L -o .gitignore ${url}
+    }
+    alias gitignore='_get_gitignore'
 
     #-------------------------------------------------
     # HTML5 (new site)
