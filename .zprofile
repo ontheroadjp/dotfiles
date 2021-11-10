@@ -43,6 +43,10 @@ if [ $(uname) = "Darwin" ]; then
     export PATH="${HOME}/dotfiles/mac_osx/HandBrakeCLI1.4.2/HandBrakeCLI:${PATH}"   # for HandBrakeCLI
     export WORKSPACE="/Users/hideaki/WORKSPACE"
 
+    # sleep
+    alias sleepon='sudo pmset -a disablesleep 0'
+    alias sleepoff='sudo pmset -a disablesleep 1'
+
     # clipboard
     alias '.pb=. | ghead -c -1 | pbcopy'
     alias 'pb.=. | ghead -c -1 | pbcopy'
@@ -247,6 +251,7 @@ fi
 #-------------------------------------------------
 if _is_exist peco; then
     source ${DOTPATH}/.zprofile_conf/peco.profile
+    source $(ghq root)/github.com/ontheroadjp/stock-jp/stock-jp.fnc
 fi
 
 #-------------------------------------------------
