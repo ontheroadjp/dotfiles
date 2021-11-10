@@ -7,7 +7,54 @@ if _is_exist git; then
     # Github CLI
     #-------------------------------------------------
     if _is_exist gh; then
-        eval "$(gh completion -s zsh)"
+#        [ $(echo $SHELL) = '/bin/zsh' ] && {
+#            eval "$(gh completion -s zsh)"
+#        }
+#        [ $(echo $SHELL) = '/bin/bash' ] && {
+#            eval "$(gh completion -s bash)"
+#        }
+        eval "$(gh completion -s $(echo ${SHELL} | cut -d '/' -f 3))"
+
+        # $1: repo name
+        # $2: repo description
+        function _create_new_repository_on_github() {
+            [ ${#@} -ne 3 ] && { echo "bad argument." && return }
+
+            local account="$1"
+            local repo_name="$2"
+            local desc="$3"
+            local local_dir=$(ghq root)/github.com.${account}/${account}/${repo_name}
+
+            echo "repo name: ${repo_name}"
+            echo "description: ${desc}"
+            echo "github.com account: ${account}"
+
+            echo -n 'create ? (Y/n): '
+            read input
+            if [ "${input}" = 'Y' ]; then
+                gh repo create ${repo_name} --public -d "${desc}"
+                ghq get git@github.com.${account}:${account}/${repo_name}.git && {
+                    while true
+                    do
+                        if [ -e ${local_dir} ]; then
+                            brake
+                        fi
+                        sleep 0.5
+                    done
+                    cd ${local_dir} && \
+                    printf "# ${repo_name}\n${desc}\n" > README.md && \
+                    git add . && \
+                    git commit -m "initial commit" && \
+                    git remote add origin git@github.com.${account}/${account}/${repo_name}.git
+                    git push origin master && \
+                    git checkout -b dev
+                }
+            else
+                echo "canceled." && return
+            fi
+
+        }
+        alias newrepo='_create_new_repository_on_github'
     fi
 
     #-------------------------------------------------
