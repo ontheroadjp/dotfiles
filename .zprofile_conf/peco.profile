@@ -34,6 +34,22 @@ alias app=_open_application $@
 zle -N _open_application
 bindkey '^A' _open_application
 
+#-------------------------------------------------
+# vim
+#-------------------------------------------------
+function _open_file_specify_file_extension() {
+    [ ! -z "${1}" ] && {
+        place="$(find . -type d -name node_modules -prune -o -type d -name vendor -prune -o -type f -name "*.${1}" | peco)"
+        [ ! -z "${place}" ] && {
+            vim ${place}
+        }
+    } || {
+        echo 'need one argument must be file exension'
+    }
+}
+alias ee='_open_file_specify_file_extension'
+# usage: $ee md, $ee README etc.
+
 # -------------------------------------------------
 # cd to directory within WORKSPACE
 # -------------------------------------------------

@@ -221,59 +221,6 @@ if _is_exist ag; then
     alias agh='ag --hidden'
 fi
 
-##-------------------------------------------------
-## Directory mark and jump
-##-------------------------------------------------
-#dirmarks="${HOME}/dotfiles/.dirmarks"
-#mkdir -p ${dirmarks}
-#
-#function _mark_to_directory() {
-#    [ $# -eq 1 ] && pwd > ${dirmarks}/${1}${1}; echo 'markd!'
-#}
-#
-#function _jump_to_directory() {
-#    [ $# -eq 1 ] && [ -f ${dirmarks}/${1}${1} ] && {
-#        cd $(cat ${dirmarks}/${1}${1})
-#    } || echo "not set."
-#}
-#
-#alias mm='_mark_to_directory m'
-#alias nn='_mark_to_directory n'
-#alias ii='_mark_to_directory i'
-#alias oo='_mark_to_directory o'
-#
-#alias m='_jump_to_directory m'
-#alias n='_jump_to_directory n'
-#alias i='_jump_to_directory i'
-#alias o='_jump_to_directory o'
-#
-##-------------------------------------------------
-## note
-##-------------------------------------------------
-#function _quick_memo() {
-#    if ! _is_exist gsed; then
-#        echo "error: you need to install gsed(gnu-sed)"
-#        echo "install: brew install gnu-sed"
-#        return
-#    fi
-#
-#    local quick_memo_dir="${WORKSPACE}/Dropbox/Documents/QuickMemo"
-#    #header="## =====> $(date '+%Y%m%d %H:%M:%S') <=====\n\n"
-#    header="## =====> $(date) <=====\n\n"
-#    gsed -i -e "1s/^/${header}/" ${quick_memo_dir}/quick_memo.md
-#    vim ${quick_memo_dir}/quick_memo.md
-#}
-#alias qm="_quick_memo"
-#
-#function _send_mail_quick_memo() {
-#    local subject="Quick Memo ($(date))"
-#    local to='hishihara1975@gmail.com'
-#    cat ${WORKSPACE}/Dropbox/note/INBOX/note.md \
-#        | mail -s ${subject} ${to}
-#    echo "mail (quick memo) sent!"
-#}
-#alias qmail='_send_mail_quick_memo'
-
 #-------------------------------------------------
 # Dammy Image
 #-------------------------------------------------
@@ -310,22 +257,6 @@ if _is_exist git; then
 fi
 
 #-------------------------------------------------
-# vim
-#-------------------------------------------------
-function _open_file_specify_file_extension() {
-    [ ! -z "${1}" ] && {
-        place="$(find . -type d -name node_modules -prune -o -type d -name vendor -prune -o -type f -name "*.${1}" | peco)"
-        [ ! -z "${place}" ] && {
-            vim ${place}
-        }
-    } || {
-        echo 'need one argument must be file exension'
-    }
-}
-alias ee='_open_file_specify_file_extension'
-# usage: $ee md, $ee README etc.
-
-#-------------------------------------------------
 # exiftool
 #-------------------------------------------------
 if _is_exist exiftool; then
@@ -335,20 +266,22 @@ fi
 #-------------------------------------------------
 # WEB (Dockerhub)
 #-------------------------------------------------
-function _open_my_dockerhub() {
-    place="$(ghq list | sed "s:github.com:hub.docker.com/r:" | peco)"
-    [ ! -z "${place}" ] && {
-        open "https://${place}"
+if _is_exist ghq && _is_exist peco; then
+    function _open_my_dockerhub() {
+        place="$(ghq list | sed "s:github.com:hub.docker.com/r:" | peco)"
+        [ ! -z "${place}" ] && {
+            open "https://${place}"
+        }
     }
-}
-alias dockerhub='_open_my_dockerhub';
+    alias dockerhub='_open_my_dockerhub';
 
-function dockerhub-build() {
-    place="$(ghq list | sed "s:github.com:hub.docker.com/r:" | peco)"
-    [ ! -z "${place}" ] && {
-        open "https://${place}/builds"
+    function dockerhub-build() {
+        place="$(ghq list | sed "s:github.com:hub.docker.com/r:" | peco)"
+        [ ! -z "${place}" ] && {
+            open "https://${place}/builds"
+        }
     }
-}
+fi
 
 #-------------------------------------------------
 # Docker
@@ -380,30 +313,11 @@ if _is_exist docker; then
     echo "Load Docker settings."
 fi
 
-#-------------------------------------------------
-# Vagrant
-#-------------------------------------------------
+##-------------------------------------------------
+## Vagrant
+##-------------------------------------------------
 if _is_exist vagrant; then
-    alias v='vagrant ssh'
-    alias vu='vagrant up'
-    alias vh='vagrant halt'
-    alias vd='vagrant destroy'
-    alias von='vagrant sandbox on'
-    alias voff='vagrant sandbox off'
-    alias vrb='vagrant sandbox rollback'
-    alias vc='vagrant sandbox commit'
-
-    alias vbl='vagrant box list'
-    alias vs='vagrant status'
-
-#    # enable completion for the vagrant
-#    if [ -f `brew --prefix`/etc/bash_completion.d/vagrant ]; then
-#        source `brew --prefix`/etc/bash_completion.d/vagrant
-#    elif _is_exist brew; then
-#        brew tap homebrew/completions
-#        source `brew --prefix`/etc/bash_completion.d/vagrant
-#    fi
-    echo "Load Vagrant settings."
+    source ${DOTPATH}/.zprofile_conf/vagrant.profile
 fi
 
 #-------------------------------------------------
