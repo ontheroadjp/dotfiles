@@ -1,15 +1,4 @@
 #-------------------------------------------------
-# MarsEdit
-#-------------------------------------------------
-function searchMarsEditImage() {
-    imgDir=$(find "${HOME}/Library/Application Support/MarsEdit/UploadedFiles" -name ${1} -exec dirname {} \;)
-    [ -e ${imgDir} ] && {
-        finder ${imgDir}
-    } || { echo "${1} does not exitst." }
-}
-alias me='searchMarsEditImage $@'
-
-#-------------------------------------------------
 # Variables
 #-------------------------------------------------
 export EDITOR=vim
@@ -17,7 +6,7 @@ export TERM=xterm
 #export LANG=ja_JP.UTF-8
 export DOTPATH=${HOME}/dotfiles
 export PATH=.:${DOTPATH}/bin:${PATH}
-export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH
+export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:${PATH}
 
 autoload -Uz colors && colors   # use color
 
@@ -103,38 +92,16 @@ if [ $(uname) = "Darwin" ]; then
 	}
     alias terminal='_cd_to_finder_window_opened'
 
-#    # Preview
-#    alias preview='open -a Preview'
-#
-#	# Safari
-#    alias safari='open -a "/Applications/Safari.app" "$(_urlencode $@)"'
-#
-#	# Chrome
-#    # https://developers.google.com/web/updates/2017/04/headless-chrome
-#	alias chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
-#
-#	# Spark
-#	alias spark='open -a "/Applications/Spark.app" $@'
-#	alias mailer='spark'
-#
-#    # Text Editor
-#    alias cot='open -a "/Applications/CotEditor.app"'
-#	alias subl='open -a "/Applications/Sublime Text.app"'
-#	alias atom='open -a "/Applications/Atom.app"'
-#    alias drafts='open -a "/Applications/Drafts.app"'
-#
-#    # Markdown Editor
-#    alias typora='open -a "/Applications/Typora.app"'
-#    alias macdown='open -a "/Applications/MacDown.app"'
-#    alias bear='open -a "/Applications/Bear.app"'
-#
-#    # Typinator
-#    alias typinator="open -a /Applications/Typinator.app"
-#
-#	# changing vi and vim to MacVim
-#	#alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
-#	#alias vim='env_LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
-#	alias mvim='env_LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+    #-------------------------------------------------
+    # MarsEdit
+    #-------------------------------------------------
+    function searchMarsEditImage() {
+        imgDir=$(find "${HOME}/Library/Application Support/MarsEdit/UploadedFiles" -name ${1} -exec dirname {} \;)
+        [ -e ${imgDir} ] && {
+            finder ${imgDir}
+        } || { echo "${1} does not exitst." }
+    }
+    alias me='searchMarsEditImage $@'
 
     # alias(directory change:Mac)
 	alias DESKTOP='cd ${HOME}/Desktop'
@@ -195,14 +162,16 @@ alias DOT='cd ${HOME}/dotfiles'
 # History
 #-------------------------------------------------
 
-# history
-HISTFILE=${HOME}/.zsh-history
-HISTSIZE=100000
-SAVEHIST=1000000
+[ $(echo $SHELL) = '/bin/zsh' ] && {
+    # history
+    HISTFILE=${HOME}/.zsh-history
+    HISTSIZE=100000
+    SAVEHIST=1000000
 
-# share .zshhistory
-setopt inc_append_history
-setopt share_history
+    # share .zshhistory
+    setopt inc_append_history
+    setopt share_history
+}
 
 #-------------------------------------------------
 # Changing directory(Common)
@@ -217,11 +186,11 @@ function _print_la() {
 alias la='_print_la'
 alias lad='la -d */'
 
-cdla() {
+function _cdla() {
     [ $# -eq 0 ] && place=${HOME} || place=$@
 	pushd ${place} && clear && la
 }
-alias cd='cdla'
+alias cd='_cdla'
 
 # -------------------------------- back to the previous location
 alias b='popd && clear && la'
@@ -240,33 +209,9 @@ alias .........="cd ../../../../../../../.."
 alias ..........="cd ../../../../../../../../.."
 alias ...........="cd ../../../../../../../../../.."
 
-#-------------------------------------------------
-# find count
-#-------------------------------------------------
-function _find_count() {
-    [ -z $3 ] && {
-        find $1 -type $2 -maxdepth 1 | grep -v "^\.$" | sort
-        local count=$(find $1 -type $2 -maxdepth 1 | \
-            grep -v "^\.$" | wc -l | tr -d ' ')
-    } || {
-        find -E $1 -type $2 -regex "^.*\.${3}$" | grep -v "^.$" | sort
-        local count=$(find -E $1 -type $2 -regex "^.*\.${3}$" | wc -l)
-    }
-
-    echo "------------------"
-    [ ${count} -gt 1 ] && {
-        [ $2 = f ] && { label="files" } || { label="directories" }
-    } || {
-        [ $2 = f ] && { label="file" } || { label="directory" }
-    }
-    echo "${count} ${label}."
+function mkdircd() {
+    mkdir $1 && cd $_
 }
-
-alias ff='(){_find_count ${1:-.} f}'
-alias fd='(){_find_count ${1:-.} d}'
-alias fimg='(){_find_count ${1:-.} f "(JPG|jpg|jpeg|PNG|png|TIFF|TIF|tiff|tif|CR2|NEF|ARW)"}'
-alias fmov='(){_find_count ${1:-.} f "(MOV|mov|AVI|avi|MPG|mpg|mpeg|mp4)"}'
-alias fmus='(){_find_count ${1:-.} f "(mp3)"}'
 
 #-------------------------------------------------
 # AG (grep)
@@ -276,32 +221,32 @@ if _is_exist ag; then
     alias agh='ag --hidden'
 fi
 
-#-------------------------------------------------
-# Directory mark and jump
-#-------------------------------------------------
-dirmarks="${HOME}/dotfiles/.dirmarks"
-mkdir -p ${dirmarks}
-
-function _mark_to_directory() {
-    [ $# -eq 1 ] && pwd > ${dirmarks}/${1}${1}; echo 'markd!'
-}
-
-function _jump_to_directory() {
-    [ $# -eq 1 ] && [ -f ${dirmarks}/${1}${1} ] && {
-        cd $(cat ${dirmarks}/${1}${1})
-    } || echo "not set."
-}
-
-alias mm='_mark_to_directory m'
-alias nn='_mark_to_directory n'
-alias ii='_mark_to_directory i'
-alias oo='_mark_to_directory o'
-
-alias m='_jump_to_directory m'
-alias n='_jump_to_directory n'
-alias i='_jump_to_directory i'
-alias o='_jump_to_directory o'
-
+##-------------------------------------------------
+## Directory mark and jump
+##-------------------------------------------------
+#dirmarks="${HOME}/dotfiles/.dirmarks"
+#mkdir -p ${dirmarks}
+#
+#function _mark_to_directory() {
+#    [ $# -eq 1 ] && pwd > ${dirmarks}/${1}${1}; echo 'markd!'
+#}
+#
+#function _jump_to_directory() {
+#    [ $# -eq 1 ] && [ -f ${dirmarks}/${1}${1} ] && {
+#        cd $(cat ${dirmarks}/${1}${1})
+#    } || echo "not set."
+#}
+#
+#alias mm='_mark_to_directory m'
+#alias nn='_mark_to_directory n'
+#alias ii='_mark_to_directory i'
+#alias oo='_mark_to_directory o'
+#
+#alias m='_jump_to_directory m'
+#alias n='_jump_to_directory n'
+#alias i='_jump_to_directory i'
+#alias o='_jump_to_directory o'
+#
 ##-------------------------------------------------
 ## note
 ##-------------------------------------------------
@@ -500,12 +445,6 @@ fi
 alias ip='ipconfig getifaddr en0'
 #alias ip='ipconfig getifaddr en1'
 
-# show sub directory size
-function _display_directory_size() {
-    du -sh ${1:-"$(pwd)"}/* 2>&1 | grep -v "Operation not permitted" | sort -hr
-}
-alias dirsize="_display_directory_size"
-
 # show image size
 function _display_image_size() {
     identify $@
@@ -513,28 +452,20 @@ function _display_image_size() {
 alias imgsize="_display_image_size"
 
 # --------------------------------------------
-# Mini Applications
+# Shell tools
 # --------------------------------------------
-SHELL_TOOLS_DIR="${HOME}/WORKSPACE/shell-tools"
-#export PATH=${SHELL_TOOLS_DIR}/dirmarks:${PATH}
-#source ${SHELL_TOOLS_DIR}/dirmarks/dirmarks
-#alias mm='_dirmarks mark m'
-#alias nn='_dirmarks mark n'
-#alias ii='_dirmarks mark i'
-#alias oo='_dirmarks mark o'
-#alias m='_dirmarks jump m'
-#alias n='_dirmarks jump n'
-#alias i='_dirmarks jump i'
-#alias o='_dirmarks jump o'
+SHELL_TOOLS_DIR="$(ghq root)/github.com/nutsllc/shell-tools"
 
-export PATH=${SHELL_TOOLS_DIR}/ShellStash:${PATH}
-export PATH=${SHELL_TOOLS_DIR}/Backup:${PATH}
-export PATH=${SHELL_TOOLS_DIR}/QuickMemo:${PATH}
+source ${SHELL_TOOLS_DIR}/dirmarks/dirmarks.fnc
+source ${SHELL_TOOLS_DIR}/shell-stash/shell-stash.fnc
+source ${SHELL_TOOLS_DIR}/backup/backup.fnc
+source ${SHELL_TOOLS_DIR}/quick-memo/quick-memo.fnc
 
-export PATH=${SHELL_TOOLS_DIR}/Colors:${PATH}
-export PATH=${SHELL_TOOLS_DIR}/WifiCheck:${PATH}
+source ${SHELL_TOOLS_DIR}/file-info/file-info.fnc
+source ${SHELL_TOOLS_DIR}/wifi-helth-check/wifi-helth-check.fnc
+source ${SHELL_TOOLS_DIR}/colors/colors.fnc
 
-export PATH=${SHELL_TOOLS_DIR}/Wareki:${PATH}
-export PATH=${SHELL_TOOLS_DIR}/HolidayJP:${PATH}
-export PATH=${SHELL_TOOLS_DIR}/WorldTime:${PATH}
-alias now='worldtime'
+source ${SHELL_TOOLS_DIR}/weather/weather.fnc
+source ${SHELL_TOOLS_DIR}/wareki/wareki.fnc
+source ${SHELL_TOOLS_DIR}/holiday-jp/holiday-jp.fnc
+source ${SHELL_TOOLS_DIR}/worldtime/worldtime.fnc

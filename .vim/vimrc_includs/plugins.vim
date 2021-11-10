@@ -3,7 +3,6 @@
 " plug-in install   : add to .vimrc and exec :NeoBundleInstall in vim
 " Plug-in uninstall : remove from .vimrc and exec :NeoBundleClean in vim
 "---------------------------------------------------------------------------
-
 set nocompatible
 filetype off
 
@@ -80,9 +79,9 @@ NeoBundle 'ervandew/supertab'                       " auto completion
 NeoBundle 'Shougo/neosnippet'                       " code snipet
 NeoBundle 'Shougo/neosnippet-snippets'              " a collection of the code anipet
 
-NeoBundle 'garbas/vim-snipmate'                     " snippets
-NeoBundle 'MarcWeber/vim-addon-mw-utils'            " snippets dependency
-NeoBundle 'tomtom/tlib_vim'                         " snippets dependency
+"NeoBundle 'garbas/vim-snipmate'                     " snippets
+"NeoBundle 'MarcWeber/vim-addon-mw-utils'            " snippets dependency
+"NeoBundle 'tomtom/tlib_vim'                         " snippets dependency
 
 "-------------------------------------------------------------
 " Base utilities

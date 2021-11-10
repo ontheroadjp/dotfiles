@@ -59,10 +59,9 @@ if _is_exist git; then
     function _go_to_repository_root() {
         cd $(git rev-parse --show-toplevel)
     }
-    alias ggg="_go_to_repository_root"
     alias G="_go_to_repository_root"
 
-    if _is_exist ghq; then
+    if _is_exist ghq && _is_exist peco; then
         function _cd_to_repository_from_ghq_list() {
             to=$(ghq list | peco --prompt "Git Repository>" --query "${*}")
             [ ! -z ${to} ] && cd $(ghq root)/${to}
@@ -76,29 +75,29 @@ if _is_exist git; then
     function _open_github_from_current_dir() {
         open $(git remote get-url origin)
     }
-    alias goweb="_open_github_from_current_dir"
+    alias github="_open_github_from_current_dir"
 
-    function _open_github_from_ghq_list() {
-        place="$(ghq list | peco)"
-        [ ! -z ${place} ] && {
-            open "https://${place}"
+    if _is_exist ghq && _is_exist peco; then
+        function _open_github_from_ghq_list() {
+            place="$(ghq list | peco)"
+            [ ! -z ${place} ] && {
+                open "https://${place}"
+            }
         }
-    }
-    if _is_exist ghq; then
-        alias rrgit='_open_github_from_ghq_list';
+        alias rrr='_open_github_from_ghq_list';
     fi
 
-    function _open_github_from_my_repository_list() {
-        local repo_list_path=${HOME}/dotfiles/.my_repository_list.txt""
-        place="$(cat ${repo_list_path} | \
-                    peco --prompt "My Repositories on GitHub>" | \
-                    cut -f 2 -d ' '
-                )"
-        [ ! -z "${place}" ] && open "https://github.com/${place}?tab=repositories"
-    }
-    alias mygithub='_open_github_from_my_repository_list';
-    alias mygit='_open_github_from_my_repository_list';
-    alias repo='_open_github_from_my_repository_list';
+#    function _open_github_from_my_repository_list() {
+#        local repo_list_path=${HOME}/dotfiles/.my_repository_list.txt""
+#        place="$(cat ${repo_list_path} | \
+#                    peco --prompt "My Repositories on GitHub>" | \
+#                    cut -f 2 -d ' '
+#                )"
+#        [ ! -z "${place}" ] && open "https://github.com/${place}?tab=repositories"
+#    }
+#    alias mygithub='_open_github_from_my_repository_list';
+#    alias mygit='_open_github_from_my_repository_list';
+#    alias repo='_open_github_from_my_repository_list';
 
     echo "Load Git settings."
 fi
