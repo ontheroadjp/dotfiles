@@ -3,6 +3,10 @@
 #-------------------------------------------------
 if _is_exist git; then
 
+    function _is_git_repo() {
+        git log > /dev/null 2>&1
+    }
+
     #-------------------------------------------------
     # Github CLI
     #-------------------------------------------------
@@ -15,46 +19,67 @@ if _is_exist git; then
 #        }
         eval "$(gh completion -s $(echo ${SHELL} | cut -d '/' -f 3))"
 
-        # $1: repo name
-        # $2: repo description
+        # $1: git account
+        # $2: repo name
+        # $3: repo description
         function _create_new_repository_on_github() {
             [ ${#@} -ne 3 ] && { echo "bad argument." && return }
 
-            local account="$1"
-            local repo_name="$2"
-            local desc="$3"
-            local local_dir=$(ghq root)/github.com.${account}/${account}/${repo_name}
+            local repo_name="$1"
+            local desc="$2"
+            local account="$3"
+            local local_dir=$(ghq root)/github.com/${account}/${repo_name}
 
-            echo "repo name: ${repo_name}"
-            echo "description: ${desc}"
-            echo "github.com account: ${account}"
+#            echo "repo name: ${repo_name}"
+#            echo "description: ${desc}"
+#            echo "github.com account: ${account}"
 
-            echo -n 'create ? (Y/n): '
+            gh repo create ${repo_name} --public -d "${desc}" && \
+            ghq get ${account}/${repo_name}.git && {
+                while true
+                do
+                    if [ -e ${local_dir} ]; then
+                        break
+                    fi
+                    sleep 0.5
+                done
+                cd ${local_dir} && \
+                printf "# ${repo_name}\n${desc}\n" > README.md && \
+                git add README.md && \
+                git commit -m "initial commit" && \
+                git remote set-url origin git@github.com:${account}/${repo_name}.git
+                git push origin master && \
+                git checkout -b dev
+                git push origin dev
+            }
+        }
+        alias gnew='_create_new_repository_on_github'
+
+        function _delete_repository_on_github() {
+            local target=$(ghq list \
+                            | grep -e ontheroadjp -e nutsllc \
+                            | sed 's:github.com/::' \
+                            | sed 's:GitHub - ::' \
+                            | peco --prompt "Git Repository>" --query "${*}"
+                        )
+
+            # delete at the web
+            echo -n "delete \"${target}\" ? (Y/n): "
             read input
             if [ "${input}" = 'Y' ]; then
-                gh repo create ${repo_name} --public -d "${desc}"
-                ghq get git@github.com.${account}:${account}/${repo_name}.git && {
-                    while true
-                    do
-                        if [ -e ${local_dir} ]; then
-                            brake
-                        fi
-                        sleep 0.5
-                    done
-                    cd ${local_dir} && \
-                    printf "# ${repo_name}\n${desc}\n" > README.md && \
-                    git add . && \
-                    git commit -m "initial commit" && \
-                    git remote add origin git@github.com.${account}/${account}/${repo_name}.git
-                    git push origin master && \
-                    git checkout -b dev
-                }
-            else
-                echo "canceled." && return
+                #gh repo delete ${target} --confirm
+                gh repo delete ${target} --confirm
             fi
 
+            # delete at local
+            echo -n 'delete local repository ? (Y/n): '
+            read input
+            if [ "${input}" = 'Y' ]; then
+                to=$(ghq list | grep "${target}")
+                [ ! -z ${to} ] && rm -rf $(ghq root)/${to}
+            fi
         }
-        alias newrepo='_create_new_repository_on_github'
+        alias gdel='_delete_repository_on_github'
     fi
 
     #-------------------------------------------------
@@ -104,13 +129,17 @@ if _is_exist git; then
     # cd
     #-------------------------------------------------
     function _go_to_repository_root() {
-        cd $(git rev-parse --show-toplevel)
+        if _is_git_repo; then
+            cd $(git rev-parse --show-toplevel)
+        else
+            echo "not git repo."
+        fi
     }
     alias G="_go_to_repository_root"
 
     if _is_exist ghq && _is_exist peco; then
         function _cd_to_repository_from_ghq_list() {
-            to=$(ghq list | peco --prompt "Git Repository>" --query "${*}")
+            to=$(ghq list | peco --prompt "Local Repository To >" --query "${*}")
             [ ! -z ${to} ] && cd $(ghq root)/${to}
         }
         alias rr='_cd_to_repository_from_ghq_list'
@@ -119,32 +148,38 @@ if _is_exist git; then
     #-------------------------------------------------
     # Go to the github.com
     #-------------------------------------------------
-    function _open_github_from_current_dir() {
-        open $(git remote get-url origin)
-    }
-    alias github="_open_github_from_current_dir"
-
     if _is_exist ghq && _is_exist peco; then
         function _open_github_from_ghq_list() {
-            place="$(ghq list | peco)"
-            [ ! -z ${place} ] && {
-                open "https://${place}"
-            }
+            local target=$(ghq list \
+                            | sed 's:GitHub - ::' \
+                            | sed 's@^@https://@g' \
+                            | peco --prompt "Open GitHub.com >" --query "${*}"
+                        )
+            [ ! -z ${target} ] && open ${target}
+
         }
-        alias rrr='_open_github_from_ghq_list';
+        alias rrg='_open_github_from_ghq_list';
     fi
 
-#    function _open_github_from_my_repository_list() {
-#        local repo_list_path=${HOME}/dotfiles/.my_repository_list.txt""
-#        place="$(cat ${repo_list_path} | \
-#                    peco --prompt "My Repositories on GitHub>" | \
-#                    cut -f 2 -d ' '
-#                )"
-#        [ ! -z "${place}" ] && open "https://github.com/${place}?tab=repositories"
-#    }
-#    alias mygithub='_open_github_from_my_repository_list';
-#    alias mygit='_open_github_from_my_repository_list';
-#    alias repo='_open_github_from_my_repository_list';
+    if _is_exist peco; then
+        function _open_github_from_current_dir() {
+            local url="https://github.com"
+            if _is_git_repo; then
+                local target=$(git remote get-url origin 2>/dev/null \
+                    | sed -e 's%.*\(github.com.*\)%https://\1%' \
+                    | sed -e "s%$%\n${url}/ontheroadjp\n${url}/nutsllc%" \
+                    | peco --prompt "Open GitHub.com >" --query "${*}"
+                    )
+            else
+                local target=$(print "${url}/ontheroadjp\n${url}/nutsllc" \
+                    | peco --prompt "Open GitHub.com >" --query "${*}"
+                    )
+            fi
+            #open $(git remote get-url origin)
+            [ ! -z ${target} ] && open ${target}
+        }
+        alias github="_open_github_from_current_dir"
+    fi
 
     echo "Load Git settings."
 fi
