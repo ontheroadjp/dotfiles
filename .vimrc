@@ -99,6 +99,7 @@ autocmd BufNewFile *.{sh,bash} 0r $HOME/dotfiles/.vim/templates/sh.tpl
 
 " Filetype
 autocmd BufNewFile,BufRead *.{html,htm,ejs,vue*} set filetype=html  " for ejs/vue.js
+autocmd BufNewFile,BufRead *.{profile,fnc} set filetype=bash
 
 "--------------------------------------------------------------- Buffer
 nnoremap <silent> bl :buffers<CR>
