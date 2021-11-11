@@ -7,6 +7,18 @@ if _is_exist git; then
         git log > /dev/null 2>&1
     }
 
+    function gontheroadjp() {
+        git config --global user.name "ontheroadjp"
+        git config --global user.email "dev@ontheroad.jp"
+        git config --list | grep user
+    }
+
+    function gnutsllc() {
+        git config --global user.name "nutsllc"
+        git config --global user.email "dev@nutsllc.jp"
+        git config --list | grep user
+    }
+
     #-------------------------------------------------
     # Github CLI
     #-------------------------------------------------
@@ -64,8 +76,9 @@ if _is_exist git; then
                             | grep -e ontheroadjp -e nutsllc \
                             | sed 's:github.com/::' \
                             | sed 's:GitHub - ::' \
-                            | peco --prompt "Git Repository>" --query "${*}"
+                            | peco --prompt "Git Repository>"
                         )
+            [ -z ${target} ] && return
 
             # delete at the web
             echo -n "delete \"${target}\" ? (Y/n): "
@@ -90,14 +103,14 @@ if _is_exist git; then
     alias gg='git graph'
     alias ggs='git graph --stat'
     alias gs='git status'
-    alias gd='git diff'
-    alias gdni='git diff --no-index'
-    alias gcom='git commit -v'
-    alias gb='git branch'
-    alias gc='git checkout'
-    alias gm='git merge --no-ff'
-    alias gbk='git commit -m "[WIP] still working"'
-    alias wip='git commit -m "[wip] still working"'
+#    alias gd='git diff'
+#    alias gdni='git diff --no-index'
+#    alias gcom='git commit -v'
+#    alias gb='git branch'
+#    alias gc='git checkout'
+#    alias gm='git merge --no-ff'
+    alias gbk='git commit -m "[WIP] temporary backup"'
+    alias gwip='git commit -m "[wip] still working"'
 
     function _git_add_to_status() {
         git add "$@" && git status
