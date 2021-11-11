@@ -509,6 +509,11 @@ if _is_exist docker; then
     #fi
     echo "Load Docker settings."
 
+    function _docker_build() {
+        docker build -t ${1} .
+    }
+    alias db="_docker_build"
+
     # for docker-compose.yml
     alias dd="docker-compose ${@}"
     alias ddup="docker-compose up ${@}"
