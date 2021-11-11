@@ -1,0 +1,98 @@
+tap "argon/mas"
+tap "homebrew/bundle"
+tap "homebrew/cask"
+tap "homebrew/completions"
+tap "homebrew/core"
+tap "homebrew/dupes"
+tap "homebrew/php"
+tap "motemen/ghq"
+tap "sanemat/font"
+cask "xquartz"
+brew "openssl@1.1"
+brew "python@3.8"
+brew "ccat"
+brew "cloc"
+brew "coreutils"
+brew "ctags"
+brew "curl"
+brew "exiftool"
+brew "gobject-introspection"
+brew "harfbuzz"
+brew "ffmpeg"
+brew "pango"
+brew "fontforge"
+brew "gh"
+brew "ghq"
+brew "gnu-sed"
+brew "go"
+brew "graphicsmagick"
+brew "htop"
+brew "httping"
+brew "hugo"
+brew "imagemagick"
+brew "jpegoptim"
+brew "oniguruma"
+brew "jq"
+brew "libxml2"
+brew "lynx"
+brew "mhash"
+brew "mcrypt"
+brew "mplayer"
+brew "nkf"
+brew "nmap"
+brew "node"
+brew "optipng"
+brew "peco"
+brew "socat"
+brew "the_silver_searcher"
+brew "tmux"
+brew "tree"
+brew "ttyrec"
+brew "unar"
+brew "unixodbc"
+brew "vagrant-completion"
+brew "vim"
+brew "w3m"
+brew "wget"
+brew "youtube-dl"
+brew "argon/mas/mas"
+brew "sanemat/font/ricty"
+mas "1Password", id: 443987910
+mas "1Password 7", id: 1333542190
+mas "Adobe Revel", id: 455068834
+mas "AnyMP4 AVCHD Converter", id: 640034674
+mas "Bear", id: 1091189122
+mas "Caffeine", id: 411246225
+mas "CloudClip Manager", id: 563362017
+mas "Drafts", id: 1435957248
+mas "Ds Store Remover", id: 476237254
+mas "EchofonLite", id: 403858460
+mas "Evernote", id: 406056744
+mas "GarageBand", id: 682658836
+mas "iMovie", id: 408981434
+mas "iPhoto", id: 408981381
+mas "JPEGmini", id: 498944723
+mas "Keynote", id: 409183694
+mas "MARKETSPEED", id: 946680495
+mas "MarsEdit", id: 402376225
+mas "Microsoft Remote Desktop", id: 715768417
+mas "Numbers", id: 409203825
+mas "OmniFocus", id: 867299399
+mas "Pages", id: 409201541
+mas "Pasteasy", id: 906277880
+mas "Paster", id: 688825825
+mas "Photos Duplicate Cleaner", id: 592704001
+mas "PicFrame", id: 475067528
+mas "PopClip", id: 445189367
+mas "QREncoder", id: 452695239
+mas "Round PicFrame", id: 755419885
+mas "Slack", id: 803453959
+mas "Smart Sync", id: 537484847
+mas "Spark", id: 1176895641
+mas "Super Bundle for iBooks", id: 829473270
+mas "Todoist", id: 585829637
+mas "ToyViewer", id: 414298354
+mas "WeChat", id: 836500024
+mas "WinArchiver Lite", id: 414855915
+mas "Xcode", id: 497799835
+mas "Yoink", id: 457622435

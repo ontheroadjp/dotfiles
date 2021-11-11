@@ -3,6 +3,7 @@
 .gitmodules
 
 .dirmarks/
+.ShellStash/
 
 .atom/packages/
 .atom/storage/
@@ -13,12 +14,13 @@
 backup.sh
 
 docker-dd/
-peco/Changes
-peco/README.md
-peco/peco
+peco/
 
-mm.txt
-nn.txt
+.TrashBox.log
+.my_repository_list.txt
+.dirmarks/
+.stock_jp/
+.web_bookmark/
 
 # ----------------------------------
 # for vim by github template

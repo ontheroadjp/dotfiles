@@ -3,7 +3,6 @@
 " plug-in install   : add to .vimrc and exec :NeoBundleInstall in vim
 " Plug-in uninstall : remove from .vimrc and exec :NeoBundleClean in vim
 "---------------------------------------------------------------------------
-
 set nocompatible
 filetype off
 
@@ -34,22 +33,22 @@ NeoBundle 'Shougo/vimproc', {
 \    }
 \ }
 
-NeoBundle 'powerline/powerline'
+"NeoBundle 'powerline/powerline'
 "-------------------------------------------------------------
 " Unite, NERDTree, Tagbar, SourceExplorer
 "-------------------------------------------------------------
 NeoBundle 'Shougo/unite.vim'    	        	" Adding Unite to easy to open files
 NeoBundle 'Shougo/neomru.vim'   	        	" Unite: using MRU in Unite
 NeoBundle 'Shougo/unite-outline'	        	" Unite: show functions/variables
-NeoBundle 'tsukkee/unite-tag'                  	" Unite: using ctags in Unite
+"NeoBundle 'tsukkee/unite-tag'                  	" Unite: using ctags in Unite
 NeoBundle 'scrooloose/nerdtree'               	" Adding NERDTree to view file tree
 
-NeoBundle 'majutsushi/tagbar'                   " Adding Tagbar
+"NeoBundle 'majutsushi/tagbar'                   " Adding Tagbar
 "NeoBundleLazy 'majutsushi/tagbar',         {   " Adding Tagbar
 "    \ 'autoload': { 'commands': ['TagbarToggle'] }
 "    \ }
 
-NeoBundle 'wesleyche/SrcExpl'                   " show file at cursor in new window
+"NeoBundle 'wesleyche/SrcExpl'                   " show file at cursor in new window
 "NeoBundleLazy 'wesleyche/SrcExpl', {           " show file at cursor in new window
 "    \ 'autoload' : { 'commands': ['SrcExplToggle'] }
 "    \ }
@@ -77,28 +76,31 @@ NeoBundle 'ervandew/supertab'                       " auto completion
 "-------------------------------------------------------------
 " Snippets
 "-------------------------------------------------------------
-"NeoBundle 'Shougo/neosnippet'                       " code snipet
-"NeoBundle 'Shougo/neosnippet-snippets'              " a collection of the code anipet
+NeoBundle 'Shougo/neosnippet'                       " code snipet
+NeoBundle 'Shougo/neosnippet-snippets'              " a collection of the code anipet
 
-NeoBundle 'garbas/vim-snipmate'                     " snippets
-NeoBundle 'MarcWeber/vim-addon-mw-utils'            " snippets dependency
-NeoBundle 'tomtom/tlib_vim'                         " snippets dependency
+"NeoBundle 'garbas/vim-snipmate'                     " snippets
+"NeoBundle 'MarcWeber/vim-addon-mw-utils'            " snippets dependency
+"NeoBundle 'tomtom/tlib_vim'                         " snippets dependency
 
 "-------------------------------------------------------------
 " Base utilities
 "-------------------------------------------------------------
-NeoBundle 'easymotion/vim-easymotion'               " easy cursor moving
+"NeoBundle 'easymotion/vim-easymotion'               " easy cursor moving
 NeoBundle 'tpope/vim-surround'                      " easy to add/chenge/delete quote
 
 "-------------------------
 " for Development
+" see: https://qiita.com/us10096698/items/1ac05c5c9543d2f79fa3
 "-------------------------
-NeoBundle 'thinca/vim-quickrun'
+"NeoBundle 'thinca/vim-quickrun'
+"NeoBundle 'tpope/vim-markdown'                     " for Markdown
+"NeoBundle 'tyru/open-browser.vim'                  " browser preview
 
 "-------------------------
 " for Git
 "-------------------------
-NeoBundle 'tpope/vim-fugitive'
+"NeoBundle 'tpope/vim-fugitive'
 
 "-------------------------
 " for HTML, CSS
@@ -120,13 +122,11 @@ NeoBundle 'joonty/vdebug'	    		            " xdebug client
 "-------------------------
 NeoBundle 'rking/ag.vim'                            " using ag in grep
 NeoBundle 'thinca/vim-ref'                          " search dictionary (PHP mnual/English dictionary)
-NeoBundle 'fuenor/qfixhowm'                         " ease to create memo
+"NeoBundle 'fuenor/qfixhowm'                         " ease to create memo
 
 "-------------------------
 " minor leage
 "-------------------------
-"NeoBundle 'tpope/vim-markdown'                     " for Markdown
-"NeoBundle 'tyru/open-browser.vim'                  " browser preview
 
 "NeoBundle 'chriskempson/base16-vim'                " color schema
 "NeoBundle 'jpalardy/vim-slime'
