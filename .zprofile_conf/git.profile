@@ -7,6 +7,18 @@ if _is_exist git; then
         git log > /dev/null 2>&1
     }
 
+    function gontheroadjp() {
+        git config --global user.name "ontheroadjp"
+        git config --global user.email "dev@ontheroad.jp"
+        git config --list | grep user
+    }
+
+    function gnutsllc() {
+        git config --global user.name "nutsllc"
+        git config --global user.email "dev@nutsllc.jp"
+        git config --list | grep user
+    }
+
     #-------------------------------------------------
     # Github CLI
     #-------------------------------------------------
@@ -64,8 +76,9 @@ if _is_exist git; then
                             | grep -e ontheroadjp -e nutsllc \
                             | sed 's:github.com/::' \
                             | sed 's:GitHub - ::' \
-                            | peco --prompt "Git Repository>" --query "${*}"
+                            | peco --prompt "Git Repository>"
                         )
+            [ -z ${target} ] && return
 
             # delete at the web
             echo -n "delete \"${target}\" ? (Y/n): "
