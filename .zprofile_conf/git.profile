@@ -181,6 +181,7 @@ if _is_exist git; then
             local url="https://github.com"
             if _is_git_repo; then
                 local target=$(git remote get-url origin 2>/dev/null \
+                    | sed -e 's/:/\//g' \
                     | sed -e 's%.*\(github.com.*\)%https://\1%' \
                     | sed -e "s%$%\n${url}/ontheroadjp\n${url}/nutsllc%" \
                     | peco --prompt "Open GitHub.com >" --query "${*}"
