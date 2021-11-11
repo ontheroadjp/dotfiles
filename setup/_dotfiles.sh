@@ -23,6 +23,7 @@ function _deploy_dotfiles() {
         # git
         .gitconfig
         .gitignore_global
+        .git_template
 
         # tmux
         .tmux.conf
