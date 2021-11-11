@@ -34,7 +34,10 @@ if _is_exist git; then
 #            echo "description: ${desc}"
 #            echo "github.com account: ${account}"
 
-            gh repo create ${repo_name} --public -d "${desc}" && \
+            local temp_dir=${WORKSPACE}/GIT_CLI_TEMP
+            mkdir ${temp_dir} && $_
+
+            gh repo create ${repo_name} --public -d "${desc}" --confirm && \
             ghq get ${account}/${repo_name}.git && {
                 while true
                 do
@@ -49,8 +52,9 @@ if _is_exist git; then
                 git commit -m "initial commit" && \
                 git remote set-url origin git@github.com:${account}/${repo_name}.git
                 git push origin master && \
-                git checkout -b dev
-                git push origin dev
+                git checkout -b dev && \
+                git push origin dev && \
+                rm -rf ${temp_dir}
             }
         }
         alias gnew='_create_new_repository_on_github'
@@ -67,16 +71,14 @@ if _is_exist git; then
             echo -n "delete \"${target}\" ? (Y/n): "
             read input
             if [ "${input}" = 'Y' ]; then
-                #gh repo delete ${target} --confirm
-                gh repo delete ${target} --confirm
-            fi
-
-            # delete at local
-            echo -n 'delete local repository ? (Y/n): '
-            read input
-            if [ "${input}" = 'Y' ]; then
-                to=$(ghq list | grep "${target}")
-                [ ! -z ${to} ] && rm -rf $(ghq root)/${to}
+                gh repo delete ${target} --confirm && {
+                    echo -n 'delete local repository ? (Y/n): '
+                    read input
+                    if [ "${input}" = 'Y' ]; then
+                        to=$(ghq list | grep "${target}")
+                        [ ! -z ${to} ] && rm -rf $(ghq root)/${to}
+                    fi
+                }
             fi
         }
         alias gdel='_delete_repository_on_github'
