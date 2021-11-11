@@ -373,7 +373,7 @@ alias imgsize="_display_image_size"
 # --------------------------------------------
 # Shell tools
 # --------------------------------------------
-SHELL_TOOLS_DIR="$(ghq root)/github.com/nutsllc/shell-tools"
+SHELL_TOOLS_DIR="$(ghq root)/github.com/ontheroadjp/shell-tools"
 
 source ${SHELL_TOOLS_DIR}/dirmarks/dirmarks.fnc
 source ${SHELL_TOOLS_DIR}/shell-stash/shell-stash.fnc
