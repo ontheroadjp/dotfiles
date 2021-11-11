@@ -1,6 +1,7 @@
 [core]
 	excludesfile = ~/.gitignore_global
 	autoCRLF = false
+    #hooksPath = ~/.git_template/hooks
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path =
@@ -15,7 +16,7 @@
     graph = log --graph --date-order --all --pretty=format:'%h %Cred%d %Cgreen%ad %Cblue%cn %Creset%s' --date=short
     ls = !"f(){ git ls-files | sed -e '/^[^\\/]*$/d' -e 's/\\/[^\\/]*$//g' | sort | uniq; }; f"
 [user]
-	name = @ontheroad_jp
+	name = ontheroadjp
 	email = dev@ontheroad.jp
 [color]
     ui = true

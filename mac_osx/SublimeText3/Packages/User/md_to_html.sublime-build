@@ -1,0 +1,4 @@
+{
+    "shell_cmd": "pandoc -o \"./$file_base_name.html\" -f markdown -t html \"$file\"" ,
+    "selector": "markdown"
+}
