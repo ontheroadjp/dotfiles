@@ -1,5 +1,5 @@
 # -----------------------------------
-# Memo
+# MiniApp: Memo
 # -----------------------------------
 function _zsh_prompt_memo(){
     if [ $# -eq 0 ]; then
@@ -14,7 +14,23 @@ alias pmemo="_zsh_prompt_memo"
 alias p="_zsh_prompt_memo"
 
 # -----------------------------------
-# 補完機能有効にする
+# zsh - vi mode
+# -----------------------------------
+function zle-line-init zle-keymap-select {
+    VIM_NORMAL="%K{208}%F{black}(%k%f%K{208}%F{white}% NORMAL%k%f%K{black}%F{208})%k%f"
+    VIM_INSERT="%K{051}%F{051}(%k%f%K{051}%F{051}%F{blue}% INSERT%k%f%K{051}%F{051})%k%f"
+    RPS1="${${KEYMAP/vicmd/$VIM_NORMAL}/(main|viins)/$VIM_INSERT}"
+    RPS2=$RPS1
+    zle reset-prompt
+}
+zle -N zle-line-init
+zle -N zle-keymap-select
+
+# jj to return normal mode
+bindkey -M viins 'jj' vi-cmd-mode
+
+# -----------------------------------
+# zsh complition
 # -----------------------------------
 ## zsh 補完
 #source ~/dotfiles/bin/git-completion.zsh
@@ -23,7 +39,7 @@ autoload -U compinit
 compinit -u
 
 # -----------------------------------
-# プロンプトに git のブランチ名を表示する
+# Display Git branch name
 # -----------------------------------
 source ~/dotfiles/bin/git-prompt.sh
 

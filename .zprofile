@@ -163,11 +163,11 @@ alias DOT='cd ${HOME}/dotfiles'
 #alias jj=$(:)
 
 #-------------------------------------------------
-# History
+# zsh
 #-------------------------------------------------
 
+# history
 [ $(echo $SHELL) = '/bin/zsh' ] && {
-    # history
     HISTFILE=${HOME}/.zsh-history
     HISTSIZE=100000
     SAVEHIST=1000000
