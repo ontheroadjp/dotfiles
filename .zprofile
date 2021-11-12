@@ -159,7 +159,8 @@ source ${HOME}/dotfiles/.zprofile_conf/tmux.profile
 #-------------------------------------------------
 alias c='clear'
 alias e='exit'
-alias DOT='cd ${HOME}/dotfiles'
+alias DD='cd ${DOTPATH}'
+alias WW='cd ${WORKSPACE}'
 #alias jj=$(:)
 
 #-------------------------------------------------
@@ -251,7 +252,6 @@ fi
 #-------------------------------------------------
 if _is_exist peco; then
     source ${DOTPATH}/.zprofile_conf/peco.profile
-    source $(ghq root)/github.com/ontheroadjp/stock-jp/stock-jp.fnc
 fi
 
 #-------------------------------------------------
