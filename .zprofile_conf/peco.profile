@@ -214,6 +214,8 @@ alias clock="_show_timezone"
 #-------------------------------------------------
 # Search Stock
 #-------------------------------------------------
+source $(ghq root)/github.com/ontheroadjp/stock-jp/stock-jp.fnc
+
 #function _stock_search() {
 #    local stock_search_dir="${DOTPATH}/.stock_jp"
 #    local security_code
