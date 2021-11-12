@@ -31,15 +31,14 @@ if _is_exist git; then
 #        }
         eval "$(gh completion -s $(echo ${SHELL} | cut -d '/' -f 3))"
 
-        # $1: git account
-        # $2: repo name
-        # $3: repo description
+        # $1: repo name
+        # $2: repo description
         function _create_new_repository_on_github() {
-            [ ${#@} -ne 3 ] && { echo "bad argument." && return }
+            [ ${#@} -ne 2 ] && { echo "bad argument." && return }
 
             local repo_name="$1"
             local desc="$2"
-            local account="$3"
+            local account=$(git config --list | grep user.name | cut -d '=' -f 2)
             local local_dir=$(ghq root)/github.com/${account}/${repo_name}
 
 #            echo "repo name: ${repo_name}"
