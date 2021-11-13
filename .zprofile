@@ -388,3 +388,8 @@ source ${SHELL_TOOLS_DIR}/weather/weather.fnc
 source ${SHELL_TOOLS_DIR}/wareki/wareki.fnc
 source ${SHELL_TOOLS_DIR}/holiday-jp/holiday-jp.fnc
 source ${SHELL_TOOLS_DIR}/worldtime/worldtime.fnc
+
+# --------------------------------------------
+# Command path
+# --------------------------------------------
+PATH=${GOPATH}/src/github.com/ontheroadjp/file-list:${PATH}
