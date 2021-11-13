@@ -1,4 +1,6 @@
 
+bk_*
+
 .git
 .gitmodules
 
@@ -9,7 +11,8 @@
 .atom/storage/
 .atom/compile-cache/
 
-.vim/bundle/
+#.vim/bundle/
+#!/.vim/bundle/neobundle.vim
 .vim/.netrwhist
 backup.sh
 

@@ -1,20 +1,4 @@
 #--------------------------------------------------
-# vi mode
-# -------------------------------------------------
-function zle-line-init zle-keymap-select {
-    VIM_NORMAL="%K{208}%F{black}(%k%f%K{208}%F{white}% NORMAL%k%f%K{black}%F{208})%k%f"
-    VIM_INSERT="%K{051}%F{051}(%k%f%K{051}%F{051}% INSERT%k%f%K{051}%F{051})%k%f"
-    RPS1="${${KEYMAP/vicmd/$VIM_NORMAL}/(main|viins)/$VIM_INSERT}"
-    RPS2=$RPS1
-    zle reset-prompt
-}
-zle -N zle-line-init
-zle -N zle-keymap-select
-
-# jj to return normal mode
-bindkey -M viins 'jj' vi-cmd-mode
-
-#--------------------------------------------------
 # show sub directories: la (ls -laG)
 # -------------------------------------------------
 alias lla='la $(find . -type d | grep -v .git | peco)'
@@ -144,7 +128,7 @@ function _markspeco() {
                [ -e $(cat ${x}) ] && {
                    cat ${x};
                }
-            done | sort | uniq | peco --prompt "cd to >"
+            done | sort | uniq | peco --prompt "dirmarks >"
         )
     }
     [ ! -z ${to} ] && cd ${to}
@@ -154,7 +138,7 @@ alias cdm='_markspeco'
 #-------------------------------------------------
 # SSH
 #-------------------------------------------------
-function _connect_vps() {
+function _connect_ssh() {
     local ssh_server=$(cat ${HOME}/.ssh/config | \
             grep ^Host | \
             cut -d " " -f 2 | \
@@ -162,66 +146,76 @@ function _connect_vps() {
         )
     [ ! -z ${ssh_server} ] && ssh ${ssh_server}
 }
-alias vps='_connect_vps'
+alias remote='_connect_ssh'
 
 #-------------------------------------------------
 # My Memo
 #-------------------------------------------------
 function _my_memo() {
-    local my_memo_dir="${WORKSPACE}/Dropbox/Documents/memo"
-    local dir=$(find ${my_memo_dir} -type d | peco --prompt "My Memo>")
-    local md=$(find ${dir} -type f | peco --prompt "My Memo>")
-	[ ! -z ${md}  ] && open -a ${MARKDOWN_EDITOR} ${md}
+    local my_memo_dir="${WORKSPACE}/Dropbox/Documents"
+    #local dir=$(find ${my_memo_dir} -type d | peco --prompt "My Memo>")
+    #local md=$(find ${dir} -type f | peco --prompt "My Memo>")
+    local md=$(find ${my_memo_dir} -type f | peco --prompt "My Memo>")
+	[ ! -z ${md}  ] && open ${md}
 }
 alias memo="_my_memo"
 
-#-------------------------------------------------
-# WEB Bookmark
-#-------------------------------------------------
-function _open_web_bookmark() {
-    local bookmark_dir="${DOTPATH}/.web_bookmark"
-    [ ! $(find ${bookmark_dir} -type f -name '*.csv' > /dev/null 2>&1 | wc -l) -gt 1 ] && {
-        echo "Error: no Bookmark(csv) file locate at ${bookmark_dir}."
-        return
-    }
-    [ -z $1 ] && {
-        url=$(
-            cat $(find ${bookmark_dir} -type f -name "*.csv") | \
-            column -s ',' -t | \
-            peco --prompt "WEB Bookmarks>" | \
-            sed -e 's#^.*\(https*://\)#\1#g'
-        )
-    } || {
-        url=$1
-        [ $(echo ${url} | grep -E "^https?://" | wc -l) -eq 0 ] && url='http://'${url}
-    }
-    #[ ! -z ${url} ] && open "${url}"
-    [ ! -z ${url} ] && open ${WEB_BROWSER} "${url}"
-}
-alias web="_open_web_bookmark $@"
+##-------------------------------------------------
+## WEB Bookmark
+##-------------------------------------------------
+#function _open_web_bookmark() {
+#    local bookmark_dir="${DOTPATH}/.web_bookmark"
+#    [ ! $(find ${bookmark_dir} -type f -name '*.csv' > /dev/null 2>&1 | wc -l) -gt 1 ] && {
+#        echo "Error: no Bookmark(csv) file locate at ${bookmark_dir}."
+#        return
+#    }
+#    [ -z $1 ] && {
+#        url=$(
+#            cat $(find ${bookmark_dir} -type f -name "*.csv") | \
+#            column -s ',' -t | \
+#            peco --prompt "WEB Bookmarks>" | \
+#            sed -e 's#^.*\(https*://\)#\1#g'
+#        )
+#    } || {
+#        url=$1
+#        [ $(echo ${url} | grep -E "^https?://" | wc -l) -eq 0 ] && url='http://'${url}
+#    }
+#    #[ ! -z ${url} ] && open "${url}"
+#    [ ! -z ${url} ] && open ${WEB_BROWSER} "${url}"
+#}
+#alias web="_open_web_bookmark $@"
 
 # --------------------------------------------
-# show world time
+# show timezone
 # --------------------------------------------
-function _show_worldtime() {
-#    sh ${DOTPATH}/bin/worldtime.sh
-    local tz;
+function _show_timezone() {
+    local tz
+    local tz_version
     [ $# -eq 0 ] && {
-        local tz_version="2020a.1.0"
-        tz=$(find /var/db/timezone/tz/${tz_version}/zoneinfo -type f | \
-            sed -e 's#/var/db/timezone/tz/2020a.1.0/zoneinfo/##g' | \
-            peco --prompt "Time Zone>")
+        tz_version="$(find /var/db/timezone/tz -type d -maxdepth 1 \
+                                | sort \
+                                | tail -1 \
+                                | rev \
+                                | cut -d '/' -f 1 \
+                                | rev)"
+
+        tz=$(find /var/db/timezone/tz/${tz_version}/zoneinfo -type f \
+            | sed -e "s:/var/db/timezone/tz/${tz_version}/zoneinfo/::g" \
+            | peco --prompt "which city ? >")
     } || {
-        tz=${1}
+        tz=$1
     }
+
     [ ! -z ${tz} ] && printf "${tz}: "; TZ=${tz} date
 }
-alias clock="_show_worldtime"
-alias wt="_show_worldtime"
+alias timezone="_show_timezone"
+alias clock="_show_timezone"
 
 #-------------------------------------------------
 # Search Stock
 #-------------------------------------------------
+source $(ghq root)/github.com/ontheroadjp/stock-jp/stock-jp.fnc
+
 #function _stock_search() {
 #    local stock_search_dir="${DOTPATH}/.stock_jp"
 #    local security_code
@@ -277,46 +271,5 @@ function _search_yubin_bangou() {
 }
 alias yubin='_search_yubin_bangou $@'
 alias yubinbangou='_search_yubin_bangou $@'
-
-##-------------------------------------------------
-## Utilities
-##-------------------------------------------------
-#function 256() {
-#    for c in {000..255}; do
-#        echo -n "\e[38;5;${c}m $c"
-#        [ $(($c%16)) -eq 15 ] && echo
-#    done
-#    echo
-#}
-
-#-------------------------------------------------
-# test
-#-------------------------------------------------
-function opeco() {
-    if [ $# -eq 0 ]; then
-        search_dir=$(pwd)
-    elif [ ! -d $1 ]; then
-        echo "bad argument." && return
-    else
-        search_dir=$1
-    fi
-
-    item=$(ls "${search_dir}" | peco) && [ -z "${item}" ] && return
-    while [ -d "${search_dir}/${item}" ]; do
-        search_dir="${search_dir}/${item}"
-        item=$(ls "${search_dir}" | peco) && [ -z "${item}" ] && return
-    done
-
-    if [ -f ${item} ]; then
-        cat ${item}
-    fi
-
-    #open "${search_dir}/${item}"
-    cd "${search_dir}/${item}"
-}
-
-function laracast() {
-    opeco $HOME/dev/src/github.com/iamfreee/laracasts-downloader/Downloads
-}
 
 echo "Load peco settings."
