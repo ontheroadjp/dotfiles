@@ -31,15 +31,14 @@ if _is_exist git; then
 #        }
         eval "$(gh completion -s $(echo ${SHELL} | cut -d '/' -f 3))"
 
-        # $1: git account
-        # $2: repo name
-        # $3: repo description
+        # $1: repo name
+        # $2: repo description
         function _create_new_repository_on_github() {
-            [ ${#@} -ne 3 ] && { echo "bad argument." && return }
+            [ ${#@} -ne 2 ] && { echo "bad argument." && return }
 
             local repo_name="$1"
             local desc="$2"
-            local account="$3"
+            local account=$(git config --list | grep user.name | cut -d '=' -f 2)
             local local_dir=$(ghq root)/github.com/${account}/${repo_name}
 
 #            echo "repo name: ${repo_name}"
@@ -102,15 +101,17 @@ if _is_exist git; then
     #-------------------------------------------------
     alias gg='git graph'
     alias ggs='git graph --stat'
+    alias gl='git log --oneline --graph'
     alias gs='git status'
-#    alias gd='git diff'
+    alias gd='git diff'
+    alias gc='git checkout'
+    alias gb='git branch'
+    alias gl='git log --oneline --graph'
 #    alias gdni='git diff --no-index'
 #    alias gcom='git commit -v'
-#    alias gb='git branch'
-#    alias gc='git checkout'
 #    alias gm='git merge --no-ff'
-    alias gbk='git commit -m "[WIP] temporary backup"'
-    alias gwip='git commit -m "[wip] still working"'
+    alias gbk='git add . | git commit -m "[WIP] temporary backup"'
+    alias gwip='git add . | git commit -m "[wip] still working"'
 
     function _git_add_to_status() {
         git add "$@" && git status
@@ -181,6 +182,7 @@ if _is_exist git; then
             local url="https://github.com"
             if _is_git_repo; then
                 local target=$(git remote get-url origin 2>/dev/null \
+                    | sed -e 's/:/\//g' \
                     | sed -e 's%.*\(github.com.*\)%https://\1%' \
                     | sed -e "s%$%\n${url}/ontheroadjp\n${url}/nutsllc%" \
                     | peco --prompt "Open GitHub.com >" --query "${*}"
