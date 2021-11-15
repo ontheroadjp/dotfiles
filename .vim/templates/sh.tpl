@@ -6,7 +6,7 @@ SCRIPT_FILE_NAME=$(basename $0)
 SCRIPT_NAME=${SCRIPT_FILE_NAME%.*}
 SELF=$(cd $(dirname $0); pwd)
 LOGGING=false
-VERSION="1.0.0"
+VERSION="0.1.0"
 SEPARATER='---------------------------'
 
 function _usage() {

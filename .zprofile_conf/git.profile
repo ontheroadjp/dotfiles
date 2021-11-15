@@ -36,6 +36,7 @@ if _is_exist git; then
         function _create_new_repository_on_github() {
             [ ${#@} -ne 2 ] && { echo "bad argument." && return }
 
+            cd ~
             local repo_name="$1"
             local desc="$2"
             local account=$(git config --list | grep user.name | cut -d '=' -f 2)
