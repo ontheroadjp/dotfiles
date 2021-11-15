@@ -157,7 +157,7 @@ source ${HOME}/dotfiles/.zprofile_conf/tmux.profile
 #-------------------------------------------------
 alias c='clear'
 alias e='exit'
-alias DD='cd ${DOTPATH}'
+alias DOT='cd ${DOTPATH}'
 alias WW='cd ${WORKSPACE}'
 #alias jj=$(:)
 
@@ -295,9 +295,9 @@ if _is_exist docker; then
 #    fi
 
     [ -e ~/dotfiles/docker-dd ] && {
-        source ~/dotfiles/docker-dd/docker-dd-common.fnc
-        source ~/dotfiles/docker-dd/docker-dd-network.fnc
-        source ~/dotfiles/docker-dd/docker-dd-volume.fnc
+        source ${DOTPATH}/docker-dd/docker-dd-common.fnc
+        source ${DOTPATH}/docker-dd/docker-dd-network.fnc
+        source ${DOTPATH}/docker-dd/docker-dd-volume.fnc
     }
 
     #export TOYBOX_HOME=/home/nobita/workspace/docker-toybox
