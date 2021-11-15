@@ -95,6 +95,8 @@ if _is_exist git; then
             fi
         }
         alias gdel='_delete_repository_on_github'
+
+        alias gi='gh issue list'
     fi
 
     #-------------------------------------------------
@@ -110,7 +112,7 @@ if _is_exist git; then
     alias gl='git log --oneline --graph'
 #    alias gdni='git diff --no-index'
 #    alias gcom='git commit -v'
-#    alias gm='git merge --no-ff'
+    alias gm='git merge --no-ff'
     alias gbk='git add . | git commit -m "[WIP] temporary backup"'
     alias gwip='git add . | git commit -m "[wip] still working"'
 
