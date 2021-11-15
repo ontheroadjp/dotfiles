@@ -95,6 +95,8 @@ if _is_exist git; then
             fi
         }
         alias gdel='_delete_repository_on_github'
+
+        alias gi='gh issue list'
     fi
 
     #-------------------------------------------------
