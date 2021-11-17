@@ -96,10 +96,11 @@ cabbr w!! w !sudo tee > /dev/null %
 " New File Template
 autocmd BufNewFile *.vue 0r $HOME/dotfiles/.vim/templates/vue.tpl
 autocmd BufNewFile *.{sh,bash} 0r $HOME/dotfiles/.vim/templates/sh.tpl
+autocmd BufNewFile *.{bats} 0r $HOME/dotfiles/.vim/templates/bats.bats
 
 " Filetype
 autocmd BufNewFile,BufRead *.{html,htm,ejs,vue*} set filetype=html  " for ejs/vue.js
-autocmd BufNewFile,BufRead *.{profile,fnc} set filetype=bash
+autocmd BufNewFile,BufRead *.{profile,fnc,bats} set filetype=bash
 
 "--------------------------------------------------------------- Buffer
 nnoremap <silent> bl :buffers<CR>
