@@ -9,7 +9,7 @@ function _show_reminder() {
     - code cleaning
 
     --------------------------------------------------
-    EOS
+EOS
     return 0
 }
 
