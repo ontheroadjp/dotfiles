@@ -69,7 +69,7 @@ if _is_exist git; then
                 rm -rf ${temp_dir}
             }
         }
-        alias gnew='_create_new_repository_on_github'
+        alias GGnew='_create_new_repository_on_github'
 
         function _delete_repository_on_github() {
             local target=$(ghq list \
@@ -94,32 +94,30 @@ if _is_exist git; then
                 }
             fi
         }
-        alias gdel='_delete_repository_on_github'
+        alias GGdel='_delete_repository_on_github'
 
-        alias gi='gh issue list'
+        alias GGi='gh issue list'
     fi
 
     #-------------------------------------------------
     # alias
     #-------------------------------------------------
-    alias gg='git graph'
-    alias ggs='git graph --stat'
-    alias gl='git log --oneline --graph'
-    alias gs='git status'
-    alias gd='git diff'
-    alias gc='git checkout'
-    alias ch='git checkout'
-    alias gb='git branch'
-    alias gl='git log --oneline --graph'
+    alias GGG='git graph'
+#    alias GGS='git graph --stat'
+    alias GGl='git log --oneline --graph'
+    alias GGs='git status'
+    alias GGd='git diff'
+    alias GGc='git checkout'
+    alias GGb='git branch'
 #    alias gdni='git diff --no-index'
 #    alias gcom='git commit -v'
-    alias gm='git merge --no-ff'
-    alias gwip='git add . && git commit -m "[WIP] still working..."'
+    alias GGm='git merge --no-ff'
+    alias GGwip='git add . && git commit -m "[WIP] still working..."'
 
     function _git_add_to_status() {
         git add "$@" && git status
     }
-    alias ga='_git_add_to_status'
+    alias GGa='_git_add_to_status'
 
 #    function _git_reset_status() {
 #        git reset "$@" && git status
@@ -133,7 +131,20 @@ if _is_exist git; then
         local url="https://raw.githubusercontent.com/github/gitignore/master/Global/macOS.gitignore"
         curl -L -o .gitignore ${url}
     }
-    alias gitignore='_get_gitignore'
+    alias GGgitignore='_get_gitignore'
+    alias GGignore='_get_gitignore'
+
+    #-------------------------------------------------
+    # .githook
+    #-------------------------------------------------
+    function _set_githooks() {
+        mkdir .githooks
+        cp ${HOME}/dotfiles/.git_template/hooks/* .githooks
+        git config --local core.hooksPath .githooks
+        chmod -R 755 .githooks
+    }
+    alias GGgithooks='_set_githooks'
+    alias GGhooks='_set_githooks'
 
     #-------------------------------------------------
     # HTML5 (new site)
