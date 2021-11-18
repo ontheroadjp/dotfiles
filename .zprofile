@@ -28,8 +28,6 @@ function _green() { xargs -I{} echo $'\e[32m{}\e[m' }
 #-------------------------------------------------
 # My tools
 #-------------------------------------------------
-export PATH=${HOME}/dev/src/github.com/ontheroadjp/dazai:${PATH}
-export PATH=${HOME}/dev/src/github.com/ontheroadjp/tidyphoto/bin:${PATH}
 
 #-------------------------------------------------
 # For MacOSX only
@@ -39,7 +37,7 @@ if [ $(uname) = "Darwin" ]; then
 
     # variables
     export PATH="/usr/local/sbin:${PATH}"       # for Homebrew
-	export PATH="/usr/local/share:${PATH}"      # for Python
+    export PATH="/usr/local/share:${PATH}"      # for Python
     export PATH="${HOME}/dotfiles/mac_osx/HandBrakeCLI1.4.2/HandBrakeCLI:${PATH}"   # for HandBrakeCLI
     export WORKSPACE="/Users/hideaki/WORKSPACE"
 
@@ -83,17 +81,17 @@ if [ $(uname) = "Darwin" ]; then
     #eval "$(rbenv init -)"
 
     # open finder
-	alias finder='open .'
+    alias finder='open .'
 
-	# open terminal the same as current finder dir
-	function _cd_to_finder_window_opened(){
-		target=$(osascript -e 'tell application "Finder" to if(count of Finder windows) > 0 then get POSIX path of(target of front Finder window as text)')
-		if [ "$target" != "" ]; then
-			cd "$target" && pwd
-		else
-			echo 'No Finder window found.' >&2
-		fi
-	}
+    # open terminal the same as current finder dir
+    function _cd_to_finder_window_opened(){
+    	target=$(osascript -e 'tell application "Finder" to if(count of Finder windows) > 0 then get POSIX path of(target of front Finder window as text)')
+    	if [ "$target" != "" ]; then
+    		cd "$target" && pwd
+    	else
+    		echo 'No Finder window found.' >&2
+    	fi
+    }
     alias terminal='_cd_to_finder_window_opened'
 
     #-------------------------------------------------
@@ -108,25 +106,25 @@ if [ $(uname) = "Darwin" ]; then
     alias me='searchMarsEditImage $@'
 
     # alias(directory change:Mac)
-	alias DESKTOP='cd ${HOME}/Desktop'
-	alias DOCUMENTS='cd ${HOME}/Documents'
-	alias DOWNLOADS='cd ${HOME}/Downloads'
+    alias DESKTOP='cd ${HOME}/Desktop'
+    alias DOCUMENTS='cd ${HOME}/Documents'
+    alias DOWNLOADS='cd ${HOME}/Downloads'
     alias HOME='cd ~'
     alias WORKSPACE='cd ${WORKSPACE}'
     alias WS='cd ${WORKSPACE}'
-	alias GOOGLEDRIVE='cd ${WORKSPACE}/Google\ Drive'
-	alias ONEDRIVE='cd ${WORKSPACE}/OneDrive'
-	alias DROPBOX='cd ${WORKSPACE}/Dropbox'
+    alias GOOGLEDRIVE='cd ${WORKSPACE}/Google\ Drive'
+    alias ONEDRIVE='cd ${WORKSPACE}/OneDrive'
+    alias DROPBOX='cd ${WORKSPACE}/Dropbox'
 
-	# alias（for ctag）
-	# changing the BSD version to the version installed by Homebrew
-	alias ctags="`brew --prefix`/bin/ctags"
+    # alias（for ctag）
+    # changing the BSD version to the version installed by Homebrew
+    alias ctags="`brew --prefix`/bin/ctags"
 
-	# kill notifyd process
-	function kill-notifyd-process() {
-		process=`ps ax | egrep "[0-9] /usr/sbin/notifyd" | awk '{print $1}'`
-		sudo kill -9 ${process}
-	}
+    # kill notifyd process
+    function kill-notifyd-process() {
+    	process=`ps ax | egrep "[0-9] /usr/sbin/notifyd" | awk '{print $1}'`
+    	sudo kill -9 ${process}
+    }
 
 #-------------------------------------------------
 # For Linux only
@@ -159,7 +157,7 @@ source ${HOME}/dotfiles/.zprofile_conf/tmux.profile
 #-------------------------------------------------
 alias c='clear'
 alias e='exit'
-alias DD='cd ${DOTPATH}'
+alias DOT='cd ${DOTPATH}'
 alias WW='cd ${WORKSPACE}'
 #alias jj=$(:)
 
@@ -297,9 +295,9 @@ if _is_exist docker; then
 #    fi
 
     [ -e ~/dotfiles/docker-dd ] && {
-        source ~/dotfiles/docker-dd/docker-dd-common.fnc
-        source ~/dotfiles/docker-dd/docker-dd-network.fnc
-        source ~/dotfiles/docker-dd/docker-dd-volume.fnc
+        source ${DOTPATH}/docker-dd/docker-dd-common.fnc
+        source ${DOTPATH}/docker-dd/docker-dd-network.fnc
+        source ${DOTPATH}/docker-dd/docker-dd-volume.fnc
     }
 
     #export TOYBOX_HOME=/home/nobita/workspace/docker-toybox
@@ -390,6 +388,22 @@ source ${SHELL_TOOLS_DIR}/holiday-jp/holiday-jp.fnc
 source ${SHELL_TOOLS_DIR}/worldtime/worldtime.fnc
 
 # --------------------------------------------
-# Command path
+# Command path (my tools)
 # --------------------------------------------
-PATH=${GOPATH}/src/github.com/ontheroadjp/file-list:${PATH}
+export PATH=${GOPATH}/src/github.com/ontheroadjp/dazai:${PATH}
+export PATH=${GOPATH}/src/github.com/ontheroadjp/tidyphoto/bin:${PATH}
+export PATH=${GOPATH}/src/github.com/ontheroadjp/file-list:${PATH}
+export PATH=${GOPATH}/src/github.com/ontheroadjp/dammy:${PATH}
+
+
+# --------------------------------------------
+# GNU Core Utility
+# --------------------------------------------
+#PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+
+## --------------------------------------------
+## pyenv
+## --------------------------------------------
+#export PYENV_ROOT=”$HOME/.pyenv”
+#export PATH=”$PYENV_ROOT/bin:$PATH”
+#eval “$(pyenv init -)”

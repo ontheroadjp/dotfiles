@@ -36,6 +36,7 @@ if _is_exist git; then
         function _create_new_repository_on_github() {
             [ ${#@} -ne 2 ] && { echo "bad argument." && return }
 
+            cd ~
             local repo_name="$1"
             local desc="$2"
             local account=$(git config --list | grep user.name | cut -d '=' -f 2)
@@ -94,6 +95,8 @@ if _is_exist git; then
             fi
         }
         alias gdel='_delete_repository_on_github'
+
+        alias gi='gh issue list'
     fi
 
     #-------------------------------------------------
@@ -105,13 +108,13 @@ if _is_exist git; then
     alias gs='git status'
     alias gd='git diff'
     alias gc='git checkout'
+    alias ch='git checkout'
     alias gb='git branch'
     alias gl='git log --oneline --graph'
 #    alias gdni='git diff --no-index'
 #    alias gcom='git commit -v'
-#    alias gm='git merge --no-ff'
-    alias gbk='git add . | git commit -m "[WIP] temporary backup"'
-    alias gwip='git add . | git commit -m "[wip] still working"'
+    alias gm='git merge --no-ff'
+    alias gwip='git add . && git commit -m "[WIP] still working..."'
 
     function _git_add_to_status() {
         git add "$@" && git status

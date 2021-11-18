@@ -6,7 +6,7 @@ SCRIPT_FILE_NAME=$(basename $0)
 SCRIPT_NAME=${SCRIPT_FILE_NAME%.*}
 SELF=$(cd $(dirname $0); pwd)
 LOGGING=false
-VERSION="1.0.0"
+VERSION="0.1.0"
 SEPARATER='---------------------------'
 
 function _usage() {
@@ -29,7 +29,7 @@ function _log() {
 }
 
 function _err() {
-    echo "[err] $1" && exit 1
+    echo "${SCRIPT_NAME}: $1" && exit 1
 }
 
 function _args_count() {
@@ -43,9 +43,7 @@ function _is_exist() {
 # -------------------------------------------------------------
 
 function _verbose() {
-    #_log "ARG_VALUES: ${ARG_VALUES[@]}"
-    _log "ARGV_1: ${ARGV_1}"
-    _log "ARGV_2: ${ARGV_2}"
+    _log "ARG_VALUES: ${ARG_VALUES[@]}"
     _log "OPT_A: ${OPT_A}"
     _log "OPT_B: ${OPT_B}"
     _log "IS_FLAG_P: ${IS_FLAG_P}"
@@ -132,8 +130,7 @@ function _analyse_args_and_options() {
 }
 
 function _set_static_var() {
-    ARGV_1=${ARG_VALUES[0]:-""}
-    ARGV_2=${ARG_VALUES[1]:-""}
+    :
 }
 
 function _verify_static_var() {
