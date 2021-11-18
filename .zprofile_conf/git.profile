@@ -107,6 +107,7 @@ if _is_exist git; then
     alias GGl='git log --oneline --graph'
     alias GGs='git status'
     alias GGd='git diff'
+    alias GGcomit='git commit'
     alias GGc='git checkout'
     alias GGb='git branch'
 #    alias gdni='git diff --no-index'
