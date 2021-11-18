@@ -108,13 +108,13 @@ if _is_exist git; then
     alias gs='git status'
     alias gd='git diff'
     alias gc='git checkout'
+    alias ch='git checkout'
     alias gb='git branch'
     alias gl='git log --oneline --graph'
 #    alias gdni='git diff --no-index'
 #    alias gcom='git commit -v'
     alias gm='git merge --no-ff'
-    alias gbk='git add . | git commit -m "[WIP] temporary backup"'
-    alias gwip='git add . | git commit -m "[wip] still working"'
+    alias gwip='git add . && git commit -m "[WIP] still working..."'
 
     function _git_add_to_status() {
         git add "$@" && git status
