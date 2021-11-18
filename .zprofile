@@ -401,9 +401,9 @@ export PATH=${GOPATH}/src/github.com/ontheroadjp/dammy:${PATH}
 # --------------------------------------------
 #PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 
-# --------------------------------------------
-# pyenv
-# --------------------------------------------
-export PYENV_ROOT=”$HOME/.pyenv”
-export PATH=”$PYENV_ROOT/bin:$PATH”
-eval “$(pyenv init -)”
+## --------------------------------------------
+## pyenv
+## --------------------------------------------
+#export PYENV_ROOT=”$HOME/.pyenv”
+#export PATH=”$PYENV_ROOT/bin:$PATH”
+#eval “$(pyenv init -)”
