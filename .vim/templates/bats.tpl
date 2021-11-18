@@ -19,7 +19,7 @@ teardown() {
 
 @test "Running no argument given" {
     run $(${SELF}/${SCRIPT_FILE_NAME})
-    [ "$result" -eq 4 ]
+    [ "${status}" -eq 0 ]
 }
 
 @test "addition using bc" {
@@ -30,10 +30,6 @@ teardown() {
 @test "addition using bc (fail)" {
     result="$(echo 2+1 | bc)"
     [ "$result" -eq 4 ]
-}
-
-@test "check file" {
-    [ -f "$test_file" ]
 }
 
 @test "skip test" {
