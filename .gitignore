@@ -11,6 +11,8 @@ bk_*
 .atom/storage/
 .atom/compile-cache/
 
+mac_osx/SublimeText3/Packages/*
+
 #.vim/bundle/
 #!/.vim/bundle/neobundle.vim
 .vim/.netrwhist

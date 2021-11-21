@@ -96,7 +96,7 @@ cabbr w!! w !sudo tee > /dev/null %
 " New File Template
 autocmd BufNewFile *.vue 0r $HOME/dotfiles/.vim/templates/vue.tpl
 autocmd BufNewFile *.{sh,bash} 0r $HOME/dotfiles/.vim/templates/sh.tpl
-autocmd BufNewFile *.{bats} 0r $HOME/dotfiles/.vim/templates/bats.bats
+autocmd BufNewFile *.{bats} 0r $HOME/dotfiles/.vim/templates/bats.tpl
 
 " Filetype
 autocmd BufNewFile,BufRead *.{html,htm,ejs,vue*} set filetype=html  " for ejs/vue.js
@@ -197,19 +197,39 @@ vnoremap <S-h> ^
 nnoremap <S-l> $
 vnoremap <S-l> $
 
-" Jump to paragraph (reverse)
+"" Jump to paragraph (reverse)
 "nnoremap <S-k> {
 "vnoremap <S-k> {
 
-" Jump to paragraph (forword)
+"" Jump to paragraph (forword)
 "nnoremap <S-j> }
 "vnoremap <S-j> }
 " list all of them if multiple candidate of the distination when it tags jump
-nnoremap <C-]> g<C-]>
+"nnoremap <C-]> g<C-]>
 "------------------------------------------------------------------------ folding
 
-" fold
-vnoremap <S-z> zf
+set foldmethod=indent    "Folding range
+set foldlevel=0          "Default level of folding when a file is opened
+" set foldcolumn=3       "Add an area to the left edge to show the folded state
+
+" Region of cursor
+" zc  -- Close one fold under the cursor
+" zo  -- Open one fold under the cursor
+" zO  -- Open all folds under the cursor recursively
+nnoremap <C-h> zc " close
+nnoremap <C-l> zO " open
+
+" Whole file
+" zm -- Fold more
+" zM -- Close all folds
+" zr -- Reduce folding
+" zR -- Open all folds
+nnoremap <C-[> zM " close
+nnoremap <C-]> zR " open
+
+" Move
+nnoremap <C-k> zk " move to upper fold
+nnoremap <C-j> zj " move to down fold
 
 "------------------------------------------------------------------------ yank & put
 nnoremap p gp
@@ -344,5 +364,9 @@ hi MatchParen ctermfg=LightGreen ctermbg=blue
 
 " search highlight
 hi Search ctermbg=Blue ctermfg=White
+
+" folding
+"hi Folded ctermbg=Grey
+hi Folded ctermbg=000
 
 filetype on

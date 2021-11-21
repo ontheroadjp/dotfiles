@@ -42,34 +42,37 @@ if _is_exist git; then
             local account=$(git config --list | grep user.name | cut -d '=' -f 2)
             local local_dir=$(ghq root)/github.com/${account}/${repo_name}
 
-#            echo "repo name: ${repo_name}"
-#            echo "description: ${desc}"
-#            echo "github.com account: ${account}"
+            echo "repo name: ${repo_name}"
+            echo "description: ${desc}"
+            echo "github.com account: ${account}"
 
-            local temp_dir=${WORKSPACE}/GIT_CLI_TEMP
-            mkdir ${temp_dir} && $_
+            #local temp_dir=${WORKSPACE}/GIT_CLI_TEMP
+            #mkdir -p ${temp_dir} && $_
+            local temp_dir=$(mktemp -d) && cd temp_dir
 
-            gh repo create ${repo_name} --public -d "${desc}" --confirm && \
-            ghq get ${account}/${repo_name}.git && {
-                while true
-                do
-                    if [ -e ${local_dir} ]; then
-                        break
-                    fi
-                    sleep 0.5
-                done
+            gh repo create ${repo_name} --public -d "${desc}" --confirm && {
+                if [ -e ${local_dir} ]; then
+                    rm -rf ${temp_dir} && return
+                fi
+                sleep 3
+            } && ghq get ${account}/${repo_name}.git && {
+                sleep 3
                 cd ${local_dir} && \
                 printf "# ${repo_name}\n${desc}\n" > README.md && \
                 git add README.md && \
                 git commit -m "initial commit" && \
                 git remote set-url origin git@github.com:${account}/${repo_name}.git
-                git push origin master && \
+                git push -u origin master && \
                 git checkout -b dev && \
                 git push origin dev && \
+                GGignore && \
+                GGhooks && \
                 rm -rf ${temp_dir}
+            } || {
+                echo "${account}/${repo_name} is already exist"
             }
         }
-        alias gnew='_create_new_repository_on_github'
+        alias GGnew='_create_new_repository_on_github'
 
         function _delete_repository_on_github() {
             local target=$(ghq list \
@@ -94,23 +97,24 @@ if _is_exist git; then
                 }
             fi
         }
-        alias gdel='_delete_repository_on_github'
+        alias GGdel='_delete_repository_on_github'
 
-        alias gi='gh issue list'
+        alias GGi='gh issue list'
     fi
 
     #-------------------------------------------------
     # alias
     #-------------------------------------------------
     alias gg='git graph'
-    alias ggs='git graph --stat'
-    alias gl='git log --oneline --graph'
+#    alias GGS='git graph --stat'
+    alias ggl='git log --oneline --graph'
     alias gs='git status'
     alias gd='git diff'
+    alias GGcomit='git commit'
     alias gc='git checkout'
-    alias ch='git checkout'
+    alias gmaster='git checkout master'
+    alias gdev='git checkout dev'
     alias gb='git branch'
-    alias gl='git log --oneline --graph'
 #    alias gdni='git diff --no-index'
 #    alias gcom='git commit -v'
     alias gm='git merge --no-ff'
@@ -133,7 +137,20 @@ if _is_exist git; then
         local url="https://raw.githubusercontent.com/github/gitignore/master/Global/macOS.gitignore"
         curl -L -o .gitignore ${url}
     }
-    alias gitignore='_get_gitignore'
+    alias GGgitignore='_get_gitignore'
+    alias GGignore='_get_gitignore'
+
+    #-------------------------------------------------
+    # .githook
+    #-------------------------------------------------
+    function _set_githooks() {
+        mkdir -p .githooks
+        cp ${HOME}/dotfiles/.git_template/hooks/* .githooks
+        git config --local core.hooksPath .githooks
+        chmod -R 755 .githooks
+    }
+    alias GGgithooks='_set_githooks'
+    alias GGhooks='_set_githooks'
 
     #-------------------------------------------------
     # HTML5 (new site)
@@ -158,7 +175,7 @@ if _is_exist git; then
 
     if _is_exist ghq && _is_exist peco; then
         function _cd_to_repository_from_ghq_list() {
-            to=$(ghq list | peco --prompt "Local Repository To >" --query "${*}")
+            local to=$(ghq list | peco --prompt "Local Repository To >" --query "${*}")
             [ ! -z ${to} ] && cd $(ghq root)/${to}
         }
         alias rr='_cd_to_repository_from_ghq_list'
