@@ -293,10 +293,6 @@ fi
 # Docker
 #-------------------------------------------------
 if _is_exist docker; then
-#    if [ ! -d ~/dotfiles/docker-dd ]; then
-#        git clone https://github.com/nutsllc/docker-dd ${HOME}/dotfiles/docker-dd
-#    fi
-
     [ -e ~/dotfiles/docker-dd ] && {
         source ${DOTPATH}/docker-dd/docker-dd-common.fnc
         source ${DOTPATH}/docker-dd/docker-dd-network.fnc
