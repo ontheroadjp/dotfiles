@@ -14,11 +14,11 @@ function _usage() {
     echo "  This is the boilerplate for shell script."
     echo
     echo "Options:"
-    echo "  -h, --help                     Show help."
-    echo "  -v, --version                  Show script version."
-    echo "  -a, --long-a ARG               Option which must have argument."
-    echo "  -b, --long-b [ARG]             Either with or without argument is possible."
-    echo "  -c, --long-c                   Option without argument."
+    echo "  -h, --help                     Show help"
+    echo "  -v, --version                  Show script version"
+    echo "  -a, --long-a ARG               Option which must have argument"
+    echo "  -b, --long-b [ARG]             Either with or without argument is possible"
+    echo "  -c, --long-c                   Option without argument"
     echo "      --verbose                  Print various logging information"
     echo
     exit 0
@@ -54,6 +54,7 @@ ARG_VALUES=()
 OPT_A=""
 OPT_B=""
 IS_FLAG_P=false
+IS_FLAG_Z=false
 
 function _main() {
     _log "Wellcome to ${SCRIPT_NAME}"
@@ -113,8 +114,16 @@ function _analyse_args_and_options() {
                 ;;
 
             # for true or false flags, no argument
+            --*)
+                if [[ "$1" =~ 'z' ]]; then
+                    IS_FLAG_Z='true'
+                fi
+                shift
+                ;;
+
+            # for true or false flags, no argument
             -*)
-                if [[ "$1" =~ 'p' ]]; then
+                if [[ "$1" =~ 'b' ]]; then
                     IS_FLAG_P='true'
                 fi
                 shift

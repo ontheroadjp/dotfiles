@@ -1,7 +1,8 @@
 # dotfiles
 
 * ``bash/zsh``, ``tmux``, ``vim``, ``git``, ``Docker`` の設定が中心
-* 主なツール： ``peco``, ``ghq``, ``ag``, ``ctags``
+* 主なツール： ``peco``, ``ghq``, ``gh``,   ``ag``, ``ctags``
+* 主な自作ツール： ``dirmarks``, ``shell-stash`` 
 
 
 
@@ -15,10 +16,10 @@
 
 | ディレクトリ | パス                              |移動エイリアス|
 | :--- | :--- | ---- |
-| dotfiles | ``${HOME}/dotfiles``                              |``dot``|
+| dotfiles | ``${HOME}/dotfiles``                              |``DOT``|
 | リポジトリ     | ``${HOME}/dev``                                    |``rr``|
 | ワークスペース | ``${HOME}/WORKSPACE``                              |``ww``|
-| クイックメモ | ``${HOME}/WORKSPACE/Dropbox/Documents/memo`` |``q``|
+| クイックメモ | ``${HOME}/WORKSPACE/Dropbox/Documents/memo`` |``qm``|
 | メモ           | ``${HOME}/WORKSPACE/Dropbox/Documents/memo``       |``memo``|
 
 
@@ -31,8 +32,6 @@
 
 
 ## shell (bash/zsh)
-
-
 
 ### ディレクトリ表示
 
@@ -55,7 +54,7 @@
 
 
 
-#### ジャンプ & マーク（Dirmark）
+#### ジャンプ & マーク（自作ツール：dirmark）
 
 * ``mm`` でカレントディレクトリを記憶し ``m`` で記憶したディレクトリへ移動
 * ``nn`` でカレントディレクトリを記憶し ``n`` で記憶したディレクトリへ移動
@@ -64,7 +63,7 @@
 
 
 
-#### ファイル/ディレクトリ コピー/移動補助（ShellStash）
+#### ファイル/ディレクトリ コピー/移動補助（自作ツール：ShellStash）
 
 - ``ss`` で Stash 一覧表示
 - ``ss [ファイル/ディレクトリ]`` で Stash へ移動（``mv``）
@@ -77,12 +76,17 @@
 
 #### ジャンプ & マーク（ローカル）
 
-* ``cdd`` でカレントディレクトリ内のサブディレクトリを ``peco`` 表示/選択してディレクトリ移動
-* ``cdh`` でディレクトリの訪問履歴を ``peco`` で表示/選択してディレクトリ移動
-* ``cdm`` でディレクトリマーク一覧を ``peco`` で表示/選択してディレクトリ移動
 * ``ww`` で ``~/WORKSPACE`` 内のディレクトリを ``peco`` で表示/選択してディレクトリ移動
 * ``rr`` でリポジトリ（``${HOME}/dev``) を ``peco`` で表示/選択して移動
 * リポジトリ内で ``G`` で Git ローカルリポジトリルートへ移動
+
+
+
+##### おまけ（あまり使ってない）
+
+* ``cdd`` でカレントディレクトリ内のサブディレクトリを ``peco`` 表示/選択してディレクトリ移動
+* ``cdh`` でディレクトリの訪問履歴を ``peco`` で表示/選択してディレクトリ移動
+* ``cdm`` でディレクトリマーク一覧を ``peco`` で表示/選択してディレクトリ移動
 
 
 
@@ -90,8 +94,6 @@
 
 * ``vpn`` で SSH接続一覧 (``${HOME}/.ssh/config``) を ``peco`` で表示/選択してディレクトリ移動
 * ``google [検索ワード]`` または ``g [検索ワード]`` で Google 検索
-* ``web`` で ``peco`` でブックマーク一覧を表示/選択してブラウザで表示
-    * ブックマークは ``~/dotfiles/.web_bookmark``
 * ``stock`` で ``peco`` で上場銘柄一覧を表示/選択してブラウザで表示
 
 
@@ -105,19 +107,17 @@
 
 #### Github（リモートレポジトリ）へ移動
 
-* ``rrgit`` で ``ghq`` 管理のレポジトリ一覧を ``peco`` で表示/選択してブラウザで開く
-* ``myrepo`` で自分の Git リポジトリ一覧を ``peco`` で表示/選択してブラウザで開く
 * ``github`` でカレントディレクトリの GitHub をブラウザで開く
 
 
 
 #### その他ディレクトリへ移動
 
-* ``dot``で ``${HOME}/dotfiles`` へ移動
+* ``DOT``で ``${HOME}/dotfiles`` へ移動
 
 
 
-### ファイルの移動/コピー ( Shell Stash )
+### ファイルの移動/コピー ( 自作ツール：Shell Stash )
 
 - shell stash 使うと便利（``ss`` コマンドと ``ssp`` コマンド）
 - ``ss`` で shell stash に保存されているファイル/ディレクトリの一覧を表示
@@ -157,8 +157,8 @@
 
 ### その他エイリアス
 
-* ``vp`` で ``.bash_profile`` を ``vim`` で開く
-* ``sp`` で ``.bash_profile`` を再読み込み
+* ``vp`` で ``.bash_profile`` を ``vim`` で開く (bash のみ)
+* ``sp`` で ``.bash_profile`` を再読み込み (bash のみ)
 
 
 
@@ -167,7 +167,7 @@
 #### メモ
 
 * ``p <メモの内容>`` で PromptMemo 追加（``p`` のみでプロンプトメモ消去）
-* ``q`` で QuickMemo ファイル開く（``~/WORKSPACE/Dropbox/Documents/quick_note.md``）
+* ``qm`` で QuickMemo ファイル開く（``~/WORKSPACE/Dropbox/Documents/quick_note.md``）
     * ``quick_note.md`` 開いた日時が先頭行に自動追加
 * ``memo`` で Note 一覧を ``peco`` で表示/選択して ``${MARKDOWN_EDITOR}`` で開く
 * ``yubin`` で ``peco`` で郵便番号一覧を表示して検索
@@ -193,6 +193,8 @@
     ```
 
 * ``holiday`` で日本の祝日・休日一覧を表示
+
+* ``256cpalet`` で 256色カラーコード一覧を表示
 
 
 
@@ -407,10 +409,19 @@
     * ``<Shift>k`` で、画面最上段へ
     * ``<Shift>m`` で、画面中央へ
     * ``<Shift>j`` で、画面最下段へ ← デフォルトの下段行と連結と被るので設定なし
+    * ``<shift>[`` で、上のパラグラフへ
+    * ``<shift>]`` で、下のパラグラフへ
     * ``<Shift>h`` で、行頭へ
     * ``<Shift>l`` で、行末へ
 
 
+
+## vim の使い方（folding: 折りたたみ）
+
+- ``<C-l>`` でカーソル範囲の折りたたみ
+- ``<C-h>`` でカーソル範囲の展開
+- ``<C-[`` でファイル全体の折りたたみ
+- ``<C-]`` でファイル全体の展開
 
 
 
@@ -455,11 +466,8 @@
 
 
 
-
-
 ### その他
 
-* 対象の行を選択して ``zf`` で折り畳み（開くときは ``l``）
 * 範囲を選択して ``=`` でインデント整形(vim デフォルト)
 * 右インデントは ``<Shift>>>``(vim デフォルト)
 * 左インデントは ``<Shift><<``(vim デフォルト)
@@ -663,28 +671,31 @@
 
 * ``ghq`` で管理
 * なのでレポジトリ追加は ``ghq get xxx/xxx``
+* ``GGignore`` で ``.gitignore`` を Git から取得 （from``https://raw.githubusercontent.com/github/gitignore/master/Global/macOS.gitignore``）
+* ``GGhooks`` で、hook ファイルを取得 （from ``dot files/.git_template/hooks``）
 
 
 
 ### ワークフロー
 
-* ``gg`` で git log 確認
-* ``gs``, ``gd`` で変更箇所の確認
-* ``ga`` でステージング
-* ``gc`` でコミット
+* ``GGG`` または ``GGl`` で git log 確認
+* ``GGs``, ``GGd`` で変更箇所の確認
+* ``GGa`` でステージング
+* ``git commit`` でコミット
 
 
 
 ### 主なエイリアス
 
-####  ``~/.bash_profile`` で定義
+####  ``~/.bash_profile``  で定義
 
-* ``gg``		= ``git graph``
-* ``gs``		= ``git status``
-* ``gd``		= ``git diff``
-* ``ga``		= ``git add``
-* ``gc``		= ``git commit``
-* ``gb``		= ``git branch``
+* ``GGG``		= ``git graph``
+* ``GGs``		= ``git status``
+* ``GGd``		= ``git diff``
+* ``GGa``		= ``git add``
+* ``GGc``		= ``git checkout``
+* ``GGb``		= ``git branch`
+* ``git commit`` はエイリアスなし
 
 
 

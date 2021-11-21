@@ -8,6 +8,8 @@ export DOTPATH=${HOME}/dotfiles
 export PATH=.:${DOTPATH}/bin:${PATH}
 export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:${PATH}
 
+export PATH=${HOME}/.nodebrew/current/bin:${PATH}
+
 autoload -Uz colors && colors   # use color
 
 #-------------------------------------------------
@@ -180,6 +182,7 @@ alias WW='cd ${WORKSPACE}'
 # Changing directory(Common)
 #-------------------------------------------------
 function _print_la() {
+    rm .DS_Store > /dev/null 2>&1
     ls -laGh $@
     current=$(pwd)
     items=$(ls -la $@ | wc -l | tr -d ' ') > /dev/null 2>&1
@@ -290,10 +293,6 @@ fi
 # Docker
 #-------------------------------------------------
 if _is_exist docker; then
-#    if [ ! -d ~/dotfiles/docker-dd ]; then
-#        git clone https://github.com/nutsllc/docker-dd ${HOME}/dotfiles/docker-dd
-#    fi
-
     [ -e ~/dotfiles/docker-dd ] && {
         source ${DOTPATH}/docker-dd/docker-dd-common.fnc
         source ${DOTPATH}/docker-dd/docker-dd-network.fnc
