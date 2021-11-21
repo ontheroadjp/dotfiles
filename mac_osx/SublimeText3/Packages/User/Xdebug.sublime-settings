@@ -1,5 +1,0 @@
-{
-    // Maximum amount of nested levels to retrieve
-    // of array elements and object properties.
-    "max_depth": 2,
-}
