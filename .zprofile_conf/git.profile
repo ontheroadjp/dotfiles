@@ -42,31 +42,34 @@ if _is_exist git; then
             local account=$(git config --list | grep user.name | cut -d '=' -f 2)
             local local_dir=$(ghq root)/github.com/${account}/${repo_name}
 
-#            echo "repo name: ${repo_name}"
-#            echo "description: ${desc}"
-#            echo "github.com account: ${account}"
+            echo "repo name: ${repo_name}"
+            echo "description: ${desc}"
+            echo "github.com account: ${account}"
 
-            local temp_dir=${WORKSPACE}/GIT_CLI_TEMP
-            mkdir ${temp_dir} && $_
+            #local temp_dir=${WORKSPACE}/GIT_CLI_TEMP
+            #mkdir -p ${temp_dir} && $_
+            local temp_dir=$(mktemp -d) && cd temp_dir
 
-            gh repo create ${repo_name} --public -d "${desc}" --confirm && \
-            ghq get ${account}/${repo_name}.git && {
-                while true
-                do
-                    if [ -e ${local_dir} ]; then
-                        break
-                    fi
-                    sleep 0.5
-                done
+            gh repo create ${repo_name} --public -d "${desc}" --confirm && {
+                if [ -e ${local_dir} ]; then
+                    rm -rf ${temp_dir} && return
+                fi
+                sleep 3
+            } && ghq get ${account}/${repo_name}.git && {
+                sleep 3
                 cd ${local_dir} && \
                 printf "# ${repo_name}\n${desc}\n" > README.md && \
                 git add README.md && \
                 git commit -m "initial commit" && \
                 git remote set-url origin git@github.com:${account}/${repo_name}.git
-                git push origin master && \
+                git push -u origin master && \
                 git checkout -b dev && \
                 git push origin dev && \
+                GGignore && \
+                GGhooks && \
                 rm -rf ${temp_dir}
+            } || {
+                echo "${account}/${repo_name} is already exist"
             }
         }
         alias GGnew='_create_new_repository_on_github'
@@ -102,23 +105,25 @@ if _is_exist git; then
     #-------------------------------------------------
     # alias
     #-------------------------------------------------
-    alias GGG='git graph'
+    alias gg='git graph'
 #    alias GGS='git graph --stat'
-    alias GGl='git log --oneline --graph'
-    alias GGs='git status'
-    alias GGd='git diff'
+    alias ggl='git log --oneline --graph'
+    alias gs='git status'
+    alias gd='git diff'
     alias GGcomit='git commit'
-    alias GGc='git checkout'
-    alias GGb='git branch'
+    alias gc='git checkout'
+    alias gmaster='git checkout master'
+    alias gdev='git checkout dev'
+    alias gb='git branch'
 #    alias gdni='git diff --no-index'
 #    alias gcom='git commit -v'
-    alias GGm='git merge --no-ff'
-    alias GGwip='git add . && git commit -m "[WIP] still working..."'
+    alias gm='git merge --no-ff'
+    alias gwip='git add . && git commit -m "[WIP] still working..."'
 
     function _git_add_to_status() {
         git add "$@" && git status
     }
-    alias GGa='_git_add_to_status'
+    alias ga='_git_add_to_status'
 
 #    function _git_reset_status() {
 #        git reset "$@" && git status
@@ -139,7 +144,7 @@ if _is_exist git; then
     # .githook
     #-------------------------------------------------
     function _set_githooks() {
-        mkdir .githooks
+        mkdir -p .githooks
         cp ${HOME}/dotfiles/.git_template/hooks/* .githooks
         git config --local core.hooksPath .githooks
         chmod -R 755 .githooks
@@ -170,7 +175,7 @@ if _is_exist git; then
 
     if _is_exist ghq && _is_exist peco; then
         function _cd_to_repository_from_ghq_list() {
-            to=$(ghq list | peco --prompt "Local Repository To >" --query "${*}")
+            local to=$(ghq list | peco --prompt "Local Repository To >" --query "${*}")
             [ ! -z ${to} ] && cd $(ghq root)/${to}
         }
         alias rr='_cd_to_repository_from_ghq_list'
