@@ -168,7 +168,7 @@ alias WW='cd ${WORKSPACE}'
 #-------------------------------------------------
 
 # history
-[ $(echo $SHELL) = '/bin/zsh' ] && {
+[ $SHELL = '/bin/zsh' ] && {
     HISTFILE=${HOME}/.zsh-history
     HISTSIZE=100000
     SAVEHIST=1000000
@@ -183,7 +183,11 @@ alias WW='cd ${WORKSPACE}'
 #-------------------------------------------------
 function _print_la() {
     rm .DS_Store > /dev/null 2>&1
-    ls -laGh $@
+    [ $(uname) = 'Darwin' ] && {
+        ls -laGh $@
+    } || {
+        ls -laGh --color=auto $@
+    }
     current=$(pwd)
     items=$(ls -la $@ | wc -l | tr -d ' ') > /dev/null 2>&1
     #dirs=$(ls -ld */ | wc -l | tr -d ' ') > /dev/null 2>&1
