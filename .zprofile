@@ -39,6 +39,9 @@ if [ $(uname) = "Darwin" ]; then
 
     # variables
     export PATH="/usr/local/sbin:${PATH}"       # for Homebrew
+    export PATH="/usr/local/opt/php@7.4/bin:$PATH"
+    export PATH="/usr/local/opt/php@7.4/sbin:$PATH"
+
     export PATH="/usr/local/share:${PATH}"      # for Python
     export PATH="${HOME}/dotfiles/mac_osx/HandBrakeCLI1.4.2/HandBrakeCLI:${PATH}"   # for HandBrakeCLI
     export WORKSPACE="/Users/hideaki/WORKSPACE"
@@ -108,15 +111,19 @@ if [ $(uname) = "Darwin" ]; then
     alias me='searchMarsEditImage $@'
 
     # alias(directory change:Mac)
-    alias DESKTOP='cd ${HOME}/Desktop'
-    alias DOCUMENTS='cd ${HOME}/Documents'
-    alias DOWNLOADS='cd ${HOME}/Downloads'
-    alias HOME='cd ~'
-    alias WORKSPACE='cd ${WORKSPACE}'
-    alias WS='cd ${WORKSPACE}'
-    alias GOOGLEDRIVE='cd ${WORKSPACE}/Google\ Drive'
-    alias ONEDRIVE='cd ${WORKSPACE}/OneDrive'
-    alias DROPBOX='cd ${WORKSPACE}/Dropbox'
+#    alias DESKTOP='cd ${HOME}/Desktop'
+#    alias DOCUMENTS='cd ${HOME}/Documents'
+#    alias DOWNLOADS='cd ${HOME}/Downloads'
+#    alias HOME='cd ~'
+    alias d='cd ${HOME}/Desktop'
+    alias doc='cd ${HOME}/Documents'
+    alias dl='cd ${HOME}/Downloads'
+#    alias GOOGLEDRIVE='cd ${WORKSPACE}/Google\ Drive'
+#    alias ONEDRIVE='cd ${WORKSPACE}/OneDrive'
+#    alias DROPBOX='cd ${WORKSPACE}/Dropbox'
+    alias gd='cd ${WORKSPACE}/Google\ Drive'
+    alias od='cd ${WORKSPACE}/OneDrive'
+    alias db='cd ${WORKSPACE}/Dropbox'
 
     # alias（for ctag）
     # changing the BSD version to the version installed by Homebrew
@@ -146,7 +153,6 @@ else
 #-------------------------------------------------
 	echo "Your platform ($(uname -a)) is not supported."
 	exit 1
-
 fi
 
 #-------------------------------------------------
@@ -159,8 +165,10 @@ source ${HOME}/dotfiles/.zprofile_conf/tmux.profile
 #-------------------------------------------------
 alias c='clear'
 alias e='exit'
-alias DOT='cd ${DOTPATH}'
-alias WW='cd ${WORKSPACE}'
+alias h='cd ~'
+alias dot='cd ${DOTPATH}'
+alias w='cd ${WORKSPACE}'
+alias init='source ${HOME}/.zprofile'
 #alias jj=$(:)
 
 #-------------------------------------------------
@@ -397,7 +405,6 @@ export PATH=${GOPATH}/src/github.com/ontheroadjp/dazai:${PATH}
 export PATH=${GOPATH}/src/github.com/ontheroadjp/tidyphoto/bin:${PATH}
 export PATH=${GOPATH}/src/github.com/ontheroadjp/file-list:${PATH}
 export PATH=${GOPATH}/src/github.com/ontheroadjp/dammy:${PATH}
-
 
 # --------------------------------------------
 # GNU Core Utility

@@ -1,6 +1,5 @@
 #! /bin/sh
 
-
 DOTPATH=${HOME}/dotfiles
 
 function _is_exist {
@@ -36,8 +35,7 @@ function _deploy_dotfiles() {
         .agignore
     )
 
-	for f in ${dotfiles[@]}
-	do
+	for f in ${dotfiles[@]}; do
 		[ "${f}" = ".git" ] && continue
 		if [ -e ${DOTPATH}/${F} ]; then
 			ln -snfv "${DOTPATH}/${f}" "${HOME}/${f}" > /dev/null
@@ -46,24 +44,29 @@ function _deploy_dotfiles() {
 			echo "missing file/directory: ${f}"
 		fi
 	done
-
-#	# Karabiner
-#    karabiner_path="${HOME}/Library/Application\ Support/Karabiner/private.xml"
-#	if [ -e "${karabiner_path}" ]; then
-#	    ln -sf ${DOTPATH}/karabiner/private.xml ${karabiner_path} > /dev/null
-#	    echo "success: Karabiner - private.xml"
-#    fi
-
-	# Karabiner-elements
-    karabiner_path="${HOME}/.config/karabiner"
-	if [ -e "${karabiner_path}" ]; then
-	    ln -sf ${DOTPATH}/mac_osx/karabiner_elements/karabiner.json ${karabiner_path} > /dev/null
-	    echo "success: Karabiner-elements - karabiner.json"
-    fi
 }
 
-_deploy_dotfiles && {
-    echo "Complete!"
+# Karabiner-elements
+function _install_karabiner() {
+    echo ">>> install karabiner settings..."
+    mkdir -p ~/.config
+    ln -sf ${DOTPATH}/mac_osx/karabiner_elements ${HOME}/.config/karabiner > /dev/null
+    echo "success"
 }
 
+# iTerm2
+function _install_iterm2() {
+    echo ">>> install iTerm2 settings..."
+    mkdir -p ~/.config
+    ln -sf ${DOTPATH}/mac_osx/iTerm2 ${HOME}/.config/iTerm2 > /dev/null
+    echo "success"
+}
+
+_deploy_dotfiles
+[ $(uname) = 'Darwin' ] && {
+    _install_karabiner
+    _install_karabiner
+}
+
+echo "Complete!"
 exit 0

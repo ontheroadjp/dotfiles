@@ -52,6 +52,12 @@
                                     },
                                     {
                                         "key_code": "japanese_eisuu"
+                                    },
+                                    {
+                                        "key_code": "j"
+                                    },
+                                    {
+                                        "key_code": "j"
                                     }
                                 ],
                                 "type": "basic"
@@ -369,8 +375,8 @@
                             }
                         ]
                     },
-                                        {
-                        "description": "iTerm2: Copy (⌘ + q)",
+                    {
+                        "description": "iTerm2: Quit (⌘ + q)",
                         "manipulators": [
                             {
                                 "conditions": [
@@ -385,8 +391,7 @@
                                     "key_code": "q",
                                     "modifiers": {
                                         "mandatory": [
-                                            "left_control",
-                                            "shift"
+                                            "left_control"
                                         ]
                                     }
                                 },
