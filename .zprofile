@@ -4,11 +4,10 @@
 export EDITOR=vim
 export TERM=xterm
 #export LANG=ja_JP.UTF-8
-export DOTPATH=${HOME}/dotfiles
 export PATH=.:${DOTPATH}/bin:${PATH}
 export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:${PATH}
-
 export PATH=${HOME}/.nodebrew/current/bin:${PATH}
+export DOTPATH=${HOME}/dotfiles
 
 autoload -Uz colors && colors   # use color
 
@@ -28,8 +27,23 @@ function _yellow() { xargs -I{} echo $'\e[33m{}\e[m' }
 function _green() { xargs -I{} echo $'\e[32m{}\e[m' }
 
 #-------------------------------------------------
-# My tools
+# OS common settings
 #-------------------------------------------------
+alias c='clear'
+alias e='exit'
+alias h='cd ~'
+alias dot='cd ${DOTPATH}'
+alias w='cd ${WORKSPACE}'
+alias init='source ${HOME}/.zprofile'
+#alias jj=$(:)
+
+# auto URL encode in TERMINAL
+# This causes pasted URLs to be automatically quoted, without needing to disable globbing.
+#autoload -Uz bracketed-paste-magic
+#zle -N bracketed-paste bracketed-paste-magic
+#
+#autoload -Uz url-quote-magic
+#zle -N self-insert url-quote-magic
 
 #-------------------------------------------------
 # For MacOSX only
@@ -63,7 +77,7 @@ if [ $(uname) = "Darwin" ]; then
 
     # remove .DS_Store file
     alias rmds='find . -type f -name .DS_Store -print0 | xargs -0 rm'
-    alias c='rmds && clear'
+#    alias c='rmds && clear'
 
 #    function _cacheclean() {
 #        # Homebrew
@@ -111,16 +125,9 @@ if [ $(uname) = "Darwin" ]; then
     alias me='searchMarsEditImage $@'
 
     # alias(directory change:Mac)
-#    alias DESKTOP='cd ${HOME}/Desktop'
-#    alias DOCUMENTS='cd ${HOME}/Documents'
-#    alias DOWNLOADS='cd ${HOME}/Downloads'
-#    alias HOME='cd ~'
     alias d='cd ${HOME}/Desktop'
     alias doc='cd ${HOME}/Documents'
     alias dl='cd ${HOME}/Downloads'
-#    alias GOOGLEDRIVE='cd ${WORKSPACE}/Google\ Drive'
-#    alias ONEDRIVE='cd ${WORKSPACE}/OneDrive'
-#    alias DROPBOX='cd ${WORKSPACE}/Dropbox'
     alias gd='cd ${WORKSPACE}/Google\ Drive'
     alias od='cd ${WORKSPACE}/OneDrive'
     alias db='cd ${WORKSPACE}/Dropbox'
@@ -161,17 +168,6 @@ fi
 source ${HOME}/dotfiles/.zprofile_conf/tmux.profile
 
 #-------------------------------------------------
-# OS common settings
-#-------------------------------------------------
-alias c='clear'
-alias e='exit'
-alias h='cd ~'
-alias dot='cd ${DOTPATH}'
-alias w='cd ${WORKSPACE}'
-alias init='source ${HOME}/.zprofile'
-#alias jj=$(:)
-
-#-------------------------------------------------
 # zsh
 #-------------------------------------------------
 
@@ -206,7 +202,7 @@ alias lad='la -d */'
 
 function _cdla() {
     [ $# -eq 0 ] && place=${HOME} || place=$@
-	pushd ${place} && clear && la
+	pushd ${place} && c && la
 }
 alias cd='_cdla'
 
@@ -240,18 +236,7 @@ if _is_exist ag; then
 fi
 
 #-------------------------------------------------
-# Dammy Image
-#-------------------------------------------------
-function _create_dammy_image() {
-     convert -size "${1:=320}x${2:=200}" \
-            -background "#95a5a6" \
-            -fill "#2c3e50" \
-            -gravity center label:"$1x$2" $1x$2.${3:=jpg}
-}
-alias dammyimg='_create_dammy_image'
-
-#-------------------------------------------------
-# Go
+# Go (GHQ)
 #-------------------------------------------------
 if _is_exist go; then
     export GOPATH="${HOME}/dev"
@@ -280,6 +265,17 @@ fi
 if _is_exist exiftool; then
     alias exif="exiftool $@"
 fi
+
+#-------------------------------------------------
+# Dammy Image
+#-------------------------------------------------
+function _create_dammy_image() {
+     convert -size "${1:=320}x${2:=200}" \
+            -background "#95a5a6" \
+            -fill "#2c3e50" \
+            -gravity center label:"$1x$2" $1x$2.${3:=jpg}
+}
+alias dammyimg='_create_dammy_image'
 
 #-------------------------------------------------
 # WEB (Dockerhub)
@@ -405,6 +401,10 @@ export PATH=${GOPATH}/src/github.com/ontheroadjp/dazai:${PATH}
 export PATH=${GOPATH}/src/github.com/ontheroadjp/tidyphoto/bin:${PATH}
 export PATH=${GOPATH}/src/github.com/ontheroadjp/file-list:${PATH}
 export PATH=${GOPATH}/src/github.com/ontheroadjp/dammy:${PATH}
+export PATH=${DOTPATH}/bin:${PATH}
+
+alias li=battery
+alias wifi=get_ssid
 
 # --------------------------------------------
 # GNU Core Utility
