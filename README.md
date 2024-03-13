@@ -4,36 +4,29 @@
 * 主なツール： ``peco``, ``ghq``, ``gh``,   ``ag``, ``ctags``
 * 主な自作ツール： ``dirmarks``, ``shell-stash``
 
-
-
 ### Mac
 
 - ``Homebrew``, ``iTerm2``, ``karabiner``
 
-
-
 ## 主なディレクトリ構成
 
-| ディレクトリ | パス                              |移動エイリアス|
-| :--- | :--- | ---- |
-| dotfiles | ``${HOME}/dotfiles``                              |``DOT``|
-| リポジトリ     | ``${HOME}/dev``                                    |``rr``|
-| ワークスペース | ``${HOME}/WORKSPACE``                              |``ww``|
-| クイックメモ | ``${HOME}/WORKSPACE/Dropbox/Documents/memo`` |``qm``|
-| メモ           | ``${HOME}/WORKSPACE/Dropbox/Documents/memo``       |``memo``|
-
-
+| ディレクトリ   | パス                                           | 移動エイリアス  |
+|:-------- |:-------------------------------------------- | -------- |
+| dotfiles | ``${HOME}/dotfiles``                         | ``DOT``  |
+| リポジトリ    | ``${HOME}/dev``                              | ``rr``   |
+| ワークスペース  | ``${HOME}/WORKSPACE``                        | ``ww``   |
+| クイックメモ   | ``${HOME}/WORKSPACE/Dropbox/Documents/memo`` | ``qm``   |
+| メモ       | ``${HOME}/WORKSPACE/Dropbox/Documents/memo`` | ``memo`` |
 
 ## 主な PATH
 
 - ``.``
 - ``${HOME}/dotfiles/bin``
 
-
-
 ## shell (bash/zsh)
 
 ### プロンプト
+
 - ``fullprompt`` で ``[user@comp (xx:xx) dir (git)]$ ``
 - ``prompt`` で ``[xx:xx dir (git)]$ ``
 - ``noprompt`` で ``$ ``
@@ -43,8 +36,6 @@
 * ``la`` で ``clear && ls -laG``
 * ``lla`` または ``laa`` で サブディレクトリ 一覧を表示/選択して ``la`` 実行（peco）
 * ``dirsize`` でディレクトリのサイズ表示（対象ディレクトリ指定ない場合はカレント）
-
-
 
 ### ディレクトリ移動
 
@@ -57,7 +48,17 @@
 * ``...`` で二つ上の階層へ
 * ``....`` で三つ上の階層へ
 
+#### エイリアス
 
+- ``h`` で ``~`` へ
+- ``dot`` で ``~/dotfiles`` へ
+- ``ww`` で ``~/workspace`` へ移動
+
+#### with peco/peco
+
+- ``CMD e`` で cdr peco
+- ``memo`` で memo (.md) から検索
+- ``remote`` で SSH 接続 (~/.ssh/config)
 
 #### ジャンプ & マーク（自作ツール：dirmark）
 
@@ -65,8 +66,6 @@
 * ``nn`` でカレントディレクトリを記憶し ``n`` で記憶したディレクトリへ移動
 * ``ii`` でカレントディレクトリを記憶し ``i`` で記憶したディレクトリへ移動
 * ``oo`` でカレントディレクトリを記憶し ``o`` で記憶したディレクトリへ移動
-
-
 
 #### ファイル/ディレクトリ コピー/移動補助（自作ツール：ShellStash）
 
@@ -77,15 +76,11 @@
 - ``ss -c pop`` で ``peco`` 表示/選択してカレントディレクトリへ取り出す（``mv``）
 - ``ss empty`` で Stash を空にする（空にすると元には戻せない）
 
-
-
 #### ジャンプ & マーク（ローカル）
 
 * ``ww`` で ``~/WORKSPACE`` 内のディレクトリを ``peco`` で表示/選択してディレクトリ移動
 * ``rr`` でリポジトリ（``${HOME}/dev``) を ``peco`` で表示/選択して移動
 * リポジトリ内で ``G`` で Git ローカルリポジトリルートへ移動
-
-
 
 ##### おまけ（あまり使ってない）
 
@@ -93,60 +88,46 @@
 * ``cdh`` でディレクトリの訪問履歴を ``peco`` で表示/選択してディレクトリ移動
 * ``cdm`` でディレクトリマーク一覧を ``peco`` で表示/選択してディレクトリ移動
 
-
-
 #### ジャンプ & マーク（サーバー & web）
 
 * ``vpn`` で SSH接続一覧 (``${HOME}/.ssh/config``) を ``peco`` で表示/選択してディレクトリ移動
 * ``google [検索ワード]`` または ``g [検索ワード]`` で Google 検索
 * ``stock`` で ``peco`` で上場銘柄一覧を表示/選択してブラウザで表示
 
-
-
 #### Github（ローカルレポジトリ）へ移動
 
 * ``rr`` で ``ghq`` 管理のレポジトリ一覧を ``peco`` で表示/選択してディレクトリ移動
 * ``G`` でレポジトリルートへ移動
 
-
-
 #### Github（リモートレポジトリ）へ移動
 
 * ``github`` でカレントディレクトリの GitHub をブラウザで開く
 
-
-
 #### その他ディレクトリへ移動
 
 * ``DOT``で ``${HOME}/dotfiles`` へ移動
-
-
 
 ### ファイルの移動/コピー ( 自作ツール：Shell Stash )
 
 - shell stash 使うと便利（``ss`` コマンドと ``ssp`` コマンド）
 - ``ss`` で shell stash に保存されているファイル/ディレクトリの一覧を表示
 
-
-
 #### shell stash へ入れる
 
 - ``ss [ファイル/ディレクトリ]`` で shell stash へ移動（mv）
 - ``ss -c [ファイル/ディレクトリ]`` で shell stash へコピーを移動（cp）
-
-
 
 #### shell stash から取り出す
 
 - 取り出し先は ``ssp`` コマンドを実行したディレクトリ
 
 - ``ssp [ファイル/ディレクトリ]`` で shell stash から取り出す（mv）
+
 - ``ssp -c [ファイル/ディレクトリ]`` で shell stash からコピーを取り出す（cp）
 
 - ``ssp`` で shell stash にあるファイル/ディレクトリ一覧を ``peco`` で表示/選択して取り出す（mv）
+
 - ``ssp -c`` で shell stash にあるファイル/ディレクトリ一覧を ``peco`` で表示/選択して取り出す（cp）
-
-
 
 ### 検索
 
@@ -158,14 +139,10 @@
 * ``ff``, ``fd`` はディレクトリ指定可能
 * ``ff``, ``fd`` にオプション（``--empty`` など）を指定する場合は検索対象ディレクトリを指定する
 
-
-
 ### その他エイリアス
 
 * ``vp`` で ``.bash_profile`` を ``vim`` で開く (bash のみ)
 * ``sp`` で ``.bash_profile`` を再読み込み (bash のみ)
-
-
 
 ### その他関数 & ミニアプリ
 
@@ -173,35 +150,31 @@
 
 * ``p <メモの内容>`` で PromptMemo 追加（``p`` のみでプロンプトメモ消去）
 * ``qm`` で QuickMemo ファイル開く（``~/WORKSPACE/Dropbox/Documents/quick_note.md``）
-    * ``quick_note.md`` 開いた日時が先頭行に自動追加
+  * ``quick_note.md`` 開いた日時が先頭行に自動追加
 * ``memo`` で Note 一覧を ``peco`` で表示/選択して ``${MARKDOWN_EDITOR}`` で開く
 * ``yubin`` で ``peco`` で郵便番号一覧を表示して検索
-
-
 
 #### その他
 
 * ``bk <対象ファイル or ディレクトリ>`` で、同じディレクトリにバックアップ作成（*.tag.gz)
 
 * ``clock`` でタイムゾーン一覧が  ``peco`` で表示/選択して日時を表示する
-
-    ```bash
-    $ clock
-    America/New_York: Wed Sep 30 06:09:47 EDT 2020
-    ```
+  
+  ```bash
+  $ clock
+  America/New_York: Wed Sep 30 06:09:47 EDT 2020
+  ```
 
 * ``wareki <数値>`` で和暦/西暦 対応を表示
-
-    ```bash
-    $ wareki 2020
-    令和2年  2020
-    ```
+  
+  ```bash
+  $ wareki 2020
+  令和2年  2020
+  ```
 
 * ``holiday`` で日本の祝日・休日一覧を表示
 
 * ``256cpalet`` で 256色カラーコード一覧を表示
-
-
 
 ## tmux
 
@@ -211,8 +184,6 @@
 * ``prefix`` + ``z`` でアクティブペイン拡大
 * ``prefix`` + ``:`` でコマンド入力モードへ
 
-
-
 ### セッション（キーバインドは全てデフォルト）
 
 #### 基本操作（セッション間の移動）
@@ -220,9 +191,7 @@
 1. ``prefix`` + ``s`` でセッション一覧を開く
 2. ``j``又は ``k`` でセッション選択
 3. 必要に応じて ``prefix`` + ``$`` でセッション名の変更
-3. ``exit`` でセッション終了
-
-
+4. ``exit`` でセッション終了
 
 #### コマンド
 
@@ -233,12 +202,10 @@
 * ``prefix`` + ``d`` でデタッチ
 
 * ``exit`` でセッション終了 → tmux を続ける場合は、
-
+  
      既存セッションに接続する場合：``tmux a`` （又は ``tmux a -t [セッション名]``）
-
+  
     新規セッションを作成する場合： ``tamux``
-
-
 
 ### ウインドウ（キーバインドは全てデフォルト）
 
@@ -249,8 +216,6 @@
 3. ``prefix`` + ``n`` 又は ``prefix`` + ``p`` でウインドウ間の移動
 4. ``prefix`` + ``&`` でウインドウ閉じる
 
-
-
 #### コマンド
 
 * ``prefix`` + ``w`` でウインドウ一覧 & ウインドウ移動
@@ -259,8 +224,6 @@
 * ``prefix`` + ``1`` でウインドウ番号へ移動
 * ``prefix`` + ``,`` でウインドウ名の変更
 * ``prefix`` + ``.`` でウインドウ番号の変更
-
-
 
 ### ペイン
 
@@ -274,29 +237,21 @@
 * ``prefixkey`` + ``h`` でペインの境界を左へ移動
 * ``prefixkey`` + ``l`` でペインの境界を右へ移動
 
-
-
 ### その他
 
 * ``prefix`` + ``t`` で時刻表示
 * ``prefix`` + ``z`` でカレントペインを最大化
-
-
 
 ## vim の設定
 
 * 基本設定は、 ``dotfiles/.vimrc``
 * 設定されているキーバインド一覧を表示 ``:map``
 
-
-
 ### プラグイン
 
 * 起動時にロードするプラグイン(NeoBundle の設定)は `dotfiles/.vim/vimrc_includes/plugins.vim`
 * プラグイン自身の設定は、``dotfiles/.vim/vimrc_includes/xxx``
 * これらは `.vimrc` から読み込まれる
-
-
 
 ## vim の使い方 (基本編)
 
@@ -318,8 +273,6 @@
 * ``,c`` で Google Chrome 起動
 * ``,s`` で Safari 起動
 
-
-
 ## vim の使い方（ファイル操作）
 
 ### 新規ファイル作成
@@ -331,14 +284,10 @@
 * または、`,e` で NERDTree 開いて、`ma`
 * ``:new`` で新規バッファ作成
 
-
-
 ### ファイルタイプ
 
 - ``<Leader>`` + ``ft`` でカレントバッファのファイルタイプを表示
 - ``c-s`` ``c-s`` で filetype を ``bash`` へ変更
-
-
 
 ### 新規テンプレート
 
@@ -347,18 +296,12 @@
 - テンプレートの置き場所は ``dotfiles/.vim/templates/``
 - ``:e%%[new file]`` で作成した時のみテンプレートが読み込まれる
 
-
-
 ### ファイル（バッファ）情報を見る
 
 - ``<Leader>`` + ``ft`` でカレントバッファのファイルタイプを表示
 - ``<Leader>`` + ``fp`` でカレントバッファのパスを表示
 - ``<Leader>`` + ``enc`` でカレントバッファの文字コードを表示
 - ``<Leader>`` + ``cd`` でカレントディレクトリをカレントバッファのっsレクトリへ変更
-
-
-
-
 
 ## vim の使い方（ウインドウ、バッファ、タブ）
 
@@ -373,8 +316,6 @@
 * ``Ctrl + w + l`` で右のウインドウへ移動(vim デフォルト)
 * ``Ctrl + ww`` でウインドウ間ローテーション
 
-
-
 ### バッファ
 
 * ``<Leader>b`` でバッファ一覧表示
@@ -384,8 +325,6 @@
 * ``]b`` で次のバッファへ
 * ``[B`` で最初のバッファへ
 * ``]B`` で最後のバッファへ
-
-
 
 ### タブ
 
@@ -398,28 +337,26 @@
 - ``[タブNo]gt`` で指定したタブへ移動（デフォルト）
 - ``:tabo`` で現在のタブ以外を全て閉じる（デフォルト）
 
-
-
 ## vim の使い方（移動編）
 
 ### ジャンプ
 
 * ジャンプ（大移動）は、``<Space>`` に統一
-    * ``<Space>o`` で、ジャンプリスト戻る
-    * ``<Space>]`` 又は ``<Space>[``  で、対になるカッコへ
-    * ``<Space>i`` で、ジャンプリスト進む
-    * ``<Space>.`` で、直近の編集場所へ
+  
+  * ``<Space>o`` で、ジャンプリスト戻る
+  * ``<Space>]`` 又は ``<Space>[``  で、対になるカッコへ
+  * ``<Space>i`` で、ジャンプリスト進む
+  * ``<Space>.`` で、直近の編集場所へ
 
 * ジャンプ（中移動）は、``Shift`` に統一
-    * ``<Shift>k`` で、画面最上段へ
-    * ``<Shift>m`` で、画面中央へ
-    * ``<Shift>j`` で、画面最下段へ ← デフォルトの下段行と連結と被るので設定なし
-    * ``<shift>[`` で、上のパラグラフへ
-    * ``<shift>]`` で、下のパラグラフへ
-    * ``<Shift>h`` で、行頭へ
-    * ``<Shift>l`` で、行末へ
-
-
+  
+  * ``<Shift>k`` で、画面最上段へ
+  * ``<Shift>m`` で、画面中央へ
+  * ``<Shift>j`` で、画面最下段へ ← デフォルトの下段行と連結と被るので設定なし
+  * ``<shift>[`` で、上のパラグラフへ
+  * ``<shift>]`` で、下のパラグラフへ
+  * ``<Shift>h`` で、行頭へ
+  * ``<Shift>l`` で、行末へ
 
 ## vim の使い方（folding: 折りたたみ）
 
@@ -428,56 +365,48 @@
 - ``<C-[`` でファイル全体の折りたたみ
 - ``<C-]`` でファイル全体の展開
 
-
-
-
 ## vim の使い方（検索編）
 
 - 検索方法は 3つ
-    - ``/[検索ワード]`` で検索
-    - ``:vim [検索ワード] %`` でカレントバッファを grep 検索
-    - ``:Ag [検索ワード] %`` でカレントバッファを grep 検索（ag.vim プラグイン ）
+  - ``/[検索ワード]`` で検索
+  - ``:vim [検索ワード] %`` でカレントバッファを grep 検索
+  - ``:Ag [検索ワード] %`` でカレントバッファを grep 検索（ag.vim プラグイン ）
 - ``:vim [検索ワード] %`` でカレントバッファを検索して検索結果を QuickFix で開く
 - ``:vim [検索ワード] ./src'' で ``./src`` ディレクトリのファイル内を検索
 * ``ag`` の方が高速
-
-
 
 ### ag.vim
 
 - 検索方法は ``:Ag [検索ワード] [検索対象]``
 
 - ``%`` はカレントバッファ
+
 - なので ``:Ag [検索ワード] %`` でカレントバッファ内を検索
+
 - 検索対象を指定しないとカレントディレクトリ 配下全体を grep
+
 - 検索結果は Quickfix ウインドウで一覧表示
-
-
 
 #### 検索結果（Quickfix ウィンドウ）で結果の行を選択してキーを押したときの挙動
 
-| キー | 挙動                                               |
-| ---- | -------------------------------------------------- |
-| e    | ファイルを開く（Quickfixを閉じる）                 |
-| o    | ファイルを開く（Quickfixは閉じない）               |
-| go   | ファイルを開くが、フォーカスはQuickfix             |
-| t    | ファイルを新しいタブで開く                         |
-| T    | ファイルを新しいタブで開くが、フォーカスはQuickfix |
-| h    | ファイルを水平分割して開く                         |
-| H    | ファイルを水平分割して開くが、フォーカスはQuickfix |
-| v    | ファイルを垂直分割して開く                         |
-| gv   | ファイルを垂直分割して開くが、フォーカスはQuickfix |
-| q    | Quickfixを閉じる                                   |
-
-
+| キー  | 挙動                            |
+| --- | ----------------------------- |
+| e   | ファイルを開く（Quickfixを閉じる）         |
+| o   | ファイルを開く（Quickfixは閉じない）        |
+| go  | ファイルを開くが、フォーカスはQuickfix       |
+| t   | ファイルを新しいタブで開く                 |
+| T   | ファイルを新しいタブで開くが、フォーカスはQuickfix |
+| h   | ファイルを水平分割して開く                 |
+| H   | ファイルを水平分割して開くが、フォーカスはQuickfix |
+| v   | ファイルを垂直分割して開く                 |
+| gv  | ファイルを垂直分割して開くが、フォーカスはQuickfix |
+| q   | Quickfixを閉じる                  |
 
 ### その他
 
 * 範囲を選択して ``=`` でインデント整形(vim デフォルト)
 * 右インデントは ``<Shift>>>``(vim デフォルト)
 * 左インデントは ``<Shift><<``(vim デフォルト)
-
-
 
 ## vim の使い方 (Unite)
 
@@ -487,19 +416,15 @@
 * [Disabled]``,g`` でカレントディレクトリ以下を grep 検索(Unite grep:)
 * [Disabled] ``,cg`` でカーソル位置の単語を grep 検索(Unite grep:)
 
-
-
 ### Unite コマンド
 
-|コマンド|内容|
-|:---|:---|
-|``<C-e>``または``,fr``|最近開いたファイル一覧（file_mru）|
-|``<C-p>``または``,ff``|カレントディレクトリ以下のファイル一覧（file_rec）|
-|``,fg``|カレントディレクトリ以下を grep|
+| コマンド                | 内容                            |
+|:------------------- |:----------------------------- |
+| ``<C-e>``または``,fr`` | 最近開いたファイル一覧（file_mru）         |
+| ``<C-p>``または``,ff`` | カレントディレクトリ以下のファイル一覧（file_rec） |
+| ``,fg``             | カレントディレクトリ以下を grep            |
 
 * 新規ディレクトリ作成（``,fd``）と新規ファイル作成（``,fn``）は NERDTree で行った方がわかりやすい。
-
-
 
 ## vim の使い方 (NERDTree)
 
@@ -507,25 +432,21 @@
 * ファイルを開くと自動的にツリーを閉じる
 * NERDTree ウインドウ内での操作（キーバインド）はデフォルトのまま
 
-
-
 ### NERDTree 基本コマンド
 
-|コマンド|内容|
-|:---|:---|
-|``,e``|ツリーの開閉|
-|``?``|ヘルプ表示/非表示切り替え|
-|``k``|カーソルを上へ移動|
-|``j``|カーソルを下へ移動|
-|``o``|ファイル開く|
-|``i``|横分割してファイル開く|
-|``s``|ウインドウを横に分割してファイルを開く|
-|``ma``|新規ファイル/ディレクトリ作成（ファイル名の最後に ``/`` を付けるとディレクトリ作成）|
-|``mc``|ファイルコピー|
-|``md``|ファイル/ディレクトリ削除|
-|``I``|隠しファイルの表示/非表示切りかえ|
-
-
+| コマンド   | 内容                                             |
+|:------ |:---------------------------------------------- |
+| ``,e`` | ツリーの開閉                                         |
+| ``?``  | ヘルプ表示/非表示切り替え                                  |
+| ``k``  | カーソルを上へ移動                                      |
+| ``j``  | カーソルを下へ移動                                      |
+| ``o``  | ファイル開く                                         |
+| ``i``  | 横分割してファイル開く                                    |
+| ``s``  | ウインドウを横に分割してファイルを開く                            |
+| ``ma`` | 新規ファイル/ディレクトリ作成（ファイル名の最後に ``/`` を付けるとディレクトリ作成） |
+| ``mc`` | ファイルコピー                                        |
+| ``md`` | ファイル/ディレクトリ削除                                  |
+| ``I``  | 隠しファイルの表示/非表示切りかえ                              |
 
 ## vim の使い方（surround）
 
@@ -535,8 +456,6 @@
 - ``ysiw)`` で ``sample`` を ``(sample)`` へ
 - ``yes)`` で ``hello world`` を ``(hello world)`` へ（行全体を囲む）
 
-
-
 ### 選択範囲を囲む
 
 - 括弧で括りたい部分をビジュアルモードで選択して ``S`` に続けて ``(`` ``{`` ``<`` などをタイプ
@@ -544,49 +463,35 @@
 - 上記 ``sample`` の両端にスペースが入らないようにするためには ``viwSB``
 - 括弧は ``b`` で ``)``、``B`` で ``}`` 、``r`` で ``]``、``a`` で ``>`` と同等（例： ``viwSb`` で ``sample`` が ``(sample)`` へ）
 
-
-
 ### 囲む（Tips）
 
 - 括弧の開き側（``(``, ``{``, ``<``など）を使うと括ったときにスペースが入る
 - 括弧の閉じ側（``)``, ``}``, ``>``など）を使うと括ったときにスペースが入らない
 - 括弧は ``b`` で ``)``、``B`` で ``}`` 、``r`` で ``]``、``a`` で ``>`` と同等（例： ``viwSb`` で ``sample`` が ``(sample)`` へ）
 
-
-
 ### タグ（\<tag>sample\</tag>）で囲む
 
--  ``t`` または ``<`` で任意のタグが囲める（例： ``viwStli>`` で ``sample`` が ``<li>sample</li>`` へ）
-
-
+- ``t`` または ``<`` で任意のタグが囲める（例： ``viwStli>`` で ``sample`` が ``<li>sample</li>`` へ）
 
 ### filetype=sh, or bash の場合
 
 - ``V`` （大文字）で ``${}`` で囲む。なので、``viwSV`` で ``sample`` が ``${sample}`` へ
 - ``v`` （小文字）で ``$()`` で囲む 。なので、``viwSv`` で ``sample`` が ``$(sample)`` へ
 
-
-
 ### 削除
 
 - ``dt(`` で、囲んでいる ``()`` を削除
 - ``dt"`` で、囲んでいる ``""`` を削除
-
-
 
 ### 変更
 
 - `cs(}` で ``(sample)`` が ``{sample}`` へ
 - ``cs"(`` で ``"sample"`` が ``( sample )`` へ
 
-
-
 ## vim の使い方 (入力補完: SupreTab)
 
 * ``TAB`` で入力補完
 * スニペット展開可能であればスニペット展開 (SnipMate) が優先
-
-
 
 ## vim の使い方（入力補完： vim-emmet)
 
@@ -594,7 +499,6 @@
 * `div.hoge` と入力して、`<emmet-leader>,` で `<div class="hoge"></div>` に展開
 * ``div.hoge.foo[style="display: flex;"]`` で `<div class="hoge foo" style="display: flex;">` に展開
 * [Emmit 公式チートシート](https://docs.emmet.io/cheat-sheet/)
-
 
 ## vim の使い方 (スニペット: SnipMate)
 
@@ -604,20 +508,16 @@
 ### スニペット登録
 
 * ``<Leader>es`` で ``:~/.vim/snippets/`` が入力されるので、``php<TAB>`` で PHP 用のスニペット登録用ファイルを開く
-)
+  )
 * スニペット登録ファイルの場所は ``~/.vim/snippets/``
 * スニペット登録ファイルは ``ファイルタイプ.snippets``
 * なので PHP ファイル (xxx.php) に適用するには ``~/.vim/snippets/php.snippets``
-
-
 
 ### tags と PHP 辞書の作成
 
 * 補完候補元は ``tags`` と PHP 辞書
 * ``tags`` ファイル作成は ``ctags --languages=php -f tags $(pwd)``
 * PHP 辞書作成は ``php -r '$f=get_defined_functions();echo join("\n",$f["internal"]);'|sort > ~/.vim/dict/php.dict``
-
-
 
 ## vim の使い方 (辞書/マニュアル検索: vim-ref)
 
@@ -626,13 +526,9 @@
 * PHP 語句の上で ``Shift + k`` で PHP マニュアル検索
 * 設定は ``.vim/vimdc_includs/vim-ref.vim``
 
-
-
 ## vim の使い方 (開発)
 
 * ``,=`` でインデント整形
-
-
 
 ## vim の使い方 (PHP)
 
@@ -644,8 +540,6 @@
 * 上記 ``<Leader>n`` と ``<Leader>nf`` は vim の カレントディレクトリに ``tags`` 必要
 * ``use`` 文全体を選択して ``<Leader>su`` で短いもの順にソート
 
-
-
 ### getter/setter
 
 * 変数宣言の行で ``<Leader>g`` で getter を自動挿入
@@ -653,22 +547,17 @@
 * 変数宣言の行で ``<Leader>b`` で setter/getter を自動挿入
 * 変数宣言の行で ``<Leader>p`` で setter/getter/both の自動挿入プロンプト表示
 
-
-
 ### コメント
 
 * クラス/関数宣言の行で ``<Leader>d`` でドキュメントコメントを自動生成
-
-
 
 ### フォーマット
 
 * ``<Leader>psr`` で psr-2 フォーマットへ整形
 
 * ``ghq get https://github.com/[ベンダー名]/[レポジトリ名]`` でレポジトリ取得
+
 * レポジトリ保存場所は、``~/.gitconfig`` で設定（``~/dev/src`` 指定済み）
-
-
 
 ## git 関連
 
@@ -679,8 +568,6 @@
 * ``GGignore`` で ``.gitignore`` を Git から取得 （from``https://raw.githubusercontent.com/github/gitignore/master/Global/macOS.gitignore``）
 * ``GGhooks`` で、hook ファイルを取得 （from ``dot files/.git_template/hooks``）
 
-
-
 ### ワークフロー
 
 * ``GGG`` または ``GGl`` で git log 確認
@@ -688,27 +575,21 @@
 * ``GGa`` でステージング
 * ``git commit`` でコミット
 
-
-
 ### 主なエイリアス
 
-####  ``~/.bash_profile``  で定義
+#### ``~/.bash_profile``  で定義
 
-* ``GGG``		= ``git graph``
-* ``GGs``		= ``git status``
-* ``GGd``		= ``git diff``
-* ``GGa``		= ``git add``
-* ``GGc``		= ``git checkout``
-* ``GGb``		= ``git branch`
+* ``GGG``        = ``git graph``
+* ``GGs``        = ``git status``
+* ``GGd``        = ``git diff``
+* ``GGa``        = ``git add``
+* ``GGc``        = ``git checkout``
+* ``GGb``        = ``git branch`
 * ``git commit`` はエイリアスなし
 
-
-
-####  ``~/gitconfig`` で定義
+#### ``~/gitconfig`` で定義
 
 * ``graph`` = ``log --graph --date-order --all --pretty=format:'%h %Cred%d %Cgreen%ad %Cblue%cn %Creset%s' --date=short``
-
-
 
 ## vagrant 関連
 
@@ -728,8 +609,6 @@
 * ``vrb`` = ``vagrant sandbox rollback``
 * ``vc`` = ``vagrant sandbox commit``
 
-
-
 ## Docker 関連
 
 docker がインストールされている場合、``nutsllc/docker-dd`` がインストールされる
@@ -739,8 +618,6 @@ docker がインストールされている場合、``nutsllc/docker-dd`` がイ
 * ``ddd`` = ``docker-compose down``
 * ``dde`` = ``docker-compose exec ${@}``
 * ``ddv`` = ``vim docker-compose.yml``
-
-
 
 ## インストール
 
@@ -753,8 +630,6 @@ $ sh ~/dotfiles/install.sh
 $ source ~/.bash_profile
 ```
 
-
-
 ### vim + lua のインストール
 
 ```
@@ -762,17 +637,15 @@ $ sudo yum install -y lua lua-devel
 $ git clone https://github.com/vim/vim.git /usr/local/src
 $ cd /usr/local/src
 $ ./configure \
-	--with-features=huge \
-	--enable-multibyte \
-	--enable-luainterp=dynamic \
-	--enable-gpm \
-	--enable-cscope \
-	--enable-fontset
+    --with-features=huge \
+    --enable-multibyte \
+    --enable-luainterp=dynamic \
+    --enable-gpm \
+    --enable-cscope \
+    --enable-fontset
 $ make -j4
 $ make install
 ```
-
-
 
 ### NeoBundle のインストール
 
@@ -783,16 +656,12 @@ mkdir -p ~/.vim/bundle
 git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 ```
 
-
-
 ### vim プラグインのインストール
 
 ```bash
 $ vim
 :NeoBundleInstall
 ```
-
-
 
 ### peco のインストール
 
@@ -802,15 +671,11 @@ $ sh ~/dotfiles/bin/install_peco.sh
 
 * 設定ファイル ``~/.config/peco/config.json``
 
-
-
 ### tmux インストール（Mac）
 
 ```bash
 $ brew install tmux
 ```
-
-
 
 ### PHP マニュアルのインストール
 
@@ -820,15 +685,11 @@ wget -O ${HOME}/.vim/ref/php-manual.tar.gz http://jp2.php.net/get/php_manual_ja.
 tar xzf ${HOME}/.vim/ref/php-manual.tar.gz -C ${HOME}/.vim/ref
 ```
 
-
-
 ### PHP 辞書の作成
 
 ```bash
 php -r '$f=get_defined_functions();echo join("\n",$f["internal"]);'|sort > ~/.vim/dict/php.dict
 ```
-
-
 
 ### tags ファイルの作成
 
@@ -836,15 +697,11 @@ php -r '$f=get_defined_functions();echo join("\n",$f["internal"]);'|sort > ~/.vi
 ctags --languages=php -f tags `pwd`
 ```
 
-
-
 ### ag のインストール
 
 ```bash
 brew install ag
 ```
-
-
 
 ### php-cs-fixer のインストール
 
@@ -852,8 +709,6 @@ brew install ag
 composer global require fabpot/php-cs-fixer
 PATH=$PATH:${HOME}/.composer/bin
 ```
-
-
 
 ## その他主な Tool
 
@@ -863,15 +718,11 @@ PATH=$PATH:${HOME}/.composer/bin
 youtube-dl <DLする動画ページの URL>
 ```
 
-
-
 ### mplayer
 
 ```bash
 mplayer <再生する動画/音楽ファイル>
 ```
-
-
 
 ## 変更履歴
 

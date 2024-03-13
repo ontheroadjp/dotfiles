@@ -309,6 +309,7 @@ cnoremap %vv source ~/.vimrc<CR>
 cnoremap %qq q<CR>
 
 "------------------------------------------------------------------ Plug-ins
+
 " Plug-in installation
 so ${HOME}/dotfiles/.vim/vimrc_includs/plugins.vim
 "so ${HOME}/dotfiles/.vim/vimrc_includs/plugins_dirs.vim
