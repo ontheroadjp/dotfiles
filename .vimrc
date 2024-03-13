@@ -96,6 +96,7 @@ cabbr w!! w !sudo tee > /dev/null %
 " New File Template
 autocmd BufNewFile *.vue 0r $HOME/dotfiles/.vim/templates/vue.tpl
 autocmd BufNewFile *.{sh,bash} 0r $HOME/dotfiles/.vim/templates/sh.tpl
+autocmd BufNewFile *.{py} 0r $HOME/dotfiles/.vim/templates/python.tpl
 autocmd BufNewFile *.{bats} 0r $HOME/dotfiles/.vim/templates/bats.tpl
 
 " Filetype
