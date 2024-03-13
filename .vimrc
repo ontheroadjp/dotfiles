@@ -99,7 +99,8 @@ autocmd BufNewFile *.{sh,bash} 0r $HOME/dotfiles/.vim/templates/sh.tpl
 autocmd BufNewFile *.{bats} 0r $HOME/dotfiles/.vim/templates/bats.tpl
 
 " Filetype
-autocmd BufNewFile,BufRead *.{html,htm,ejs,vue*} set filetype=html  " for ejs/vue.js
+autocmd BufNewFile,BufRead *.{html,htm,ejs*} set filetype=html
+autocmd BufNewFile,BufRead *.{vue} set filetype=javascript
 autocmd BufNewFile,BufRead *.{profile,fnc,bats} set filetype=bash
 
 "--------------------------------------------------------------- Buffer
@@ -117,6 +118,8 @@ set softtabstop=4              " moving width of the consecutive white space
 set autoindent                 " to continue indent width in new line
 set smartindent                " to determining indent width automatically in new line
 
+"autocmd BufNewFile,BufRead *.vue tabstop=0 softtabstop=0 shiftwidth=0
+
 "--------------------------------------------------------------- Cursor settings
 let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
 "let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
@@ -128,8 +131,8 @@ nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
 set ignorecase                 " search regardress capital note or small note if search word is small note (noignorecase)
 set smartcase                  " if capital note in search words, it doesn't regardress capital note or small note (nosmartcase)
 set incsearch                  " to enable incremental search
-nnoremap n nzz
-nnoremap N Nzz
+"nnoremap n nzz                 "move center of display when search (n)
+"nnoremap N Nzz                 "move center of display when search (N)
 nnoremap <silent> <Space><Space> "zyiw:let @/ = '\<' . @z . '\>'<CR>:set hlsearch<CR>
 
 "================================================================== Key bindings
@@ -208,24 +211,24 @@ vnoremap <S-l> $
 "nnoremap <C-]> g<C-]>
 "------------------------------------------------------------------------ folding
 
-set foldmethod=indent    "Folding range
-set foldlevel=0          "Default level of folding when a file is opened
-" set foldcolumn=3       "Add an area to the left edge to show the folded state
+"set foldmethod=indent    "Folding range
+"set foldlevel=0          "Default level of folding when a file is opened
+"" set foldcolumn=3       "Add an area to the left edge to show the folded state
 
-" Region of cursor
-" zc  -- Close one fold under the cursor
-" zo  -- Open one fold under the cursor
-" zO  -- Open all folds under the cursor recursively
-nnoremap <C-h> zc " close
-nnoremap <C-l> zO " open
+"" Region of cursor
+"" zc  -- Close one fold under the cursor
+"" zo  -- Open one fold under the cursor
+"" zO  -- Open all folds under the cursor recursively
+"nnoremap <C-h> zc " close
+"nnoremap <C-l> zO " open
 
-" Whole file
-" zm -- Fold more
-" zM -- Close all folds
-" zr -- Reduce folding
-" zR -- Open all folds
-nnoremap <C-[> zM " close
-nnoremap <C-]> zR " open
+"" Whole file
+"" zm -- Fold more
+"" zM -- Close all folds
+"" zr -- Reduce folding
+"" zR -- Open all folds
+"nnoremap <C-[> zM " close
+"nnoremap <C-]> zR " open
 
 " Move
 nnoremap <C-k> zk " move to upper fold
@@ -306,6 +309,7 @@ cnoremap %vv source ~/.vimrc<CR>
 cnoremap %qq q<CR>
 
 "------------------------------------------------------------------ Plug-ins
+
 " Plug-in installation
 so ${HOME}/dotfiles/.vim/vimrc_includs/plugins.vim
 "so ${HOME}/dotfiles/.vim/vimrc_includs/plugins_dirs.vim

@@ -1,8 +1,8 @@
 #--------------------------------------------------
 # show sub directories: la (ls -laG)
 # -------------------------------------------------
-alias lla='la $(find . -type d | grep -v .git | peco)'
-alias laa='la $(find . -type d | grep -v .git | peco)'
+alias lla='la $(find . -type d | grep -v .git | peco --prompt "sub dir >")'
+alias laa='la $(find . -type d | grep -v .git | peco --prompt "sub dir >")'
 
 # -------------------------------------------------
 # open application
@@ -19,11 +19,21 @@ zle -N _open_application
 bindkey '^A' _open_application
 
 #-------------------------------------------------
-# vim
+# open with vim ( !! doesn't work !!)
 #-------------------------------------------------
 function _open_file_specify_file_extension() {
     [ ! -z "${1}" ] && {
-        place="$(find . -type d -name node_modules -prune -o -type d -name vendor -prune -o -type f -name "*.${1}" | peco)"
+        place="$(find . -type d \
+            -name node_modules \
+            -prune \
+            -o \
+            -type d \
+            -name vendor \
+            -prune \
+            -o \
+            -type f \
+            -regex "^.*\.${EXT}$" \
+            | peco --prompt 'open with vim >')"
         [ ! -z "${place}" ] && {
             vim ${place}
         }
@@ -33,6 +43,33 @@ function _open_file_specify_file_extension() {
 }
 alias ee='_open_file_specify_file_extension'
 # usage: $ee md, $ee README etc.
+
+# -------------------------------------------------
+# cdr peco
+# -------------------------------------------------
+
+## cdr settings
+if [[ -n $(echo ${^fpath}/chpwd_recent_dirs(N)) && -n $(echo ${^fpath}/cdr(N)) ]]; then
+    autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+    add-zsh-hook chpwd chpwd_recent_dirs
+    zstyle ':completion:*' recent-dirs-insert both
+    zstyle ':chpwd:*' recent-dirs-default true
+    zstyle ':chpwd:*' recent-dirs-max 1000
+    zstyle ':chpwd:*' recent-dirs-file "$HOME/.cache/chpwd-recent-dirs"
+fi
+
+## peco settings
+function peco-cdr () {
+    local selected_dir="$(cdr -l | sed 's/^[0-9]\+ \+//' | peco --prompt="cdr >" --query "$LBUFFER")"
+    if [ -n "$selected_dir" ]; then
+        echo $(${selected_dir} | cut -d ' ' -f5 -f6)
+        BUFFER="cd $(echo ${selected_dir} | cut -d ' ' -f5 -f6)"
+        zle accept-line
+    fi
+}
+
+zle -N peco-cdr
+bindkey '^E' peco-cdr
 
 # -------------------------------------------------
 # cd to directory within WORKSPACE
@@ -155,7 +192,7 @@ function _my_memo() {
     local my_memo_dir="${WORKSPACE}/Dropbox/Documents"
     #local dir=$(find ${my_memo_dir} -type d | peco --prompt "My Memo>")
     #local md=$(find ${dir} -type f | peco --prompt "My Memo>")
-    local md=$(find ${my_memo_dir} -type f | peco --prompt "My Memo>")
+    local md=$(find ${my_memo_dir} -type f | peco --prompt "open Memo>")
 	[ ! -z ${md}  ] && open ${md}
 }
 alias memo="_my_memo"
@@ -208,6 +245,7 @@ function _show_timezone() {
 
     [ ! -z ${tz} ] && printf "${tz}: "; TZ=${tz} date
 }
+alias tz="_show_timezone"
 alias timezone="_show_timezone"
 alias clock="_show_timezone"
 

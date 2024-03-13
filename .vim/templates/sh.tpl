@@ -29,30 +29,27 @@ function _log() {
 }
 
 function _err() {
-    echo "${SCRIPT_NAME}: $1" && exit 1
+    echo "$1" && exit 1
 }
 
-function _args_count() {
-    echo ${#ARG_VALUES[@]}
+function _is_cmd_exist() {
+    type $@ > /dev/null 2>&1
 }
 
-function _is_exist() {
-    [ -f $1 ] || [ -d $1 ] || [[ $(type $1) ]]
+function _is_file_exist() {
+    [ -f $1 ] > /dev/null 2>&1
+}
+
+function _is_dir_exist() {
+    [ -d $1 ] > /dev/null 2>&1
 }
 
 # -------------------------------------------------------------
 
-function _verbose() {
-    _log "ARG_VALUES: ${ARG_VALUES[@]}"
-    _log "OPT_A: ${OPT_A}"
-    _log "OPT_B: ${OPT_B}"
-    _log "IS_FLAG_P: ${IS_FLAG_P}"
-    _log "${SEPARATER}"
-}
-
 ARG_VALUES=()
 OPT_A=""
 OPT_B=""
+OPT_C=false
 IS_FLAG_P=false
 IS_FLAG_Z=false
 
@@ -62,7 +59,7 @@ function _main() {
 
 # -------------------------------------------------------------
 
-function _analyse_args_and_options() {
+function _init() {
     while (( $# > 0 )); do
         case $1 in
             -h | --help)
@@ -136,24 +133,40 @@ function _analyse_args_and_options() {
                 ;;
         esac
     done
+
+    _set_static_var
 }
 
 function _set_static_var() {
-    :
+    ARG_VALUES=$@
+}
+
+function _verbose() {
+    _log "ARG_VALUES: ${ARG_VALUES[@]}"
+    _log "OPT_A: ${OPT_A}"
+    _log "OPT_B: ${OPT_B}"
+    _log "IS_FLAG_P: ${IS_FLAG_P}"
+    _log "${SEPARATER}"
 }
 
 function _verify_static_var() {
     :
 }
 
+function _args_check() {
+    :
+    #if [ ${#ARG_VALUES[@]} -eq 0 ]; then
+    #    _err 'no argument.'
+    #elif ! _is_file_exist ${ARG_VALUES[0]}; then
+    #    _err 'No such file.'
+    #fi
+}
+
 # -------------------------------------------------------------
 # Main Routine
 # -------------------------------------------------------------
-_analyse_args_and_options $@ && {
-    _set_static_var && _verify_static_var && {
-        _verbose
-        _log 'start main process..' && _log "${SEPARATER}"
-        _main
-    }
+_init $@ && _args_check && _verbose && {
+    _log 'start main process..' && _log "${SEPARATER}"
+    _main
 }
 exit 0

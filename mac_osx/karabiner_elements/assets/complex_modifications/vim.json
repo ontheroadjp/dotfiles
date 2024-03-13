@@ -4,22 +4,22 @@
         {
             "description": "vim: 日本語入力の っj を jj にマッピングする",
             "manipulators": [
-                {
-                    "type": "basic",
+                { "type": "basic",
                     "from": {"key_code": "j"},
                     "to": [
                         {"set_variable": {"name": "vim-j-flag", "value": 0}},
                         {"key_code": "return_or_enter"},
                         {"key_code": "delete_or_backspace"},
-                        {"key_code": "japanese_eisuu"}
+                        {"key_code": "japanese_eisuu"},
+                        {"key_code": "j"},
+                        {"key_code": "j"}
                     ],
                     "conditions": [
                         {"type": "variable_if", "name": "vim-j-flag", "value": 1},
                         {"type": "input_source_if", "input_sources": [{"language": "ja"}]}
                     ]
                 },
-                {
-                    "type": "basic",
+                { "type": "basic",
                     "from": {"key_code": "j"},
                     "to": [
                         {"set_variable": {"name": "vim-j-flag", "value": 1}},
