@@ -75,5 +75,12 @@ function _noprompt() {
 alias noprompt='_noprompt'
 
 _set_prompt
-echo "Load .zshrc"
+echo "Load .zshrc."
 
+# ------------------------------------------
+# pyenv
+# ------------------------------------------
+export PYENV_ROOT=/usr/local/var/pyenv
+export PATH=”$PYENV_ROOT/shims:$PATH”
+eval "$(pyenv init -)"
+eval "$(pyenv init --path)"

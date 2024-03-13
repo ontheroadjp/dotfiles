@@ -86,8 +86,12 @@ if [ $(uname) = "Darwin" ]; then
 #        fi
 #    }
 
+    # text editor
+    alias cot="open -a /Applications/CotEditor.app" # CotEditor
+
     # markdown editor
-    alias md="open -a /Applications/Typora.app"     # Typora
+    alias md="open -a /Applications/MarkText.app"     # Typora
+    #alias md="open -a /Applications/Typora.app"     # Typora
     #alias md="open -a /Applications/MacDown.app"   # MacDown
     #alias md="open -a /Applications/Bear.app"      # Bear
 
@@ -411,9 +415,12 @@ alias wifi=get_ssid
 # --------------------------------------------
 #PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 
-## --------------------------------------------
-## pyenv
-## --------------------------------------------
+# --------------------------------------------
+# pyenv
+# --------------------------------------------
 #export PYENV_ROOT=”$HOME/.pyenv”
 #export PATH=”$PYENV_ROOT/bin:$PATH”
+##eval "$(pyenv init --path)"
 #eval “$(pyenv init -)”
+
+echo 'Load .zprofile.'
