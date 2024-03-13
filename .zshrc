@@ -49,9 +49,19 @@ GIT_PS1_SHOWSTASHSTATE=true         # stashed ($)
 #GIT_PS1_SHOWUPSTREAM=auto          # upstream (<, >, <>, =)
 
 setopt PROMPT_SUBST;
-PS1='[%{$fg[green]%}%n@%m(%T)%{${reset_color}%} %{$fg[blue]%}%c%{${reset_color}%}'
-PS1=${PS1}'%{$fg[red]%}$(__git_ps1 " (%s)")%{${reset_color}%}]\$ '
-RPROMPT='${memotxt} '"(%?)"
+function _set_full_prompt() {
+    PS1='[%{$fg[green]%}%n@%m(%T)%{${reset_color}%} %{$fg[blue]%}%c%{${reset_color}%}'
+    PS1=${PS1}'%{$fg[red]%}$(__git_ps1 " (%s)")%{${reset_color}%}]\$ '
+    RPROMPT='${memotxt} '"(%?)"
+}
+alias fullprompt='_set_full_prompt'
+
+function _set_prompt() {
+    PS1='[%{$fg[green]%}%T%{${reset_color}%} %{$fg[blue]%}%c%{${reset_color}%}'
+    PS1=${PS1}'%{$fg[red]%}$(__git_ps1 " (%s)")%{${reset_color}%}]\$ '
+    RPROMPT='${memotxt} '"(%?)"
+}
+alias prompt='_set_prompt'
 
 # Base16 Shell
 BASE16_SHELL="$HOME/.config/base16-shell/"
@@ -59,4 +69,18 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
         eval "$("$BASE16_SHELL/profile_helper.sh")"
 
-echo "Load .zshrc"
+function _noprompt() {
+    PS1="$ "
+}
+alias noprompt='_noprompt'
+
+_set_prompt
+echo "Load .zshrc."
+
+# ------------------------------------------
+# pyenv
+# ------------------------------------------
+export PYENV_ROOT=/usr/local/var/pyenv
+export PATH=”$PYENV_ROOT/shims:$PATH”
+eval "$(pyenv init -)"
+eval "$(pyenv init --path)"

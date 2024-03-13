@@ -1,6 +1,6 @@
 ## プロンプトに git のブランチ名を表示する
-source ~/dotfiles/bin/git/git-prompt.sh
-source ~/dotfiles/bin/git/git-completion.bash
+source ~/dotfiles/bin/git-prompt.sh
+source ~/dotfiles/bin/git-completion.bash
 
 GIT_PS1_SHOWDIRTYSTATE=true
 
