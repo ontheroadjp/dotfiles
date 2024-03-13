@@ -34,7 +34,7 @@ alias e='exit'
 alias h='cd ~'
 alias dot='cd ${DOTPATH}'
 alias w='cd ${WORKSPACE}'
-alias init='source ${HOME}/.zprofile'
+alias init='source ${HOME}/.zprofile && source ${HOME}/.zshrc'
 #alias jj=$(:)
 
 # auto URL encode in TERMINAL
@@ -390,6 +390,7 @@ source ${SHELL_TOOLS_DIR}/backup/backup.fnc
 source ${SHELL_TOOLS_DIR}/quick-memo/quick-memo.fnc
 
 source ${SHELL_TOOLS_DIR}/file-info/file-info.fnc
+source ${SHELL_TOOLS_DIR}/fix-filename/fix-filename.fnc
 source ${SHELL_TOOLS_DIR}/wifi-helth-check/wifi-helth-check.fnc
 source ${SHELL_TOOLS_DIR}/colors/colors.fnc
 
@@ -416,7 +417,7 @@ alias wifi=get_ssid
 #PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 
 # --------------------------------------------
-# pyenv
+# pyenv !! -- this must be in .zshrc -- !!
 # --------------------------------------------
 #export PYENV_ROOT=”$HOME/.pyenv”
 #export PATH=”$PYENV_ROOT/bin:$PATH”
