@@ -217,7 +217,18 @@ if _is_exist git; then
             [ ! -z ${target} ] && open ${target}
         }
         alias github="_open_github_from_current_dir"
+
+        # gist
+        function _view_gist() {
+            id=$(gh gist list | peco | awk '{print $1}')
+            gh gist view ${id}
+        }
+        alias gistv=_view_gist
+        alias gist='gh gist list'
     fi
+
+    alias gisthub='open https://gist.github.com/ontheroadjp'
+
 
     echo "Load Git settings."
 fi
