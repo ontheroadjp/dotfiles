@@ -1,3 +1,1 @@
-#!/bin/bash
-
 gpt_git_commit_msg.py diff | pbcopy
