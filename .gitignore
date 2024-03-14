@@ -26,6 +26,7 @@ peco/
 .dirmarks/
 .stock_jp/
 .web_bookmark/
+.quick-memo/
 
 # ----------------------------------
 # for vim by github template

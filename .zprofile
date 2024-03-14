@@ -231,6 +231,15 @@ function mkdircd() {
     mkdir $@ && cd $_
 }
 
+if [ $(uname) = "Darwin" ]; then
+    function _copy_current_dir_path() {
+        echo -n $(pwd) | pbcopy && echo 'copy: '$(pbpaste)
+    }
+    alias ,='_copy_current_dir_path'
+fi
+
+
+
 #-------------------------------------------------
 # AG (grep)
 #-------------------------------------------------
@@ -390,14 +399,23 @@ source ${SHELL_TOOLS_DIR}/backup/backup.fnc
 source ${SHELL_TOOLS_DIR}/quick-memo/quick-memo.fnc
 
 source ${SHELL_TOOLS_DIR}/file-info/file-info.fnc
-source ${SHELL_TOOLS_DIR}/fix-filename/fix-filename.fnc
 source ${SHELL_TOOLS_DIR}/wifi-helth-check/wifi-helth-check.fnc
 source ${SHELL_TOOLS_DIR}/colors/colors.fnc
 
-source ${SHELL_TOOLS_DIR}/weather/weather.fnc
 source ${SHELL_TOOLS_DIR}/wareki/wareki.fnc
-source ${SHELL_TOOLS_DIR}/holiday-jp/holiday-jp.fnc
+source ${SHELL_TOOLS_DIR}/weather/weather.fnc
 source ${SHELL_TOOLS_DIR}/worldtime/worldtime.fnc
+source ${SHELL_TOOLS_DIR}/holiday-jp/holiday-jp.fnc
+# today.fnc must be loading after wareki, weather and worldtime loaded.
+source ${SHELL_TOOLS_DIR}/today/today.fnc
+
+# for Python scripts
+PATH=${SHELL_TOOLS_DIR}/python:${PATH}
+alias fix='fix_filename.py'
+function _git_commit_msg() {
+    gpt_git_commit_msg.py diff | pbcopy
+}
+alias gitcommitmsg='_git_commit_msg'
 
 # --------------------------------------------
 # Command path (my tools)

@@ -1,8 +1,8 @@
 #--------------------------------------------------
 # show sub directories: la (ls -laG)
 # -------------------------------------------------
-alias lla='la $(find . -type d | grep -v .git | peco --prompt "sub dir >")'
-alias laa='la $(find . -type d | grep -v .git | peco --prompt "sub dir >")'
+#alias lla='la $(find . -type d | grep -v .git | peco --prompt "sub dir >")'
+#alias laa='la $(find . -type d | grep -v .git | peco --prompt "sub dir >")'
 
 # -------------------------------------------------
 # open application
@@ -21,27 +21,27 @@ bindkey '^A' _open_application
 #-------------------------------------------------
 # open with vim ( !! doesn't work !!)
 #-------------------------------------------------
-function _open_file_specify_file_extension() {
-    [ ! -z "${1}" ] && {
-        place="$(find . -type d \
-            -name node_modules \
-            -prune \
-            -o \
-            -type d \
-            -name vendor \
-            -prune \
-            -o \
-            -type f \
-            -regex "^.*\.${EXT}$" \
-            | peco --prompt 'open with vim >')"
-        [ ! -z "${place}" ] && {
-            vim ${place}
-        }
-    } || {
-        echo 'need one argument must be file exension'
-    }
-}
-alias ee='_open_file_specify_file_extension'
+#function _open_file_specify_file_extension() {
+#    [ ! -z "${1}" ] && {
+#        place="$(find . -type d \
+#            -name node_modules \
+#            -prune \
+#            -o \
+#            -type d \
+#            -name vendor \
+#            -prune \
+#            -o \
+#            -type f \
+#            -regex "^.*\.${EXT}$" \
+#            | peco --prompt 'open with vim >')"
+#        [ ! -z "${place}" ] && {
+#            vim ${place}
+#        }
+#    } || {
+#        echo 'need one argument must be file exension'
+#    }
+#}
+#alias ee='_open_file_specify_file_extension'
 # usage: $ee md, $ee README etc.
 
 # -------------------------------------------------
@@ -59,8 +59,10 @@ if [[ -n $(echo ${^fpath}/chpwd_recent_dirs(N)) && -n $(echo ${^fpath}/cdr(N)) ]
 fi
 
 ## peco settings
-function peco-cdr () {
-    local selected_dir="$(cdr -l | sed 's/^[0-9]\+ \+//' | peco --prompt="cdr >" --query "$LBUFFER")"
+function _peco-cdr () {
+#local selected_dir="$(cdr -l | sed 's/^[0-9]\+ \+//' | peco --prompt="recent dir (cdr) >" --query "$LBUFFER")"
+    #local selected_dir="$(cdr -l | sed 's/^[0-9]\+ \+//' | awk '{print $2}' | peco --prompt="cdr >" --query "$LBUFFER")"
+    local selected_dir="$(cdr -l | awk '{print $2}' | peco --prompt="recent dir (cdr) >" --query "$LBUFFER")"
     if [ -n "$selected_dir" ]; then
         echo $(${selected_dir} | cut -d ' ' -f5 -f6)
         BUFFER="cd $(echo ${selected_dir} | cut -d ' ' -f5 -f6)"
@@ -68,8 +70,8 @@ function peco-cdr () {
     fi
 }
 
-zle -N peco-cdr
-bindkey '^E' peco-cdr
+zle -N _peco-cdr
+bindkey '^E' _peco-cdr
 
 # -------------------------------------------------
 # cd to directory within WORKSPACE
@@ -104,23 +106,23 @@ alias ww='_cd_to_workspace'
 # -------------------------------------------------
 # cd to sub directory: cd
 # -------------------------------------------------
-function _cd_to_sub_directory() {
-    [[ $(find . -type d -maxdepth 1 | wc -l) -eq 1 ]] && {
-        echo 'no sub directory.'
-        return 0
-    }
-    to=$(\
-        find . -type d | \
-        grep -v ^.$ | \
-        grep -v .git | \
-        sort | \
-        uniq | \
-        peco --prompt "$(pwd)/" --query "${*}" 2>/dev/null \
-    )
-
-    [ ! -z ${to} ] && clear && cd ${to}
-}
-alias cdd='_cd_to_sub_directory'
+#function _cd_to_sub_directory() {
+#    [[ $(find . -type d -maxdepth 1 | wc -l) -eq 1 ]] && {
+#        echo 'no sub directory.'
+#        return 0
+#    }
+#    to=$(\
+#        find . -type d | \
+#        grep -v ^.$ | \
+#        grep -v .git | \
+#        sort | \
+#        uniq | \
+#        peco --prompt "$(pwd)/" --query "${*}" 2>/dev/null \
+#    )
+#
+#    [ ! -z ${to} ] && clear && cd ${to}
+#}
+#alias cdd='_cd_to_sub_directory'
 
 # -------------------------------------------------
 # cd history
