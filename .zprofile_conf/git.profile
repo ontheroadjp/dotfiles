@@ -106,6 +106,7 @@ if _is_exist git; then
     # alias
     #-------------------------------------------------
     alias gg='git graph'
+    alias gl='git log'
 #    alias GGS='git graph --stat'
     alias ggl='git log --oneline --graph'
     alias gs='git status'
