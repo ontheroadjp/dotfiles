@@ -121,10 +121,11 @@ if _is_exist git; then
     alias gm='git merge --no-ff'
 
     function _git_commit_as_wip() {
-        [ -n '$1' ] && msg='$1' || msg='[WIP]'
-        git add -A && git commit -m "${msg}"
+#        [ -n "$1" ] && msg="[WIP] $1" || msg='[WIP]'
+#        git add -A && git commit -m "${msg}"
+        git add -A && git commit -m "[WIP] ${1}"
     }
-    alias gwip='_git_commit_as_wip'
+    alias gwip='_git_commit_as_wip $@'
 
     function _git_add_to_status() {
         git add "$@" && git status
