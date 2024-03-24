@@ -6,9 +6,9 @@ autocmd QuickfixCmdPost *grep* cwindow
 nnoremap ]q :cnext<CR>
 nnoremap [q :cprevious<CR>
 
-nmap <Leader>s :!open -a Safari<CR>
-nmap <Leader>c :!open -a Google\ Chrome<CR>
-nmap <Leader>md :!open -a Typora %<CR>
+"nmap <Leader>s :!open -a Safari<CR>
+"nmap <Leader>c :!open -a Google\ Chrome<CR>
+"nmap <Leader>md :!open -a Typora %<CR>
 
 "================================================================ main
 " <Leader> = \ (default)
@@ -18,7 +18,6 @@ nmap <Leader>vv :source ~/.vimrc<CR>
 " Clipboard
 set clipboard+=unnamed
 "set clipboard^=unnamed  # if doesn't work above, use this
-
 
 "================================================================ visuals
 "color schema
@@ -103,6 +102,7 @@ autocmd BufNewFile *.{bats} 0r $HOME/dotfiles/.vim/templates/bats.tpl
 autocmd BufNewFile,BufRead *.{html,htm,ejs*} set filetype=html
 autocmd BufNewFile,BufRead *.{vue} set filetype=javascript
 autocmd BufNewFile,BufRead *.{profile,fnc,bats} set filetype=bash
+autocmd BufNewFile,BufRead *.{py} set filetype=python
 
 "--------------------------------------------------------------- Buffer
 nnoremap <silent> bl :buffers<CR>
@@ -129,7 +129,7 @@ let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
 "--------------------------------------------------------------- Search
 set hlsearch                    " highlight search word
 nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
-set ignorecase                 " search regardress capital note or small note if search word is small note (noignorecase)
+"set ignorecase                 " search regardress capital note or small note if search word is small note (noignorecase)
 set smartcase                  " if capital note in search words, it doesn't regardress capital note or small note (nosmartcase)
 set incsearch                  " to enable incremental search
 "nnoremap n nzz                 "move center of display when search (n)
@@ -148,6 +148,9 @@ inoremap <silent> jj <esc>
 
 "" Go into visual mode
 "nnoremap ,, <C-v>
+
+" Redo
+nnoremap <S-u> <C-r>
 
 "--------------------------------------------------------------- moving cursor
 nnoremap k gk
@@ -195,7 +198,7 @@ nnoremap <Space>] %
 
 " Jump to begining of the line
 nnoremap <S-h> ^
-vnoremap <S-h> ^
+vnoremap <S-h> 100^
 
 " Jump to end of the line
 nnoremap <S-l> $
@@ -212,7 +215,7 @@ vnoremap <S-l> $
 "nnoremap <C-]> g<C-]>
 "------------------------------------------------------------------------ folding
 
-"set foldmethod=indent    "Folding range
+set foldmethod=indent    "Folding range
 "set foldlevel=0          "Default level of folding when a file is opened
 "" set foldcolumn=3       "Add an area to the left edge to show the folded state
 
@@ -228,12 +231,14 @@ vnoremap <S-l> $
 "" zM -- Close all folds
 "" zr -- Reduce folding
 "" zR -- Open all folds
-"nnoremap <C-[> zM " close
-"nnoremap <C-]> zR " open
+"" zA -- Toggle
+"nnoremap <C-> zM " close
+"nnoremap <C-k> zR " open
+nnoremap <C-k> zA
 
 " Move
-nnoremap <C-k> zk " move to upper fold
-nnoremap <C-j> zj " move to down fold
+"nnoremap <C-k> zk " move to upper fold
+"nnoremap <C-j> zj " move to down fold
 
 "------------------------------------------------------------------------ yank & put
 nnoremap p gp
@@ -268,14 +273,18 @@ nnoremap \\ :rightbelow vsp<CR>         " virtical split
 "nnoremap \k <C-w>k                     " move to above window
 "nnoremap \l <C-w>l                     " move to right window
 "nnoremap \q <c-w><c-w>                 " move between window
-nnoremap TT <C-w>T
+"nnoremap TT <C-w>T
+
+"-------------------------------------------------------------------- Terminal
+"nnoremap <f3> :term source ~/.zprofile<CR>
+"nnoremap <f6> :vert term ++close git log<CR>
 
 "------------------------------------------------------------------------ Tab
-nnoremap <silent> tn :tabnew<CR>        " open new tab
-nnoremap <silent> <Tab> :tabn<CR>       " change to next tab
-nnoremap <silent> <S-Tab> :tabp<CR>     " change to previous tab
-nnoremap <silent> t] :tabmove +<CR>     " move tab to right
-nnoremap <silent> t[ :tabmove -<CR>     " move tab to left
+"nnoremap <silent> tn :tabnew<CR>        " open new tab
+"nnoremap <silent> <Tab> :tabn<CR>       " change to next tab
+"nnoremap <silent> <S-Tab> :tabp<CR>     " change to previous tab
+"nnoremap <silent> t] :tabmove +<CR>     " move tab to right
+"nnoremap <silent> t[ :tabmove -<CR>     " move tab to left
 
 "------------------------------------------------------------------------
 "brackets
@@ -306,8 +315,7 @@ autocmd FileType php,ctp :set dictionary=~/.vim/dict/php.dict
 autocmd FileType php,ctp :set complete+=k/~/.vim/dict/php.dict
 
 "------------------------------------------------------------------ Command alias
-cnoremap %vv source ~/.vimrc<CR>
-cnoremap %qq q<CR>
+cnoremap %vv :source ~/.vimrc<CR>
 
 "------------------------------------------------------------------ Plug-ins
 

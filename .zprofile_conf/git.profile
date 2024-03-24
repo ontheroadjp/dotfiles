@@ -103,7 +103,7 @@ if _is_exist git; then
     fi
 
     #-------------------------------------------------
-    # alias
+    # alias & functions
     #-------------------------------------------------
     alias gg='git graph'
     alias gl='git log'
@@ -111,7 +111,7 @@ if _is_exist git; then
     alias ggl='git log --oneline --graph'
     alias gs='git status'
     alias gd='git diff'
-    alias GGcomit='git commit'
+#    alias GGcomit='git commit'
     alias gc='git checkout'
     alias gmaster='git checkout master'
     alias gdev='git checkout dev'
@@ -119,7 +119,13 @@ if _is_exist git; then
 #    alias gdni='git diff --no-index'
 #    alias gcom='git commit -v'
     alias gm='git merge --no-ff'
-    alias gwip='git add . && git commit -m "[WIP] still working..."'
+
+    function _git_commit_as_wip() {
+#        [ -n "$1" ] && msg="[WIP] $1" || msg='[WIP]'
+#        git add -A && git commit -m "${msg}"
+        git add -A && git commit -m "[WIP] ${1}"
+    }
+    alias gwip='_git_commit_as_wip $@'
 
     function _git_add_to_status() {
         git add "$@" && git status
@@ -217,7 +223,18 @@ if _is_exist git; then
             [ ! -z ${target} ] && open ${target}
         }
         alias github="_open_github_from_current_dir"
+
+        # gist
+        function _view_gist() {
+            id=$(gh gist list | peco | awk '{print $1}')
+            gh gist view ${id}
+        }
+        alias gistv=_view_gist
+        alias gist='gh gist list'
     fi
+
+    alias gisthub='open https://gist.github.com/ontheroadjp'
+
 
     echo "Load Git settings."
 fi
