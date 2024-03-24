@@ -84,3 +84,6 @@ export PYENV_ROOT=/usr/local/var/pyenv
 export PATH=”$PYENV_ROOT/shims:$PATH”
 eval "$(pyenv init -)"
 eval "$(pyenv init --path)"
+
+alias init='source ${HOME}/.zprofile && source ${HOME}/.zshrc'
+
