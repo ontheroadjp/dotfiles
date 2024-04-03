@@ -2,6 +2,7 @@
 " open vimgrep result in quickfix
 autocmd QuickfixCmdPost *grep* cwindow
 
+
 " Quickfix
 nnoremap ]q :cnext<CR>
 nnoremap [q :cprevious<CR>
@@ -9,10 +10,6 @@ nnoremap [q :cprevious<CR>
 "nmap <Leader>s :!open -a Safari<CR>
 "nmap <Leader>c :!open -a Google\ Chrome<CR>
 "nmap <Leader>md :!open -a Typora %<CR>
-
-"================================================================ main
-" <Leader> = \ (default)
-nmap <Leader>vv :source ~/.vimrc<CR>
 
 "================================================================ system
 " Clipboard
@@ -63,6 +60,20 @@ set backspace=indent,eol,start                   " it can delete newline charact
 "set cursorline                                   " show cursor line
 set linespace=4
 
+" Bulk insertion at the beginning and end of a sentence with visual mode
+vnoremap <expr> I  <SID>force_blockwise_visual('I')
+vnoremap <expr> A  <SID>force_blockwise_visual('A')
+" Enable 'I' and 'A' in visual line mode
+function! s:force_blockwise_visual(next_key)
+    if mode() ==# 'v'
+        return "\<C-v>" . a:next_key
+    elseif mode() ==# 'V'
+        return "\<C-v>0o$" . a:next_key
+    else  " mode() ==# "\<C-v>"
+        return a:next_key
+    endif
+endfunction
+
 "--------------------------------------------------------------- Buff file/Swap file
 "set backup                                      " enable swap file
 "set backupdir=~/.vim/backup                     " set backup file directory
@@ -105,11 +116,11 @@ autocmd BufNewFile,BufRead *.{profile,fnc,bats} set filetype=bash
 autocmd BufNewFile,BufRead *.{py} set filetype=python
 
 "--------------------------------------------------------------- Buffer
-nnoremap <silent> bl :buffers<CR>
-nnoremap <silent> b[ :bprevious<CR>
-nnoremap <silent> b] :bnext<CR>
-"nnoremap <silent> B[ :bfirst<CR>
-"nnoremap <silent> B] :blast<CR>
+"nnoremap <silent> bl :buffers<CR>
+nnoremap <silent> [b :bprevious<CR>
+nnoremap <silent> ]b :bnext<CR>
+"nnoremap <silent> [B :bfirst<CR>
+"nnoremap <silent> ]B :blast<CR>
 
 "--------------------------------------------------------------- Indent
 set expandtab                  " replace tab to space
@@ -128,17 +139,23 @@ let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
 
 "--------------------------------------------------------------- Search
 set hlsearch                    " highlight search word
-nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
+"nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
 "set ignorecase                 " search regardress capital note or small note if search word is small note (noignorecase)
 set smartcase                  " if capital note in search words, it doesn't regardress capital note or small note (nosmartcase)
 set incsearch                  " to enable incremental search
-"nnoremap n nzz                 "move center of display when search (n)
-"nnoremap N Nzz                 "move center of display when search (N)
+"nnoremap n nzz                 " move center of display when search (n)
+"nnoremap N Nzz                 " move center of display when search (N)
 nnoremap <silent> <Space><Space> "zyiw:let @/ = '\<' . @z . '\>'<CR>:set hlsearch<CR>
 
 "================================================================== Key bindings
+" <Leader> = \ (default)
+nnoremap <Leader>vv :source ~/.vimrc<CR>
+
 " JJ as <esc>
 inoremap <silent> jj <esc>
+
+" change insert-normal mode
+inoremap <C-n> <C-o>
 
 " <Leader><Leader> to <esc>
 "vnoremap <leader><leader> <esc>
@@ -174,6 +191,12 @@ nnoremap 00 :<C-u>call append(expand('.'), '')<CR>j
 " insert two brank line and to be inline mode
 nnoremap 0i :<C-u>call append(expand('.'), '')<CR>o
 
+"--------------------------------------------------------------- Scroll
+"nnoremap <C-k> zzHzz
+"nnoremap <C-j> zzLzz
+nnoremap <C-k> Hzz
+nnoremap <C-j> Lzz
+
 "--------------------------------------------------------------- Jump to
 " motion prefix ` to <space>
 nnoremap <Space> `
@@ -197,12 +220,12 @@ nnoremap <Space>] %
 "nnoremap <S-j> L " the same as default(connect line)
 
 " Jump to begining of the line
-nnoremap <S-h> ^
-vnoremap <S-h> 100^
+nnoremap <C-h> ^
+vnoremap <C-h> 100^
 
 " Jump to end of the line
-nnoremap <S-l> $
-vnoremap <S-l> $
+nnoremap <C-l> $
+vnoremap <C-l> $
 
 "" Jump to paragraph (reverse)
 "nnoremap <S-k> {
@@ -234,9 +257,11 @@ set foldmethod=indent    "Folding range
 "" zA -- Toggle
 "nnoremap <C-> zM " close
 "nnoremap <C-k> zR " open
-nnoremap <C-k> zA
+nnoremap <C-i> zA
 
 " Move
+"nnoremap <C-k> 10k " move to up 10 lines
+"nnoremap <C-j> 10j " move to down 10 lines
 "nnoremap <C-k> zk " move to upper fold
 "nnoremap <C-j> zj " move to down fold
 
@@ -309,11 +334,6 @@ let g:sql_type_default='mysql'                   " DB settings
 
 nnoremap ,= vap=vapvv
 
-"------------------------------------------------------------------ Load dictionary
-"autocmd FileType php,ctp :set dictionary=~/.source ~/.vim/dict/php.dict
-autocmd FileType php,ctp :set dictionary=~/.vim/dict/php.dict
-autocmd FileType php,ctp :set complete+=k/~/.vim/dict/php.dict
-
 "------------------------------------------------------------------ Command alias
 cnoremap %vv :source ~/.vimrc<CR>
 
@@ -328,7 +348,7 @@ so ${HOME}/dotfiles/.vim/vimrc_includs/plugins.vim
 
 " directory browser
 so ${HOME}/dotfiles/.vim/vimrc_includs/unite.vim
-so ${HOME}/dotfiles/.vim/vimrc_includs/nerdtree.vim
+"so ${HOME}/dotfiles/.vim/vimrc_includs/nerdtree.vim
 "so ${HOME}/dotfiles/.vim/vimrc_includs/tagbar.vim
 "so ${HOME}/dotfiles/.vim/vimrc_includs/taglist.vim
 "so ${HOME}/dotfiles/.vim/vimrc_includs/srcexplorer.vim
@@ -350,21 +370,27 @@ so ${HOME}/dotfiles/.vim/vimrc_includs/vim-emmet.vim
 so ${HOME}/dotfiles/.vim/vimrc_includs/surround.vim
 
 " reference
-so ${HOME}/dotfiles/.vim/vimrc_includs/vim-ref.vim
-so ${HOME}/dotfiles/.vim/vimrc_includs/dash.vim
+"so ${HOME}/dotfiles/.vim/vimrc_includs/vim-ref.vim
+"so ${HOME}/dotfiles/.vim/vimrc_includs/dash.vim
 
 " utilities
 so ${HOME}/dotfiles/.vim/vimrc_includs/ag.vim
 "so ${HOME}/dotfiles/.vim/vimrc_includs/quickrun.vim
 "so ${HOME}/dotfiles/.vim/vimrc_includs/qfixhome.vim
-so ${HOME}/dotfiles/.vim/vimrc_includs/vdebug.vim
+"so ${HOME}/dotfiles/.vim/vimrc_includs/vdebug.vim
 
-" PHP
-so ${HOME}/dotfiles/.vim/vimrc_includs/php.vim
-so ${HOME}/dotfiles/.vim/vimrc_includs/vim-php-namespace.vim
-so ${HOME}/dotfiles/.vim/vimrc_includs/php-getter-setter.vim
-so ${HOME}/dotfiles/.vim/vimrc_includs/vim-php-cs-fixer.vim
-so ${HOME}/dotfiles/.vim/vimrc_includs/pdv-phpdocumentor-for-vim.vim
+"------------------------------------------------------------------ PHP
+" dictionary
+autocmd FileType php,ctp :set dictionary=~/.source ~/.vim/dict/php.dict
+autocmd FileType php,ctp :set dictionary=~/.vim/dict/php.dict
+autocmd FileType php,ctp :set complete+=k/~/.vim/dict/php.dict
+
+" tools
+autocmd BufNewFile,BufRead *.php so ${HOME}/dotfiles/.vim/vimrc_includs/php.vim
+autocmd BufNewFile,BufRead *.php so ${HOME}/dotfiles/.vim/vimrc_includs/vim-php-namespace.vim
+autocmd BufNewFile,BufRead *.php so ${HOME}/dotfiles/.vim/vimrc_includs/php-getter-setter.vim
+autocmd BufNewFile,BufRead *.php so ${HOME}/dotfiles/.vim/vimrc_includs/vim-php-cs-fixer.vim
+autocmd BufNewFile,BufRead *.php so ${HOME}/dotfiles/.vim/vimrc_includs/pdv-phpdocumentor-for-vim.vim
 
 "----------------------------------------------------------------------- "Colors
 " tab bar
