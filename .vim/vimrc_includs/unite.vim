@@ -24,8 +24,8 @@ au FileType unite nnoremap <silent> <buffer> ,, :q<CR>
 au FileType unite inoremap <silent> <buffer> ,, <ESC>:q<CR>
 
 " open in horizontal window
-au FileType unite nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
-au FileType unite inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
+au FileType unite nnoremap <silent> <buffer> <expr> <C-h> unite#do_action('split')
+au FileType unite inoremap <silent> <buffer> <expr> <C-h> unite#do_action('split')
 
 " open in virtical window
 au FileType unite nnoremap <silent> <buffer> <expr> <C-v> unite#do_action('vsplit')
@@ -38,7 +38,7 @@ nnoremap    [unite]   <Nop>
 nmap    ,f [unite]
 
 " unite.vim keymap
-nnoremap <silent> [unite]f :<C-u>Unite<Space>file_rec<CR>
+"nnoremap <silent> [unite]f :<C-u>Unite<Space>file_rec<CR>
 "nnoremap <silent> <c-p> :<C-u>Unite<Space>file_rec<CR>
 
 nnoremap <silent> [unite]r :<C-u>Unite<Space>file_mru<CR>

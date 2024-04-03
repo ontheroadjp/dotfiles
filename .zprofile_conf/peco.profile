@@ -59,19 +59,30 @@ if [[ -n $(echo ${^fpath}/chpwd_recent_dirs(N)) && -n $(echo ${^fpath}/cdr(N)) ]
 fi
 
 ## peco settings
-function _peco-cdr () {
-#local selected_dir="$(cdr -l | sed 's/^[0-9]\+ \+//' | peco --prompt="recent dir (cdr) >" --query "$LBUFFER")"
-    #local selected_dir="$(cdr -l | sed 's/^[0-9]\+ \+//' | awk '{print $2}' | peco --prompt="cdr >" --query "$LBUFFER")"
-    local selected_dir="$(cdr -l | awk '{print $2}' | peco --prompt="recent dir (cdr) >" --query "$LBUFFER")"
+#function _peco-cdr () {
+##local selected_dir="$(cdr -l | sed 's/^[0-9]\+ \+//' | peco --prompt="recent dir (cdr) >" --query "$LBUFFER")"
+#    #local selected_dir="$(cdr -l | sed 's/^[0-9]\+ \+//' | awk '{print $2}' | peco --prompt="cdr >" --query "$LBUFFER")"
+#    local selected_dir="$(cdr -l | awk '{print $2}' | peco --prompt="recent dir (cdr) >" --query "$LBUFFER")"
+#    if [ -n "$selected_dir" ]; then
+#        echo $(${selected_dir} | cut -d ' ' -f5 -f6)
+#        BUFFER="cd $(echo ${selected_dir} | cut -d ' ' -f5 -f6)"
+#        zle accept-line
+#    fi
+#}
+#
+#zle -N _peco-cdr
+#bindkey '^E' _peco-cdr
+
+function _fzf-cdr () {
+    local selected_dir="$(cdr -l | awk '{print $2}' | fzf)"
     if [ -n "$selected_dir" ]; then
         echo $(${selected_dir} | cut -d ' ' -f5 -f6)
         BUFFER="cd $(echo ${selected_dir} | cut -d ' ' -f5 -f6)"
         zle accept-line
     fi
 }
-
-zle -N _peco-cdr
-bindkey '^E' _peco-cdr
+zle -N _fzf-cdr
+bindkey '^E' _fzf-cdr
 
 # -------------------------------------------------
 # cd to directory within WORKSPACE
@@ -144,19 +155,31 @@ alias cdh='_cd_by_dirspeco'
 #-------------------------------------------------
 
 # for zsh
-function peco-history-selection() {
+#function peco-history-selection() {
+#    BUFFER=$(history -n 1 | \
+#        tac  | \
+#        awk '!a[$0]++' | \
+#        peco --prompt 'zsh Command History>'
+#    )
+#
+#    CURSOR=$#BUFFER
+#    zle reset-prompt
+#}
+#zle -N peco-history-selection
+#bindkey '^H' peco-history-selection
+
+function fzf-history-selection() {
     BUFFER=$(history -n 1 | \
         tac  | \
         awk '!a[$0]++' | \
-        peco --prompt 'zsh Command History>'
+        fzf --reverse --height=30%
     )
 
     CURSOR=$#BUFFER
     zle reset-prompt
 }
-zle -N peco-history-selection
-bindkey '^H' peco-history-selection
-
+zle -N fzf-history-selection
+bindkey '^H' fzf-history-selection
 # -------------------------------------------------
 # cd to directory mark
 # -------------------------------------------------
