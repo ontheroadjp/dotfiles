@@ -41,7 +41,7 @@ NeoBundle 'Shougo/unite.vim'    	        	" Adding Unite to easy to open files
 NeoBundle 'Shougo/neomru.vim'   	        	" Unite: using MRU in Unite
 NeoBundle 'Shougo/unite-outline'	        	" Unite: show functions/variables
 "NeoBundle 'tsukkee/unite-tag'                  	" Unite: using ctags in Unite
-NeoBundle 'scrooloose/nerdtree'               	" Adding NERDTree to view file tree
+"NeoBundle 'scrooloose/nerdtree'               	" Adding NERDTree to view file tree
 
 "NeoBundle 'majutsushi/tagbar'                   " Adding Tagbar
 "NeoBundleLazy 'majutsushi/tagbar',         {   " Adding Tagbar
@@ -76,8 +76,8 @@ NeoBundle 'ervandew/supertab'                       " auto completion
 "-------------------------------------------------------------
 " Snippets
 "-------------------------------------------------------------
-NeoBundle 'Shougo/neosnippet'                       " code snipet
-NeoBundle 'Shougo/neosnippet-snippets'              " a collection of the code anipet
+"NeoBundle 'Shougo/neosnippet'                       " code snipet
+"NeoBundle 'Shougo/neosnippet-snippets'              " a collection of the code anipet
 
 "NeoBundle 'garbas/vim-snipmate'                     " snippets
 "NeoBundle 'MarcWeber/vim-addon-mw-utils'            " snippets dependency
@@ -115,12 +115,12 @@ NeoBundle 'arnaud-lb/vim-php-namespace'             " auto adding use statement
 NeoBundle 'docteurklein/php-getter-setter.vim'      " auto adding getter/setter
 NeoBundle 'stephpy/vim-php-cs-fixer'                " auto formatting
 NeoBundle 'PDV--phpDocumentor-for-Vim'              " ease to insert Doc comments
-NeoBundle 'joonty/vdebug'	    		            " xdebug client
+"NeoBundle 'joonty/vdebug'	    		            " xdebug client
 
 "-------------------------
 " Utilities
 "-------------------------
-NeoBundle 'rking/ag.vim'                            " using ag in grep
+"NeoBundle 'rking/ag.vim'                            " using ag in grep
 NeoBundle 'thinca/vim-ref'                          " search dictionary (PHP mnual/English dictionary)
 "NeoBundle 'fuenor/qfixhowm'                         " ease to create memo
 

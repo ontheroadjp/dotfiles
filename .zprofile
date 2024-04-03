@@ -58,7 +58,7 @@ if [ $(uname) = "Darwin" ]; then
 
     export PATH="/usr/local/share:${PATH}"      # for Python
     export PATH="${HOME}/dotfiles/mac_osx/HandBrakeCLI1.4.2/HandBrakeCLI:${PATH}"   # for HandBrakeCLI
-    export WORKSPACE="/Users/hideaki/WORKSPACE"
+    export WORKSPACE="${HOME}/WORKSPACE"
 
     # sleep
     alias sleepon='sudo pmset -a disablesleep 0'
@@ -174,6 +174,8 @@ source ${HOME}/dotfiles/.zprofile_conf/tmux.profile
 #-------------------------------------------------
 # zsh
 #-------------------------------------------------
+# dilay default 0.4sec
+KEYTIMEOUT=1
 
 # history
 [ $SHELL = '/bin/zsh' ] && {
@@ -243,10 +245,10 @@ fi
 #-------------------------------------------------
 # AG (grep)
 #-------------------------------------------------
-if _is_exist ag; then
-    alias ag='ag -S --stats --pager "less -F"'
-    alias agh='ag --hidden'
-fi
+#if _is_exist ag; then
+#    alias ag='ag -S --stats --pager "less -F"'
+#    alias agh='ag --hidden'
+#fi
 
 #-------------------------------------------------
 # Go (GHQ)
@@ -339,9 +341,9 @@ fi
 ##-------------------------------------------------
 ## Vagrant
 ##-------------------------------------------------
-if _is_exist vagrant; then
-    source ${DOTPATH}/.zprofile_conf/vagrant.profile
-fi
+#if _is_exist vagrant; then
+#    source ${DOTPATH}/.zprofile_conf/vagrant.profile
+#fi
 
 #-------------------------------------------------
 # PHP: composer
@@ -420,10 +422,10 @@ alias gitcommitmsg='_git_commit_msg'
 # --------------------------------------------
 # Command path (my tools)
 # --------------------------------------------
-export PATH=${GOPATH}/src/github.com/ontheroadjp/dazai:${PATH}
-export PATH=${GOPATH}/src/github.com/ontheroadjp/tidyphoto/bin:${PATH}
-export PATH=${GOPATH}/src/github.com/ontheroadjp/file-list:${PATH}
-export PATH=${GOPATH}/src/github.com/ontheroadjp/dammy:${PATH}
+#export PATH=${GOPATH}/src/github.com/ontheroadjp/dazai:${PATH}
+#export PATH=${GOPATH}/src/github.com/ontheroadjp/tidyphoto/bin:${PATH}
+#export PATH=${GOPATH}/src/github.com/ontheroadjp/file-list:${PATH}
+#export PATH=${GOPATH}/src/github.com/ontheroadjp/dammy:${PATH}
 export PATH=${DOTPATH}/bin:${PATH}
 
 alias li=battery
