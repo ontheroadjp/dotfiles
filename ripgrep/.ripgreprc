@@ -1,0 +1,35 @@
+# Official User Guide
+# https://github.com/BurntSushi/ripgrep/blob/master/GUIDE.md#configuration-file
+
+# 色設定
+--colors=path:fg:cyan
+
+# 必要なときだけ PCRE2 に切り替わる
+#--engine auto
+
+# Exclude directories
+# for Mac
+--glob=!{Applications,Library,Trash}
+# for js
+--glob=!{node_modules}
+# for python
+--glob=!{egg-info,__pycache__,venv}
+# for others
+--glob=!{svn,tealdeer,Trash,vendor}
+
+# Sort by file path.
+--sort=path
+
+# Exclude file types
+--glob=!*.{lock}
+
+# Exclude files
+--glob=!{package-lock.json}
+
+
+# Add filetype
+--type-add
+web:*.{html,htm,css}*
+
+--type-add
+img:*.{jpg,jpeg,JPG,JPEG,png,PNG,gif,GIF,tiff,TIFF,raw,RAW}*

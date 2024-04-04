@@ -1,5 +1,3 @@
-# zsh performanc
-#zmodload zsh/zprof
 
 # -----------------------------------
 # MiniApp: Memo
@@ -20,26 +18,31 @@ alias p="_zsh_prompt_memo"
 # zsh - GIT & vi mode
 # -----------------------------------
 function zle-line-init zle-keymap-select {
-    RIGHT_VIM_NORMAL="%K{208}%F{black}(%k%f%K{208}%F{yellow}% NORMAL%k%f%K{black}%F{208})%k%f"
-    RIGHT_VIM_INSERT="%K{051}%F{051}(%k%f%K{051}%F{051}%F{blue}% INSERT%k%f%K{051}%F{051})%k%f"
-    RPS1="${${KEYMAP/vicmd/$RIGHT_VIM_NORMAL}/(main|viins)/$RIGHT_VIM_INSERT}"
-    RPS2=$RPS1
-    zle reset-prompt
+#    # Right side Prompt
+#    RIGHT_VIM_NORMAL="%K{208}%F{black}(%k%f%K{208}%F{yellow}% NORMAL%k%f%K{black}%F{208})%k%f"
+#    RIGHT_VIM_INSERT="%K{051}%F{051}(%k%f%K{051}%F{051}%F{blue}% INSERT%k%f%K{051}%F{051})%k%f"
+#    RPS1="${${KEYMAP/vicmd/$RIGHT_VIM_NORMAL}/(main|viins)/$RIGHT_VIM_INSERT}"
+#    RPS2=$RPS1
+##    zle reset-prompt # <- Causes zsh to start slowly
 
+    # Left side Prompt
     LEFT_VIM_NORMAL='[%{$fg[yellow]%}%T%{${reset_color}%} %{$fg[yellow]%}%c%{${reset_color}%}'
     LEFT_VIM_INSERT='[%{$fg[green]%}%T%{${reset_color}%} %{$fg[blue]%}%c%{${reset_color}%}'
-
     LEFT_GIT_STATUS_NORMAL='%{$fg[yellow]%}$(__git_ps1 " (%s)")%{${reset_color}%}]\$ '
     LEFT_GIT_STATUS_INSERT='%{$fg[red]%}$(__git_ps1 " (%s)")%{${reset_color}%}]\$ '
 
-    case $KEYMAP in
-        vicmd)
-            PS1="${LEFT_VIM_NORMAL} ${LEFT_GIT_STATUS_NORMAL}"
-            ;;
-        main|viins)
-            PS1="${LEFT_VIM_INSERT}${LEFT_GIT_STATUS_INSERT}"
-            ;;
-    esac
+    # The behavior is the same for switch statements. However, one line is faster.
+    PS1="${${KEYMAP/vicmd/$LEFT_VIM_NORMAL $LEFT_GIT_STATUS_NORMAL}/(main|viins)/$LEFT_VIM_INSERT $LEFT_GIT_STATUS_INSERT}"
+#    case $KEYMAP in
+#        vicmd)
+#            PS1="${LEFT_VIM_NORMAL} ${LEFT_GIT_STATUS_NORMAL}"
+#            ;;
+#        main|viins)
+#            PS1="${LEFT_VIM_INSERT}${LEFT_GIT_STATUS_INSERT}"
+#            ;;
+#    esac
+
+
     zle reset-prompt
 }
 zle -N zle-line-init
@@ -115,4 +118,9 @@ echo "Load .zshrc."
 
 #_set_prompt
 
+# --------------------------------------------------------------------
+# $ for i in $(seq 1 10); do time zsh -i -c exit > /dev/null ; don
+# --------------------------------------------------------------------
+# This is for zsh launch performance check
+# To use removing comment-out below and also in ~/.zshenv
 #zprof

@@ -34,7 +34,9 @@ alias e='exit'
 alias h='cd ~'
 alias dot='cd ${DOTPATH}'
 alias w='cd ${WORKSPACE}'
-alias init='source ${HOME}/.zprofile && source ${HOME}/.zshrc'
+# restart shell
+#alias init='source ${HOME}/.zprofile && source ${HOME}/.zshrc'
+alias init='exec $SHELL -l'
 #alias jj=$(:)
 
 # auto URL encode in TERMINAL
@@ -188,6 +190,8 @@ KEYTIMEOUT=1
     setopt share_history
 }
 
+export RIPGREP_CONFIG_PATH="${DOTPATH}/ripgrep/.ripgreprc"
+
 #-------------------------------------------------
 # Changing directory(Common)
 #-------------------------------------------------
@@ -198,10 +202,10 @@ function _print_la() {
     } || {
         ls -laGh --color=auto $@
     }
-    current=$(pwd)
-    items=$(ls -la $@ | wc -l | tr -d ' ') > /dev/null 2>&1
-    #dirs=$(ls -ld */ | wc -l | tr -d ' ') > /dev/null 2>&1
-    #print "${items} items: dir ${dirs} items"
+#    current=$(pwd)
+#    items=$(ls -la $@ | wc -l | tr -d ' ') > /dev/null 2>&1
+#    dirs=$(ls -ld */ | wc -l | tr -d ' ') > /dev/null 2>&1
+#    print "${items} items: dir ${dirs} items"
 }
 alias la='_print_la'
 alias lad='la -d */'
@@ -209,6 +213,7 @@ alias lad='la -d */'
 function _cdla() {
     [ $# -eq 0 ] && place=${HOME} || place=$@
 	pushd ${place} && c && la
+#	pushd ${place} && la
 }
 alias cd='_cdla'
 
@@ -445,3 +450,4 @@ alias wifi=get_ssid
 #eval “$(pyenv init -)”
 
 echo 'Load .zprofile.'
+
