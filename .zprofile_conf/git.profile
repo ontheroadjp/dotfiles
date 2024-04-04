@@ -181,12 +181,22 @@ if _is_exist git; then
     alias G="_go_to_repository_root"
 
     if _is_exist ghq && _is_exist peco; then
-        function _cd_to_repository_from_ghq_list() {
+        function _cd_to_repository_from_ghq_list_by_peco() {
             local to=$(ghq list | peco --prompt "Local Repository To >" --query "${*}")
             [ ! -z ${to} ] && cd $(ghq root)/${to}
         }
-        alias rr='_cd_to_repository_from_ghq_list'
+        alias rrpeco='_cd_to_repository_from_ghq_list_by_peco'
     fi
+
+    if _is_exist ghq && _is_exist fzf; then
+        function _cd_to_repository_from_ghq_list_by_fzf() {
+            local to=$(ghq list | fzf-tmux -p 65%)
+            [ ! -z ${to} ] && cd $(ghq root)/${to}
+        }
+        alias rr='_cd_to_repository_from_ghq_list_by_fzf'
+    fi
+
+
 
     #-------------------------------------------------
     # Go to the github.com

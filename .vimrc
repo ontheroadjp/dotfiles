@@ -2,10 +2,23 @@
 " open vimgrep result in quickfix
 autocmd QuickfixCmdPost *grep* cwindow
 
-
 " Quickfix
-nnoremap ]q :cnext<CR>
-nnoremap [q :cprevious<CR>
+nnoremap fo :copen<CR>              " open quickfix window
+nnoremap fo :ccl<CR>                " close quickfix window
+nnoremap [q :cprevious<CR>          " move to previous item
+nnoremap ]q :cnext<CR>              " move to next item
+nnoremap [Q :<C-u>cfirst<CR>        " move to first item
+nnoremap ]Q :<C-u>clast<CR>         " move to last item
+
+" use ripgrep if installed
+if executable('rg')
+    set grepprg=rg\ --vimgrep
+    set grepformat=%f:%l:%c:%m
+endif
+
+" open quickfix window for :grep
+au QuickfixCmdPost make,grep,grepadd,vimgrep copen
+
 
 "nmap <Leader>s :!open -a Safari<CR>
 "nmap <Leader>c :!open -a Google\ Chrome<CR>
@@ -14,51 +27,70 @@ nnoremap [q :cprevious<CR>
 "================================================================ system
 " Clipboard
 set clipboard+=unnamed
-"set clipboard^=unnamed  # if doesn't work above, use this
+"set clipboard^=unnamed  " if doesn't work above, use this
 
 "================================================================ visuals
 "color schema
 so ${HOME}/dotfiles/.vim/vimrc_includs/color-schema.vim
 
 " line number
+set number                                       " show line number
 au VimEnter * hi LineNr guifg=Blue guibg=DarkGray gui=none ctermfg=gray ctermbg=none cterm=none
-nmap <C-N><C-N> :set invnumber<CR>
+nmap <C-N><C-N> :set invnumber<CR> " toggle show/hide line number
 
-"vim status-line
-"so ${HOME}/dotfiles/.vim/vimrc_includs/vim-status-line.vim
-
+" Status bar
 " 0: none
 " 1: show when more than two windows
 " 2:always show the status-line
 set laststatus=0
+"so ${HOME}/dotfiles/.vim/vimrc_includs/vim-status-line.vim
 
-" status-line color
-au InsertEnter * hi StatusLine guifg=Blue guibg=DarkYellow gui=none ctermfg=Black ctermbg=Blue cterm=none
-au InsertLeave * hi StatusLine guifg=Blue guibg=DarkGray gui=none ctermfg=Blue ctermbg=White  cterm=none
-au VimEnter * hi StatusLineNC guifg=Blue guibg=DarkYellow gui=none ctermfg=DarkGray ctermbg=Green cterm=none
+" window virtical split bar
+au VimEnter * hi VertSplit guifg=Blue guibg=DarkGray gui=none ctermfg=Black ctermbg=Black cterm=none
+set fillchars+=vert::
 
-"set statusline=%F       " show filename
-"set statusline+=%m      " show edit status
-"set statusline+=%r      " show read only or not
-"set statusline+=%h      " show [HELP] if Help page
-"set statusline+=%w      " show [Preview] if Preview window
-"set statusline+=%=      " below settings is shown on right side
-"set statusline+=[ENC=%{&fileencoding}]  " file encoding
-"set statusline+=[LOW=%l/%L]             " current row number/total row number
+" tab bar
+:hi TabLineSel ctermfg=White ctermbg=Blue   " current tab
+:hi TabLine ctermfg=White ctermbg=None      " tab
+:hi TabLineFill ctermfg=White ctermbg=None  " tabbar
 
-" window split bar
-au VimEnter * hi VertSplit guifg=Blue guibg=DarkGray gui=none ctermfg=DarkGray ctermbg=DarkGray cterm=none
+" match brackets
+hi MatchParen ctermfg=LightGreen ctermbg=blue
+
+" search highlight
+hi Search ctermbg=Blue ctermfg=White
+
+" folding
+au VimEnter * hi Folded guifg=Blue guibg=DarkGray gui=none ctermfg=Black ctermbg=Black cterm=none
+set fillchars=fold:.
+
+" quickfix
+au QuickfixCmdPost * hi QuickFixLine ctermbg=Yellow guibg=Yellow
 
 "================================================================ General settings
 "set encoding=utf-8                              " set charactor code
 set encoding=utf-8 nobomb                        " set charactor code
 set fileencodings=utf-8,ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932
 set fileformats=unix,dos,mac
-set number                                       " show line number
 set nowrap                                       " automatic wordwrap
 set backspace=indent,eol,start                   " it can delete newline character be BackSpace key
 "set cursorline                                   " show cursor line
 set linespace=4
+
+"--------------------------------------------------------------- Indent
+set expandtab                  " replace tab to space
+set tabstop=4                  " indent width
+set shiftwidth=4               " auto indent width
+set softtabstop=4              " moving width of the consecutive white space
+set autoindent                 " to continue indent width in new line
+set smartindent                " to determining indent width automatically in new line
+
+"--------------------------------------------------------------- command
+" Save as root user
+cabbr w!! w !sudo tee > /dev/null %
+
+" remove trailing whitespace when saved
+autocmd BufWritePre * :%s/\s\+$//ge
 
 " Bulk insertion at the beginning and end of a sentence with visual mode
 vnoremap <expr> I  <SID>force_blockwise_visual('I')
@@ -83,10 +115,6 @@ set nobackup                                     " disable backup file
 "set directory=~/.vim/swap                       " set swap file directory
 set noswapfile                                   " disable swap file
 
-"--------------------------------------------------------------- Lint
-cnoremap eslint !clear && node_modules/eslint/bin/eslint.js %<CR>
-autocmd BufWritePre * :%s/\s\+$//ge              " remove trailing whitespace when saved
-
 "--------------------------------------------------------------- File/Directory
 " File/Directory info
 nnoremap <C-S><C-S> :set filetype=bash<CR>
@@ -99,11 +127,9 @@ nnoremap ,dd :pwd<CR>
 
 " %% to expand current directory in command mode
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:p:h/').'/' : '%%'
+cnoremap <expr> %$ getcmdtype() == ':' ? expand('%:p/') : '%$'
 
-" Save as root user
-cabbr w!! w !sudo tee > /dev/null %
-
-" New File Template
+" File Template
 autocmd BufNewFile *.vue 0r $HOME/dotfiles/.vim/templates/vue.tpl
 autocmd BufNewFile *.{sh,bash,fnc} 0r $HOME/dotfiles/.vim/templates/sh.tpl
 autocmd BufNewFile *.{py} 0r $HOME/dotfiles/.vim/templates/python.tpl
@@ -122,16 +148,6 @@ nnoremap <silent> ]b :bnext<CR>
 "nnoremap <silent> [B :bfirst<CR>
 "nnoremap <silent> ]B :blast<CR>
 
-"--------------------------------------------------------------- Indent
-set expandtab                  " replace tab to space
-set tabstop=4                  " indent width
-set shiftwidth=4               " auto indent width
-set softtabstop=4              " moving width of the consecutive white space
-set autoindent                 " to continue indent width in new line
-set smartindent                " to determining indent width automatically in new line
-
-"autocmd BufNewFile,BufRead *.vue tabstop=0 softtabstop=0 shiftwidth=0
-
 "--------------------------------------------------------------- Cursor settings
 let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
 "let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
@@ -145,11 +161,12 @@ set smartcase                  " if capital note in search words, it doesn't reg
 set incsearch                  " to enable incremental search
 "nnoremap n nzz                 " move center of display when search (n)
 "nnoremap N Nzz                 " move center of display when search (N)
+
+" highlight a word under the cursor
 nnoremap <silent> <Space><Space> "zyiw:let @/ = '\<' . @z . '\>'<CR>:set hlsearch<CR>
 
 "================================================================== Key bindings
 " <Leader> = \ (default)
-nnoremap <Leader>vv :source ~/.vimrc<CR>
 
 " JJ as <esc>
 inoremap <silent> jj <esc>
@@ -190,6 +207,31 @@ nnoremap 00 :<C-u>call append(expand('.'), '')<CR>j
 
 " insert two brank line and to be inline mode
 nnoremap 0i :<C-u>call append(expand('.'), '')<CR>o
+
+" add a blank line under the cursor line
+imap <C-CR> <End><CR>
+nnoremap <C-CR> mzo<ESC>`z
+
+" add a blank line over the cursor line
+imap <C-S-CR> <Home><CR><Up>
+nnoremap <C-S-CR> mzO<ESC>`z
+
+" These are setted in iTerm2 preferences at profile->keys
+" They are important for pressing Ctrl + Shift key-bindings
+" vim couldn't catch Ctrl + Shift same time
+" So, iTerms send specific charactor when press Ctrl + Shift
+map ✠ <C-CR>
+imap ✠ <C-CR>
+map ✢ <C-S-CR>
+imap ✢ <C-S-CR>
+
+" Move a line under the cursor
+nnoremap <C-S-Up> "zdd<Up>"zP
+noremap <C-S-Down> "zdd"zp
+
+" Move lines under the cursor
+vnoremap <C-S-Up> "zx<Up>"zP`[V`]
+vnoremap <C-S-Down> "zx"zp`[V`]
 
 "--------------------------------------------------------------- Scroll
 "nnoremap <C-k> zzHzz
@@ -236,11 +278,12 @@ vnoremap <C-l> $
 "vnoremap <S-j> }
 " list all of them if multiple candidate of the distination when it tags jump
 "nnoremap <C-]> g<C-]>
-"------------------------------------------------------------------------ folding
 
+"------------------------------------------------------------------------ folding
 set foldmethod=indent    "Folding range
 "set foldlevel=0          "Default level of folding when a file is opened
 "" set foldcolumn=3       "Add an area to the left edge to show the folded state
+set fillchars=fold:.
 
 "" Region of cursor
 "" zc  -- Close one fold under the cursor
@@ -334,9 +377,6 @@ let g:sql_type_default='mysql'                   " DB settings
 
 nnoremap ,= vap=vapvv
 
-"------------------------------------------------------------------ Command alias
-cnoremap %vv :source ~/.vimrc<CR>
-
 "------------------------------------------------------------------ Plug-ins
 
 " Plug-in installation
@@ -352,6 +392,7 @@ so ${HOME}/dotfiles/.vim/vimrc_includs/unite.vim
 "so ${HOME}/dotfiles/.vim/vimrc_includs/tagbar.vim
 "so ${HOME}/dotfiles/.vim/vimrc_includs/taglist.vim
 "so ${HOME}/dotfiles/.vim/vimrc_includs/srcexplorer.vim
+so ${HOME}/dotfiles/.vim/vimrc_includs/fzf.vim
 
 " moving cursor
 "so ${HOME}/dotfiles/.vim/vimrc_includs/vim-easymotion.vim
@@ -392,20 +433,12 @@ autocmd BufNewFile,BufRead *.php so ${HOME}/dotfiles/.vim/vimrc_includs/php-gett
 autocmd BufNewFile,BufRead *.php so ${HOME}/dotfiles/.vim/vimrc_includs/vim-php-cs-fixer.vim
 autocmd BufNewFile,BufRead *.php so ${HOME}/dotfiles/.vim/vimrc_includs/pdv-phpdocumentor-for-vim.vim
 
-"----------------------------------------------------------------------- "Colors
-" tab bar
-:hi TabLineSel ctermfg=White ctermbg=Blue   " current tab
-:hi TabLine ctermfg=White ctermbg=None      " tab
-:hi TabLineFill ctermfg=White ctermbg=None  " tabbar
+"------------------------------------------------------------------ Javascript
+" load ESLint
+au Filetype javascript cnoremap eslint !clear && node_modules/eslint/bin/eslint.js %<CR>
 
-" match brackets
-hi MatchParen ctermfg=LightGreen ctermbg=blue
+" for vue
+"autocmd BufNewFile,BufRead *.vue tabstop=0 softtabstop=0 shiftwidth=0
 
-" search highlight
-hi Search ctermbg=Blue ctermfg=White
-
-" folding
-"hi Folded ctermbg=Grey
-hi Folded ctermbg=000
 
 filetype on

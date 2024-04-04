@@ -5,6 +5,56 @@
 #alias laa='la $(find . -type d | grep -v .git | peco --prompt "sub dir >")'
 
 # -------------------------------------------------
+# for fzf
+# -------------------------------------------------
+#function _get_fzf_options() {
+#    echo $1
+#    [[ $1 ]] && {
+#        echo 'hoge true'
+#        return " -0 -1 --reverse --height=100% --pointer='@@' --prompt=': '
+#            --preview 'bat --color=always {1}'
+#            --preview-window border-down
+#            --color='bg+:#242C43,bg:#29324D,spinner:#81A1C1,hl:#616E88'
+#            --color='fg:#D8DEE9,header:#616E88,info:#81A1C1,pointer:#81A1C1'
+#            --color='marker:#81A1C1,fg+:#A9D889,prompt:#81A1C1,hl+:#81A1C1'
+#        "
+#    } || {
+#        echo 'hoge false'
+#        return "
+#            -0 -1 --reverse --height=100% --pointer='@@' --prompt=': ' \
+#            --color='bg+:#242C43,bg:#29324D,spinner:#81A1C1,hl:#616E88' \
+#            --color='fg:#D8DEE9,header:#616E88,info:#81A1C1,pointer:#81A1C1' \
+#            --color='marker:#81A1C1,fg+:#A9D889,prompt:#81A1C1,hl+:#81A1C1' \
+#        "
+#    }
+#}
+
+export FZF_TMUX=1
+export FZF_TMUX_OPTS="-p 80%"
+export FZF_DEFAULT_OPTS="
+    -0 -1 --reverse --height=100% --pointer='@@' --prompt=': ' \
+    --color='bg+:#242C43,bg:#29324D,spinner:#81A1C1,hl:#616E88' \
+    --color='fg:#D8DEE9,header:#616E88,info:#81A1C1,pointer:#81A1C1' \
+    --color='marker:#81A1C1,fg+:#A9D889,prompt:#81A1C1,hl+:#81A1C1' \
+"
+#export FZF_DEFAULT_OPTS="
+#    -0 -1 --reverse --height=100% --pointer='@@' --prompt=': ' \
+#    --preview 'bat --color=always {1}' \
+#    --preview-window border-down \
+#    --color='bg+:#242C43,bg:#29324D,spinner:#81A1C1,hl:#616E88' \
+#    --color='fg:#D8DEE9,header:#616E88,info:#81A1C1,pointer:#81A1C1' \
+#    --color='marker:#81A1C1,fg+:#A9D889,prompt:#81A1C1,hl+:#81A1C1' \
+#"
+
+function _open_with_vim() {
+    result=$(rg ${WORKSPACE} --files -Timg --engine auto --glob=!{TEMP} \
+        | fzf --preview 'bat --color=always {1}' --preview-window=top
+    )
+    [ ! -z "${result}" ] && vim "${result}"
+}
+alias ,fr='_open_with_vim'
+
+# -------------------------------------------------
 # open application
 # -------------------------------------------------
 function _open_application() {
@@ -74,7 +124,7 @@ fi
 #bindkey '^E' _peco-cdr
 
 function _fzf-cdr () {
-    local selected_dir="$(cdr -l | awk '{print $2}' | fzf)"
+    local selected_dir="$(cdr -l | awk '{print $2}' | fzf-tmux -p 65%)"
     if [ -n "$selected_dir" ]; then
         echo $(${selected_dir} | cut -d ' ' -f5 -f6)
         BUFFER="cd $(echo ${selected_dir} | cut -d ' ' -f5 -f6)"
@@ -217,7 +267,8 @@ function _my_memo() {
     local my_memo_dir="${WORKSPACE}/Dropbox/Documents"
     #local dir=$(find ${my_memo_dir} -type d | peco --prompt "My Memo>")
     #local md=$(find ${dir} -type f | peco --prompt "My Memo>")
-    local md=$(find ${my_memo_dir} -type f | peco --prompt "open Memo>")
+#    local md=$(find ${my_memo_dir} -type f | peco --prompt "open Memo>")
+local md=$(find ${my_memo_dir} -type f | fzf-tmux -p 65% --preview 'bat --color=always {1}')
 	[ ! -z ${md}  ] && open ${md}
 }
 alias memo="_my_memo"
