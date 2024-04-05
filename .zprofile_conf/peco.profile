@@ -47,8 +47,8 @@ export FZF_DEFAULT_OPTS="
 #"
 
 function _open_with_vim() {
-    result=$(rg ${WORKSPACE} --files -Timg --engine auto --glob=!{TEMP} \
-        | fzf --preview 'bat --color=always {1}' --preview-window=top
+    result=$(rg ~/memo --files -Timg --engine auto --glob=!{TEMP} \
+        | fzf --preview 'bat --color=always {1}' --preview-window=down:90%
     )
     [ ! -z "${result}" ] && vim "${result}"
 }
@@ -251,27 +251,29 @@ alias cdm='_markspeco'
 # SSH
 #-------------------------------------------------
 function _connect_ssh() {
-    local ssh_server=$(cat ${HOME}/.ssh/config | \
-            grep ^Host | \
-            cut -d " " -f 2 | \
-            peco --prompt "SSH>"
+    local result=$(cat ${HOME}/.ssh/config | \
+            grep ^Host \
+                | cut -d " " -f 2 \
+                | peco --prompt "SSH >"
         )
-    [ ! -z ${ssh_server} ] && ssh ${ssh_server}
+    [ ! -z ${result} ] && ssh ${result}
 }
 alias remote='_connect_ssh'
 
 #-------------------------------------------------
 # My Memo
 #-------------------------------------------------
-function _my_memo() {
-    local my_memo_dir="${WORKSPACE}/Dropbox/Documents"
-    #local dir=$(find ${my_memo_dir} -type d | peco --prompt "My Memo>")
-    #local md=$(find ${dir} -type f | peco --prompt "My Memo>")
-#    local md=$(find ${my_memo_dir} -type f | peco --prompt "open Memo>")
-local md=$(find ${my_memo_dir} -type f | fzf-tmux -p 65% --preview 'bat --color=always {1}')
+function _my_memo_by_peco() {
+    local md=$(find ${my_memo_dir} -type f | peco --prompt "open Memo>")
 	[ ! -z ${md}  ] && open ${md}
 }
-alias memo="_my_memo"
+function _my_memo_by_fzf() {
+    local md=$(rg -tmd -i --files ${HOME}/memo -g "*$@*" \
+        | fzf-tmux -p 65% --preview 'bat --color=always {1}')
+	[ ! -z ${md}  ] && open ${md}
+}
+alias memo="_my_memo_by_fzf $@"
+alias me="glow ${MEMO_PATH}"
 
 ##-------------------------------------------------
 ## WEB Bookmark
@@ -330,42 +332,6 @@ alias clock="_show_timezone"
 #-------------------------------------------------
 source $(ghq root)/github.com/ontheroadjp/stock-jp/stock-jp.fnc
 
-#function _stock_search() {
-#    local stock_search_dir="${DOTPATH}/.stock_jp"
-#    local security_code
-#    # curl https://www.jpx.co.jp/markets/statistics-equities/misc/tvdivq0000001vg2-att/data_j.xls -o ${stock_search_dir}/stock.xls
-#
-#    security_code=$(
-#            cat ${stock_search_dir}/stock.csv | \
-#            cut -d ',' -f 2-4 | \
-#            nkf -Z1 | \
-#            column -s ',' -t | \
-#            peco --prompt "JP Stock>" --query ${@:-''} | \
-#            sed -e 's/^.*\([0-9]\{4\}\).*/\1/g'
-#        )
-#    [ ! -z ${security_code} ] && {
-#        site=$({
-#            echo "Yahoo! Finance"
-#            echo "SBI"
-#        } | peco )
-#
-#        local url=''
-#        case ${site} in
-#            "Google" )
-#                url="https://www.google.com/search?q=${security_code}"
-#                ;;
-#            "Yahoo! Finance" )
-#                url="https://stocks.finance.yahoo.co.jp/stocks/detail/?code=${security_code}"
-#                ;;
-#            "SBI" )
-#                url="https://site1.sbisec.co.jp/ETGate/?_ControlID=WPLETsiR001Control&_PageID=WPLETsiR001Idtl10&_DataStoreID=DSWPLETsiR001Control&_ActionID=stockDetail&s_rkbn=2&s_btype=&i_stock_sec=${security_code}&i_dom_flg=1&i_exchange_code=JPN&i_output_type=0&exchange_code=TKY&stock_sec_code_mul=${security_code}&ref_from=1&ref_to=20&infoview_kbn=2&PER=&wstm4130_sort_id=&wstm4130_sort_kbn=&qr_keyword=1&qr_suggest=1&qr_sort=1"
-#                ;;
-#        esac
-#        open ${url}
-#    }
-#}
-#alias stock="_stock_search"
-#
 #-------------------------------------------------
 # Search Yubin bangou
 #-------------------------------------------------

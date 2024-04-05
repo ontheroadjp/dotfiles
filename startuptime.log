@@ -1,0 +1,97 @@
+
+
+times in msec
+ clock   self+sourced   self:  sourced script
+ clock   elapsed:              other lines
+
+000.009  000.009: --- VIM STARTING ---
+000.103  000.094: Allocated generic buffers
+003.352  003.249: locale set
+003.356  000.004: clipboard setup
+003.363  000.007: window checked
+013.614  010.251: inits 1
+013.633  000.019: parsing arguments
+013.634  000.001: expanding arguments
+018.609  004.975: shell init
+019.237  000.628: Termcap init
+019.251  000.014: inits 2
+019.408  000.157: init highlight
+024.944  004.325  004.325: sourcing /usr/local/share/vim/vim91/colors/lists/default.vim
+025.798  000.236  000.236: sourcing /usr/local/share/vim/vim91/syntax/syncolor.vim
+030.892  005.768  005.532: sourcing /Users/hideaki/.vim/colors/base16-ocean.vim
+030.921  010.700  000.607: sourcing /Users/hideaki/dotfiles/.vim/vimrc_includs/color-schema.vim
+031.990  000.045  000.045: sourcing /usr/local/share/vim/vim91/ftoff.vim
+032.898  000.486  000.486: sourcing /Users/hideaki/.vim/bundle/neobundle.vim/autoload/neobundle/util.vim
+033.582  001.381  000.895: sourcing /Users/hideaki/.vim/bundle/neobundle.vim/autoload/neobundle.vim
+034.069  000.237  000.237: sourcing /Users/hideaki/.vim/bundle/neobundle.vim/autoload/neobundle/init.vim
+035.036  000.591  000.591: sourcing /Users/hideaki/.vim/bundle/neobundle.vim/autoload/neobundle/config.vim
+035.630  000.239  000.239: sourcing /Users/hideaki/.vim/bundle/neobundle.vim/autoload/neobundle/autoload.vim
+036.243  000.261  000.261: sourcing /Users/hideaki/.vim/bundle/neobundle.vim/autoload/neobundle/parser.vim
+036.989  000.364  000.364: sourcing /Users/hideaki/.vim/bundle/neobundle.vim/autoload/neobundle/types/git.vim
+061.424  000.011  000.011: sourcing /Users/hideaki/.vim/bundle/.neobundle/ftdetect/ftdetect.vim
+061.685  000.041  000.041: sourcing /usr/local/share/vim/vimfiles/ftdetect/meson.vim
+061.859  010.694  010.642: sourcing /usr/local/share/vim/vim91/filetype.vim
+062.287  000.082  000.082: sourcing /usr/local/share/vim/vim91/ftplugin.vim
+062.687  000.056  000.056: sourcing /usr/local/share/vim/vim91/indent.vim
+063.034  000.019  000.019: sourcing /usr/local/share/vim/vim91/filetype.vim
+063.379  000.017  000.017: sourcing /usr/local/share/vim/vim91/indent.vim
+068.422  004.207  004.207: sourcing /usr/local/share/vim/vim91/colors/lists/default.vim
+069.465  000.261  000.261: sourcing /usr/local/share/vim/vim91/syntax/syncolor.vim
+070.191  000.258  000.258: sourcing /usr/local/share/vim/vim91/syntax/syncolor.vim
+075.473  006.878  006.359: sourcing /Users/hideaki/.vim/colors/base16-ocean.vim
+075.582  011.704  000.619: sourcing /usr/local/share/vim/vim91/syntax/synload.vim
+075.698  012.155  000.451: sourcing /usr/local/share/vim/vim91/syntax/syntax.vim
+075.705  043.923  017.782: sourcing /Users/hideaki/dotfiles/.vim/vimrc_includs/plugins.vim
+075.909  000.102  000.102: sourcing /Users/hideaki/dotfiles/.vim/vimrc_includs/unite.vim
+076.036  000.036  000.036: sourcing /Users/hideaki/dotfiles/.vim/vimrc_includs/supertab.vim
+076.186  000.067  000.067: sourcing /Users/hideaki/dotfiles/.vim/vimrc_includs/snipmate.vim
+076.282  000.011  000.011: sourcing /Users/hideaki/dotfiles/.vim/vimrc_includs/vim-emmet.vim
+076.381  000.019  000.019: sourcing /Users/hideaki/dotfiles/.vim/vimrc_includs/surround.vim
+076.736  000.019  000.019: sourcing /usr/local/share/vim/vim91/filetype.vim
+076.791  056.993  002.116: sourcing $HOME/.vimrc
+076.798  000.397: sourcing vimrc file(s)
+079.332  000.198  000.198: sourcing /Users/hideaki/.vim/bundle/vimproc/plugin/vimproc.vim
+081.703  000.832  000.832: sourcing /Users/hideaki/.vim/bundle/unite.vim/autoload/unite/custom.vim
+081.920  001.590  000.758: sourcing /Users/hideaki/.vim/bundle/unite.vim/plugin/unite/bookmark.vim
+082.418  000.343  000.343: sourcing /Users/hideaki/.vim/bundle/unite.vim/plugin/unite/buffer.vim
+082.748  000.189  000.189: sourcing /Users/hideaki/.vim/bundle/unite.vim/plugin/unite/window.vim
+083.192  000.305  000.305: sourcing /Users/hideaki/.vim/bundle/unite.vim/plugin/unite.vim
+083.755  000.215  000.215: sourcing /Users/hideaki/.vim/bundle/neomru.vim/plugin/neomru.vim
+085.948  001.721  001.721: sourcing /Users/hideaki/.vim/bundle/supertab/plugin/supertab.vim
+086.637  000.108  000.108: sourcing /Users/hideaki/.vim/pack/SnipMate/start/vim-addon-mw-utils/autoload/funcref.vim
+087.096  000.827  000.719: sourcing /Users/hideaki/.vim/bundle/vim-snipmate/plugin/snipMate.vim
+088.312  000.901  000.901: sourcing /Users/hideaki/.vim/bundle/vim-surround/plugin/surround.vim
+092.357  003.728  003.728: sourcing /Users/hideaki/.vim/bundle/emmet-vim/plugin/emmet.vim
+092.783  000.163  000.163: sourcing /Users/hideaki/.vim/bundle/vim-php-namespace/plugin/phpns.vim
+093.118  000.081  000.081: sourcing /Users/hideaki/.vim/bundle/vim-php-cs-fixer/plugin/php_cs_fixer.vim
+093.724  000.376  000.376: sourcing /Users/hideaki/.vim/bundle/PDV--phpDocumentor-for-Vim/plugin/php-doc.vim
+094.048  000.096  000.096: sourcing /Users/hideaki/.vim/bundle/vim-ref/plugin/ref.vim
+095.771  000.079  000.079: sourcing /usr/local/share/vim/vim91/plugin/getscriptPlugin.vim
+096.155  000.281  000.281: sourcing /usr/local/share/vim/vim91/plugin/gzip.vim
+096.602  000.341  000.341: sourcing /usr/local/share/vim/vim91/plugin/logiPat.vim
+096.766  000.057  000.057: sourcing /usr/local/share/vim/vim91/plugin/manpager.vim
+097.124  000.256  000.256: sourcing /usr/local/share/vim/vim91/plugin/matchparen.vim
+097.849  000.618  000.618: sourcing /usr/local/share/vim/vim91/plugin/netrwPlugin.vim
+097.992  000.020  000.020: sourcing /usr/local/share/vim/vim91/plugin/rrhelper.vim
+098.142  000.040  000.040: sourcing /usr/local/share/vim/vim91/plugin/spellfile.vim
+098.446  000.191  000.191: sourcing /usr/local/share/vim/vim91/plugin/tarPlugin.vim
+098.748  000.186  000.186: sourcing /usr/local/share/vim/vim91/plugin/tohtml.vim
+099.060  000.200  000.200: sourcing /usr/local/share/vim/vim91/plugin/vimballPlugin.vim
+099.434  000.245  000.245: sourcing /usr/local/share/vim/vim91/plugin/zipPlugin.vim
+099.767  000.078  000.078: sourcing /Users/hideaki/.vim/bundle/neobundle.vim/plugin/neobundle.vim
+099.775  009.652: loading plugins
+100.307  000.023  000.023: sourcing /Users/hideaki/dotfiles/.vim/pack/SnipMate/start/vim-snipmate/plugin/snipMate.vim
+100.636  000.043  000.043: sourcing /Users/hideaki/dotfiles/.vim/pack/SnipMate/start/vim-snippets/plugin/vimsnippets.vim
+100.784  000.943: loading packages
+101.345  000.309  000.309: sourcing /Users/hideaki/.vim/pack/SnipMate/start/vim-snipmate/after/plugin/snipMate.vim
+101.864  000.213  000.213: sourcing /Users/hideaki/.vim/bundle/vim-snipmate/after/plugin/snipMate.vim
+101.872  000.566: loading after plugins
+101.879  000.007: inits 3
+102.132  000.253: reading viminfo
+102.166  000.034: setting raw mode
+102.209  000.043: start termcap
+102.250  000.041: clearing screen
+102.651  000.401: opening buffers
+102.746  000.095: BufEnter autocommands
+102.749  000.003: editing files in windows
+103.837  000.806  000.806: sourcing /Users/hideaki/.vim/bundle/neomru.vim/autoload/neomru.vim
