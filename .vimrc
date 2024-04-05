@@ -1,10 +1,11 @@
+map <F5> :wall!<CR>:!glow ~/memo<CR><CR>
 "================================================================ Quickfix
 " open vimgrep result in quickfix
 autocmd QuickfixCmdPost *grep* cwindow
 
 " Quickfix
-nnoremap fo :copen<CR>              " open quickfix window
-nnoremap fo :ccl<CR>                " close quickfix window
+"nnoremap fo :copen<CR>              " open quickfix window
+"nnoremap fo :ccl<CR>                " close quickfix window
 nnoremap [q :cprevious<CR>          " move to previous item
 nnoremap ]q :cnext<CR>              " move to next item
 nnoremap [Q :<C-u>cfirst<CR>        " move to first item
@@ -58,7 +59,7 @@ set fillchars+=vert::
 hi MatchParen ctermfg=LightGreen ctermbg=blue
 
 " search highlight
-hi Search ctermbg=Blue ctermfg=White
+au VimEnter * hi Search guifg=Blue guibg=DarkGray gui=none ctermfg=White ctermbg=Blue cterm=none
 
 " folding
 au VimEnter * hi Folded guifg=Blue guibg=DarkGray gui=none ctermfg=Black ctermbg=Black cterm=none

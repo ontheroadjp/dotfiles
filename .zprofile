@@ -61,6 +61,7 @@ if [ $(uname) = "Darwin" ]; then
     export PATH="/usr/local/share:${PATH}"      # for Python
     export PATH="${HOME}/dotfiles/mac_osx/HandBrakeCLI1.4.2/HandBrakeCLI:${PATH}"   # for HandBrakeCLI
     export WORKSPACE="${HOME}/WORKSPACE"
+    export MEMO_PATH=${WORKSPACE}/Dropbox/Documents/NOTE/dev
 
     # sleep
     alias sleepon='sudo pmset -a disablesleep 0'
