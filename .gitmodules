@@ -7,3 +7,9 @@
 [submodule ".vim/pack/SnipMate/start/vim-addon-mw-utils"]
 	path = .vim/pack/SnipMate/start/vim-addon-mw-utils
 	url = https://github.com/MarcWeber/vim-addon-mw-utils.git
+[submodule "tools/dammy"]
+	path = tools/dammy
+	url = https://github.com/ontheroadjp/dammy
+[submodule "tools/fix-filename"]
+	path = tools/fix-filename
+	url = https://github.com/ontheroadjp/fix-filename
