@@ -2,7 +2,7 @@
 	path = .vim/pack/SnipMate/start/vim-snipmate
 	url = https://github.com/garbas/vim-snipmate
 [submodule "/Users/hideaki/dotfiles/.vim/pack/SnipMate/start/vim-snippets"]
-	path = /Users/hideaki/dotfiles/.vim/pack/SnipMate/start/vim-snippets
+	path = .vim/pack/SnipMate/start/vim-snippets
 	url = https://github.com/honza/vim-snippets.git
 [submodule ".vim/pack/SnipMate/start/vim-addon-mw-utils"]
 	path = .vim/pack/SnipMate/start/vim-addon-mw-utils
