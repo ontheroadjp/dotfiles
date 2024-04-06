@@ -401,6 +401,10 @@ alias imgsize="_display_image_size"
 # --------------------------------------------
 SHELL_TOOLS_DIR="$(ghq root)/github.com/ontheroadjp/shell-tools"
 
+export PATH=${PATH}:${DOTPATH}/tools/dammy
+export PATH=${PATH}:${DOTPATH}/tools/fix-filename
+alias fix='fix_filename.py'
+
 source ${SHELL_TOOLS_DIR}/dirmarks/dirmarks.fnc
 source ${SHELL_TOOLS_DIR}/shell-stash/shell-stash.fnc
 source ${SHELL_TOOLS_DIR}/backup/backup.fnc
@@ -419,7 +423,7 @@ source ${SHELL_TOOLS_DIR}/today/today.fnc
 
 # for Python scripts
 PATH=${SHELL_TOOLS_DIR}/python:${PATH}
-alias fix='fix_filename.py'
+#alias fix='fix_filename.py'
 function _git_commit_msg() {
     gpt_git_commit_msg.py diff | pbcopy
 }
