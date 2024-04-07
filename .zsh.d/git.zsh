@@ -1,7 +1,10 @@
 #-------------------------------------------------
 # Git
 #-------------------------------------------------
-if _is_exist git; then
+#if _is_exist git; then
+
+    # git complition
+    #source ~/dotfiles/bin/git-completion.zsh
 
     function _is_git_repo() {
         git log > /dev/null 2>&1
@@ -22,13 +25,15 @@ if _is_exist git; then
     #-------------------------------------------------
     # Github CLI
     #-------------------------------------------------
-    if _is_exist gh; then
+#    if _is_exist gh; then
+
 #        [ $(echo $SHELL) = '/bin/zsh' ] && {
 #            eval "$(gh completion -s zsh)"
 #        }
 #        [ $(echo $SHELL) = '/bin/bash' ] && {
 #            eval "$(gh completion -s bash)"
 #        }
+
         eval "$(gh completion -s $(echo ${SHELL} | cut -d '/' -f 3))"
 
         # $1: repo name
@@ -98,9 +103,8 @@ if _is_exist git; then
             fi
         }
         alias GGdel='_delete_repository_on_github'
-
         alias GGi='gh issue list'
-    fi
+#    fi
 
     #-------------------------------------------------
     # alias & functions
@@ -196,8 +200,6 @@ if _is_exist git; then
         alias rr='_cd_to_repository_from_ghq_list_by_fzf'
     fi
 
-
-
     #-------------------------------------------------
     # Go to the github.com
     #-------------------------------------------------
@@ -247,4 +249,4 @@ if _is_exist git; then
 
 
     echo "Load Git settings."
-fi
+#fi

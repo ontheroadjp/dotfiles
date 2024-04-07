@@ -1,10 +1,11 @@
 
-bk_*
 
 .git
+*.zwc
+bk_*
 
-.dirmarks/
-.ShellStash/
+tools/
+plugins/
 
 .atom/packages/
 .atom/storage/
@@ -15,6 +16,7 @@ mac_osx/SublimeText3/Packages/*
 #.vim/bundle/
 #!/.vim/bundle/neobundle.vim
 .vim/.netrwhist
+.vim/undo/
 backup.sh
 
 docker-dd/
@@ -24,6 +26,7 @@ peco/
 .my_repository_list.txt
 .dirmarks/
 .stock_jp/
+.ShellStash
 .web_bookmark/
 .quick-memo/
 
