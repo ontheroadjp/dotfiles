@@ -1,4 +1,3 @@
-
 ""カラースキーマー
 colorscheme desert
 ""colorscheme Tomorrow-Night-Eighties
@@ -28,4 +27,3 @@ if has("gui_running")
   set fuoptions=maxvert,maxhorz
   au GUIEnter * set fullscreen
 endif
-

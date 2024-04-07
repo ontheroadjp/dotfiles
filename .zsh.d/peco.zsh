@@ -4,69 +4,19 @@
 #alias lla='la $(find . -type d | grep -v .git | peco --prompt "sub dir >")'
 #alias laa='la $(find . -type d | grep -v .git | peco --prompt "sub dir >")'
 
-# -------------------------------------------------
-# for fzf
-# -------------------------------------------------
-#function _get_fzf_options() {
-#    echo $1
-#    [[ $1 ]] && {
-#        echo 'hoge true'
-#        return " -0 -1 --reverse --height=100% --pointer='@@' --prompt=': '
-#            --preview 'bat --color=always {1}'
-#            --preview-window border-down
-#            --color='bg+:#242C43,bg:#29324D,spinner:#81A1C1,hl:#616E88'
-#            --color='fg:#D8DEE9,header:#616E88,info:#81A1C1,pointer:#81A1C1'
-#            --color='marker:#81A1C1,fg+:#A9D889,prompt:#81A1C1,hl+:#81A1C1'
-#        "
-#    } || {
-#        echo 'hoge false'
-#        return "
-#            -0 -1 --reverse --height=100% --pointer='@@' --prompt=': ' \
-#            --color='bg+:#242C43,bg:#29324D,spinner:#81A1C1,hl:#616E88' \
-#            --color='fg:#D8DEE9,header:#616E88,info:#81A1C1,pointer:#81A1C1' \
-#            --color='marker:#81A1C1,fg+:#A9D889,prompt:#81A1C1,hl+:#81A1C1' \
-#        "
-#    }
+## -------------------------------------------------
+## open application
+## -------------------------------------------------
+#function _open_application() {
+#    app=$(find /Applications -name '*.app' -maxdepth 2 \
+#            | sed -e 's:/Applications/::' \
+#            | peco --prompt 'Application > ' \
+#        );
+#    [ ! -z ${app} ] && { open "/Applications/${app}" }
 #}
-
-export FZF_TMUX=1
-export FZF_TMUX_OPTS="-p 80%"
-export FZF_DEFAULT_OPTS="
-    -0 -1 --reverse --height=100% --pointer='@@' --prompt=': ' \
-    --color='bg+:#242C43,bg:#29324D,spinner:#81A1C1,hl:#616E88' \
-    --color='fg:#D8DEE9,header:#616E88,info:#81A1C1,pointer:#81A1C1' \
-    --color='marker:#81A1C1,fg+:#A9D889,prompt:#81A1C1,hl+:#81A1C1' \
-"
-#export FZF_DEFAULT_OPTS="
-#    -0 -1 --reverse --height=100% --pointer='@@' --prompt=': ' \
-#    --preview 'bat --color=always {1}' \
-#    --preview-window border-down \
-#    --color='bg+:#242C43,bg:#29324D,spinner:#81A1C1,hl:#616E88' \
-#    --color='fg:#D8DEE9,header:#616E88,info:#81A1C1,pointer:#81A1C1' \
-#    --color='marker:#81A1C1,fg+:#A9D889,prompt:#81A1C1,hl+:#81A1C1' \
-#"
-
-function _open_with_vim() {
-    result=$(rg ~/memo --files -Timg --engine auto --glob=!{TEMP} \
-        | fzf --preview 'bat --color=always {1}' --preview-window=down:90%
-    )
-    [ ! -z "${result}" ] && vim "${result}"
-}
-alias ,fr='_open_with_vim'
-
-# -------------------------------------------------
-# open application
-# -------------------------------------------------
-function _open_application() {
-    app=$(find /Applications -name '*.app' -maxdepth 2 \
-            | sed -e 's:/Applications/::' \
-            | peco --prompt 'Application > ' \
-        );
-    [ ! -z ${app} ] && { open "/Applications/${app}" }
-}
-alias app=_open_application $@
-zle -N _open_application
-bindkey '^A' _open_application
+#alias app=_open_application $@
+#zle -N _open_application
+#bindkey '^A' _open_application
 
 #-------------------------------------------------
 # open with vim ( !! doesn't work !!)
@@ -97,18 +47,6 @@ bindkey '^A' _open_application
 # -------------------------------------------------
 # cdr peco
 # -------------------------------------------------
-
-## cdr settings
-if [[ -n $(echo ${^fpath}/chpwd_recent_dirs(N)) && -n $(echo ${^fpath}/cdr(N)) ]]; then
-    autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
-    add-zsh-hook chpwd chpwd_recent_dirs
-    zstyle ':completion:*' recent-dirs-insert both
-    zstyle ':chpwd:*' recent-dirs-default true
-    zstyle ':chpwd:*' recent-dirs-max 1000
-    zstyle ':chpwd:*' recent-dirs-file "$HOME/.cache/chpwd-recent-dirs"
-fi
-
-## peco settings
 #function _peco-cdr () {
 ##local selected_dir="$(cdr -l | sed 's/^[0-9]\+ \+//' | peco --prompt="recent dir (cdr) >" --query "$LBUFFER")"
 #    #local selected_dir="$(cdr -l | sed 's/^[0-9]\+ \+//' | awk '{print $2}' | peco --prompt="cdr >" --query "$LBUFFER")"
@@ -123,33 +61,14 @@ fi
 #zle -N _peco-cdr
 #bindkey '^E' _peco-cdr
 
-function _fzf-cdr () {
-    local selected_dir="$(cdr -l | awk '{print $2}' | fzf-tmux -p 65%)"
-    if [ -n "$selected_dir" ]; then
-        echo $(${selected_dir} | cut -d ' ' -f5 -f6)
-        BUFFER="cd $(echo ${selected_dir} | cut -d ' ' -f5 -f6)"
-        zle accept-line
-    fi
-}
-zle -N _fzf-cdr
-bindkey '^E' _fzf-cdr
-
 # -------------------------------------------------
 # cd to directory within WORKSPACE
 # -------------------------------------------------
-function _cd_to_workspace() {
-#    [[ $(find ${WORKSPACE} -type d -maxdepth 1 | wc -l) -eq 1 ]] && {
-#        echo 'no sub directory.'
-#        return 0
-#    }
-#    to=$(\
-#        find ${WORKSPACE} -type d | \
-#        grep -v ^.$ | \
-#        grep -v .git | \
-#        sort | \
-#        uniq | \
-#        peco --prompt "${WORKSPACE}/" --query "${*}" 2>/dev/null \
-#    )
+function _cd_to_workspace_peco() {
+    [[ $(find ${WORKSPACE} -type d -maxdepth 1 | wc -l) -eq 1 ]] && {
+        echo 'no sub directory.'
+        return 0
+    }
     to=$(\
         find ${WORKSPACE} -type d -maxdepth 1 | \
         grep -v ^.$ | \
@@ -160,9 +79,7 @@ function _cd_to_workspace() {
     )
     [ ! -z ${to} ] && cd ${to}
 }
-alias ww='_cd_to_workspace'
-#zle -N _cd_to_workspace
-#bindkey '^W' _cd_to_workspace
+alias wwp='_cd_to_workspace_peco'
 
 # -------------------------------------------------
 # cd to sub directory: cd
@@ -205,7 +122,7 @@ alias cdh='_cd_by_dirspeco'
 #-------------------------------------------------
 
 # for zsh
-#function peco-history-selection() {
+#function peco_history_selection_peco() {
 #    BUFFER=$(history -n 1 | \
 #        tac  | \
 #        awk '!a[$0]++' | \
@@ -215,25 +132,15 @@ alias cdh='_cd_by_dirspeco'
 #    CURSOR=$#BUFFER
 #    zle reset-prompt
 #}
-#zle -N peco-history-selection
-#bindkey '^H' peco-history-selection
+#zle -N peco_history_selection_peco
+#bindkey '^H' peco_history_selection_peco
 
-function fzf-history-selection() {
-    BUFFER=$(history -n 1 | \
-        tac  | \
-        awk '!a[$0]++' | \
-        fzf --reverse --height=30%
-    )
 
-    CURSOR=$#BUFFER
-    zle reset-prompt
-}
-zle -N fzf-history-selection
-bindkey '^H' fzf-history-selection
 # -------------------------------------------------
-# cd to directory mark
+# cd to directory mark (doesn't work')
 # -------------------------------------------------
 function _markspeco() {
+    dirmarks='~/dotfiles/.dirmarks'
     [ $(ls -U ${dirmarks} | wc -l) -ne 0 ] && {
         local to=$(
             for x in ${dirmarks}/*; do
@@ -263,17 +170,11 @@ alias remote='_connect_ssh'
 #-------------------------------------------------
 # My Memo
 #-------------------------------------------------
-function _my_memo_by_peco() {
-    local md=$(find ${my_memo_dir} -type f | peco --prompt "open Memo>")
+function _my_memo_peco() {
+    local md=$(find ~/memo/ -type f -name '*.md' | peco --prompt "Memo > ")
 	[ ! -z ${md}  ] && open ${md}
 }
-function _my_memo_by_fzf() {
-    local md=$(rg -tmd -i --files ${HOME}/memo -g "*$@*" \
-        | fzf-tmux -p 65% --preview 'bat --color=always {1}')
-	[ ! -z ${md}  ] && open ${md}
-}
-alias memo="_my_memo_by_fzf $@"
-alias me="glow ${MEMO_PATH}"
+alias memop='_my_memo_peco'
 
 ##-------------------------------------------------
 ## WEB Bookmark

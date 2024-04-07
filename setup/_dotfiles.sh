@@ -14,6 +14,7 @@ function _deploy_dotfiles() {
         .bashrc
 
         #zsh
+        .zshenv
         .zshrc
         .zprofile
         .zsh_history
@@ -30,9 +31,6 @@ function _deploy_dotfiles() {
         # vim
         .vim
         .vimrc
-
-        # ag
-        .agignore
     )
 
 	for f in ${dotfiles[@]}; do

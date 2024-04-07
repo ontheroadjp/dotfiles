@@ -116,6 +116,13 @@ set nobackup                                     " disable backup file
 "set directory=~/.vim/swap                       " set swap file directory
 set noswapfile                                   " disable swap file
 
+"--------------------------------------------------------------- Undo
+" can undo after closing file
+if has('persistent_undo')
+  set undodir=~/.vim/undo
+  set undofile
+endif
+
 "--------------------------------------------------------------- File/Directory
 " File/Directory info
 nnoremap <C-S><C-S> :set filetype=bash<CR>
@@ -125,6 +132,7 @@ nnoremap ,fe :set enc?<CR>
 nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
 nnoremap ,ww :cd ~/WORKSPACE<CR>:pwd<CR>
 nnoremap ,dd :pwd<CR>
+nnoremap ,, ,
 
 " %% to expand current directory in command mode
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:p:h/').'/' : '%%'
@@ -361,12 +369,19 @@ nnoremap \\ :rightbelow vsp<CR>         " virtical split
 "inoremap [<Enter> []<Left><CR><ESC><S-o>
 "inoremap (<Enter> ()<Left><CR><ESC><S-o>
 "inoremap ({<Enter> ({})<Left><Left><CR><ESC><S-o>
-"inoremap { {}<LEFT>
-"inoremap [ []<LEFT>
-"inoremap ( ()<LEFT>
-"inoremap < <><LEFT>
-"inoremap " ""<LEFT>
-"inoremap ' ''<LEFT>
+inoremap { {}<LEFT>
+inoremap [ []<LEFT>
+inoremap ( ()<LEFT>
+inoremap < <><LEFT>
+inoremap " ""<LEFT>
+inoremap ' ''<LEFT>
+
+inoremap <C-{> {<LEFT>
+inoremap <C-[> []<LEFT>
+inoremap <C-(> ()<LEFT>
+inoremap <C-<> <><LEFT>
+inoremap <C-"> ""<LEFT>
+inoremap <C-'> ''<LEFT>
 
 "--------------------------------------------------- PHP settings (note ":help" in vim)
 let php_sql_query = 1                            " PHP settings
