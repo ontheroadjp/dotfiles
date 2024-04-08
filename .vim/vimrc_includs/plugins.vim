@@ -35,8 +35,12 @@ NeoBundle 'Shougo/vimproc', {
 
 "NeoBundle 'powerline/powerline'
 "-------------------------------------------------------------
-" Unite, NERDTree, Tagbar, SourceExplorer
+" Unite, NERDTree, Tagbar, SourceExplorer, fzf
 "-------------------------------------------------------------
+NeoBundle 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+NeoBundle 'junegunn/fzf.vim'
+
+
 NeoBundle 'Shougo/unite.vim'    	        	" Adding Unite to easy to open files
 NeoBundle 'Shougo/neomru.vim'   	        	" Unite: using MRU in Unite
 NeoBundle 'Shougo/unite-outline'	        	" Unite: show functions/variables
