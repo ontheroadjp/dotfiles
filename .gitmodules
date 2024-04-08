@@ -16,3 +16,9 @@
 [submodule "plugins/zsh-defer"]
 	path = plugins/zsh-defer
 	url = https://github.com/romkatv/zsh-defer
+[submodule "tools/stock-jp"]
+	path = tools/stock-jp
+	url = https://github.com/ontheroadjp/stock-jp
+[submodule "tools/shell-tools"]
+	path = tools/shell-tools
+	url = https://github.com/ontheroadjp/shell-tools
