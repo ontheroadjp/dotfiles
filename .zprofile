@@ -8,7 +8,6 @@ export PATH=.:${DOTPATH}/bin:${PATH}
 export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:${PATH}
 export PATH=${HOME}/.nodebrew/current/bin:${PATH}
 export DOTPATH=${HOME}/dotfiles
-
 autoload -Uz colors && colors   # use color
 
 #-------------------------------------------------
@@ -16,10 +15,6 @@ autoload -Uz colors && colors   # use color
 #-------------------------------------------------
 function _is_exist() {
     type $@ > /dev/null 2>&1
-}
-
-function _urlencode {
-  echo "$1" | nkf -WwMQ | sed 's/=$//g' | tr = % | tr -d '\n'
 }
 
 function _red() { xargs -I{} echo $'\e[31m{}\e[m' }
@@ -34,81 +29,64 @@ alias e='exit'
 alias h='cd ~'
 alias dot='cd ${DOTPATH}'
 alias w='cd ${WORKSPACE}'
-alias init='source ${HOME}/.zprofile && source ${HOME}/.zshrc'
+alias init='exec $SHELL -l'
 #alias jj=$(:)
 
-# auto URL encode in TERMINAL
-# This causes pasted URLs to be automatically quoted, without needing to disable globbing.
-#autoload -Uz bracketed-paste-magic
-#zle -N bracketed-paste bracketed-paste-magic
-#
-#autoload -Uz url-quote-magic
-#zle -N self-insert url-quote-magic
+#-------------------------------------------------
+# Networking
+#-------------------------------------------------
+source ${DOTPATH}/.zsh.d/networking.zsh
 
 #-------------------------------------------------
 # For MacOSX only
 #-------------------------------------------------
 if [ $(uname) = "Darwin" ]; then
-    #echo "MacOSX with ..."
-
     # variables
     export PATH="/usr/local/sbin:${PATH}"       # for Homebrew
-    export PATH="/usr/local/opt/php@7.4/bin:$PATH"
-    export PATH="/usr/local/opt/php@7.4/sbin:$PATH"
-
     export PATH="/usr/local/share:${PATH}"      # for Python
     export PATH="${HOME}/dotfiles/mac_osx/HandBrakeCLI1.4.2/HandBrakeCLI:${PATH}"   # for HandBrakeCLI
     export WORKSPACE="${HOME}/WORKSPACE"
-
-    # sleep
-    alias sleepon='sudo pmset -a disablesleep 0'
-    alias sleepoff='sudo pmset -a disablesleep 1'
-
-    # clipboard
-    alias '.pb=. | ghead -c -1 | pbcopy'
-    alias 'pb.=. | ghead -c -1 | pbcopy'
-
-    ## display dot files on Finder
-    #defaults write com.apple.finder AppleShowAllFiles TRUE && killall Finder
-    #defaults write com.apple.finder AppleShowAllFiles FALSE && killall Finder
+    export MEMO_PATH=${WORKSPACE}/Dropbox/Documents/NOTE/dev
 
     # Normal command replace
     alias tree='tree -N'    # for display Japanese char
 
-    # remove .DS_Store file
-    alias rmds='find . -type f -name .DS_Store -print0 | xargs -0 rm'
-#    alias c='rmds && clear'
+    # cd
+    alias d='cd ${HOME}/Desktop'
+    alias doc='cd ${HOME}/Documents'
+    alias dl='cd ${HOME}/Downloads'
+    alias gd='cd ${WORKSPACE}/Google\ Drive'
+    alias od='cd ${WORKSPACE}/OneDrive'
+    alias db='cd ${WORKSPACE}/Dropbox'
 
-#    function _cacheclean() {
-#        # Homebrew
-#        if [ -d ${HOME}/Library/Caches/Homebrew ]; then
-#            brew cleanup -s
-#        fi
-#    }
+    function _copy_current_dir_path() {
+        echo -n $(pwd) | pbcopy && echo 'copy: '$(pbpaste)
+    }
+    alias ,='_copy_current_dir_path'
 
-    # text editor
+    # Editor
     alias cot="open -a /Applications/CotEditor.app" # CotEditor
-
-    # markdown editor
     alias md="open -a /Applications/MarkText.app"     # Typora
     #alias md="open -a /Applications/Typora.app"     # Typora
     #alias md="open -a /Applications/MacDown.app"   # MacDown
     #alias md="open -a /Applications/Bear.app"      # Bear
-
-    # show smtp(d) log
-    alias smtplog='sudo log stream --predicater'\''(process == "smtpd") || (process == "smtp")'\'' --info'
 
     # Ruby
     #RBENV_ROOT="$HOME/.rbenv"
     #export PATH="${RBENV_ROOT}/bin:${PATH}"
     #eval "$(rbenv init -)"
 
+    # ctag
+    # changing the BSD version to the version installed by Homebrew
+    alias ctags="`brew --prefix`/bin/ctags"
+
     # open finder
-    alias finder='open .'
+    function finder() { [ -z $1 ] && { open .  } || open $1 }
 
     # open terminal the same as current finder dir
     function _cd_to_finder_window_opened(){
-    	target=$(osascript -e 'tell application "Finder" to if(count of Finder windows) > 0 then get POSIX path of(target of front Finder window as text)')
+    	target=$(osascript -e \
+            'tell application "Finder" to if(count of Finder windows) > 0 then get POSIX path of(target of front Finder window as text)')
     	if [ "$target" != "" ]; then
     		cd "$target" && pwd
     	else
@@ -117,34 +95,40 @@ if [ $(uname) = "Darwin" ]; then
     }
     alias terminal='_cd_to_finder_window_opened'
 
-    #-------------------------------------------------
-    # MarsEdit
-    #-------------------------------------------------
-    function searchMarsEditImage() {
-        imgDir=$(find "${HOME}/Library/Application Support/MarsEdit/UploadedFiles" -name ${1} -exec dirname {} \;)
-        [ -e ${imgDir} ] && {
-            finder ${imgDir}
-        } || { echo "${1} does not exitst." }
-    }
-    alias me='searchMarsEditImage $@'
+    # sleep
+    alias sleepon='sudo pmset -a disablesleep 0'
+    alias sleepoff='sudo pmset -a disablesleep 1'
 
-    # alias(directory change:Mac)
-    alias d='cd ${HOME}/Desktop'
-    alias doc='cd ${HOME}/Documents'
-    alias dl='cd ${HOME}/Downloads'
-    alias gd='cd ${WORKSPACE}/Google\ Drive'
-    alias od='cd ${WORKSPACE}/OneDrive'
-    alias db='cd ${WORKSPACE}/Dropbox'
+#    # Cache
+#    function _cacheclean() {
+#        # Homebrew
+#        if [ -d ${HOME}/Library/Caches/Homebrew ]; then
+#            brew cleanup -s
+#        fi
+#    }
 
-    # alias（for ctag）
-    # changing the BSD version to the version installed by Homebrew
-    alias ctags="`brew --prefix`/bin/ctags"
+    ## display dot files on Finder
+    #defaults write com.apple.finder AppleShowAllFiles TRUE && killall Finder
+    #defaults write com.apple.finder AppleShowAllFiles FALSE && killall Finder
 
     # kill notifyd process
     function kill-notifyd-process() {
     	process=`ps ax | egrep "[0-9] /usr/sbin/notifyd" | awk '{print $1}'`
     	sudo kill -9 ${process}
     }
+
+    # show smtp(d) log
+    alias smtplog='sudo log stream --predicater'\''(process == "smtpd") \
+                            || (process == "smtp")'\'' --info'
+
+    # MarsEdit
+    function searchMarsEditImage() {
+        imgDir=$(find "${HOME}/Library/Application Support/MarsEdit/UploadedFiles" -name ${1} -exec dirname {} \;)
+        [ -e ${imgDir} ] && {
+            finder ${imgDir}
+        } || { echo "${1} does not exitst." }
+    }
+    alias marsimage='searchMarsEditImage $@'
 
 #-------------------------------------------------
 # For Linux only
@@ -153,15 +137,15 @@ elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
 	echo 'Wellcome to Linux!'
 
 #-------------------------------------------------
-# For Windows(Cygwin) only
+# For Windows (Cygwin) only
 #-------------------------------------------------
 elif [ "$(expr substr $(uname -s) 1 10)" == 'MINGW32_NT' ]; then
 	echo 'Wellcome to Cygwin!'
-else
 
 #-------------------------------------------------
 # For other OS only
 #-------------------------------------------------
+else
 	echo "Your platform ($(uname -a)) is not supported."
 	exit 1
 fi
@@ -169,86 +153,70 @@ fi
 #-------------------------------------------------
 # tmux
 #-------------------------------------------------
-source ${HOME}/dotfiles/.zprofile_conf/tmux.profile
+source ${HOME}/dotfiles/.zsh.d/tmux.zsh
 
 #-------------------------------------------------
 # zsh
 #-------------------------------------------------
 # dilay default 0.4sec
-KEYTIMEOUT=1
+KEYTIMEOUT=0
+
+# complition
+autoload -Uz compinit
+compinit -u
 
 # history
-[ $SHELL = '/bin/zsh' ] && {
-    HISTFILE=${HOME}/.zsh-history
-    HISTSIZE=100000
-    SAVEHIST=1000000
+HISTFILE=${HOME}/.zsh-history
+HISTSIZE=100000
+SAVEHIST=1000000
 
-    # share .zshhistory
-    setopt inc_append_history
-    setopt share_history
-}
+# share .zshhistory
+setopt inc_append_history
+setopt share_history
 
-#-------------------------------------------------
-# Changing directory(Common)
-#-------------------------------------------------
+#----------------------------------------------------------------
+# Changing directory (Common)
+#----------------------------------------------------------------
 function _print_la() {
-    rm .DS_Store > /dev/null 2>&1
     [ $(uname) = 'Darwin' ] && {
+        rm .DS_Store > /dev/null 2>&1
         ls -laGh $@
     } || {
         ls -laGh --color=auto $@
     }
-    current=$(pwd)
-    items=$(ls -la $@ | wc -l | tr -d ' ') > /dev/null 2>&1
-    #dirs=$(ls -ld */ | wc -l | tr -d ' ') > /dev/null 2>&1
-    #print "${items} items: dir ${dirs} items"
 }
 alias la='_print_la'
-alias lad='la -d */'
+alias lsd='ls -ad */'
+alias lad='la -ad */'
 
 function _cdla() {
     [ $# -eq 0 ] && place=${HOME} || place=$@
-	pushd ${place} && c && la
+#	pushd ${place} && clear && _print_la
+	pushd ${place} && _print_la
 }
 alias cd='_cdla'
 
-# -------------------------------- back to the previous location
-alias b='popd && clear && la'
+# back to the previous location -----------------------------------
+alias b='popd && clear && _print_la'
 
-# -------------------------------- general settings
+# general settings ------------------------------------------------
 alias HOME="cd ${HOME}"
 alias .="pwd"
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
-alias .....="cd ../../../.."
-alias ......="cd ../../../../.."
-alias .......="cd ../../../../../.."
-alias ........="cd ../../../../../../.."
-alias .........="cd ../../../../../../../.."
-alias ..........="cd ../../../../../../../../.."
-alias ...........="cd ../../../../../../../../../.."
+#alias .....="cd ../../../.."
+#alias ......="cd ../../../../.."
+#alias .......="cd ../../../../../.."
+#alias ........="cd ../../../../../../.."
+#alias .........="cd ../../../../../../../.."
+#alias ..........="cd ../../../../../../../../.."
+#alias ...........="cd ../../../../../../../../../.."
 
 function mkdircd() {
     mkdir $@ && cd $_
 }
-
-if [ $(uname) = "Darwin" ]; then
-    function _copy_current_dir_path() {
-        echo -n $(pwd) | pbcopy && echo 'copy: '$(pbpaste)
-    }
-    alias ,='_copy_current_dir_path'
-fi
-
-
-
-#-------------------------------------------------
-# AG (grep)
-#-------------------------------------------------
-#if _is_exist ag; then
-#    alias ag='ag -S --stats --pager "less -F"'
-#    alias agh='ag --hidden'
-#fi
+alias mkcd='mkdircd'
 
 #-------------------------------------------------
 # Go (GHQ)
@@ -261,175 +229,40 @@ if _is_exist go; then
 fi
 
 #-------------------------------------------------
-# peco
+# Load Core
 #-------------------------------------------------
-if _is_exist peco; then
-    source ${DOTPATH}/.zprofile_conf/peco.profile
-fi
+zsh-defer source ${DOTPATH}/.zsh.d/docker.zsh
+zsh-defer source ${DOTPATH}/.zsh.d/git.zsh
+zsh-defer source ${DOTPATH}/.zsh.d/peco.zsh
+zsh-defer source ${DOTPATH}/.zsh.d/fzf.zsh
+zsh-defer source ${DOTPATH}/.zsh.d/php.zsh
+zsh-defer source ${DOTPATH}/.zsh.d/vagrant.zsh
+zsh-defer source ${DOTPATH}/.zsh.d/shell-tools.zsh
 
 #-------------------------------------------------
-# git
+# Tools
 #-------------------------------------------------
-if _is_exist git; then
-    source ${DOTPATH}/.zprofile_conf/git.profile
-fi
+export RIPGREP_CONFIG_PATH="${DOTPATH}/.config/ripgrep/.ripgreprc"
+alias exif="exiftool $@"
 
 #-------------------------------------------------
-# exiftool
-#-------------------------------------------------
-if _is_exist exiftool; then
-    alias exif="exiftool $@"
-fi
-
+# Utilities
 #-------------------------------------------------
 # Dammy Image
-#-------------------------------------------------
 function _create_dammy_image() {
      convert -size "${1:=320}x${2:=200}" \
             -background "#95a5a6" \
             -fill "#2c3e50" \
             -gravity center label:"$1x$2" $1x$2.${3:=jpg}
 }
-alias dammyimg='_create_dammy_image'
-
-#-------------------------------------------------
-# WEB (Dockerhub)
-#-------------------------------------------------
-if _is_exist ghq && _is_exist peco; then
-    function _open_my_dockerhub() {
-        place="$(ghq list | sed "s:github.com:hub.docker.com/r:" | peco)"
-        [ ! -z "${place}" ] && {
-            open "https://${place}"
-        }
-    }
-    alias dockerhub='_open_my_dockerhub';
-
-    function dockerhub-build() {
-        place="$(ghq list | sed "s:github.com:hub.docker.com/r:" | peco)"
-        [ ! -z "${place}" ] && {
-            open "https://${place}/builds"
-        }
-    }
-fi
-
-#-------------------------------------------------
-# Docker
-#-------------------------------------------------
-if _is_exist docker; then
-    [ -e ~/dotfiles/docker-dd ] && {
-        source ${DOTPATH}/docker-dd/docker-dd-common.fnc
-        source ${DOTPATH}/docker-dd/docker-dd-network.fnc
-        source ${DOTPATH}/docker-dd/docker-dd-volume.fnc
-    }
-
-    #export TOYBOX_HOME=/home/nobita/workspace/docker-toybox
-    #export PATH=${TOYBOX_HOME}/bin:${PATH}
-    #if [ -f ${TOYBOX_HOME}/bin/complition.sh ]; then
-    #    source ${TOYBOX_HOME}/bin/complition.sh
-    #fi
-
-    # for docker-compose.yml
-    alias dd="docker-compose ${@}"
-    alias ddup="docker-compose up ${@}"
-    alias ddupd="docker-compose up -d ${@}"
-    alias dddown="docker-compose down"
-    alias ddrestart="docker-compose restart"
-
-    echo "Load Docker settings."
-fi
-
-##-------------------------------------------------
-## Vagrant
-##-------------------------------------------------
-#if _is_exist vagrant; then
-#    source ${DOTPATH}/.zprofile_conf/vagrant.profile
-#fi
-
-#-------------------------------------------------
-# PHP: composer
-#-------------------------------------------------
-if _is_exist composer; then
-    export PATH="${PATH}:${HOME}/.composer/vendor/bin"
-fi
-
-#-------------------------------------------------
-# PHP: Laravel
-#-------------------------------------------------
-if _is_exist php; then
-    alias art='php artisan '
-    alias tinker='php artisan tinker'
-    alias pub='php artisan vendor:publish --force'
-    alias sv='php artisan serve'
-    alias rl='php artisan route:list'
-    alias t='vendor/bin/phpunit --colors'
-fi
-
-#-------------------------------------------------
-# dstat - Server resourse monitoring
-#-------------------------------------------------
-if _is_exist dstat; then
-    alias dfull='dstat -Tclmdrn'
-    alias dmem='dstat -Tclm'
-    alias dcpu='dstat -Tclr'
-    alias dnet='dstat -Tclnd'
-    alias ddisk='dstat -Tcldr'
-    alias dplugins='la /usr/share/dstat/*.py'
-fi
-
-# --------------------------------------------
-# System Utilities
-# --------------------------------------------
-
-# show IP Address
-alias ip='ipconfig getifaddr en0'
-#alias ip='ipconfig getifaddr en1'
+zsh-defer alias dammyimg='_create_dammy_image'
 
 # show image size
-function _display_image_size() {
-    identify $@
-}
+function _display_image_size() { identify $@ }
 alias imgsize="_display_image_size"
 
-# --------------------------------------------
-# Shell tools
-# --------------------------------------------
-SHELL_TOOLS_DIR="$(ghq root)/github.com/ontheroadjp/shell-tools"
-
-source ${SHELL_TOOLS_DIR}/dirmarks/dirmarks.fnc
-source ${SHELL_TOOLS_DIR}/shell-stash/shell-stash.fnc
-source ${SHELL_TOOLS_DIR}/backup/backup.fnc
-source ${SHELL_TOOLS_DIR}/quick-memo/quick-memo.fnc
-
-source ${SHELL_TOOLS_DIR}/file-info/file-info.fnc
-source ${SHELL_TOOLS_DIR}/wifi-helth-check/wifi-helth-check.fnc
-source ${SHELL_TOOLS_DIR}/colors/colors.fnc
-
-source ${SHELL_TOOLS_DIR}/wareki/wareki.fnc
-source ${SHELL_TOOLS_DIR}/weather/weather.fnc
-source ${SHELL_TOOLS_DIR}/worldtime/worldtime.fnc
-source ${SHELL_TOOLS_DIR}/holiday-jp/holiday-jp.fnc
-# today.fnc must be loading after wareki, weather and worldtime loaded.
-source ${SHELL_TOOLS_DIR}/today/today.fnc
-
-# for Python scripts
-PATH=${SHELL_TOOLS_DIR}/python:${PATH}
-alias fix='fix_filename.py'
-function _git_commit_msg() {
-    gpt_git_commit_msg.py diff | pbcopy
-}
-alias gitcommitmsg='_git_commit_msg'
-
-# --------------------------------------------
-# Command path (my tools)
-# --------------------------------------------
-#export PATH=${GOPATH}/src/github.com/ontheroadjp/dazai:${PATH}
-#export PATH=${GOPATH}/src/github.com/ontheroadjp/tidyphoto/bin:${PATH}
-#export PATH=${GOPATH}/src/github.com/ontheroadjp/file-list:${PATH}
-#export PATH=${GOPATH}/src/github.com/ontheroadjp/dammy:${PATH}
-export PATH=${DOTPATH}/bin:${PATH}
-
-alias li=battery
-alias wifi=get_ssid
+# memo
+alias me="glow ${MEMO_PATH}"
 
 # --------------------------------------------
 # GNU Core Utility

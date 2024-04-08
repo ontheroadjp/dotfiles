@@ -4,19 +4,19 @@
 #alias lla='la $(find . -type d | grep -v .git | peco --prompt "sub dir >")'
 #alias laa='la $(find . -type d | grep -v .git | peco --prompt "sub dir >")'
 
-# -------------------------------------------------
-# open application
-# -------------------------------------------------
-function _open_application() {
-    app=$(find /Applications -name '*.app' -maxdepth 2 \
-            | sed -e 's:/Applications/::' \
-            | peco --prompt 'Application > ' \
-        );
-    [ ! -z ${app} ] && { open "/Applications/${app}" }
-}
-alias app=_open_application $@
-zle -N _open_application
-bindkey '^A' _open_application
+## -------------------------------------------------
+## open application
+## -------------------------------------------------
+#function _open_application() {
+#    app=$(find /Applications -name '*.app' -maxdepth 2 \
+#            | sed -e 's:/Applications/::' \
+#            | peco --prompt 'Application > ' \
+#        );
+#    [ ! -z ${app} ] && { open "/Applications/${app}" }
+#}
+#alias app=_open_application $@
+#zle -N _open_application
+#bindkey '^A' _open_application
 
 #-------------------------------------------------
 # open with vim ( !! doesn't work !!)
@@ -47,18 +47,6 @@ bindkey '^A' _open_application
 # -------------------------------------------------
 # cdr peco
 # -------------------------------------------------
-
-## cdr settings
-if [[ -n $(echo ${^fpath}/chpwd_recent_dirs(N)) && -n $(echo ${^fpath}/cdr(N)) ]]; then
-    autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
-    add-zsh-hook chpwd chpwd_recent_dirs
-    zstyle ':completion:*' recent-dirs-insert both
-    zstyle ':chpwd:*' recent-dirs-default true
-    zstyle ':chpwd:*' recent-dirs-max 1000
-    zstyle ':chpwd:*' recent-dirs-file "$HOME/.cache/chpwd-recent-dirs"
-fi
-
-## peco settings
 #function _peco-cdr () {
 ##local selected_dir="$(cdr -l | sed 's/^[0-9]\+ \+//' | peco --prompt="recent dir (cdr) >" --query "$LBUFFER")"
 #    #local selected_dir="$(cdr -l | sed 's/^[0-9]\+ \+//' | awk '{print $2}' | peco --prompt="cdr >" --query "$LBUFFER")"
@@ -73,33 +61,14 @@ fi
 #zle -N _peco-cdr
 #bindkey '^E' _peco-cdr
 
-function _fzf-cdr () {
-    local selected_dir="$(cdr -l | awk '{print $2}' | fzf)"
-    if [ -n "$selected_dir" ]; then
-        echo $(${selected_dir} | cut -d ' ' -f5 -f6)
-        BUFFER="cd $(echo ${selected_dir} | cut -d ' ' -f5 -f6)"
-        zle accept-line
-    fi
-}
-zle -N _fzf-cdr
-bindkey '^E' _fzf-cdr
-
 # -------------------------------------------------
 # cd to directory within WORKSPACE
 # -------------------------------------------------
-function _cd_to_workspace() {
-#    [[ $(find ${WORKSPACE} -type d -maxdepth 1 | wc -l) -eq 1 ]] && {
-#        echo 'no sub directory.'
-#        return 0
-#    }
-#    to=$(\
-#        find ${WORKSPACE} -type d | \
-#        grep -v ^.$ | \
-#        grep -v .git | \
-#        sort | \
-#        uniq | \
-#        peco --prompt "${WORKSPACE}/" --query "${*}" 2>/dev/null \
-#    )
+function _cd_to_workspace_peco() {
+    [[ $(find ${WORKSPACE} -type d -maxdepth 1 | wc -l) -eq 1 ]] && {
+        echo 'no sub directory.'
+        return 0
+    }
     to=$(\
         find ${WORKSPACE} -type d -maxdepth 1 | \
         grep -v ^.$ | \
@@ -110,9 +79,7 @@ function _cd_to_workspace() {
     )
     [ ! -z ${to} ] && cd ${to}
 }
-alias ww='_cd_to_workspace'
-#zle -N _cd_to_workspace
-#bindkey '^W' _cd_to_workspace
+alias wwp='_cd_to_workspace_peco'
 
 # -------------------------------------------------
 # cd to sub directory: cd
@@ -155,7 +122,7 @@ alias cdh='_cd_by_dirspeco'
 #-------------------------------------------------
 
 # for zsh
-#function peco-history-selection() {
+#function peco_history_selection_peco() {
 #    BUFFER=$(history -n 1 | \
 #        tac  | \
 #        awk '!a[$0]++' | \
@@ -165,25 +132,15 @@ alias cdh='_cd_by_dirspeco'
 #    CURSOR=$#BUFFER
 #    zle reset-prompt
 #}
-#zle -N peco-history-selection
-#bindkey '^H' peco-history-selection
+#zle -N peco_history_selection_peco
+#bindkey '^H' peco_history_selection_peco
 
-function fzf-history-selection() {
-    BUFFER=$(history -n 1 | \
-        tac  | \
-        awk '!a[$0]++' | \
-        fzf --reverse --height=30%
-    )
 
-    CURSOR=$#BUFFER
-    zle reset-prompt
-}
-zle -N fzf-history-selection
-bindkey '^H' fzf-history-selection
 # -------------------------------------------------
-# cd to directory mark
+# cd to directory mark (doesn't work')
 # -------------------------------------------------
 function _markspeco() {
+    dirmarks='~/dotfiles/.dirmarks'
     [ $(ls -U ${dirmarks} | wc -l) -ne 0 ] && {
         local to=$(
             for x in ${dirmarks}/*; do
@@ -201,26 +158,23 @@ alias cdm='_markspeco'
 # SSH
 #-------------------------------------------------
 function _connect_ssh() {
-    local ssh_server=$(cat ${HOME}/.ssh/config | \
-            grep ^Host | \
-            cut -d " " -f 2 | \
-            peco --prompt "SSH>"
+    local result=$(cat ${HOME}/.ssh/config | \
+            grep ^Host \
+                | cut -d " " -f 2 \
+                | peco --prompt "SSH >"
         )
-    [ ! -z ${ssh_server} ] && ssh ${ssh_server}
+    [ ! -z ${result} ] && ssh ${result}
 }
 alias remote='_connect_ssh'
 
 #-------------------------------------------------
 # My Memo
 #-------------------------------------------------
-function _my_memo() {
-    local my_memo_dir="${WORKSPACE}/Dropbox/Documents"
-    #local dir=$(find ${my_memo_dir} -type d | peco --prompt "My Memo>")
-    #local md=$(find ${dir} -type f | peco --prompt "My Memo>")
-    local md=$(find ${my_memo_dir} -type f | peco --prompt "open Memo>")
+function _my_memo_peco() {
+    local md=$(find ~/memo/ -type f -name '*.md' | peco --prompt "Memo > ")
 	[ ! -z ${md}  ] && open ${md}
 }
-alias memo="_my_memo"
+alias memop='_my_memo_peco'
 
 ##-------------------------------------------------
 ## WEB Bookmark
@@ -279,42 +233,6 @@ alias clock="_show_timezone"
 #-------------------------------------------------
 source $(ghq root)/github.com/ontheroadjp/stock-jp/stock-jp.fnc
 
-#function _stock_search() {
-#    local stock_search_dir="${DOTPATH}/.stock_jp"
-#    local security_code
-#    # curl https://www.jpx.co.jp/markets/statistics-equities/misc/tvdivq0000001vg2-att/data_j.xls -o ${stock_search_dir}/stock.xls
-#
-#    security_code=$(
-#            cat ${stock_search_dir}/stock.csv | \
-#            cut -d ',' -f 2-4 | \
-#            nkf -Z1 | \
-#            column -s ',' -t | \
-#            peco --prompt "JP Stock>" --query ${@:-''} | \
-#            sed -e 's/^.*\([0-9]\{4\}\).*/\1/g'
-#        )
-#    [ ! -z ${security_code} ] && {
-#        site=$({
-#            echo "Yahoo! Finance"
-#            echo "SBI"
-#        } | peco )
-#
-#        local url=''
-#        case ${site} in
-#            "Google" )
-#                url="https://www.google.com/search?q=${security_code}"
-#                ;;
-#            "Yahoo! Finance" )
-#                url="https://stocks.finance.yahoo.co.jp/stocks/detail/?code=${security_code}"
-#                ;;
-#            "SBI" )
-#                url="https://site1.sbisec.co.jp/ETGate/?_ControlID=WPLETsiR001Control&_PageID=WPLETsiR001Idtl10&_DataStoreID=DSWPLETsiR001Control&_ActionID=stockDetail&s_rkbn=2&s_btype=&i_stock_sec=${security_code}&i_dom_flg=1&i_exchange_code=JPN&i_output_type=0&exchange_code=TKY&stock_sec_code_mul=${security_code}&ref_from=1&ref_to=20&infoview_kbn=2&PER=&wstm4130_sort_id=&wstm4130_sort_kbn=&qr_keyword=1&qr_suggest=1&qr_sort=1"
-#                ;;
-#        esac
-#        open ${url}
-#    }
-#}
-#alias stock="_stock_search"
-#
 #-------------------------------------------------
 # Search Yubin bangou
 #-------------------------------------------------

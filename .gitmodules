@@ -1,0 +1,18 @@
+[submodule ".vim/pack/SnipMate/start/vim-snipmate"]
+	path = .vim/pack/SnipMate/start/vim-snipmate
+	url = https://github.com/garbas/vim-snipmate
+[submodule ".vim/pack/SnipMate/start/vim-snippets"]
+	path = .vim/pack/SnipMate/start/vim-snippets
+	url = https://github.com/honza/vim-snippets.git
+[submodule ".vim/pack/SnipMate/start/vim-addon-mw-utils"]
+	path = .vim/pack/SnipMate/start/vim-addon-mw-utils
+	url = https://github.com/MarcWeber/vim-addon-mw-utils.git
+[submodule "tools/dammy"]
+	path = tools/dammy
+	url = https://github.com/ontheroadjp/dammy
+[submodule "tools/fix-filename"]
+	path = tools/fix-filename
+	url = https://github.com/ontheroadjp/fix-filename
+[submodule "plugins/zsh-defer"]
+	path = plugins/zsh-defer
+	url = https://github.com/romkatv/zsh-defer

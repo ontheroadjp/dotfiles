@@ -1,7 +1,10 @@
 #-------------------------------------------------
 # Git
 #-------------------------------------------------
-if _is_exist git; then
+#if _is_exist git; then
+
+    # git complition
+    #source ~/dotfiles/bin/git-completion.zsh
 
     function _is_git_repo() {
         git log > /dev/null 2>&1
@@ -22,13 +25,15 @@ if _is_exist git; then
     #-------------------------------------------------
     # Github CLI
     #-------------------------------------------------
-    if _is_exist gh; then
+#    if _is_exist gh; then
+
 #        [ $(echo $SHELL) = '/bin/zsh' ] && {
 #            eval "$(gh completion -s zsh)"
 #        }
 #        [ $(echo $SHELL) = '/bin/bash' ] && {
 #            eval "$(gh completion -s bash)"
 #        }
+
         eval "$(gh completion -s $(echo ${SHELL} | cut -d '/' -f 3))"
 
         # $1: repo name
@@ -98,9 +103,8 @@ if _is_exist git; then
             fi
         }
         alias GGdel='_delete_repository_on_github'
-
         alias GGi='gh issue list'
-    fi
+#    fi
 
     #-------------------------------------------------
     # alias & functions
@@ -181,11 +185,19 @@ if _is_exist git; then
     alias G="_go_to_repository_root"
 
     if _is_exist ghq && _is_exist peco; then
-        function _cd_to_repository_from_ghq_list() {
+        function _cd_to_repository_from_ghq_list_by_peco() {
             local to=$(ghq list | peco --prompt "Local Repository To >" --query "${*}")
             [ ! -z ${to} ] && cd $(ghq root)/${to}
         }
-        alias rr='_cd_to_repository_from_ghq_list'
+        alias rrpeco='_cd_to_repository_from_ghq_list_by_peco'
+    fi
+
+    if _is_exist ghq && _is_exist fzf; then
+        function _cd_to_repository_from_ghq_list_by_fzf() {
+            local to=$(ghq list | fzf-tmux -p 65%)
+            [ ! -z ${to} ] && cd $(ghq root)/${to}
+        }
+        alias rr='_cd_to_repository_from_ghq_list_by_fzf'
     fi
 
     #-------------------------------------------------
@@ -237,4 +249,4 @@ if _is_exist git; then
 
 
     echo "Load Git settings."
-fi
+#fi
