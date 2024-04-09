@@ -4,12 +4,16 @@ map <F5> :wall!<CR>:!glow ~/memo<CR><CR>
 autocmd QuickfixCmdPost *grep* cwindow
 
 " Quickfix
+" open : copen
+" close: ccl
 "nnoremap fo :copen<CR>              " open quickfix window
 "nnoremap fo :ccl<CR>                " close quickfix window
-nnoremap [q :cprevious<CR>          " move to previous item
-nnoremap ]q :cnext<CR>              " move to next item
-nnoremap [Q :<C-u>cfirst<CR>        " move to first item
-nnoremap ]Q :<C-u>clast<CR>         " move to last item
+nnoremap <C-up> :copen<CR>          " move to previous item
+nnoremap <C-down> :ccl<CR>          " move to previous item
+nnoremap <up> :cprevious<CR>          " move to previous item
+nnoremap <down> :cnext<CR>              " move to next item
+"nnoremap [Q :<C-u>cfirst<CR>        " move to first item
+"nnoremap ]Q :<C-u>clast<CR>         " move to last item
 
 " use ripgrep if installed
 if executable('rg')
@@ -32,7 +36,7 @@ set clipboard+=unnamed
 
 "================================================================ visuals
 "color schema
-so ${HOME}/dotfiles/.vim/vimrc_includs/color-schema.vim
+so ${HOME}/dotfiles/.vim/.vim.d/ui/color-schema.vim
 
 " line number
 set number                                       " show line number
@@ -44,7 +48,7 @@ nmap <C-N><C-N> :set invnumber<CR> " toggle show/hide line number
 " 1: show when more than two windows
 " 2:always show the status-line
 set laststatus=0
-"so ${HOME}/dotfiles/.vim/vimrc_includs/vim-status-line.vim
+so ${HOME}/dotfiles/.vim/.vim.d/ui/vim-status-line.vim
 
 " window virtical split bar
 au VimEnter * hi VertSplit guifg=Blue guibg=DarkGray gui=none ctermfg=Black ctermbg=Black cterm=none
@@ -81,10 +85,10 @@ set linespace=4
 "--------------------------------------------------------------- Indent
 set expandtab                  " replace tab to space
 set tabstop=4                  " indent width
-set shiftwidth=4               " auto indent width
+"set shiftwidth=4               " auto indent width
 set softtabstop=4              " moving width of the consecutive white space
 set autoindent                 " to continue indent width in new line
-set smartindent                " to determining indent width automatically in new line
+"set smartindent                " to determining indent width automatically in new line
 
 "--------------------------------------------------------------- command
 " Save as root user
@@ -92,22 +96,6 @@ cabbr w!! w !sudo tee > /dev/null %
 
 " remove trailing whitespace when saved
 autocmd BufWritePre * :%s/\s\+$//ge
-
-" Bulk insertion at the beginning and end of a sentence with visual mode
-vnoremap <expr> I  <SID>force_blockwise_visual('I')
-vnoremap <expr> A  <SID>force_blockwise_visual('A')
-" Enable 'I' and 'A' in visual line mode
-function! s:force_blockwise_visual(next_key)
-    if mode() ==# 'v'
-        return "\<C-v>" . a:next_key
-    elseif mode() ==# 'V'
-        return "\<C-v>0o$" . a:next_key
-    else  " mode() ==# "\<C-v>"
-        return a:next_key
-    endif
-endfunction
-
-nnoremap <C-\> "zyyI# <esc>"zp
 
 "--------------------------------------------------------------- Buff file/Swap file
 "set backup                                      " enable swap file
@@ -120,10 +108,10 @@ set noswapfile                                   " disable swap file
 
 "--------------------------------------------------------------- Undo
 " can undo after closing file
-if has('persistent_undo')
-  set undodir=~/.vim/undo
-  set undofile
-endif
+"if has('persistent_undo')
+"  set undodir=~/.vim/undo
+"  set undofile
+"endif
 
 "--------------------------------------------------------------- File/Directory
 " File/Directory info
@@ -154,11 +142,11 @@ autocmd BufNewFile,BufRead *.{profile,fnc,bats} set filetype=bash
 autocmd BufNewFile,BufRead *.{py} set filetype=python
 
 "--------------------------------------------------------------- Buffer
-"nnoremap <silent> bl :buffers<CR>
-"nnoremap <silent> [b :bprevious<CR>
-"nnoremap <silent> ]b :bnext<CR>
-"nnoremap <silent> [B :bfirst<CR>
-"nnoremap <silent> ]B :blast<CR>
+nnoremap <silent> yt :buffers<CR>
+nnoremap <silent> yb :bprevious<CR>
+nnoremap <silent> ]b :bnext<CR>
+nnoremap <silent> [B :bfirst<CR>
+nnoremap <silent> ]B :blast<CR>
 
 "--------------------------------------------------------------- Cursor settings
 let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
@@ -180,10 +168,11 @@ nnoremap <silent> <Space><Space> "zyiw:let @/ = '\<' . @z . '\>'<CR>:set hlsearc
 " <Leader> = \ (default)
 
 " JJ as <esc>
-"inoremap <silent> jj <esc><esc>
-inoremap <silent> jk <esc><esc>
-inoremap <silent> kj <esc><esc>
+"inoremap <silent> jj <esc>
+inoremap <silent> jk <esc>
+inoremap <silent> kj <esc>
 vnoremap <ESC> <C-c>
+vnoremap n <C-c>
 
 " change insert-normal mode
 inoremap <C-n> <C-o>
@@ -297,7 +286,7 @@ nnoremap P gP
 nnoremap gp p
 nnoremap gP P
 
-" past in normalmode
+"" past in normalmode
 if &term =~ "xterm"
     let &t_ti .= "\e[?2004h"
     let &t_te .= "\e[?2004l"
@@ -308,7 +297,6 @@ if &term =~ "xterm"
             return a:ret
         endfunction
     endif
-
     noremap <special> <expr> <Esc>[200~ XTermPasteBegin("0i")
     inoremap <special> <expr> <Esc>[200~ XTermPasteBegin("")
     cnoremap <special> <Esc>[200~ <nop>
@@ -326,6 +314,26 @@ nnoremap \\ :rightbelow vsp<CR>         " virtical split
 "nnoremap \q <c-w><c-w>                 " move between window
 "nnoremap TT <C-w>T
 
+set winheight=25
+
+"nnoremap <C-w>h <C-w>h:call <SID>good_width()<Cr>
+"nnoremap <C-w>l <C-w>l:call <SID>good_width()<Cr>
+"nnoremap <C-w>H <C-w>H:call <SID>good_width()<Cr>
+"nnoremap <C-w>L <C-w>L:call <SID>good_width()<Cr>
+"function! s:good_width()
+"  if winwidth(0) < 84
+"    vertical resize 84
+"  endif
+"endfunction
+
+"nnoremap <C-w>k <C-w>k:call <SID>good_height()<Cr>
+"nnoremap <C-w>j <C-w>j:call <SID>good_height()<Cr>
+"function! s:good_height()
+"  if winheight(0) < 22
+"    horizontal resize 22
+"  endif
+"endfunction
+
 "-------------------------------------------------------------------- Terminal
 "nnoremap <f3> :term source ~/.zprofile<CR>
 "nnoremap <f6> :vert term ++close git log<CR>
@@ -337,19 +345,9 @@ nnoremap \\ :rightbelow vsp<CR>         " virtical split
 "nnoremap <silent> t] :tabmove +<CR>     " move tab to right
 "nnoremap <silent> t[ :tabmove -<CR>     " move tab to left
 
-"----------------------------------------------------------------------  brackets
-inoremap { {}<LEFT>
-inoremap [ []<LEFT>
-inoremap ( ()<LEFT>
-inoremap < <><LEFT>
-inoremap " ""<LEFT>
-inoremap ' ''<LEFT>
-
-" single open
-inoremap }} {
-inoremap ]] [
-inoremap )) (
-inoremap >> <
+"---------------------------------------------------------------------- "Visual Mode
+runtime! .vim.d/brackets.vim
+runtime! .vim.d/editing.vim
 
 "--------------------------------------------------- PHP settings (note ":help" in vim)
 let php_sql_query = 1                            " PHP settings
@@ -364,45 +362,40 @@ nnoremap ,= vap=vapvv
 "------------------------------------------------------------------ Plug-ins
 
 " Plug-in installation
-so ${HOME}/dotfiles/.vim/vimrc_includs/plugins.vim
-"so ${HOME}/dotfiles/.vim/vimrc_includs/plugins_dirs.vim
-"so ${HOME}/dotfiles/.vim/vimrc_includs/plugins_completion.vim
-"so ${HOME}/dotfiles/.vim/vimrc_includs/plugins_others.vim
-"so ${HOME}/dotfiles/.vim/vimrc_includs/plugins_ref.vim
+so ${HOME}/dotfiles/.vim/.vim.d/plugins/plugins.vim
 
 " directory browser
-so ${HOME}/dotfiles/.vim/vimrc_includs/unite.vim
-"so ${HOME}/dotfiles/.vim/vimrc_includs/nerdtree.vim
-"so ${HOME}/dotfiles/.vim/vimrc_includs/tagbar.vim
-"so ${HOME}/dotfiles/.vim/vimrc_includs/taglist.vim
-"so ${HOME}/dotfiles/.vim/vimrc_includs/srcexplorer.vim
-so ${HOME}/dotfiles/.vim/vimrc_includs/fzf.vim
+so ${HOME}/dotfiles/.vim/.vim.d/plugins/unite.vim
+"so ${HOME}/dotfiles/.vim/.vim.d/plugins/nerdtree.vim
+"so ${HOME}/dotfiles/.vim/.vim.d/plugins/tagbar.vim
+"so ${HOME}/dotfiles/.vim/.vim.d/plugins/taglist.vim
+"so ${HOME}/dotfiles/.vim/.vim.d/plugins/srcexplorer.vim
+so ${HOME}/dotfiles/.vim/.vim.d/plugins/fzf.vim
 
 " moving cursor
-"so ${HOME}/dotfiles/.vim/vimrc_includs/vim-easymotion.vim
+"so ${HOME}/dotfiles/.vim/.vim.d/plugins/vim-easymotion.vim
 
 " completion
-"so ${HOME}/dotfiles/.vim/vimrc_includs/neocomplete.vim
-"so ${HOME}/dotfiles/.vim/vimrc_includs/neocomplete-php.vim
-so ${HOME}/dotfiles/.vim/vimrc_includs/supertab.vim
+"so ${HOME}/dotfiles/.vim/.vim.d/plugins/neocomplete.vim
+"so ${HOME}/dotfiles/.vim/.vim.d/plugins/neocomplete-php.vim
+so ${HOME}/dotfiles/.vim/.vim.d/plugins/supertab.vim
 
 " snippets
-so ${HOME}/dotfiles/.vim/vimrc_includs/neosnippet.vim
-so ${HOME}/dotfiles/.vim/vimrc_includs/snipmate.vim
-so ${HOME}/dotfiles/.vim/vimrc_includs/vim-emmet.vim
+so ${HOME}/dotfiles/.vim/.vim.d/plugins/neosnippet.vim
+so ${HOME}/dotfiles/.vim/.vim.d/plugins/snipmate.vim
+so ${HOME}/dotfiles/.vim/.vim.d/plugins/vim-emmet.vim
 
 " input
-so ${HOME}/dotfiles/.vim/vimrc_includs/surround.vim
+so ${HOME}/dotfiles/.vim/.vim.d/plugins/surround.vim
 
 " reference
-"so ${HOME}/dotfiles/.vim/vimrc_includs/vim-ref.vim
-"so ${HOME}/dotfiles/.vim/vimrc_includs/dash.vim
+"so ${HOME}/dotfiles/.vim/.vim.d/plugins/vim-ref.vim
+"so ${HOME}/dotfiles/.vim/.vim.d/plugins/dash.vim
 
 " utilities
-so ${HOME}/dotfiles/.vim/vimrc_includs/ag.vim
-"so ${HOME}/dotfiles/.vim/vimrc_includs/quickrun.vim
-"so ${HOME}/dotfiles/.vim/vimrc_includs/qfixhome.vim
-"so ${HOME}/dotfiles/.vim/vimrc_includs/vdebug.vim
+"so ${HOME}/dotfiles/.vim/.vim.d/plugins/quickrun.vim
+"so ${HOME}/dotfiles/.vim/.vim.d/plugins/qfixhome.vim
+"so ${HOME}/dotfiles/.vim/.vim.d/plugins/vdebug.vim
 
 "------------------------------------------------------------------ PHP
 " dictionary
@@ -411,11 +404,11 @@ autocmd FileType php,ctp :set dictionary=~/.vim/dict/php.dict
 autocmd FileType php,ctp :set complete+=k/~/.vim/dict/php.dict
 
 " tools
-autocmd BufNewFile,BufRead *.php so ${HOME}/dotfiles/.vim/vimrc_includs/php.vim
-autocmd BufNewFile,BufRead *.php so ${HOME}/dotfiles/.vim/vimrc_includs/vim-php-namespace.vim
-autocmd BufNewFile,BufRead *.php so ${HOME}/dotfiles/.vim/vimrc_includs/php-getter-setter.vim
-autocmd BufNewFile,BufRead *.php so ${HOME}/dotfiles/.vim/vimrc_includs/vim-php-cs-fixer.vim
-autocmd BufNewFile,BufRead *.php so ${HOME}/dotfiles/.vim/vimrc_includs/pdv-phpdocumentor-for-vim.vim
+autocmd BufNewFile,BufRead *.php so ${HOME}/dotfiles/.vim/.vim.d/plugins/php.vim
+autocmd BufNewFile,BufRead *.php so ${HOME}/dotfiles/.vim/.vim.d/plugins/vim-php-namespace.vim
+autocmd BufNewFile,BufRead *.php so ${HOME}/dotfiles/.vim/.vim.d/plugins/php-getter-setter.vim
+autocmd BufNewFile,BufRead *.php so ${HOME}/dotfiles/.vim/.vim.d/plugins/vim-php-cs-fixer.vim
+autocmd BufNewFile,BufRead *.php so ${HOME}/dotfiles/.vim/.vim.d/plugins/pdv-phpdocumentor-for-vim.vim
 
 "------------------------------------------------------------------ Javascript
 " load ESLint

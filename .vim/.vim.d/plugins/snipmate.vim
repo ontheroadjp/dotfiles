@@ -1,5 +1,6 @@
 " open files
-nmap <Leader>es :e ~/.vim/snippets/
+nmap <Leader>sni :e ~/dotfiles/.vim/snippets
+runtime! .vim.d/snippets/*.snippets
 
 " for SnipMate
 let g:snipMate = get(g:, 'snipMate', {}) " Allow for vimrc re-sourcing
