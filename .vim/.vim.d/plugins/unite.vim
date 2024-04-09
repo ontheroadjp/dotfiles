@@ -19,6 +19,14 @@ au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
 au FileType unite nnoremap <silent> <buffer> jj :q<CR>
 au FileType unite inoremap <silent> <buffer> jj <ESC>:q<CR>
 
+" "jk" to close
+au FileType unite nnoremap <silent> <buffer> jk :q<CR>
+au FileType unite inoremap <silent> <buffer> jk <ESC>:q<CR>
+
+" "kj" to close
+au FileType unite nnoremap <silent> <buffer> kj :q<CR>
+au FileType unite inoremap <silent> <buffer> kj <ESC>:q<CR>
+
 " twice "," to close
 au FileType unite nnoremap <silent> <buffer> ,, :q<CR>
 au FileType unite inoremap <silent> <buffer> ,, <ESC>:q<CR>
@@ -38,16 +46,16 @@ nnoremap    [unite]   <Nop>
 nmap    ,f [unite]
 
 " unite.vim keymap
-"nnoremap <silent> [unite]f :<C-u>Unite<Space>file_rec<CR>
 "nnoremap <silent> <c-p> :<C-u>Unite<Space>file_rec<CR>
 
 nnoremap <silent> [unite]r :<C-u>Unite<Space>file_mru<CR>
+nnoremap <silent> [unite]f :<C-u>Unite<Space>file<CR>
 "nnoremap <silent> <c-e> :<C-u>Unite<Space>file_mru<CR>
 
 "nnoremap [unite]u  :<C-u>Unite -no-split<Space>
-"nnoremap <silent> [unite]c :<C-u>Unite<Space>file<CR>
 "nnoremap <silent> [unite]g :<C-u>Unite<Space>grep:. -buffer-name=search-buffer<CR>
 "nnoremap <silent> [unite]cg :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
+"nnoremap <silent> [unite]c :<C-u>Unite<Space>file_rec<CR>
 "nnoremap <silent> [unite]b :<C-u>Unite<Space>buffer<CR>
 "nnoremap <silent> [unite]m :<C-u>Unite<Space>bookmark<CR>
 "nnoremap <silent> [unite]a :<C-u>UniteBookmarkAdd<CR>
