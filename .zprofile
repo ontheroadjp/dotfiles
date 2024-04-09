@@ -1,10 +1,11 @@
 #-------------------------------------------------
 # Variables
 #-------------------------------------------------
+#export LANG=ja_JP.UTF-8
 export EDITOR=vim
 export TERM=xterm
-#export LANG=ja_JP.UTF-8
-export PATH=.:${DOTPATH}/bin:${PATH}
+#export PATH=.:${DOTPATH}/bin:${PATH}
+export PATH=${DOTPATH}/bin:${PATH}
 export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:${PATH}
 export PATH=${HOME}/.nodebrew/current/bin:${PATH}
 export DOTPATH=${HOME}/dotfiles
@@ -13,10 +14,7 @@ autoload -Uz colors && colors   # use color
 #-------------------------------------------------
 # Functions
 #-------------------------------------------------
-function _is_exist() {
-    type $@ > /dev/null 2>&1
-}
-
+function _is_exist() { type $@ > /dev/null 2>&1 }
 function _red() { xargs -I{} echo $'\e[31m{}\e[m' }
 function _yellow() { xargs -I{} echo $'\e[33m{}\e[m' }
 function _green() { xargs -I{} echo $'\e[32m{}\e[m' }
@@ -244,6 +242,9 @@ zsh-defer source ${DOTPATH}/.zsh.d/shell-tools.zsh
 #-------------------------------------------------
 export RIPGREP_CONFIG_PATH="${DOTPATH}/.config/ripgrep/.ripgreprc"
 alias exif="exiftool $@"
+[ -e "${DOTPATH}/tools/stock-jp/data/stock.csv" ] && {
+    alias stock='sh ${DOTPATH}/tools/stock-jp/stock-jp.sh'
+}
 
 #-------------------------------------------------
 # Utilities
