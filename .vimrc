@@ -107,6 +107,8 @@ function! s:force_blockwise_visual(next_key)
     endif
 endfunction
 
+nnoremap <C-\> "zyyI# <esc>"zp
+
 "--------------------------------------------------------------- Buff file/Swap file
 "set backup                                      " enable swap file
 "set backupdir=~/.vim/backup                     " set backup file directory
@@ -128,8 +130,9 @@ endif
 nnoremap <C-S><C-S> :set filetype=bash<CR>
 nnoremap ,ft :set filetype?<CR>
 nnoremap ,fp :echo expand("%:p")<CR>
+"nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
 nnoremap ,fe :set enc?<CR>
-nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
+nnoremap ,pwd :cd %:p:h<CR>:pwd<CR>
 nnoremap ,ww :cd ~/WORKSPACE<CR>:pwd<CR>
 nnoremap ,dd :pwd<CR>
 nnoremap ,, ,
@@ -152,8 +155,8 @@ autocmd BufNewFile,BufRead *.{py} set filetype=python
 
 "--------------------------------------------------------------- Buffer
 "nnoremap <silent> bl :buffers<CR>
-nnoremap <silent> [b :bprevious<CR>
-nnoremap <silent> ]b :bnext<CR>
+"nnoremap <silent> [b :bprevious<CR>
+"nnoremap <silent> ]b :bnext<CR>
 "nnoremap <silent> [B :bfirst<CR>
 "nnoremap <silent> ]B :blast<CR>
 
@@ -164,7 +167,6 @@ let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
 
 "--------------------------------------------------------------- Search
 set hlsearch                    " highlight search word
-"nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
 "set ignorecase                 " search regardress capital note or small note if search word is small note (noignorecase)
 set smartcase                  " if capital note in search words, it doesn't regardress capital note or small note (nosmartcase)
 set incsearch                  " to enable incremental search
@@ -174,11 +176,14 @@ set incsearch                  " to enable incremental search
 " highlight a word under the cursor
 nnoremap <silent> <Space><Space> "zyiw:let @/ = '\<' . @z . '\>'<CR>:set hlsearch<CR>
 
-"================================================================== Key bindings
+"============================================================ Basic Key bindings
 " <Leader> = \ (default)
 
 " JJ as <esc>
-inoremap <silent> jj <esc>
+"inoremap <silent> jj <esc><esc>
+inoremap <silent> jk <esc><esc>
+inoremap <silent> kj <esc><esc>
+vnoremap <ESC> <C-c>
 
 " change insert-normal mode
 inoremap <C-n> <C-o>
@@ -188,9 +193,6 @@ inoremap <C-n> <C-o>
 
 " changing <Leader>
 "let mapleader = "\<Space>"
-
-"" Go into visual mode
-"nnoremap ,, <C-v>
 
 " Redo
 nnoremap <S-u> <C-r>
@@ -218,12 +220,12 @@ nnoremap 00 :<C-u>call append(expand('.'), '')<CR>j
 nnoremap 0i :<C-u>call append(expand('.'), '')<CR>o
 
 " add a blank line under the cursor line
-imap <C-CR> <End><CR>
 nnoremap <C-CR> mzo<ESC>`z
+inoremap <C-CR> <End><CR>
 
-" add a blank line over the cursor line
-imap <C-S-CR> <Home><CR><Up>
+" add a blank line above the cursor line
 nnoremap <C-S-CR> mzO<ESC>`z
+inoremap <C-S-CR> <Home><CR><Up>
 
 " These are setted in iTerm2 preferences at profile->keys
 " They are important for pressing Ctrl + Shift key-bindings
@@ -243,50 +245,28 @@ vnoremap <C-S-Up> "zx<Up>"zP`[V`]
 vnoremap <C-S-Down> "zx"zp`[V`]
 
 "--------------------------------------------------------------- Scroll
-"nnoremap <C-k> zzHzz
-"nnoremap <C-j> zzLzz
 nnoremap <C-k> Hzz
 nnoremap <C-j> Lzz
 
 "--------------------------------------------------------------- Jump to
 " motion prefix ` to <space>
 nnoremap <Space> `
-
-" Jump list (reverse)
-nnoremap <Space>o <C-o>zz
-
-" Jump list (forword)
-nnoremap <Space>i <C-i>zz
-
-"Jump to definition source
-"nnoremap <Space>@ g<C-]>
-
-" Jump to brackets to be paired
-nnoremap <Space>[ %
-nnoremap <Space>] %
-
-" Jump to top/middle/bottom line
-"nnoremap <S-k> H
-"nnoremap <S-m> M
-"nnoremap <S-j> L " the same as default(connect line)
+nnoremap <Space>o <C-o>zz                   " Jump list (reverse)
+nnoremap <Space>i <C-i>zz                   " Jump list (forword)
 
 " Jump to begining of the line
 nnoremap <C-h> ^
-vnoremap <C-h> 100^
+vnoremap <C-h> ^o
 
 " Jump to end of the line
 nnoremap <C-l> $
-vnoremap <C-l> $
+vnoremap <C-l> $<left>
 
 "" Jump to paragraph (reverse)
-"nnoremap <S-k> {
-"vnoremap <S-k> {
-
-"" Jump to paragraph (forword)
-"nnoremap <S-j> }
-"vnoremap <S-j> }
-" list all of them if multiple candidate of the distination when it tags jump
-"nnoremap <C-]> g<C-]>
+nnoremap { {<down>
+nnoremap } }<up>$
+vnoremap { {<down>o
+vnoremap } }<up>$
 
 "------------------------------------------------------------------------ folding
 set foldmethod=indent    "Folding range
@@ -310,12 +290,6 @@ set fillchars=fold:.
 "nnoremap <C-> zM " close
 "nnoremap <C-k> zR " open
 nnoremap <C-i> zA
-
-" Move
-"nnoremap <C-k> 10k " move to up 10 lines
-"nnoremap <C-j> 10j " move to down 10 lines
-"nnoremap <C-k> zk " move to upper fold
-"nnoremap <C-j> zj " move to down fold
 
 "------------------------------------------------------------------------ yank & put
 nnoremap p gp
@@ -363,12 +337,7 @@ nnoremap \\ :rightbelow vsp<CR>         " virtical split
 "nnoremap <silent> t] :tabmove +<CR>     " move tab to right
 "nnoremap <silent> t[ :tabmove -<CR>     " move tab to left
 
-"------------------------------------------------------------------------
-"brackets
-"inoremap {<Enter> {}<Left><CR><ESC><S-o>
-"inoremap [<Enter> []<Left><CR><ESC><S-o>
-"inoremap (<Enter> ()<Left><CR><ESC><S-o>
-"inoremap ({<Enter> ({})<Left><Left><CR><ESC><S-o>
+"----------------------------------------------------------------------  brackets
 inoremap { {}<LEFT>
 inoremap [ []<LEFT>
 inoremap ( ()<LEFT>
@@ -376,12 +345,11 @@ inoremap < <><LEFT>
 inoremap " ""<LEFT>
 inoremap ' ''<LEFT>
 
-inoremap <C-{> {<LEFT>
-inoremap <C-[> []<LEFT>
-inoremap <C-(> ()<LEFT>
-inoremap <C-<> <><LEFT>
-inoremap <C-"> ""<LEFT>
-inoremap <C-'> ''<LEFT>
+" single open
+inoremap }} {
+inoremap ]] [
+inoremap )) (
+inoremap >> <
 
 "--------------------------------------------------- PHP settings (note ":help" in vim)
 let php_sql_query = 1                            " PHP settings

@@ -4,9 +4,6 @@
 *.zwc
 bk_*
 
-tools/
-plugins/
-
 .atom/packages/
 .atom/storage/
 .atom/compile-cache/
