@@ -2,9 +2,9 @@
 " vim status-line
 "--------------------------------------------------------------------------------
 " color
-au InsertEnter * hi StatusLine guifg=Blue guibg=DarkYellow gui=none ctermfg=Red ctermbg=Black cterm=none
-au InsertLeave * hi StatusLine guifg=Blue guibg=DarkGray gui=none ctermfg=Blue ctermbg=Black  cterm=none
-au VimEnter * hi StatusLineNC guifg=Blue guibg=DarkYellow gui=none ctermfg=Green ctermbg=Black cterm=none
+au InsertEnter * hi StatusLine guifg=Blue guibg=DarkYellow gui=none ctermfg=Red ctermbg=Blue cterm=none
+au InsertLeave * hi StatusLine guifg=Blue guibg=DarkGray gui=none ctermfg=Blue ctermbg=Blue  cterm=none
+au VimEnter * hi StatusLineNC guifg=Blue guibg=DarkYellow gui=none ctermfg=Green ctermbg=Blue cterm=none
 
 " format (light weight)
 set statusline=%{fugitive#statusline()}    " show git branch name
@@ -17,7 +17,7 @@ set statusline+=%=                         " below settings is shown on right si
 set statusline+=[%{&fileencoding}]         " file encoding
 set statusline+=[%l/%L]                    " current row number/total row number
 
-" format (rich)
+"" format (rich)
 "set statusline=%<     " line break point when line is too long
 "set statusline+=[%n]  " buffer number
 "set statusline+=%m    " %m editing flag

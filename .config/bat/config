@@ -2,4 +2,8 @@
 #--theme="Sublime Snazzy"
 #--theme="TwoDark"
 #--theme="Solarized (light)"
---theme="Monokai Extended Light"
+# --theme="Monokai Extended Light"
+--theme="Visual Studio Dark+"
+--pager="less -RF"
+--tabs=4
+#--show-all
