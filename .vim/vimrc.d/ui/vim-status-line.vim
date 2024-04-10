@@ -2,9 +2,9 @@
 " vim status-line
 "--------------------------------------------------------------------------------
 " color
-au InsertEnter * hi StatusLine guifg=Blue guibg=DarkYellow gui=none ctermfg=Red ctermbg=Blue cterm=none
-au InsertLeave * hi StatusLine guifg=Blue guibg=DarkGray gui=none ctermfg=Blue ctermbg=Blue  cterm=none
-au VimEnter * hi StatusLineNC guifg=Blue guibg=DarkYellow gui=none ctermfg=Green ctermbg=Blue cterm=none
+au InsertEnter * hi StatusLine guifg=Blue guibg=DarkYellow gui=none ctermfg=Red ctermbg=blue cterm=none
+au InsertLeave * hi StatusLine guifg=Blue guibg=DarkGray gui=none ctermfg=Blue ctermbg=blue  cterm=none
+au VimEnter * hi StatusLineNC guifg=Blue guibg=DarkYellow gui=none ctermfg=Green ctermbg=blue cterm=none
 
 " format (light weight)
 set statusline=%{fugitive#statusline()}    " show git branch name

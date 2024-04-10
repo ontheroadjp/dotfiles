@@ -16,8 +16,11 @@ autoload -Uz colors && colors   # use color
 #-------------------------------------------------
 function _is_exist() { type $@ > /dev/null 2>&1 }
 function _red() { xargs -I{} echo $'\e[31m{}\e[m' }
-function _yellow() { xargs -I{} echo $'\e[33m{}\e[m' }
 function _green() { xargs -I{} echo $'\e[32m{}\e[m' }
+function _yellow() { xargs -I{} echo $'\e[33m{}\e[m' }
+function _blue() { xargs -I{} echo $'\e[34m{}\e[m' }
+function _pink() { xargs -I{} echo $'\e[35m{}\e[m' }
+function _cyan() { xargs -I{} echo $'\e[36m{}\e[m' }
 
 #-------------------------------------------------
 # OS common settings
@@ -276,3 +279,4 @@ alias me="glow ${MEMO_PATH}"
 #eval “$(pyenv init -)”
 
 echo 'Load .zprofile.'
+

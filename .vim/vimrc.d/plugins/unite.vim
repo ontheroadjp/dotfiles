@@ -48,7 +48,7 @@ nmap    ,f [unite]
 " unite.vim keymap
 "nnoremap <silent> <c-p> :<C-u>Unite<Space>file_rec<CR>
 
-nnoremap <silent> [unite]r :<C-u>Unite<Space>file_mru<CR>
+"nnoremap <silent> [unite]r :<C-u>Unite<Space>file_mru<CR>
 nnoremap <silent> [unite]f :<C-u>Unite<Space>file<CR>
 "nnoremap <silent> <c-e> :<C-u>Unite<Space>file_mru<CR>
 

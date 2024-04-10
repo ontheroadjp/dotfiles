@@ -105,8 +105,8 @@ eval "$(lazyenv.load _pyenv_init pyenv python pip)"
 zsh-defer unfunction source
 
 #_set_prompt
-echo "Load .zshrc."
 
+echo "Load .zshrc."
 # --------------------------------------------------------------------
 # $ for i in $(seq 1 10); do time zsh -i -c exit > /dev/null ; don
 # --------------------------------------------------------------------
@@ -116,3 +116,4 @@ echo "Load .zshrc."
 if (which zprof > /dev/null 2>&1) ;then
   zprof | less
 fi
+

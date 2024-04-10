@@ -9,6 +9,7 @@ export FZF_DEFAULT_OPTS="
     --color='fg:#D8DEE9,header:#616E88,info:#81A1C1,pointer:#81A1C1' \
     --color='marker:#81A1C1,fg+:#A9D889,prompt:#81A1C1,hl+:#81A1C1' \
 "
+# with preview window option
 #export FZF_DEFAULT_OPTS="
 #    -0 -1 --reverse --height=100% --pointer='@@' --prompt=': ' \
 #    --preview 'bat --color=always {1}' \
@@ -17,6 +18,26 @@ export FZF_DEFAULT_OPTS="
 #    --color='fg:#D8DEE9,header:#616E88,info:#81A1C1,pointer:#81A1C1' \
 #    --color='marker:#81A1C1,fg+:#A9D889,prompt:#81A1C1,hl+:#81A1C1' \
 #"
+
+# -------------------------------------------------
+# live rg
+# -------------------------------------------------
+# 1. Search for text in files using Ripgrep
+# 2. Interactively restart Ripgrep with reload action
+# 3. Open the file in Vim
+RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
+INITIAL_QUERY="${*:-}"
+function _liverg() {
+    fzf --ansi --disabled --query "${INITIAL_QUERY}" \
+        --bind "start:reload:${RG_PREFIX} {q}" \
+        --bind "change:reload:sleep 0.1; ${RG_PREFIX} {q} || true" \
+        --delimiter : \
+        --preview 'bat --color=always {1} --highlight-line {2}' \
+        --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
+        --bind 'enter:become(vim {1} +{2})'
+}
+alias liverg='_liverg'
+alias lrg='_liverg'
 
 # -------------------------------------------------
 # cd to mru

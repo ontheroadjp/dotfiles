@@ -1,6 +1,10 @@
+" vim-sunipmate load snippets files named *.snippets in runtimepath dir
+" so add my own snippets dir into runtimepath
+set runtimepath+=/.vim/snippets
+
 " open files
 nmap <Leader>sni :e ~/dotfiles/.vim/snippets
-runtime! .vim.d/snippets/*.snippets
+" runtime! vimrc.d/snippets/*.snippets
 
 " for SnipMate
 let g:snipMate = get(g:, 'snipMate', {}) " Allow for vimrc re-sourcing
