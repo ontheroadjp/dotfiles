@@ -26,4 +26,4 @@ ensure_zcompiled ~/.zprofile
 # --------------------------------------------------------------------
 source ~/dotfiles/plugins/zsh-defer/zsh-defer.plugin.zsh
 
-echo "Load .zshenv.."
+# echo "Load .zshenv.."
