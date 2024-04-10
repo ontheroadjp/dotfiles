@@ -242,9 +242,6 @@ zsh-defer source ${DOTPATH}/.zsh.d/shell-tools.zsh
 #-------------------------------------------------
 export RIPGREP_CONFIG_PATH="${DOTPATH}/.config/ripgrep/.ripgreprc"
 alias exif="exiftool $@"
-[ -e "${DOTPATH}/tools/stock-jp/data/stock.csv" ] && {
-    alias stock='sh ${DOTPATH}/tools/stock-jp/stock-jp.sh'
-}
 
 #-------------------------------------------------
 # Utilities

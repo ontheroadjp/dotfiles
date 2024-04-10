@@ -1,9 +1,7 @@
 # --------------------------------------------
 # Shell tools
 # --------------------------------------------
-echo 'foo'
 [ -e ${DOTPATH/tools/shell-tools} ] && {
-    echo 'hoge'
 #    SHELL_TOOLS_DIR="$(ghq root)/github.com/ontheroadjp/shell-tools"
     SHELL_TOOLS_DIR="${DOTPATH}/tools/shell-tools"
     export PATH=${DOTPATH}/bin:${PATH}
@@ -29,6 +27,10 @@ echo 'foo'
     source ${SHELL_TOOLS_DIR}/holiday-jp/holiday-jp.fnc
     # today.fnc must be loading after wareki, weather and worldtime loaded.
     source ${SHELL_TOOLS_DIR}/today/today.fnc
+
+    [ -e "${DOTPATH}/tools/stock-jp/data/stock.csv" ] && {
+        alias stock='sh ${DOTPATH}/tools/stock-jp/stock-jp.sh'
+    }
 
     # for Python scripts
     function _git_commit_msg() {
