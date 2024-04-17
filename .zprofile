@@ -4,7 +4,7 @@
 #export LANG=ja_JP.UTF-8
 export EDITOR=vim
 export TERM=xterm
-#export PATH=.:${DOTPATH}/bin:${PATH}
+# export PATH=.:${DOTPATH}/bin:${PATH}
 export PATH=${DOTPATH}/bin:${PATH}
 export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:${PATH}
 export PATH=${HOME}/.nodebrew/current/bin:${PATH}
@@ -32,11 +32,6 @@ alias dot='cd ${DOTPATH}'
 alias w='cd ${WORKSPACE}'
 alias init='exec $SHELL -l'
 #alias jj=$(:)
-
-#-------------------------------------------------
-# Networking
-#-------------------------------------------------
-source ${DOTPATH}/.zsh.d/networking.zsh
 
 #-------------------------------------------------
 # For MacOSX only
@@ -154,7 +149,7 @@ fi
 #-------------------------------------------------
 # tmux
 #-------------------------------------------------
-source ${HOME}/dotfiles/.zsh.d/tmux.zsh
+# source ${HOME}/dotfiles/.zsh.d/tmux.zsh
 
 #-------------------------------------------------
 # zsh
@@ -231,14 +226,22 @@ fi
 
 #-------------------------------------------------
 # Load Core
+# source zsh-defer in .zshenv
+# source lazy_load_env in .zshenv
 #-------------------------------------------------
-zsh-defer source ${DOTPATH}/.zsh.d/docker.zsh
-zsh-defer source ${DOTPATH}/.zsh.d/git.zsh
-zsh-defer source ${DOTPATH}/.zsh.d/peco.zsh
-zsh-defer source ${DOTPATH}/.zsh.d/fzf.zsh
-zsh-defer source ${DOTPATH}/.zsh.d/php.zsh
-zsh-defer source ${DOTPATH}/.zsh.d/vagrant.zsh
+source ${HOME}/dotfiles/.zsh.d/core/tmux.zsh
+zsh-defer source ${DOTPATH}/.zsh.d/core/docker.zsh
+zsh-defer source ${DOTPATH}/.zsh.d/core/git.zsh
+zsh-defer source ${DOTPATH}/.zsh.d/core/peco.zsh
+zsh-defer source ${DOTPATH}/.zsh.d/core/fzf.zsh
+# zsh-defer source ${DOTPATH}/.zsh.d/core/php.zsh
+# zsh-defer source ${DOTPATH}/.zsh.d/core/vagrant.zsh
+
+zsh-defer source ${DOTPATH}/.zsh.d/networking.zsh
 zsh-defer source ${DOTPATH}/.zsh.d/shell-tools.zsh
+zsh-defer source ${DOTPATH}/plugins/dirmarks/dirmarks.fnc
+
+export DIRMARKS_ROOT=${DOTPATH}/.dirmarks
 
 #-------------------------------------------------
 # Tools

@@ -90,7 +90,6 @@ alias noprompt='_noprompt'
 # ------------------------------------------
 # pyenv
 # ------------------------------------------
-source ${HOME}/dotfiles/.zsh.d/lazy_load_env.sh
 _pyenv_init() {
     export PYENV_ROOT=/usr/local/var/pyenv
     export PATH=”$PYENV_ROOT/shims:$PATH”
