@@ -12,17 +12,7 @@ autocmd ColorScheme * highlight LineNr ctermbg=none
 "-------------------------
 " Color schema
 "-------------------------
-" colorscheme Tomorrow-Night-Eighties            " soft colors
-" colorscheme desert
-" colorscheme koehler
-" colorscheme solarized
-" colorscheme base16-eighties
 colorscheme base16-ocean
-" colorscheme hybrid                             " black background
-" colorscheme lucius                             " soft colors
-" colorscheme iceberg
-" colorscheme simple-dark
-" colorscheme dogrun
 
 "-------------------------
 " Extra
