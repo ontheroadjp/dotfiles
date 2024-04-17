@@ -26,4 +26,10 @@ ensure_zcompiled ~/.zprofile
 # --------------------------------------------------------------------
 source ~/dotfiles/plugins/zsh-defer/zsh-defer.plugin.zsh
 
+# --------------------------------------------------------------------
+# lazy_load_env
+# --------------------------------------------------------------------
+source ${HOME}/dotfiles/.zsh.d/lazy_load_env.sh
+
 # echo "Load .zshenv.."
+

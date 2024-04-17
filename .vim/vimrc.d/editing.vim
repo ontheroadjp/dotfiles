@@ -26,14 +26,6 @@ nnoremap 00 :<C-u>call append(expand('.'), '')<CR>j
 " insert two brank line and to be inline mode
 nnoremap 0i :<C-u>call append(expand('.'), '')<CR>o
 
-" add a blank line under the cursor line
-nnoremap <C-CR> mzo<ESC>`z
-inoremap <C-CR> <End><CR>
-
-" add a blank line above the cursor line
-nnoremap <C-S-CR> mzO<ESC>`z
-inoremap <C-S-CR> <Home><CR><Up>
-
 " These are setted in iTerm2 preferences at profile->keys
 " They are important for pressing Ctrl + Shift key-bindings
 " vim couldn't catch Ctrl + Shift same time
@@ -43,11 +35,19 @@ imap ✠ <C-CR>
 map ✢ <C-S-CR>
 imap ✢ <C-S-CR>
 
-" Move a line under the cursor
-nnoremap <C-S-Up> "zdd<Up>"zP
-noremap <C-S-Down> "zdd"zp
+" add a blank line under the cursor line
+nnoremap <C-CR> mzo<ESC>`z
+inoremap <C-CR> <End><CR>
 
-" Move lines under the cursor
-vnoremap <C-S-Up> "zx<Up>"zP`[V`]
-vnoremap <C-S-Down> "zx"zp`[V`]
+" add a blank line above the cursor line
+nnoremap <C-S-CR> mzO<ESC>`z
+inoremap <C-S-CR> <Home><CR><Up>
+
+" Move Single line under the cursor
+" nnoremap <C-S-Up> "zdd<Up>"zP
+" noremap <C-S-Down> "zdd"zp
+"
+" Move Multi lines under the cursor
+" vnoremap <C-S-Up> "zx<Up>"zP`[V`]
+" vnoremap <C-S-Down> "zx"zp`[V`]
 
