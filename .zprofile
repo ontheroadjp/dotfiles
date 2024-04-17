@@ -4,7 +4,6 @@
 #export LANG=ja_JP.UTF-8
 export EDITOR=vim
 export TERM=xterm
-#export PATH=.:${DOTPATH}/bin:${PATH}
 export PATH=${DOTPATH}/bin:${PATH}
 export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:${PATH}
 export PATH=${HOME}/.nodebrew/current/bin:${PATH}
@@ -16,8 +15,11 @@ autoload -Uz colors && colors   # use color
 #-------------------------------------------------
 function _is_exist() { type $@ > /dev/null 2>&1 }
 function _red() { xargs -I{} echo $'\e[31m{}\e[m' }
-function _yellow() { xargs -I{} echo $'\e[33m{}\e[m' }
 function _green() { xargs -I{} echo $'\e[32m{}\e[m' }
+function _yellow() { xargs -I{} echo $'\e[33m{}\e[m' }
+function _blue() { xargs -I{} echo $'\e[34m{}\e[m' }
+function _pink() { xargs -I{} echo $'\e[35m{}\e[m' }
+function _cyan() { xargs -I{} echo $'\e[36m{}\e[m' }
 
 #-------------------------------------------------
 # OS common settings
@@ -28,7 +30,6 @@ alias h='cd ~'
 alias dot='cd ${DOTPATH}'
 alias w='cd ${WORKSPACE}'
 alias init='exec $SHELL -l'
-#alias jj=$(:)
 
 #-------------------------------------------------
 # Networking
@@ -65,17 +66,8 @@ if [ $(uname) = "Darwin" ]; then
     # Editor
     alias cot="open -a /Applications/CotEditor.app" # CotEditor
     alias md="open -a /Applications/MarkText.app"     # Typora
-    #alias md="open -a /Applications/Typora.app"     # Typora
-    #alias md="open -a /Applications/MacDown.app"   # MacDown
-    #alias md="open -a /Applications/Bear.app"      # Bear
-
-    # Ruby
-    #RBENV_ROOT="$HOME/.rbenv"
-    #export PATH="${RBENV_ROOT}/bin:${PATH}"
-    #eval "$(rbenv init -)"
 
     # ctag
-    # changing the BSD version to the version installed by Homebrew
     alias ctags="`brew --prefix`/bin/ctags"
 
     # open finder
@@ -96,18 +88,6 @@ if [ $(uname) = "Darwin" ]; then
     # sleep
     alias sleepon='sudo pmset -a disablesleep 0'
     alias sleepoff='sudo pmset -a disablesleep 1'
-
-#    # Cache
-#    function _cacheclean() {
-#        # Homebrew
-#        if [ -d ${HOME}/Library/Caches/Homebrew ]; then
-#            brew cleanup -s
-#        fi
-#    }
-
-    ## display dot files on Finder
-    #defaults write com.apple.finder AppleShowAllFiles TRUE && killall Finder
-    #defaults write com.apple.finder AppleShowAllFiles FALSE && killall Finder
 
     # kill notifyd process
     function kill-notifyd-process() {
@@ -189,7 +169,6 @@ alias lad='la -ad */'
 
 function _cdla() {
     [ $# -eq 0 ] && place=${HOME} || place=$@
-#	pushd ${place} && clear && _print_la
 	pushd ${place} && _print_la
 }
 alias cd='_cdla'
@@ -203,13 +182,6 @@ alias .="pwd"
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
-#alias .....="cd ../../../.."
-#alias ......="cd ../../../../.."
-#alias .......="cd ../../../../../.."
-#alias ........="cd ../../../../../../.."
-#alias .........="cd ../../../../../../../.."
-#alias ..........="cd ../../../../../../../../.."
-#alias ...........="cd ../../../../../../../../../.."
 
 function mkdircd() {
     mkdir $@ && cd $_
@@ -221,7 +193,6 @@ alias mkcd='mkdircd'
 #-------------------------------------------------
 if _is_exist go; then
     export GOPATH="${HOME}/dev"
-    #export GOBIN="${GOPATH}/bin"
     export PATH="${PATH}:${GOPATH}/bin"
     mkdir -p ${GOPATH}
 fi
@@ -262,17 +233,5 @@ alias imgsize="_display_image_size"
 # memo
 alias me="glow ${MEMO_PATH}"
 
-# --------------------------------------------
-# GNU Core Utility
-# --------------------------------------------
-#PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
-
-# --------------------------------------------
-# pyenv !! -- this must be in .zshrc -- !!
-# --------------------------------------------
-#export PYENV_ROOT=”$HOME/.pyenv”
-#export PATH=”$PYENV_ROOT/bin:$PATH”
-##eval "$(pyenv init --path)"
-#eval “$(pyenv init -)”
-
 echo 'Load .zprofile.'
+
