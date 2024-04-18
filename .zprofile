@@ -1,7 +1,6 @@
 #-------------------------------------------------
 # Variables
 #-------------------------------------------------
-#export LANG=ja_JP.UTF-8
 export EDITOR=vim
 export TERM=xterm
 export DOTPATH=${HOME}/dotfiles
@@ -31,7 +30,6 @@ alias h='cd ${HOME}'
 alias dot='cd ${DOTPATH}'
 alias w='cd ${WORKSPACE}'
 alias init='exec $SHELL -l'
-#alias jj=$(:)
 
 #-------------------------------------------------
 # For MacOSX only
@@ -49,9 +47,6 @@ if [ $(uname) = "Darwin" ]; then
     # Editor
     alias cot="open -a /Applications/CotEditor.app" # CotEditor
     alias md="open -a /Applications/MarkText.app"     # Typora
-    #alias md="open -a /Applications/Typora.app"     # Typora
-    #alias md="open -a /Applications/MacDown.app"   # MacDown
-    #alias md="open -a /Applications/Bear.app"      # Bear
 
     # ctag
     # changing the BSD version to the version installed by Homebrew
@@ -76,18 +71,6 @@ if [ $(uname) = "Darwin" ]; then
     alias sleepon='sudo pmset -a disablesleep 0'
     alias sleepoff='sudo pmset -a disablesleep 1'
 
-#    # Cache
-#    function _cacheclean() {
-#        # Homebrew
-#        if [ -d ${HOME}/Library/Caches/Homebrew ]; then
-#            brew cleanup -s
-#        fi
-#    }
-
-    ## display dot files on Finder
-    #defaults write com.apple.finder AppleShowAllFiles TRUE && killall Finder
-    #defaults write com.apple.finder AppleShowAllFiles FALSE && killall Finder
-
     # kill notifyd process
     function kill-notifyd-process() {
     	process=$(ps ax | egrep "[0-9] /usr/sbin/notifyd" | awk '{print $1}')
@@ -97,15 +80,6 @@ if [ $(uname) = "Darwin" ]; then
     # show smtp(d) log
     alias smtplog='sudo log stream --predicater'\''(process == "smtpd") \
                             || (process == "smtp")'\'' --info'
-
-    # MarsEdit
-    # function searchMarsEditImage() {
-    #     imgDir=$(find "${HOME}/Library/Application Support/MarsEdit/UploadedFiles" -name ${1} -exec dirname {} \;)
-    #     [ -e ${imgDir} ] && {
-    #         finder ${imgDir}
-    #     } || { echo "${1} does not exitst." }
-    # }
-    # alias marsimage='searchMarsEditImage $@'
 
 #-------------------------------------------------
 # For Linux only
@@ -125,11 +99,6 @@ elif [ "$(expr substr $(uname -s) 1 10)" == 'MINGW32_NT' ]; then
 else
 	echo "Wellcome to $(uname -a) !"
 fi
-
-#-------------------------------------------------
-# tmux (move to under this file)
-#-------------------------------------------------
-# source ${HOME}/dotfiles/.zsh.d/tmux.zsh
 
 #-------------------------------------------------
 # zsh
@@ -155,19 +124,9 @@ setopt share_history
 #-------------------------------------------------
 if _is_exist go; then
     export GOPATH="${HOME}/dev"
-    #export GOBIN="${GOPATH}/bin"
     export PATH="${PATH}:${GOPATH}/bin"
     mkdir -p ${GOPATH}
 fi
-
-#-------------------------------------------------
-# Plugins (Core)
-# source zsh-defer in .zshenv
-# source ensure_zcompiled in .zshenv
-# source lazy_load_env in .zshenv
-#-------------------------------------------------
-# zsh-defer source ${DOTPATH}/plugins/dirmarks/dirmarks.fnc
-# export DIRMARKS_ROOT=${DOTPATH}/.dirmarks
 
 #-------------------------------------------------
 # Load Core
@@ -216,19 +175,6 @@ alias imgsize="_display_image_size"
 
 # memo
 alias me="glow ${MEMO_PATH}"
-
-# --------------------------------------------
-# GNU Core Utility
-# --------------------------------------------
-#PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
-
-# --------------------------------------------
-# pyenv !! -- this must be in .zshrc -- !!
-# --------------------------------------------
-#export PYENV_ROOT=”$HOME/.pyenv”
-#export PATH=”$PYENV_ROOT/bin:$PATH”
-##eval "$(pyenv init --path)"
-#eval “$(pyenv init -)”
 
 echo 'Load .zprofile.'
 
