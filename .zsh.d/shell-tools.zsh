@@ -2,19 +2,17 @@
 # Shell tools
 # --------------------------------------------
 [ -e ${DOTPATH/tools/shell-tools} ] && {
-#    SHELL_TOOLS_DIR="$(ghq root)/github.com/ontheroadjp/shell-tools"
     SHELL_TOOLS_DIR="${DOTPATH}/tools/shell-tools"
-    export PATH=${DOTPATH}/bin:${PATH}
 
-    export PATH=${PATH}:${DOTPATH}/tools/dammy
+    # export PATH=${PATH}:${DOTPATH}/tools/dammy
     #export PATH=${PATH}:${DOTPATH}/tools/fix-filename
     #export PYTHONPATH=${DOTPATH}/tools/fix-filename
-    alias fix='/Users/hideaki/dev/src/github.com/ontheroadjp/fix-filename/fix-filename.py'
+    alias fix='${HOME}/dev/src/github.com/ontheroadjp/fix-filename/fix-filename.py'
 
     source ${SHELL_TOOLS_DIR}/file-info/file-info.fnc
     source ${SHELL_TOOLS_DIR}/wifi-helth-check/wifi-helth-check.fnc
 
-    source ${SHELL_TOOLS_DIR}/dirmarks/dirmarks.fnc
+    # source ${SHELL_TOOLS_DIR}/dirmarks/dirmarks.fnc
     source ${SHELL_TOOLS_DIR}/shell-stash/shell-stash.fnc
     source ${SHELL_TOOLS_DIR}/backup/backup.fnc
     source ${SHELL_TOOLS_DIR}/quick-memo/quick-memo.fnc
