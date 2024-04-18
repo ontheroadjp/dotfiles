@@ -3,6 +3,7 @@
 .git
 *.zwc
 bk_*
+*.bk
 
 .atom/packages/
 .atom/storage/
