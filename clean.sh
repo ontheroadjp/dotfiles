@@ -6,7 +6,6 @@ files=(
     '.zshenv'
     '.zprofile'
     '.zshrc'
-    '.vimrc'
     '.zsh.d/core/cdla.zsh'
     '.zsh.d/core/docker.zsh'
     '.zsh.d/core/fzf.zsh'
@@ -20,13 +19,21 @@ files=(
     '.zsh.d/networking.zsh'
     '.zsh.d/shell-tools.zsh'
     '.tmux.conf'
-    '.tmux/.tmux.base.conf'
 )
+
+if [ -z ${DOTPATH} ]; then
+    echo "DOTPATH environment variable is unavailable."
+    exit 1
+else
+    cd ${DOTPATH}
+fi
 
 if $(git checkout -b clean > /dev/null 2>&1); then
     git checkout -b clean
+    echo "[create] clean branch."
 else
     git checkout clean
+    echo "[checkout] clean branch."
 fi
 
 count=1
@@ -38,6 +45,15 @@ for file in ${files[@]}; do
 done
 files=(
     '.vimrc'
+    '.vim/vimrc.d/editing.vim'
+    '.vim/vimrc.d/vim-plug-management.vim'
+    '.vim/vimrc.d/ui/color-schema.vim'
+    '.vim/vimrc.d/ui/vim-status-line.vim'
+    '.vim/vimrc.d/plugins/fzf.vim'
+    '.vim/vimrc.d/plugins/snipmate.vim'
+    '.vim/vimrc.d/plugins/supertab.vim'
+    '.vim/vimrc.d/plugins/vim-commentout.vim'
+    '.vim/vimrc.d/plugins/vim-emmet.vim'
 )
 for file in ${files[@]}; do
     mv ${file} ${file}.bk

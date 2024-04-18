@@ -1,9 +1,6 @@
 "---------------------------------------------------------------------------
-" settings for NERDTree
-" note: https://github.com/oouchida/vimrc/blob/master/vim_conf/nerd_tree.vim
+" NERDTree
 "---------------------------------------------------------------------------
-if ! empty(neobundle#get("nerdtree"))
-
 " Key-bindings: NERDTree open/close
 "nnoremap <silent><C-e> :NERDTreeToggle<CR>
 nnoremap ,e :NERDTreeToggle<CR>
@@ -31,7 +28,7 @@ let g:NERDTreeShowBookmarks=1
 let g:NERDTreeIgnore=['\.clean$', '\.swp$', '\.bak$', '\~$']
 
 " show hidden files
-" let NERDTreeShowHidden = 1
+let NERDTreeShowHidden = 1
 
 " close Tree window automatically when file is opened
 let g:NERDTreeQuitOnOpen=1
@@ -101,4 +98,3 @@ let g:NERDTreeMouseMode=3
 "古い形式である|と+と~の記号だけでツリー表示 - 初期値(1):グラフィカルに表示する
 "let g:NERDTreeDirArrows=0
 
-endif

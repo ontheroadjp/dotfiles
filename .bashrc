@@ -30,6 +30,30 @@ export PS1='[\[\033[32m\]\u@\h\[\033[32m\]($(date +%H:%M)): \[\033[34m\]\W\[\033
 # for examples
 
 
+# ------------------------ for Mac --------------------
+# function _set_full_prompt() {
+#     _load_git_prompt
+#    PS1='[%{$fg[green]%}%n@%m(%T)%{${reset_color}%} %{$fg[blue]%}%c%{${reset_color}%}'
+#    PS1=${PS1}'%{$fg[red]%}$(__git_ps1 " (%s)")%{${reset_color}%}]\$ '
+# #    RPROMPT='${memotxt} '"(%?)"
+# }
+# alias fullprompt='_set_full_prompt'
+#
+# function _set_prompt() {
+#     _load_git_prompt
+#    PS1='[%{$fg[green]%}%T%{${reset_color}%} %{$fg[blue]%}%c%{${reset_color}%}'
+#    PS1=${PS1}'%{$fg[red]%}$(__git_ps1 " (%s)")%{${reset_color}%}]\$ '
+#    # RPROMPT='${memotxt} '"(%?)"
+# }
+# alias normalprompt='_set_prompt'
+#
+# function _noprompt() {
+#    PS1="$ "
+# }
+# alias noprompt='_noprompt'
+
+# _set_prompt
+
 # ------------------------ for WSL (Windows) --------------------
 ## If not running interactively, don't do anything
 #case $- in

@@ -1,0 +1,53 @@
+#import = ["~/.config/alacritty/dracula.toml"]
+import = ["~/.config/alacritty/tokyo-night.toml"]
+
+#working_directory = "~"
+live_config_reload = true
+
+#[shell]
+#program = "/bin/zsh"
+#args = ["-l", "-c", "tmux attach || tmux"]
+
+[env]
+TERM = "xterm-256color"
+
+# ========================== FONT =========================
+[font]
+normal = { family = "Ricty Diminished", style = "Regular" }
+#normal = { family = "Cica-Regular", style = "Regular" }
+#normal = { family = "Hack Nerd Font Mono", style = "Regular" }
+bold = {style = "Regular"}
+size = 18.0
+
+offset = { x = 1, y = 12 }
+
+# ========================= WINDOW =========================
+[window]
+decorations = "buttonless"
+startup_mode = "SimpleFullscreen"
+padding = { x = 5, y = 0 }
+resize_increments = true
+# ========================== COLOR =========================
+[colors]
+draw_bold_text_with_bright_colors = true
+
+[colors.primary]
+foreground = "#CACFD8"
+#background = "#242C43"
+
+[colors.normal]
+red = "#F4ABB6"
+green = "#B7DE9B"
+blue = "#B9C9FF"
+
+[colors.cursor]
+text = "#282a36"
+cursor = "#f8f8f2"
+
+# ======================= Key bindings =======================
+[keyboard]
+bindings = [
+    { key = "F12", mods = "Control|Shift", action = "ToggleSimpleFullscreen" },
+    { key = "ArrowUp", mods = "Control", action = "IncreaseFontSize" },
+    { key = "ArrowDown", mods = "Control", action = "DecreaseFontSize" },
+]

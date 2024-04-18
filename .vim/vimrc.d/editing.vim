@@ -1,11 +1,4 @@
 " ---------------------------------------------------------
-" remove trailing whitespace when saved
-" ---------------------------------------------------------
-autocmd BufWritePre * :%s/\s\+$//ge
-
-" ---------------------------------------------------------
-" Bulk insertion at the beginning and end of a sentence with visual mode
-" ---------------------------------------------------------
 vnoremap <expr> I  <SID>force_blockwise_visual('I')
 vnoremap <expr> A  <SID>force_blockwise_visual('A')
 " Enable 'I' and 'A' in visual line mode
@@ -26,12 +19,15 @@ nnoremap 00 :<C-u>call append(expand('.'), '')<CR>j
 " insert two brank line and to be inline mode
 nnoremap 0i :<C-u>call append(expand('.'), '')<CR>o
 
+" Redo
+nnoremap <S-u> <C-r>
+
 " These are setted in iTerm2 preferences at profile->keys
 " They are important for pressing Ctrl + Shift key-bindings
 " vim couldn't catch Ctrl + Shift same time
 " So, iTerms send specific charactor when press Ctrl + Shift
-map ✠ <C-CR>
-imap ✠ <C-CR>
+map ✠ <c-cr>
+imap ✠ <c-cr>
 map ✢ <C-S-CR>
 imap ✢ <C-S-CR>
 
