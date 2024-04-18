@@ -1,11 +1,9 @@
-"map <F5> :wall!<CR>:!glow ~/memo<CR><CR>
-
-"================================================== Disable default plugins
+" ================================================== Disable default plugins
 " Fast Startup Settings!!
 " Disable TOhtml.
 let g:loaded_2html_plugin       = 1
 
-" Disable archive file open and browse.
+" Disable archive file open and brawse.
 let g:loaded_gzip               = 1
 let g:loaded_tar                = 1
 let g:loaded_tarPlugin          = 1
@@ -29,7 +27,7 @@ let g:loaded_getscriptPlugin    = 1
 " Disable other plugins
 let g:loaded_man                = 1
 let g:loaded_matchit            = 1
-let g:loaded_matchparen         = 1
+" let g:loaded_matchparen         = 1
 let g:loaded_shada_plugin       = 1
 let g:loaded_spellfile_plugin   = 1
 let g:loaded_tutor_mode_plugin  = 1
@@ -106,7 +104,6 @@ cnoremap <expr> %$ getcmdtype() == ':' ? expand('%:p/') : '%$'
 
 "=============================================================== Mode change
 " JJ, jk, kj  as <esc>
-"inoremap <silent> jj <esc>
 inoremap <silent> jk <esc>
 inoremap <silent> kj <esc>
 
@@ -200,7 +197,8 @@ call timer_start(20, function('s:lazy_load'))
 "------------------------------------------- By filetype (note ":help" in vim)
 autocmd BufNewFile,BufRead *.{html,htm,ejs*} set filetype=html
 autocmd BufNewFile,BufRead *.{vue} set filetype=javascript
-autocmd BufNewFile,BufRead *.{profile,fnc,bats} set filetype=sh
+autocmd BufNewFile,BufRead *.{sh,profile,fnc,bats} set filetype=bash
+autocmd BufNewFile,BufRead *.{zshrc,zprofile,zshenv} set filetype=zsh
 
 " File Template
 autocmd BufNewFile *.vue 0r $HOME/dotfiles/.vim/templates/vue.tpl

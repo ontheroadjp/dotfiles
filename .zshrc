@@ -40,28 +40,9 @@ setopt PROMPT_SUBST;
 source ~/dotfiles/bin/git-prompt.sh
 GIT_PS1_SHOWDIRTYSTATE=true         # unstaged (*) and staged (+)
 
-function _set_full_prompt() {
-    PS1='[%{$fg[green]%}%n@%m(%T)%{${reset_color}%} %{$fg[blue]%}%c%{${reset_color}%}'
-    PS1=${PS1}'%{$fg[red]%}$(__git_ps1 " (%s)")%{${reset_color}%}]\$ '
-}
-alias fullprompt='_set_full_prompt'
-
-function _set_prompt() {
-    PS1='[%{$fg[green]%}%T%{${reset_color}%} %{$fg[blue]%}%c%{${reset_color}%}'
-    PS1=${PS1}'%{$fg[red]%}$(__git_ps1 " (%s)")%{${reset_color}%}]\$ '
-    RPROMPT='${memotxt} '"(%?)"
-}
-alias normal='_set_prompt'
-
-function _noprompt() {
-    PS1="$ "
-}
-alias noprompt='_noprompt'
-
 # ------------------------------------------
 # pyenv
 # ------------------------------------------
-source ${HOME}/dotfiles/.zsh.d/lazy_load_env.sh
 _pyenv_init() {
     export PYENV_ROOT=/usr/local/var/pyenv
     export PATH=”$PYENV_ROOT/shims:$PATH”

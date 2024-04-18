@@ -8,6 +8,7 @@ Plug 'lambdalisue/mr.vim'
 Plug 'ervandew/supertab'
 Plug 'tpope/vim-surround'
 Plug 'mattn/emmet-vim', {'for': ['html', 'javascript', 'vue', 'ejs']}
+Plug 'ontheroadjp/dirmarks'
 Plug 'ontheroadjp/vim-commentout'
 Plug 'ontheroadjp/vim-brackets'
 call plug#end()
