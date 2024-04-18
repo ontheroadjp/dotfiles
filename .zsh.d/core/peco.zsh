@@ -1,21 +1,4 @@
 # -------------------------------------------------
-# cdr peco
-# -------------------------------------------------
-#function _peco-cdr () {
-##local selected_dir="$(cdr -l | sed 's/^[0-9]\+ \+//' | peco --prompt="recent dir (cdr) >" --query "$LBUFFER")"
-#    #local selected_dir="$(cdr -l | sed 's/^[0-9]\+ \+//' | awk '{print $2}' | peco --prompt="cdr >" --query "$LBUFFER")"
-#    local selected_dir="$(cdr -l | awk '{print $2}' | peco --prompt="recent dir (cdr) >" --query "$LBUFFER")"
-#    if [ -n "$selected_dir" ]; then
-#        echo $(${selected_dir} | cut -d ' ' -f5 -f6)
-#        BUFFER="cd $(echo ${selected_dir} | cut -d ' ' -f5 -f6)"
-#        zle accept-line
-#    fi
-#}
-#
-#zle -N _peco-cdr
-#bindkey '^E' _peco-cdr
-
-# -------------------------------------------------
 # cd to directory within WORKSPACE
 # -------------------------------------------------
 function _cd_to_workspace_peco() {
@@ -72,25 +55,6 @@ function _cd_by_dirspeco() {
 alias cdh='_cd_by_dirspeco'
 
 #-------------------------------------------------
-# command history
-#-------------------------------------------------
-
-# for zsh
-#function peco_history_selection_peco() {
-#    BUFFER=$(history -n 1 | \
-#        tac  | \
-#        awk '!a[$0]++' | \
-#        peco --prompt 'zsh Command History>'
-#    )
-#
-#    CURSOR=$#BUFFER
-#    zle reset-prompt
-#}
-#zle -N peco_history_selection_peco
-#bindkey '^H' peco_history_selection_peco
-
-
-#-------------------------------------------------
 # SSH
 #-------------------------------------------------
 function _connect_ssh() {
@@ -112,5 +76,5 @@ function _my_memo_peco() {
 }
 alias memop='_my_memo_peco'
 
-
 echo "Load peco settings."
+

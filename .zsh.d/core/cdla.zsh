@@ -13,7 +13,6 @@ alias la='_print_la'
 
 function _cdla() {
     [ $# -eq 0 ] && place=${HOME} || place=$@
-#	pushd ${place} && clear && _print_la
 	pushd ${place} && _print_la
 }
 alias cd='_cdla'
@@ -27,13 +26,6 @@ alias .="pwd"
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
-#alias .....="cd ../../../.."
-#alias ......="cd ../../../../.."
-#alias .......="cd ../../../../../.."
-#alias ........="cd ../../../../../../.."
-#alias .........="cd ../../../../../../../.."
-#alias ..........="cd ../../../../../../../../.."
-#alias ...........="cd ../../../../../../../../../.."
 
 function _copy_current_dir_path() {
     echo -n $(pwd) | pbcopy && echo 'copy: '$(pbpaste)
@@ -86,5 +78,4 @@ alias o='_dirmarks jump o'
 alias u='_dirmarks jump u'
 
 alias marks='_cd_to_dirmarks'
-
 
