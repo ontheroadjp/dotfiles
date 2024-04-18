@@ -22,14 +22,14 @@ ensure_zcompiled ~/.zshrc
 ensure_zcompiled ~/.zprofile
 
 # --------------------------------------------------------------------
-# zsh-defer
+# Load plugin - zsh-defer
 # --------------------------------------------------------------------
-source ~/dotfiles/plugins/zsh-defer/zsh-defer.plugin.zsh
+source ${HOME}/dotfiles/plugins/zsh-defer/zsh-defer.plugin.zsh
 
 # --------------------------------------------------------------------
-# lazy_load_env
+# Load plugin - lazy_load_env
 # --------------------------------------------------------------------
 source ${HOME}/dotfiles/.zsh.d/lazy_load_env.sh
 
-# echo "Load .zshenv.."
+echo "Load .zshenv.."
 
