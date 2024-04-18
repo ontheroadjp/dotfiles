@@ -26,7 +26,7 @@ export FZF_DEFAULT_OPTS="
 # 2. Interactively restart Ripgrep with reload action
 # 3. Open the file in Vim
 RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
-INITIAL_QUERY="${*:-}"
+# INITIAL_QUERY="${*:-}"
 function _liverg() {
     fzf --ansi --disabled --query "${INITIAL_QUERY}" \
         --bind "start:reload:${RG_PREFIX} {q}" \
@@ -38,6 +38,16 @@ function _liverg() {
 }
 alias liverg='_liverg'
 alias lrg='_liverg'
+
+# -------------------------------------------------
+# sub directory
+# -------------------------------------------------
+function _co_to_sub_directory() {
+    rg --files --hidden | fzf --ansi \
+        --delimiter : \
+        --bind 'enter:become(vim {1} +{2})'
+}
+alias sub='_co_to_sub_directory'
 
 # -------------------------------------------------
 # cd to mru
@@ -77,7 +87,7 @@ alias ,fr='_open_with_vim'
 # -------------------------------------------------
 # cd to WORKSPACE
 # -------------------------------------------------
-function _cd_to_workspace_fzf() {
+function _cd_to_workspace() {
     to=$(\
         find ${WORKSPACE} -type d -maxdepth 1 | \
         grep -v ^.$ | \
@@ -88,9 +98,9 @@ function _cd_to_workspace_fzf() {
     )
     [ ! -z ${to} ] && cd ${to}
 }
-alias ww='_cd_to_workspace_fzf'
-#zle -N _cd_to_workspace
-#bindkey '^W' _cd_to_workspace
+alias ww='_cd_to_workspace'
+# zle -N _cd_to_workspace
+# bindkey '^W' _cd_to_workspace
 
 #-------------------------------------------------
 # Command History
