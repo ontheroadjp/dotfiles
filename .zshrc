@@ -14,15 +14,12 @@ PROMPT_STYLE=1
 if [ ${PROMPT_STYLE} -ne 0 ]; then; _load_git_ps1; fi
 function __p() { PROMPT_STYLE=$1 }
 function zle-line-init zle-keymap-select {
-<<<<<<< HEAD
-=======
    # # Right side Prompt
    # RIGHT_VIM_NORMAL="%K{208}%F{black}(%k%f%K{208}%F{yellow}% NORMAL%k%f%K{black}%F{208})%k%f"
    # RIGHT_VIM_INSERT="%K{051}%F{051}(%k%f%K{051}%F{051}%F{blue}% INSERT%k%f%K{051}%F{051})%k%f"
    # RPS1="${${KEYMAP/vicmd/$RIGHT_VIM_NORMAL}/(main|viins)/$RIGHT_VIM_INSERT}"
    # RPS2=$RPS1
 
->>>>>>> dev
     # Left side Prompt
     case $PROMPT_STYLE in
         0) # (MINIMAL)
@@ -43,35 +40,18 @@ function zle-line-init zle-keymap-select {
         ;;
     esac
 
-<<<<<<< HEAD
-    # The behavior is the same for switch statements. However, one line is faster.
-    PS1="${${KEYMAP/vicmd/$LEFT_VIM_NORMAL $LEFT_GIT_STATUS_NORMAL}/(main|viins)/$LEFT_VIM_INSERT $LEFT_GIT_STATUS_INSERT}"
-=======
     case ${KEYMAP} in
         vicmd) PS1="${LEFT_VIM_NORMAL} ${LEFT_GIT_NORMAL}" ;;
         main|viins) PS1="${LEFT_VIM_INSERT} ${LEFT_GIT_INSERT}" ;;
     esac
->>>>>>> dev
     zle reset-prompt
 }
 zle -N zle-line-init
 zle -N zle-keymap-select
 
-<<<<<<< HEAD
-## jj to return normal mode
-bindkey -M viins 'jj' vi-cmd-mode
-
-# -----------------------------------
-# Display Git branch name
-# -----------------------------------
-setopt PROMPT_SUBST;
-source ~/dotfiles/bin/git-prompt.sh
-GIT_PS1_SHOWDIRTYSTATE=true         # unstaged (*) and staged (+)
-=======
 # kj to return normal mode
 bindkey -M viins 'kj' vi-cmd-mode
 bindkey -M viins 'jk' vi-cmd-mode
->>>>>>> dev
 
 # ------------------------------------------
 # pyenv
