@@ -1,7 +1,7 @@
 # --------------------------------------------------------------------
 # zsh analysis
 # --------------------------------------------------------------------
-#zmodload zsh/zprof && zprof
+# zmodload zsh/zprof && zprof
 
 # --------------------------------------------------------------------
 # zsh compile
@@ -31,5 +31,5 @@ source ${HOME}/dotfiles/plugins/zsh-defer/zsh-defer.plugin.zsh
 # --------------------------------------------------------------------
 source ${HOME}/dotfiles/.zsh.d/lazy_load_env.sh
 
-echo "Load .zshenv.."
+# echo "Load .zshenv.."
 

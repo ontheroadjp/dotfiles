@@ -349,7 +349,7 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^com\\.googlecode\\.iterm23",
+                                            "^com\\.googlecode\\.iterm2",
                                             "^org\\.alacritty"
                                         ],
                                         "type": "frontmost_application_if"
