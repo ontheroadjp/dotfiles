@@ -36,8 +36,6 @@ set statusline+=%r                         " show read only or not
 set statusline+=%h                         " show [HELP] if Help page
 set statusline+=%w                         " show [Preview] if Preview window
 
-<<<<<<< HEAD
-=======
 " <RIGHT SIDE>
 set statusline+=%=	                    " below settings is shown on right side
 set statusline+=[%c:%l/%L]	            " current row number/total row number
@@ -64,5 +62,3 @@ set statusline+=%y	                    " show file type in buffer
 "set statusline+=%V    " show column number of the monitor at a cursor
 "set statusline+=%P    " show cursor position as % of the file
 "set statusline+=%c    " show column number at a cursor
-
->>>>>>> dev

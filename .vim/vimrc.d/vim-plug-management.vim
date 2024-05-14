@@ -20,12 +20,6 @@ function! IsPlugged(name) abort
 endfunction
 
 call plug#begin()
-<<<<<<< HEAD
-Plug '/usr/local/opt/fzf'
-Plug 'lambdalisue/mr.vim'
-Plug 'ervandew/supertab'
-Plug 'tpope/vim-surround'
-=======
 " Core
 Plug 'Shougo/unite.vim', { 'on': [] }
 Plug 'Shougo/neomru.vim', { 'on': [] }
@@ -34,22 +28,8 @@ Plug 'preservim/nerdtree', { 'on': ['NERDTreeToggle'] }
 
 " Snippet
 Plug 'honza/vim-snippets', { 'on': [] }
->>>>>>> dev
 Plug 'mattn/emmet-vim', {'for': ['html', 'javascript', 'vue', 'ejs']}
 
-<<<<<<< HEAD
-" ----------------------------------------------------
-"  Load settings
-" ----------------------------------------------------
-so ${HOME}/dotfiles/.vim/vimrc.d/plugins/fzf.vim
-
-function s:lazy_load_plugs_settings(timer)
-    " completion
-    so ${HOME}/dotfiles/.vim/vimrc.d/plugins/supertab.vim
-
-    " snippets
-    so ${HOME}/dotfiles/.vim/vimrc.d/plugins/snipmate.vim
-=======
 " Editing
 Plug 'airblade/vim-gitgutter', { 'on': [] }
 Plug 'tpope/vim-surround', { 'on': [] }
@@ -124,14 +104,10 @@ function! plugin_env.lazy_load_plugs_settings(timer) abort
     so ${HOME}/dotfiles/.vim/vimrc.d/plugins/unite.vim
     so ${HOME}/dotfiles/.vim/vimrc.d/plugins/nerdtree.vim
     so ${HOME}/dotfiles/.vim/vimrc.d/plugins/vim-gitgutter.vim
->>>>>>> dev
     so ${HOME}/dotfiles/.vim/vimrc.d/plugins/vim-emmet.vim
     so ${HOME}/dotfiles/.vim/vimrc.d/plugins/surround.vim
     so ${HOME}/dotfiles/.vim/vimrc.d/plugins/indentLine.vim
     so ${HOME}/dotfiles/.vim/vimrc.d/plugins/vim-commentout.vim
-<<<<<<< HEAD
-
-=======
     if self.mode == 0
         so ${HOME}/dotfiles/.vim/vimrc.d/plugins/supertab.vim
         so ${HOME}/dotfiles/.vim/vimrc.d/plugins/snipmate.vim
@@ -158,7 +134,6 @@ function! plugin_env.lazy_load_plugs_settings(timer) abort
     " so ${HOME}/dotfiles/.vim/vimrc.d/plugins/quickrun.vim
     " so ${HOME}/dotfiles/.vim/vimrc.d/plugins/qfixhome.vim
     " so ${HOME}/dotfiles/.vim/vimrc.d/plugins/vdebug.vim
->>>>>>> dev
     augroup PHP
         autocmd!
         autocmd BufNewFile,BufRead *.php
