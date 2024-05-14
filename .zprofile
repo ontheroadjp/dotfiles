@@ -139,12 +139,8 @@ setopt share_history
 #-------------------------------------------------
 if _is_exist go; then
     export GOPATH="${HOME}/dev"
-<<<<<<< HEAD
-    export PATH="${PATH}:${GOPATH}/bin"
-=======
     #export GOBIN="${GOPATH}/bin"
     # export PATH="${PATH}:${GOPATH}/bin"
->>>>>>> dev
     mkdir -p ${GOPATH}
 fi
 
