@@ -27,12 +27,18 @@ let g:fzf_layout = { 'up': '60%' }
 let g:fzf_vim = {}
 let g:fzf_vim.preview_window = ['hidden,right,50%,<70(up,40%)', 'ctrl-/']
 
-" <C-]>でタグ検索
+"-----------------------------------------------
+" tag search
+"-----------------------------------------------
 nnoremap <silent> <C-]> :call fzf#vim#tags(expand('<cword>'))<CR>
+
+"-----------------------------------------------
+" file search
+"-----------------------------------------------
 nnoremap <silent> ,ff :Files<CR>
 
 "-----------------------------------------------
-" mru
+" mru search
 "-----------------------------------------------
 nnoremap <silent> ,fr :FZFMru<CR>
 " \ 'source':  v:oldfiles,
@@ -59,13 +65,11 @@ function! CdFind(dir)
 endfunction
 
 if executable('ghq')
-
 command! -bang -nargs=0 Ghq
     \ call fzf#run({
     \   'source': 'ghq list --full-path',
     \   'sink': function('CdFind')})
 endif
-
 
 "-----------------------------------------------
 " RG
@@ -76,5 +80,4 @@ if executable('rg')
         \   'rg --hidden --line-number --no-heading '.shellescape(<q-args>), 0,
         \   fzf#vim#with_preview({'options': '--exact --reverse --delimiter : --nth 3..'}))
 endif
-
 

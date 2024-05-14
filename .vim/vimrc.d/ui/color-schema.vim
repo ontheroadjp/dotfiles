@@ -29,8 +29,10 @@ augroup Visuals
     " Search highlight
     au VimEnter * hi Search guifg=Blue guibg=DarkGray gui=none ctermfg=White ctermbg=Blue cterm=none
     " Folding
-    au VimEnter * hi Folded guifg=Blue guibg=DarkGray gui=none ctermfg=Black ctermbg=Black cterm=none
-    set fillchars=fold:.
+    au VimEnter * hi Folded guifg=Blue guibg=DarkGray gui=none ctermfg=Blue ctermbg=Black cterm=none
+    au VimEnter * hi FoldColumn guifg=Blue guibg=DarkGray gui=none ctermfg=Blue ctermbg=Black cterm=none
+    " sign column
+    au VimEnter * hi SignColumn ctermfg=white guifg=black ctermbg=black guibg=black
     " Quickfix
     au QuickfixCmdPost * hi QuickFixLine ctermbg=Yellow guibg=Yellow
 augroup END

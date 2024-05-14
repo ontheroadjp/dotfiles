@@ -5,21 +5,33 @@ export EDITOR=vim
 export TERM=xterm
 export DOTPATH=${HOME}/dotfiles
 export WORKSPACE="${HOME}/WORKSPACE"
-export PATH=${DOTPATH}/bin:${PATH}
-export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:${PATH}
-export PATH=${HOME}/.nodebrew/current/bin:${PATH}
+# export PATH=${DOTPATH}/bin:${PATH}
+# export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:${PATH}
 autoload -Uz colors && colors   # use color
 
 #-------------------------------------------------
 # Functions
+# usage: echo 'piyo' | _red
 #-------------------------------------------------
 function _is_exist() { type $@ > /dev/null 2>&1 }
+
+function _black() { xargs -I{} echo $'\e[30m{}\e[m' }
 function _red() { xargs -I{} echo $'\e[31m{}\e[m' }
 function _green() { xargs -I{} echo $'\e[32m{}\e[m' }
 function _yellow() { xargs -I{} echo $'\e[33m{}\e[m' }
 function _blue() { xargs -I{} echo $'\e[34m{}\e[m' }
 function _pink() { xargs -I{} echo $'\e[35m{}\e[m' }
 function _cyan() { xargs -I{} echo $'\e[36m{}\e[m' }
+function _white() { xargs -I{} echo $'\e[37m{}\e[m' }
+
+function _black_fill() { xargs -I{} echo $'\e[40m{}\e[m' }
+function _red_fill() { xargs -I{} echo $'\e[41m{}\e[m' }
+function _green_fill() { xargs -I{} echo $'\e[42m{}\e[m' }
+function _yellow_fill() { xargs -I{} echo $'\e[43m{}\e[m' }
+function _blue_fill() { xargs -I{} echo $'\e[44m{}\e[m' }
+function _pink_fill() { xargs -I{} echo $'\e[45m{}\e[m' }
+function _cyan_fill() { xargs -I{} echo $'\e[46m{}\e[m' }
+function _white_fill() { xargs -I{} echo $'\e[47m{}\e[m' }
 
 #-------------------------------------------------
 # OS common settings
@@ -36,9 +48,9 @@ alias init='exec $SHELL -l'
 #-------------------------------------------------
 if [ $(uname) = "Darwin" ]; then
     # variables
-    export PATH="/usr/local/sbin:${PATH}"       # for Homebrew
-    export PATH="/usr/local/share:${PATH}"      # for Python
-    export PATH="${HOME}/dotfiles/mac_osx/HandBrakeCLI1.4.2/HandBrakeCLI:${PATH}"   # for HandBrakeCLI
+    # export PATH="/usr/local/sbin:${PATH}"       # for Homebrew
+    # export PATH="/usr/local/share:${PATH}"      # for Python
+    # export PATH="${HOME}/dotfiles/mac_osx/HandBrakeCLI1.4.2/HandBrakeCLI:${PATH}"   # for HandBrakeCLI
     export MEMO_PATH=${WORKSPACE}/Dropbox/Documents/NOTE/dev
 
     # Normal command replace
@@ -108,7 +120,10 @@ KEYTIMEOUT=0
 
 # complition
 autoload -Uz compinit
-compinit -u
+for dump in ~/.zcompdump(N.mh+24); do
+    compinit
+done
+compinit -C
 
 # history
 HISTFILE=${HOME}/.zsh-history
@@ -124,7 +139,12 @@ setopt share_history
 #-------------------------------------------------
 if _is_exist go; then
     export GOPATH="${HOME}/dev"
+<<<<<<< HEAD
     export PATH="${PATH}:${GOPATH}/bin"
+=======
+    #export GOBIN="${GOPATH}/bin"
+    # export PATH="${PATH}:${GOPATH}/bin"
+>>>>>>> dev
     mkdir -p ${GOPATH}
 fi
 
@@ -141,15 +161,18 @@ zsh-defer source ${DOTPATH}/.zsh.d/core/fzf.zsh
 #-------------------------------------------------
 # Load Dev
 #-------------------------------------------------
+# export PATH=${HOME}/.nodebrew/current/bin:${PATH}
 # zsh-defer source ${DOTPATH}/.zsh.d/dev/php.zsh
 # zsh-defer source ${DOTPATH}/.zsh.d/dev/ruby.zsh
 # zsh-defer source ${DOTPATH}/.zsh.d/dev/vagrant.zsh
+zsh-defer source ${DOTPATH}/.zsh.d/dev/python.zsh
 
 #-------------------------------------------------
 # Load others
 #-------------------------------------------------
 zsh-defer source ${DOTPATH}/.zsh.d/networking.zsh
-zsh-defer source ${DOTPATH}/.zsh.d/shell-tools.zsh
+# zsh-defer source ${DOTPATH}/.zsh.d/shell-tools.zsh
+zsh-defer source ${DOTPATH}/tools/shell-tools/shell-tools.sh
 
 #-------------------------------------------------
 # Tools

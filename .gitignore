@@ -3,6 +3,10 @@
 .git
 *.zwc
 bk_*
+*.bk
+clean/
+*.log
+tools/
 
 .atom/packages/
 .atom/storage/
@@ -20,13 +24,14 @@ backup.sh
 docker-dd/
 peco/
 
-.TrashBox.log
 .my_repository_list.txt
+.TrashBox.log
 .dirmarks/
 .stock_jp/
 .ShellStash
 .web_bookmark/
 .quick-memo/
+.yubin_bangou/
 
 # ----------------------------------
 # for vim by github template
