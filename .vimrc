@@ -243,8 +243,8 @@ set foldmethod=indent       "Folding range
 "set foldlevel=0            "Default level of folding when a file is opened
 " set foldcolumn=1            "Add an area to the left edge to show the folded state
 set fillchars=fold:.
-set fillchars=foldopen:@
-set fillchars=foldsep:.
+" set fillchars=foldopen:@
+" set fillchars=foldsep:.
 
 "" Region of cursor
 "" zO  -- Open all folds under the cursor recursively
