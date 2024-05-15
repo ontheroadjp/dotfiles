@@ -96,13 +96,13 @@ if [ $(uname) = "Darwin" ]; then
 #-------------------------------------------------
 # For Linux only
 #-------------------------------------------------
-elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
+elif [ "$(expr substr $(uname -s) 1 5)" = 'Linux' ]; then
 	echo 'Wellcome to Linux!'
 
 #-------------------------------------------------
 # For Windows (Cygwin) only
 #-------------------------------------------------
-elif [ "$(expr substr $(uname -s) 1 10)" == 'MINGW32_NT' ]; then
+elif [ "$(expr substr $(uname -s) 1 10)" = 'MINGW32_NT' ]; then
 	echo 'Wellcome to Cygwin!'
 
 #-------------------------------------------------
