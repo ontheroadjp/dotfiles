@@ -154,11 +154,6 @@ zsh-defer source ${DOTPATH}/.zsh.d/core/git.zsh
 zsh-defer source ${DOTPATH}/.zsh.d/core/peco.zsh
 zsh-defer source ${DOTPATH}/.zsh.d/core/fzf.zsh
 
-#source ${DOTPATH}/.zsh.d/core/cdla.zsh
-#source ${DOTPATH}/.zsh.d/core/docker.zsh
-#source ${DOTPATH}/.zsh.d/core/git.zsh
-#source ${DOTPATH}/.zsh.d/core/peco.zsh
-#source ${DOTPATH}/.zsh.d/core/fzf.zsh
 #-------------------------------------------------
 # Load Dev
 #-------------------------------------------------

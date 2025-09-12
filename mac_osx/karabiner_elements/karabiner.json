@@ -18,7 +18,55 @@
                 },
                 "rules": [
                     {
+<<<<<<< HEAD
                         "description": "vim: 日本語入力の っj を jj にマッピングする",
+=======
+                        "description": "iTerm2 & alacritty: (⌘ + k) でコピーモードトグル & FEP 英語へ",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.googlecode\\.iterm2",
+                                            "^org\\.alacritty"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    },
+                                    {
+                                        "input_sources": [
+                                            {
+                                                "language": "ja"
+                                            }
+                                        ],
+                                        "type": "input_source_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "k",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "japanese_eisuu"
+                                    },
+                                    {
+                                        "key_code": "k",
+                                        "modifiers": [
+                                            "left_control"
+                                        ]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "iTerm2 & alacritty: (⌘ + b) tmux prefix を押したときに FEP 英語へ",
+>>>>>>> e9207529 ([New] .zsh.d/dev/web.zsh for web development)
                         "manipulators": [
                             {
                                 "conditions": [
@@ -57,7 +105,16 @@
                                     }
                                 ],
                                 "type": "basic"
+<<<<<<< HEAD
                             },
+=======
+                            }
+                        ]
+                    },
+                    {
+                        "description": "iTerm2 & alacritty: (⌘ + o) でペイン移動 & FEP 英語へ",
+                        "manipulators": [
+>>>>>>> e9207529 ([New] .zsh.d/dev/web.zsh for web development)
                             {
                                 "conditions": [
                                     {
