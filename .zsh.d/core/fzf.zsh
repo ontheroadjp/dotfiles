@@ -70,8 +70,9 @@ bindkey '^E' _fzf-cdr
 # Open with vim
 # -------------------------------------------------
 function _open_with_vim() {
-    result=$(rg . --files -Timg --engine auto --glob=!{TEMP} \
+    result=$(rg . --hidden --files -Timg --engine auto --glob=!{TEMP} \
         | fzf-tmux \
+            --delimiter : \
             -p 90% \
             --preview 'bat --color=always {1}' \
             --preview-window=right:55%
