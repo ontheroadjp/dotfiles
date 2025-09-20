@@ -4,6 +4,24 @@
 # zmodload zsh/zprof && zprof
 
 # --------------------------------------------------------------------
+# built-in command
+# --------------------------------------------------------------------
+function pushd {
+    builtin pushd "$@" > /dev/null
+}
+function popd {
+    builtin popd "$@" > /dev/null
+}
+
+function sed {
+    if [[ "$(uname)" == "Darwin" ]]; then
+        gsed "$@"
+    else
+        builtin sed "$@"
+    fi
+}
+
+# --------------------------------------------------------------------
 # zsh compile
 # --------------------------------------------------------------------
 function source {
