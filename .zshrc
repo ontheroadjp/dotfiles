@@ -21,6 +21,13 @@ function zle-line-init zle-keymap-select {
    # RPS2=$RPS1
 
     # Left side Prompt
+
+    # if [[ "$(uname)" == "Darwin" ]]; then
+    #     SED_CMD="gsed"
+    # else
+    #     SED_CMD="sed"
+    # fi
+
     case $PROMPT_STYLE in
         0) # (MINIMAL)
             LEFT_VIM_NORMAL=' nomal mode:'
@@ -29,10 +36,17 @@ function zle-line-init zle-keymap-select {
             LEFT_GIT_INSERT=''
         ;;
         *) # (NORMAL)
+
+            # if [ ! -z ${VIRTUAL_ENV} ]; then
+            #     VIRTUAL_ENV_PROMPT=$(echo ${VIRTUAL_ENV} \
+            #         | ${SED_CMD} -e 's/^.*\/\(.*\)\/venv$/\(\1\)/')
+            # fi
+
             if [ ! -z ${VIRTUAL_ENV} ]; then
                 VIRTUAL_ENV_PROMPT=$(echo ${VIRTUAL_ENV} \
-                    | gsed -e 's/^.*\/\(.*\)\/venv$/\(\1\)/')
+                    | sed -e 's/^.*\/\(.*\)\/venv$/\(\1\)/')
             fi
+
             LEFT_VIM_NORMAL=' nomal mode:'
             LEFT_GIT_NORMAL=''
             LEFT_VIM_INSERT='[%{$fg[green]%}%T%{${reset_color}%} %{$fg[blue]%}%c%{${reset_color}%}'
