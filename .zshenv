@@ -13,22 +13,23 @@ function popd {
     builtin popd "$@" > /dev/null
 }
 
-function sed {
+function sed() {
     if [[ "$(uname)" == "Darwin" ]]; then
-        gsed "$@"
-    else
-        builtin sed "$@"
+        if command -v gsed >/dev/null 2>&1; then
+            gsed "$@"
+        fi
     fi
+    command sed "$@"
 }
 
 # --------------------------------------------------------------------
 # zsh compile
 # --------------------------------------------------------------------
-function source {
+function source() {
     ensure_zcompiled $1
     builtin source $1
 }
-function ensure_zcompiled {
+function ensure_zcompiled() {
     local compiled="$1.zwc"
     if [[ "$1" -nt "$compiled" || ! -r "$compiled" ]]; then
         zcompile $1
