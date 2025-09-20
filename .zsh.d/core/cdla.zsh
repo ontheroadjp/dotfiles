@@ -4,6 +4,7 @@
 function _print_la() {
     [ $(uname) = 'Darwin' ] && {
         rm .DS_Store > /dev/null 2>&1
+        rm .netrwhist > /dev/null 2>&1
         ls -laGh $@
     } || {
         ls -laGh --color=auto $@
@@ -13,7 +14,12 @@ alias la='_print_la'
 
 function _cdla() {
     [ $# -eq 0 ] && place=${HOME} || place=$@
-	pushd ${place} && _print_la
+	    _print_la && pushd ${place}
+
+    [ $(uname) = 'Darwin' ] && {
+        rm .DS_Store > /dev/null 2>&1
+        rm .netrwhist > /dev/null 2>&1
+    }
 }
 alias cd='_cdla'
 

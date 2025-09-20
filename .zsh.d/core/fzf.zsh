@@ -16,12 +16,8 @@ export FZF_DEFAULT_OPTS="
 # 1. Search for text in files using Ripgrep
 # 2. Interactively restart Ripgrep with reload action
 # 3. Open the file in Vim
-<<<<<<< HEAD
-RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
-=======
 RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case --hidden "
 # INITIAL_QUERY="${*:-}"
->>>>>>> dev
 function _liverg() {
     fzf --ansi --disabled --query "${INITIAL_QUERY}" \
         --bind "start:reload:${RG_PREFIX} {q}" \
@@ -38,9 +34,11 @@ alias lrg='_liverg'
 # sub directory
 # -------------------------------------------------
 function _co_to_sub_directory() {
-    rg --files --hidden | fzf --ansi \
-        --delimiter : \
-        --bind 'enter:become(vim {1} +{2})'
+    local dir
+    dir=$(find . -type d -print | fzf-tmux -p 50% --ansi)
+    if [[ -n "$dir" ]]; then
+        cd "$dir" || return
+    fi
 }
 alias sub='_co_to_sub_directory'
 
@@ -72,8 +70,11 @@ bindkey '^E' _fzf-cdr
 # Open with vim
 # -------------------------------------------------
 function _open_with_vim() {
-    result=$(rg ~/memo --files -Timg --engine auto --glob=!{TEMP} \
-        | fzf --preview 'bat --color=always {1}' --preview-window=down:90%
+    result=$(rg . --files -Timg --engine auto --glob=!{TEMP} \
+        | fzf-tmux \
+            -p 90% \
+            --preview 'bat --color=always {1}' \
+            --preview-window=right:55%
     )
     [ ! -z "${result}" ] && vim "${result}"
 }
@@ -89,7 +90,7 @@ function _cd_to_workspace() {
         grep -v .git | \
         sort | \
         uniq | \
-        fzf \
+        fzf-tmux -p 50% \
     )
     [ ! -z ${to} ] && cd ${to}
 }
