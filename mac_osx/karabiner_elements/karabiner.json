@@ -18,7 +18,7 @@
                 },
                 "rules": [
                     {
-                        "description": "iTerm2 & alacritty: 日本語入力の kj で IME 切り替える & kj",
+                        "description": "iTerm2 & alacritty: (⌘ + k) でコピーモードトグル & FEP 英語へ",
                         "manipulators": [
                             {
                                 "conditions": [
@@ -61,7 +61,12 @@
                                     }
                                 ],
                                 "type": "basic"
-                            },
+                            }
+                        ]
+                    },
+                    {
+                        "description": "iTerm2 & alacritty: (⌘ + o) でペイン移動 & FEP 英語へ",
+                        "manipulators": [
                             {
                                 "conditions": [
                                     {

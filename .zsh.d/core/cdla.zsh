@@ -1,3 +1,10 @@
+pushd() {
+    builtin pushd "$@" > /dev/null
+}
+popd() {
+    builtin popd "$@" > /dev/null
+}
+
 #----------------------------------------------------------------
 # cdla - Changing directory
 #----------------------------------------------------------------
@@ -28,7 +35,7 @@ function _cdla() {
     auto_venv
 }
 # alias cd='_cdla'
-function cd() { _cdla }
+function cd() { _cdla "$@" }
 
 
 # back to the previous location -----------------------------------
