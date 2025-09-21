@@ -27,7 +27,9 @@ function _cdla() {
     }
     auto_venv
 }
-alias cd='_cdla'
+# alias cd='_cdla'
+function cd() { _cdla }
+
 
 # back to the previous location -----------------------------------
 # alias b='popd && clear && _print_la'
