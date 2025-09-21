@@ -1,4 +1,4 @@
-auto_venv() {
+function auto_venv() {
     local current_venv="$PWD/venv"
 
     if [[ -n "$VIRTUAL_ENV" ]]; then
@@ -19,8 +19,8 @@ auto_venv() {
     fi
 }
 
-autoload -Uz add-zsh-hook
-add-zsh-hook chpwd auto_venv
+# autoload -Uz add-zsh-hook
+# add-zsh-hook chpwd auto_venv
 
 # check on the starting shell
 auto_venv

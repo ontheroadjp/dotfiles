@@ -1,30 +1,31 @@
 #----------------------------------------------------------------
 # cdla - Changing directory
 #----------------------------------------------------------------
-# function _print_la() {
-#     [ $(uname) = 'Darwin' ] && {
-#         ls -laGh "$@"
-#     } || {
-#         ls -lah --color=auto "$@"
-#     }
-# }
-# alias la='_print_la'
-
-[ $(uname) = 'Darwin' ] && {
-    alias la='ls -laGh "$@"'
-} || {
-    alias la='ls -lah --color=auto "$@"'
+function _print_la() {
+    [ $(uname) = 'Darwin' ] && {
+        ls -laGh "$@"
+    } || {
+        ls -lah --color=auto "$@"
+    }
 }
+alias la='_print_la'
+
+# [ $(uname) = 'Darwin' ] && {
+#     alias la='ls -laGh'
+# } || {
+#     alias la='ls -lah --color=auto'
+# }
 
 function _cdla() {
     [ $# -eq 0 ] && place=${HOME} || place="$@"
-	    # _print_la && pushd ${place}
-	    la ${place} && pushd ${place}
+	    # _print_la "${palace}" && pushd "${place}"
+	    pushd "$@" && _print_la
 
     [ $(uname) = 'Darwin' ] && {
         rm .DS_Store > /dev/null 2>&1
         rm .netrwhist > /dev/null 2>&1
     }
+    auto_venv
 }
 alias cd='_cdla'
 

@@ -13,7 +13,8 @@ function _load_git_ps1() {
 PROMPT_STYLE=1
 if [ ${PROMPT_STYLE} -ne 0 ]; then; _load_git_ps1; fi
 function __p() { PROMPT_STYLE=$1 }
-function zle-line-init zle-keymap-select {
+# function zle-line-init zle-keymap-select {
+function zle-line-init {
    # # Right side Prompt
    # RIGHT_VIM_NORMAL="%K{208}%F{black}(%k%f%K{208}%F{yellow}% NORMAL%k%f%K{black}%F{208})%k%f"
    # RIGHT_VIM_INSERT="%K{051}%F{051}(%k%f%K{051}%F{051}%F{blue}% INSERT%k%f%K{051}%F{051})%k%f"
@@ -61,7 +62,7 @@ function zle-line-init zle-keymap-select {
     zle reset-prompt
 }
 zle -N zle-line-init
-zle -N zle-keymap-select
+# zle -N zle-keymap-select
 
 # kj to return normal mode
 bindkey -M viins 'kj' vi-cmd-mode
