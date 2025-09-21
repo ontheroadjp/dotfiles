@@ -30,28 +30,37 @@ function zle-line-init {
     # fi
 
     case $PROMPT_STYLE in
-        0) # (MINIMAL)
-            LEFT_VIM_NORMAL=' nomal mode:'
+         # (MINIMAL)
+        0)
+            LEFT_VIM_NORMAL=' normal mode:'
             LEFT_GIT_NORMAL=''
             LEFT_VIM_INSERT=' $'
             LEFT_GIT_INSERT=''
         ;;
-        *) # (NORMAL)
+        # (NORMAL)
+        *)
 
             # if [ ! -z ${VIRTUAL_ENV} ]; then
             #     VIRTUAL_ENV_PROMPT=$(echo ${VIRTUAL_ENV} \
             #         | ${SED_CMD} -e 's/^.*\/\(.*\)\/venv$/\(\1\)/')
             # fi
 
-            if [ ! -z ${VIRTUAL_ENV} ]; then
-                VIRTUAL_ENV_PROMPT=$(echo ${VIRTUAL_ENV} \
-                    | sed -e 's/^.*\/\(.*\)\/venv$/\(\1\)/')
+            # if [ ! -z ${VIRTUAL_ENV} ]; then
+            #     VIRTUAL_ENV_PROMPT=$(echo ${VIRTUAL_ENV} \
+            #         | sed -e 's/^.*\/\(.*\)\/venv$/\(\1\)/')
+            # fi
+
+            if [[ -n ${VIRTUAL_ENV} ]]; then
+                VIRTUAL_ENV_PROMPT="($(basename "$(dirname "$VIRTUAL_ENV")"))"
+            else
+                VIRTUAL_ENV_PROMPT=""
             fi
 
-            LEFT_VIM_NORMAL=' nomal mode:'
+            LEFT_VIM_NORMAL=' normal mode:'
             LEFT_GIT_NORMAL=''
             LEFT_VIM_INSERT='[%{$fg[green]%}%T%{${reset_color}%} %{$fg[blue]%}%c%{${reset_color}%}'
-            LEFT_GIT_INSERT='%{$fg[red]%}$(__git_ps1 "(%s)")%{${reset_color}%}%{$fg[cyan]%}${VIRTUAL_ENV_PROMPT}%{${reset_color}]\$ '
+            # LEFT_GIT_INSERT='%{$fg[red]%}$(__git_ps1 "(%s)")%{${reset_color}%}%{$fg[cyan]%}${VIRTUAL_ENV_PROMPT}%{${reset_color}]\$ '
+            LEFT_GIT_INSERT='%{$fg[red]%}$(__git_ps1 "(%s)")%{${reset_color}%}%{$fg[cyan]%}${VIRTUAL_ENV_PROMPT}%{${reset_color}%}]\$ '
         ;;
     esac
 
