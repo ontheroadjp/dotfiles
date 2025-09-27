@@ -24,7 +24,8 @@ offset = { x = 1, y = 12 }
 # ========================= WINDOW =========================
 [window]
 decorations = "buttonless"
-startup_mode = "SimpleFullscreen"
+#startup_mode = "SimpleFullscreen"
+startup_mode = "Windowed"
 padding = { x = 5, y = 0 }
 resize_increments = true
 # ========================== COLOR =========================

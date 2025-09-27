@@ -1,30 +1,46 @@
+pushd() {
+    builtin pushd "$@" > /dev/null
+}
+popd() {
+    builtin popd "$@" > /dev/null
+}
+
 #----------------------------------------------------------------
 # cdla - Changing directory
 #----------------------------------------------------------------
 function _print_la() {
     [ $(uname) = 'Darwin' ] && {
-        rm .DS_Store > /dev/null 2>&1
-        rm .netrwhist > /dev/null 2>&1
-        ls -laGh $@
+        ls -laGh "$@"
     } || {
-        ls -laGh --color=auto $@
+        ls -lah --color=auto "$@"
     }
 }
 alias la='_print_la'
 
+# [ $(uname) = 'Darwin' ] && {
+#     alias la='ls -laGh'
+# } || {
+#     alias la='ls -lah --color=auto'
+# }
+
 function _cdla() {
-    [ $# -eq 0 ] && place=${HOME} || place=$@
-	    _print_la && pushd ${place}
+    [ $# -eq 0 ] && place=${HOME} || place="$@"
+	    # _print_la "${palace}" && pushd "${place}"
+	    pushd "$@" && _print_la
 
     [ $(uname) = 'Darwin' ] && {
         rm .DS_Store > /dev/null 2>&1
         rm .netrwhist > /dev/null 2>&1
     }
+    auto_venv
 }
-alias cd='_cdla'
+# alias cd='_cdla'
+function cd() { _cdla "$@" }
+
 
 # back to the previous location -----------------------------------
-alias b='popd && clear && _print_la'
+# alias b='popd && clear && _print_la'
+alias b='popd && clear && la'
 
 # general settings ------------------------------------------------
 alias HOME="cd ${HOME}"
@@ -84,4 +100,3 @@ alias o='_dirmarks jump o'
 alias u='_dirmarks jump u'
 
 alias marks='_cd_to_dirmarks'
-

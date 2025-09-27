@@ -293,8 +293,8 @@ autocmd BufNewFile,BufRead *.{zshrc,zprofile,zshenv,conf} set filetype=zsh
 
 augroup shell
     autocmd!
-    autocmd BufNewFile,BufRead *.{sh,bash,fnc} 0r $HOME/dotfiles/.vim/templates/sh.tpl
-    autocmd BufNewFile,BufRead *.{bats} 0r $HOME/dotfiles/.vim/templates/bats.tpl
+    autocmd BufNewFile *.{sh,bash,fnc} 0r $HOME/dotfiles/.vim/templates/sh.tpl
+    autocmd BufNewFile *.{bats} 0r $HOME/dotfiles/.vim/templates/bats.tpl
 augroup END
 augroup PHP
     autocmd!
