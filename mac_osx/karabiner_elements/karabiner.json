@@ -18,7 +18,7 @@
                 },
                 "rules": [
                     {
-                        "description": "iTerm2 & alacritty: (⌘ + k) でコピーモードトグル & FEP 英語へ",
+                        "description": "iTerm2 & alacritty: 日本語入力の kj で IME 切り替える & kj",
                         "manipulators": [
                             {
                                 "conditions": [
@@ -61,12 +61,7 @@
                                     }
                                 ],
                                 "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "description": "iTerm2 & alacritty: (⌘ + o) でペイン移動 & FEP 英語へ",
-                        "manipulators": [
+                            },
                             {
                                 "conditions": [
                                     {
@@ -115,6 +110,50 @@
                                 "to_if_alone": [
                                     {
                                         "key_code": "k"
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "iTerm2 & alacritty: (⌘ + o) でペイン移動 & FEP 英語へ",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.googlecode\\.iterm2",
+                                            "^org\\.alacritty"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    },
+                                    {
+                                        "input_sources": [
+                                            {
+                                                "language": "ja"
+                                            }
+                                        ],
+                                        "type": "input_source_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "o",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "japanese_eisuu"
+                                    },
+                                    {
+                                        "key_code": "o",
+                                        "modifiers": [
+                                            "left_control"
+                                        ]
                                     }
                                 ],
                                 "type": "basic"
@@ -171,9 +210,11 @@
                             {
                                 "conditions": [
                                     {
-                                        "name": "vim-j-flag",
-                                        "type": "variable_if",
-                                        "value": 1
+                                        "bundle_identifiers": [
+                                            "^com\\.googlecode\\.iterm2",
+                                            "^org\\.alacritty"
+                                        ],
+                                        "type": "frontmost_application_if"
                                     },
                                     {
                                         "input_sources": [
@@ -185,23 +226,22 @@
                                     }
                                 ],
                                 "from": {
-                                    "key_code": "j"
+                                    "key_code": "b",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
                                 },
                                 "to": [
                                     {
-                                        "set_variable": {
-                                            "name": "vim-j-flag",
-                                            "value": 0
-                                        }
-                                    },
-                                    {
-                                        "key_code": "return_or_enter"
-                                    },
-                                    {
-                                        "key_code": "delete_or_backspace"
-                                    },
-                                    {
                                         "key_code": "japanese_eisuu"
+                                    },
+                                    {
+                                        "key_code": "b",
+                                        "modifiers": [
+                                            "left_control"
+                                        ]
                                     }
                                 ],
                                 "type": "basic"
@@ -209,7 +249,7 @@
                         ]
                     },
                     {
-                        "description": "iTerm2 & alacritty: (⌘ + o) でペイン移動 & FEP 英語へ",
+                        "description": "iTerm2 & alacritty: 日本語の「っj」で英語へ切り替えてインサートモード抜ける",
                         "manipulators": [
                             {
                                 "conditions": [
@@ -403,7 +443,7 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^com\\.googlecode\\.iterm23",
+                                            "^com\\.googlecode\\.iterm2$",
                                             "^org\\.alacritty"
                                         ],
                                         "type": "frontmost_application_if"
@@ -430,7 +470,7 @@
                         ]
                     },
                     {
-                        "description": "iTerm2 & alacritty: Copy (⌘ + c)",
+                        "description": "iTerm2 & alacritty: Copy (⌘ + shift + c)",
                         "manipulators": [
                             {
                                 "conditions": [
@@ -454,7 +494,8 @@
                                     {
                                         "key_code": "c",
                                         "modifiers": [
-                                            "left_command"
+                                            "left_command",
+                                            "shift"
                                         ]
                                     }
                                 ],
@@ -463,7 +504,7 @@
                         ]
                     },
                     {
-                        "description": "iTerm2 & alacritty: Paste (⌘ + v)",
+                        "description": "iTerm2 & alacritty: Paste (⌘ + shift + v)",
                         "manipulators": [
                             {
                                 "conditions": [
@@ -479,7 +520,8 @@
                                     "key_code": "v",
                                     "modifiers": {
                                         "mandatory": [
-                                            "left_control"
+                                            "left_control",
+                                            "shift"
                                         ]
                                     }
                                 },
