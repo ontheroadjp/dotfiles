@@ -96,7 +96,7 @@ zsh-defer unfunction source
 
 echo "Load .zshrc."
 # --------------------------------------------------------------------
-# $ for i in $(seq 1 10); do time zsh -i -c exit > /dev/null ; don
+# $ for i in $(seq 1 10); do time zsh -i -c exit > /dev/null ; done
 # --------------------------------------------------------------------
 # This is for zsh launch performance check
 # To use removing comment-out 'zmodload zsh/zprof && zprof'  in ~/.zshenv
