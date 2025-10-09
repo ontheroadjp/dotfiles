@@ -196,4 +196,3 @@ alias imgsize="_display_image_size"
 alias me="glow ${MEMO_PATH}"
 
 echo 'Load .zprofile.'
-
