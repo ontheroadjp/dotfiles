@@ -5,7 +5,7 @@ export EDITOR=vim
 export TERM=xterm
 export DOTPATH=${HOME}/dotfiles
 export WORKSPACE="${HOME}/WORKSPACE"
-# export PATH=${DOTPATH}/bin:${PATH}
+export PATH=${DOTPATH}/bin:${PATH}
 # export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:${PATH}
 autoload -Uz colors && colors   # use color
 
