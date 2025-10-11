@@ -4,6 +4,12 @@
 .gemini/__pycache__/
 .gemini/history/
 
+# vim plugins
+.vim/plugged/
+
+# compiled files
+*.zwc
+
 # Exclude log files
 *.log
 *.log.*
@@ -11,3 +17,4 @@
 # Exclude backup files and directories
 bk_*
 bk_*/
+mac_osx/karabiner_elements/automatic_backups/
