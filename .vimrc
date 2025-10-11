@@ -64,10 +64,11 @@ endfunction
 " GitHub label definitions (Vimscript)
 " =========================================
 let g:gh_labels = [
-      \ {'name': 'todo',        'color': '0e8a16', 'description': 'Tasks to do'},
       \ {'name': 'consideration',        'color': '0e8a16', 'description': 'Before tasks'},
+      \ {'name': 'todo',        'color': '0e8a16', 'description': 'Tasks to do'},
       \ {'name': 'bug',         'color': 'd73a4a', 'description': 'Bug reports'},
       \ {'name': 'enhancement','color': 'a2eeef', 'description': 'New feature requests'},
+      \ {'name': 'spec',         'color': '#5f4b34', 'description': 'Bug reports'},
       \ {'name': 'docs',        'color': '0e8a16', 'description': 'Documentation updates'},
       \ {'name': 'test',        'color': '5319e7', 'description': 'Testing related'}
       \ ]
@@ -90,8 +91,8 @@ function! EnsureLabelExists(label)
   let l:found = 0
   for l:item in g:gh_labels
     if l:item.name ==# a:label
-      let l:cmd = 'gh label create ' . shellescape(l:item.name) .
-                  \ ' --color ' . shellescape(l:item.color) .
+      let l:cmd = 'gh label create ' . shellescape(l:item.name) . \
+                  \ ' --color ' . shellescape(l:item.color) . \
                   \ ' --description ' . shellescape(l:item.description)
       call system(l:cmd)
       let l:found = 1
@@ -100,7 +101,7 @@ function! EnsureLabelExists(label)
   endfor
 
   if !l:found
-    echoerr "❌ Label '".a:label."' is not defined in the script"
+    echoerr "❌ Label '" . a:label . "' is not defined in the script"
     throw "Label not defined"
   endif
 endfunction
@@ -118,16 +119,16 @@ endfunction
 "       * label       : Issue label(s) (optional)
 "       * assignee    : GitHub username(s) to assign (optional)
 "       * milestone   : GitHub milestone name (optional; if empty, skipped)
-"
+" 
 "   - Markdown Body:
 "       * The content after the YAML front matter is used as the issue body.
-"
+" 
 "   - Execution:
 "       * Can be triggered manually via :call SendBufferToGH()
 "       * Can be triggered automatically on saving *.todo / *.bug files
 "         with confirmation prompt.
 "       * Manual shortcut mapping: <leader>ghi
-"
+" 
 " Behavior:
 "   1. Parse YAML front matter from the top of the buffer.
 "   2. Extract title, label, assignee, and milestone fields.
@@ -139,11 +140,11 @@ endfunction
 "       - Automatically delete the local buffer file and close the buffer.
 "   7. On failure:
 "       - Display error message and gh CLI output for debugging.
-"
+" 
 " Requirements:
 "   - GitHub CLI (gh) must be installed and authenticated.
 "   - Buffer must contain valid YAML front matter with at least a title.
-"
+" 
 " Notes:
 "   - Milestone is optional; if the field is empty or does not exist in the
 "     repository, it will be skipped silently.
@@ -152,7 +153,7 @@ endfunction
 "   - The function uses a temporary file in /tmp to send the Markdown body
 "     to the GitHub CLI.
 "   - Designed for use with Vim or Neovim.
-"
+" 
 " Example YAML front matter for a todo issue:
 "   ---
 "   title: Organize dotfiles
@@ -160,14 +161,14 @@ endfunction
 "   assignee: @me
 "   milestone: v1.0 Release
 "   ---
-"
+" 
 "   ## Description
 "   Categorize and move scattered files and directories into .config/.
-"
+" 
 "   ## Objectives / Points
 "   - Files directly under ~/ will not be moved
 "   - A script to create symlinks is required
-"
+" 
 " ===========================================================================
 function! SendBufferToGH()
   let l:lines = getline(1, '$')
@@ -233,13 +234,15 @@ function! SendBufferToGH()
     call delete(expand('%'))
     bdelete!
     echo "🗑️  Local file deleted after successful issue creation."
+
+    " Delete temp file
+    call delete(l:tmpfile)
+    return 1
   else
     echoerr "❌ Failed to create issue."
     echom l:output
+    return 0
   endif
-
-  " Delete temp file
-  call delete(l:tmpfile)
 endfunction
 
 " =========================================
@@ -252,14 +255,16 @@ nnoremap <leader>ghi :call SendBufferToGH()<CR>
 " =========================================
 augroup gh_issue_confirm
   autocmd!
-  autocmd BufWritePre *.consideration,*.todo,*.bug,*.enhancement,*.docs,*.test call ConfirmCreateGHIssue()
+  autocmd BufWritePre *.consideration,*.todo,*.bug,*.enhancement,*.spec,*.docs,*.test call ConfirmCreateGHIssue()
 augroup END
 
 function! ConfirmCreateGHIssue()
   let l:choice = input("💡 Create GitHub Issue? (y/N): ")
   if tolower(l:choice) ==# 'y'
-    call SendBufferToGH()
-    execute "bwipeout!"
+    let l:success = SendBufferToGH()
+    if l:success
+      execute "bwipeout!"
+    endif
   endif
 endfunction
 
@@ -284,7 +289,7 @@ function! ListAndOpenGitHubIssues()
   let l:tmpfile = tempname()
 
   " Fetch issues as TSV
-  let l:cmd = "gh issue list --state open --limit 100 --json number,title,assignees,labels,createdAt --jq '.[] | [(.number|tostring), .title, (.assignees|map(.login)|join(\", \")), (.labels|map(.name)|join(\", \")), .createdAt] | @tsv' > " . shellescape(l:tmpfile)
+  let l:cmd = "gh issue list --state open --limit 100 --json number,title,assignees,labels,createdAt --jq '.[] | [(.number|tostring), .title, (.assignees|map(.login)|join(", ")), (.labels|map(.name)|join(", ")), .createdAt] | @tsv' > " . shellescape(l:tmpfile)
   call system(l:cmd)
 
   " Read TSV lines
@@ -396,48 +401,48 @@ nnoremap <silent> <leader>ghl :call ListAndOpenGitHubIssues()<CR>
 
 
 "map <F5> :wall!<CR>:!glow ~/memo<CR><CR>
-nnoremap <C-s> :w<CR>
+noremap <C-s> :w<CR>
 
 command Dic !dict <cword>
 
  " ================================================== Disable default plugins
  " Disable TOhtml.
-" let g:loaded_2html_plugin       = 1
+"let g:loaded_2html_plugin       = 1
 "
 "  " Disable archive file open and brawse.
-" let g:loaded_gzip               = 1
-" let g:loaded_tar                = 1
-" let g:loaded_tarPlugin          = 1
-" let g:loaded_zip                = 1
-" let g:loaded_zipPlugin          = 1
+"let g:loaded_gzip               = 1
+"let g:loaded_tar                = 1
+"let g:loaded_tarPlugin          = 1
+"let g:loaded_zip                = 1
+"let g:loaded_zipPlugin          = 1
 "
 "  " Disable vimball.
-" let g:loaded_vimball            = 1
-" let g:loaded_vimballPlugin      = 1
+"let g:loaded_vimball            = 1
+"let g:loaded_vimballPlugin      = 1
 "
 "  " Disable netrw plugins.
-" let g:loaded_netrw              = 1
-" let g:loaded_netrwPlugin        = 1
-" let g:loaded_netrwSettings      = 1
-" let g:loaded_netrwFileHandlers  = 1
+"let g:loaded_netrw              = 1
+"let g:loaded_netrwPlugin        = 1
+"let g:loaded_netrwSettings      = 1
+"let g:loaded_netrwFileHandlers  = 1
 "
 "  " Disable `GetLatestVimScript`.
-" let g:loaded_getscript          = 1
-" let g:loaded_getscriptPlugin    = 1
+"let g:loaded_getscript          = 1
+"let g:loaded_getscriptPlugin    = 1
 "
 "  " Disable other plugins
-" let g:loaded_man                = 1
-" let g:loaded_matchit            = 1
-" " let g:loaded_matchparen         = 1
-" let g:loaded_shada_plugin       = 1
-" let g:loaded_spellfile_plugin   = 1
-" let g:loaded_tutor_mode_plugin  = 1
-" let g:did_install_default_menus = 1
-" let g:did_install_syntax_menu   = 1
-" let g:skip_loading_mswin        = 1
-" let g:did_indent_on             = 1
-" let g:did_load_ftplugin         = 1
-" let g:loaded_rrhelper           = 1
+"let g:loaded_man                = 1
+"let g:loaded_matchit            = 1
+" "let g:loaded_matchparen         = 1
+"let g:loaded_shada_plugin       = 1
+"let g:loaded_spellfile_plugin   = 1
+"let g:loaded_tutor_mode_plugin  = 1
+"let g:did_install_default_menus = 1
+"let g:did_install_syntax_menu   = 1
+"let g:skip_loading_mswin        = 1
+"let g:did_indent_on             = 1
+"let g:did_load_ftplugin         = 1
+"let g:loaded_rrhelper           = 1
 
 augroup vim_start_end
     autocmd!
@@ -513,7 +518,7 @@ cabbr w!! w !sudo tee > /dev/null %
 " %% to expand current directory in command mode
 nmap %e :e %%
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:p:h/').'/' : '%%'
-cnoremap <expr> %$ getcmdtype() == ':' ? expand('%:p/') : '%$'
+cno<expr> %$ getcmdtype() == ':' ? expand('%:p/') : '%$'
 
 "=============================================================== Mode change
 " JJ, jk, kj  as <esc>
@@ -529,7 +534,7 @@ inoremap <C-n> <C-o>
 
 "------------------------------------------------------------- Window
 nnoremap -- :split<CR>                  " horizontal split
-nnoremap \\ :rightbelow vsp<CR>         " virtical split
+nnoremap \ :rightbelow vsp<CR>         " virtical split
 set winheight=25
 map ✩ <C-S-k-from-iterm2>
 map ✡ <C-S-j-from-iterm2>
@@ -606,7 +611,7 @@ vnoremap <C-l> $<left>
 
 " Jump to paragraph (reverse)
 nnoremap { {<down>
-nnoremap } }<up>$
+noremap } }<up>$
 vnoremap { {<down>o
 vnoremap } }<up>$
 
@@ -623,12 +628,12 @@ nnoremap <silent> <Space><Space> *N
 
 set shortmess-=S
 " nnoremap <expr> c/ _(":%s/<Cursor>//gn")
-" function! s:move_cursor_pos_mapping(str, ...)
+" function! s:move_cursor_pos_mapping(str, ...) 
 "     let left = get(a:, 1, "<Left>")
 "     let lefts = join(map(split(matchstr(a:str, '.*<Cursor>\zs.*\ze'), '.\zs'), 'left'), "")
 "     return substitute(a:str, '<Cursor>', '', '') . lefts
 " endfunction
-"
+" 
 " function! _(str)
 "     return s:move_cursor_pos_mapping(a:str, "\<Left>")
 " endfunction
@@ -662,7 +667,7 @@ nnoremap gp p
 nnoremap gP P
 
 " " past in normalmode
-" if &term =~ "xterm"
+" if &term =~ "xterm" 
 "     let &t_ti .= "\e[?2004h"
 "     let &t_te .= "\e[?2004l"
 "     let &pastetoggle = "\e[201~"
@@ -687,7 +692,7 @@ runtime! vimrc.d/editing.vim
 autocmd BufNewFile,BufRead *.{html,htm,ejs*,js,vue} set filetype=html.javascript.vue
 autocmd BufNewFile,BufRead *.{sh,profile,fnc,bats} set filetype=bash
 autocmd BufNewFile,BufRead *.{zshrc,zprofile,zshenv,conf} set filetype=zsh
-autocmd BufNewFile,BufRead *.{consideration,todo,bug,enhancement,docs,test} set filetype=markdown
+autocmd BufNewFile,BufRead *.{consideration,todo,bug,enhancement,spec,docs,test} set filetype=markdown
 
 augroup shell
     autocmd!
@@ -696,10 +701,11 @@ augroup shell
 augroup END
 augroup markdown
     autocmd!
-    autocmd BufNewFile *.{todo} 0r $HOME/dotfiles/.vim/templates/github/issue_todo.tpl
     autocmd BufNewFile *.{consideration} 0r $HOME/dotfiles/.vim/templates/github/issue_consideration.tpl
-    autocmd BufNewFile *.{bug} 0r $HOME/dotfiles/.vim/templates/github/issue_bug.tpl
+    autocmd BufNewFile *.{todo} 0r $HOME/dotfiles/.vim/templates/github/issue_todo.tpl
     autocmd BufNewFile *.{enhancement} 0r $HOME/dotfiles/.vim/templates/github/issue_enhancement.tpl
+    autocmd BufNewFile *.{spec} 0r $HOME/dotfiles/.vim/templates/github/issue_spec.tpl
+    autocmd BufNewFile *.{bug} 0r $HOME/dotfiles/.vim/templates/github/issue_bug.tpl
     autocmd BufNewFile *.{docs} 0r $HOME/dotfiles/.vim/templates/github/issue_docs.tpl
     autocmd BufNewFile *.{test} 0r $HOME/dotfiles/.vim/templates/github/issue_test.tpl
 augroup END
@@ -763,4 +769,3 @@ augroup Python
 augroup END
 
 filetype on
-
