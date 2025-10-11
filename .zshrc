@@ -78,6 +78,17 @@ bindkey -M viins 'kj' vi-cmd-mode
 bindkey -M viins 'jk' vi-cmd-mode
 
 # ------------------------------------------
+# nvm (node)
+# ------------------------------------------
+# nvm ls                # インストール済み Node バージョン一覧
+# nvm install 18        # 任意のバージョンを追加
+# nvm use 18            # 切り替え
+# nvm alias default 18  # デフォルトバージョンを設定
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+# ------------------------------------------
 # pyenv
 # ------------------------------------------
 _pyenv_init() {
@@ -107,3 +118,4 @@ fi
 
 export PATH="/usr/local/sbin:$PATH"
 
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
