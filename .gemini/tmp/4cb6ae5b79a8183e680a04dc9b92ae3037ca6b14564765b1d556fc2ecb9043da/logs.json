@@ -1,0 +1,72 @@
+[
+  {
+    "sessionId": "2b1f3c21-e54f-4667-8695-10c02cb27208",
+    "messageId": 0,
+    "type": "user",
+    "message": "README.md と README_ja.md を作成して",
+    "timestamp": "2025-08-16T01:58:02.942Z"
+  },
+  {
+    "sessionId": "2b1f3c21-e54f-4667-8695-10c02cb27208",
+    "messageId": 1,
+    "type": "user",
+    "message": "README.md と README_ja.md を作成して",
+    "timestamp": "2025-08-16T02:01:16.483Z"
+  },
+  {
+    "sessionId": "1d521d44-29c4-4137-b01b-214d48b13c17",
+    "messageId": 0,
+    "type": "user",
+    "message": "git コミットしてほしい",
+    "timestamp": "2025-08-17T16:46:40.892Z"
+  },
+  {
+    "sessionId": "1d521d44-29c4-4137-b01b-214d48b13c17",
+    "messageId": 1,
+    "type": "user",
+    "message": "それでオッケー",
+    "timestamp": "2025-08-17T16:47:33.781Z"
+  },
+  {
+    "sessionId": "1d521d44-29c4-4137-b01b-214d48b13c17",
+    "messageId": 2,
+    "type": "user",
+    "message": "git push もして",
+    "timestamp": "2025-08-17T16:48:11.246Z"
+  },
+  {
+    "sessionId": "1d521d44-29c4-4137-b01b-214d48b13c17",
+    "messageId": 3,
+    "type": "user",
+    "message": "/quit",
+    "timestamp": "2025-08-17T16:48:29.671Z"
+  },
+  {
+    "sessionId": "3b5ebcee-81ea-4fcd-a926-f45a78a0aa1e",
+    "messageId": 0,
+    "type": "user",
+    "message": "このプロジェクトのヘルプファイルを作って",
+    "timestamp": "2025-08-17T17:58:23.860Z"
+  },
+  {
+    "sessionId": "3b5ebcee-81ea-4fcd-a926-f45a78a0aa1e",
+    "messageId": 1,
+    "type": "user",
+    "message": "/exit",
+    "timestamp": "2025-08-17T17:59:22.898Z"
+  },
+  {
+    "sessionId": "a0407775-e309-442a-b4bf-6802e40ac941",
+    "messageId": 0,
+    "type": "user",
+    "message": "このプラグインのヘルプファイルの開き方を教えて",
+    "timestamp": "2025-08-17T18:04:54.025Z"
+  },
+  {
+    "sessionId": "a0407775-e309-442a-b4bf-6802e40ac941",
+    "messageId": 1,
+    "type": "user",
+    "message": "/exit",
+    "timestamp": "2025-08-17T18:05:20.817Z"
+  }
+]

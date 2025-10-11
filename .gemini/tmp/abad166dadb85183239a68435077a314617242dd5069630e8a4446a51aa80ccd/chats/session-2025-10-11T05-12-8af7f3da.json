@@ -1,0 +1,41 @@
+{
+  "sessionId": "8af7f3da-c39b-4b73-906b-35e56bb2dbce",
+  "projectHash": "abad166dadb85183239a68435077a314617242dd5069630e8a4446a51aa80ccd",
+  "startTime": "2025-10-11T05:12:33.188Z",
+  "lastUpdated": "2025-10-11T05:12:37.294Z",
+  "messages": [
+    {
+      "id": "d8dc5942-fa9a-44a6-ba87-3377cc1af4dd",
+      "timestamp": "2025-10-11T05:12:33.188Z",
+      "type": "user",
+      "content": "翻訳テストだよ\n\n\nTranslate the following Japanese text to English:"
+    },
+    {
+      "id": "972c566a-d77b-43ee-878b-6ed204ef90ce",
+      "timestamp": "2025-10-11T05:12:37.294Z",
+      "type": "gemini",
+      "content": "This is a translation test.",
+      "thoughts": [
+        {
+          "subject": "Assessing the Request's Scope",
+          "description": "I've determined the user's core intention: obtaining a translation. The source language is confirmed as Japanese. My next step is to discern the intended target language, which seems to be English, as the user's request itself is in English. Then, I'll move on to the translation itself.",
+          "timestamp": "2025-10-11T05:12:36.193Z"
+        },
+        {
+          "subject": "Analyzing the Japanese Text",
+          "description": "I'm now dissecting the Japanese phrase \"翻訳テストだよ.\" Each part's meaning is clear: \"honyaku\" (translation), \"tesuto\" (test), and \"dayo\" (an assertive particle). The challenge is assembling the components into a natural English sentence.",
+          "timestamp": "2025-10-11T05:12:37.268Z"
+        }
+      ],
+      "tokens": {
+        "input": 5617,
+        "output": 6,
+        "cached": 3092,
+        "thoughts": 202,
+        "tool": 0,
+        "total": 5825
+      },
+      "model": "gemini-2.5-pro"
+    }
+  ]
+}
