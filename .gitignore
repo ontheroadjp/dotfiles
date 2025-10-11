@@ -3,6 +3,7 @@
 .gemini/tmp/
 .gemini/__pycache__/
 .gemini/history/
+.config/configstore/update-notifier-@google/gemini-cli.json
 
 # vim plugins
 .vim/plugged/
