@@ -285,7 +285,15 @@ create_branch_from_issue() {
 
   [[ -z "$issues" ]] && echo "No open issues found." && return
 
-  selected_issue=$(echo "$issues" | select_with_fzf "Select issue to create a branch from")
+  if command -v fzf &>/dev/null; then
+    selected_issue=$(echo "$issues" | fzf --prompt="Select issue to create a branch from > " --height=15 --border)
+  else
+    echo "Open Issues:"
+    echo "$issues"
+    read -rp "Enter issue number to create a branch from: " issue_number_input
+    selected_issue=$(echo "$issues" | grep "^#$issue_number_input ")
+  fi
+
   [[ -z "$selected_issue" ]] && echo "Canceled." && return
 
   issue_number=$(echo "$selected_issue" | awk -F ' | ' '{print $1}' | tr -d '#')
