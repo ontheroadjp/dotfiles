@@ -36,6 +36,7 @@ Plug 'tpope/vim-surround', { 'on': [] }
 Plug 'Yggdroot/indentLine', { 'on': [] }
 Plug 'ontheroadjp/vim-commentout', { 'on': [] }
 Plug 'ontheroadjp/vim-brackets', { 'on': [] }
+Plug 'ontheroadjp/vim-gemini-translate', { 'on': [] }
 
 if plugin_env.mode == 0
     Plug 'ervandew/supertab', { 'on': [] }
@@ -76,6 +77,7 @@ function! plugin_env.lazy_load_plugs(timer) abort
         \ 'indentLine',
         \ 'vim-commentout',
         \ 'vim-brackets',
+        \ 'vim-gemini-translate',
         \ )
     if self.mode == 0
         call plug#load(
