@@ -64,10 +64,11 @@ endfunction
 " GitHub label definitions (Vimscript)
 " =========================================
 let g:gh_labels = [
-      \ {'name': 'todo',        'color': '0e8a16', 'description': 'Tasks to do'},
       \ {'name': 'consideration',        'color': '0e8a16', 'description': 'Before tasks'},
+      \ {'name': 'todo',        'color': '0e8a16', 'description': 'Tasks to do'},
       \ {'name': 'bug',         'color': 'd73a4a', 'description': 'Bug reports'},
       \ {'name': 'enhancement','color': 'a2eeef', 'description': 'New feature requests'},
+      \ {'name': 'spec',         'color': '#5f4b34', 'description': 'Bug reports'},
       \ {'name': 'docs',        'color': '0e8a16', 'description': 'Documentation updates'},
       \ {'name': 'test',        'color': '5319e7', 'description': 'Testing related'}
       \ ]
@@ -233,13 +234,15 @@ function! SendBufferToGH()
     call delete(expand('%'))
     bdelete!
     echo "🗑️  Local file deleted after successful issue creation."
+
+    " Delete temp file
+    call delete(l:tmpfile)
+    return 1
   else
     echoerr "❌ Failed to create issue."
     echom l:output
+    return 0
   endif
-
-  " Delete temp file
-  call delete(l:tmpfile)
 endfunction
 
 " =========================================
@@ -252,14 +255,16 @@ nnoremap <leader>ghi :call SendBufferToGH()<CR>
 " =========================================
 augroup gh_issue_confirm
   autocmd!
-  autocmd BufWritePre *.consideration,*.todo,*.bug,*.enhancement,*.docs,*.test call ConfirmCreateGHIssue()
+  autocmd BufWritePre *.consideration,*.todo,*.bug,*.enhancement,*.spec,*.docs,*.test call ConfirmCreateGHIssue()
 augroup END
 
 function! ConfirmCreateGHIssue()
   let l:choice = input("💡 Create GitHub Issue? (y/N): ")
   if tolower(l:choice) ==# 'y'
-    call SendBufferToGH()
-    execute "bwipeout!"
+    let l:success = SendBufferToGH()
+    if l:success
+      execute "bwipeout!"
+    endif
   endif
 endfunction
 
@@ -687,7 +692,7 @@ runtime! vimrc.d/editing.vim
 autocmd BufNewFile,BufRead *.{html,htm,ejs*,js,vue} set filetype=html.javascript.vue
 autocmd BufNewFile,BufRead *.{sh,profile,fnc,bats} set filetype=bash
 autocmd BufNewFile,BufRead *.{zshrc,zprofile,zshenv,conf} set filetype=zsh
-autocmd BufNewFile,BufRead *.{consideration,todo,bug,enhancement,docs,test} set filetype=markdown
+autocmd BufNewFile,BufRead *.{consideration,todo,bug,enhancement,spec,docs,test} set filetype=markdown
 
 augroup shell
     autocmd!
@@ -696,10 +701,11 @@ augroup shell
 augroup END
 augroup markdown
     autocmd!
-    autocmd BufNewFile *.{todo} 0r $HOME/dotfiles/.vim/templates/github/issue_todo.tpl
     autocmd BufNewFile *.{consideration} 0r $HOME/dotfiles/.vim/templates/github/issue_consideration.tpl
-    autocmd BufNewFile *.{bug} 0r $HOME/dotfiles/.vim/templates/github/issue_bug.tpl
+    autocmd BufNewFile *.{todo} 0r $HOME/dotfiles/.vim/templates/github/issue_todo.tpl
     autocmd BufNewFile *.{enhancement} 0r $HOME/dotfiles/.vim/templates/github/issue_enhancement.tpl
+    autocmd BufNewFile *.{spec} 0r $HOME/dotfiles/.vim/templates/github/issue_spec.tpl
+    autocmd BufNewFile *.{bug} 0r $HOME/dotfiles/.vim/templates/github/issue_bug.tpl
     autocmd BufNewFile *.{docs} 0r $HOME/dotfiles/.vim/templates/github/issue_docs.tpl
     autocmd BufNewFile *.{test} 0r $HOME/dotfiles/.vim/templates/github/issue_test.tpl
 augroup END
