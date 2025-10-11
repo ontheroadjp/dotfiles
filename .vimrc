@@ -19,6 +19,7 @@ function! TranslateSelectionToEnglish()
 
   " Replace selected lines with translation
   call setline(l:start_line, split(l:translated, "\n"))
+  redraw!
 endfunction
 
 " Map Visual mode <leader>tr to translation
