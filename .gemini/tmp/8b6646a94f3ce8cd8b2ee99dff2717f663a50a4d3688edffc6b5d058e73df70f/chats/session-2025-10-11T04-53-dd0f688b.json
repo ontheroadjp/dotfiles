@@ -1,0 +1,41 @@
+{
+  "sessionId": "dd0f688b-114d-4ead-bcc4-96a9e766fff1",
+  "projectHash": "8b6646a94f3ce8cd8b2ee99dff2717f663a50a4d3688edffc6b5d058e73df70f",
+  "startTime": "2025-10-11T04:53:29.872Z",
+  "lastUpdated": "2025-10-11T04:53:34.901Z",
+  "messages": [
+    {
+      "id": "c033c0c9-2535-4890-be71-3e425bacb94e",
+      "timestamp": "2025-10-11T04:53:29.872Z",
+      "type": "user",
+      "content": "翻訳テストだよ\n翻訳テストだよ\n\n\nTranslate the following Japanese text to English:"
+    },
+    {
+      "id": "c7660e99-e5ae-420f-85a3-bd22086a6579",
+      "timestamp": "2025-10-11T04:53:34.901Z",
+      "type": "gemini",
+      "content": "This is a translation test.",
+      "thoughts": [
+        {
+          "subject": "Decoding the Request",
+          "description": "I've identified the user's objective: a translation. I'm breaking down \"翻訳テストだよ\" to its components. I've started with \"翻訳,\" which means \"translation.\" Next I'll look into \"テスト\" and \"だよ.\"",
+          "timestamp": "2025-10-11T04:53:32.673Z"
+        },
+        {
+          "subject": "Synthesizing the Translation",
+          "description": "I've settled on the best translation: \"This is a translation test.\" It maintains accuracy while sounding natural. Given the repeated phrase, I've confirmed I should provide the translation once. The process is complete.",
+          "timestamp": "2025-10-11T04:53:34.874Z"
+        }
+      ],
+      "tokens": {
+        "input": 8527,
+        "output": 6,
+        "cached": 8411,
+        "thoughts": 283,
+        "tool": 0,
+        "total": 8816
+      },
+      "model": "gemini-2.5-pro"
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "sessionId": "24e3bf43-4ad8-418c-a236-b6e728c7fbba",
+  "projectHash": "8b6646a94f3ce8cd8b2ee99dff2717f663a50a4d3688edffc6b5d058e73df70f",
+  "startTime": "2025-10-11T04:54:48.632Z",
+  "lastUpdated": "2025-10-11T04:54:53.577Z",
+  "messages": [
+    {
+      "id": "4c1f2ac1-e9bd-4971-88fe-c96fbb23c346",
+      "timestamp": "2025-10-11T04:54:48.632Z",
+      "type": "user",
+      "content": "翻訳テストだよ\n今日は良い天気ですね\n\n\nTranslate the following Japanese text to English:"
+    },
+    {
+      "id": "32afa772-fea6-4d4b-8906-38f0503b0d92",
+      "timestamp": "2025-10-11T04:54:53.577Z",
+      "type": "gemini",
+      "content": "This is a translation test.\nThe weather is nice today, isn't it?",
+      "thoughts": [
+        {
+          "subject": "Analyzing Translation Needs",
+          "description": "I'm currently focused on breaking down the user's request. It seems straightforward: translate Japanese text to English. The provided text, \"翻訳テストだよ\\n今日は良い天気ですね\", needs analysis to determine the best approach. I'm evaluating what tools or steps are needed, especially since I lack direct translation abilities.",
+          "timestamp": "2025-10-11T04:54:52.094Z"
+        },
+        {
+          "subject": "Evaluating the Output",
+          "description": "I've finished the translation. I've ensured the English output is both accurate and natural-sounding. I used my internal knowledge for the translation. I'm confident in the final result: \"This is a translation test. The weather is nice today, isn't it?\" I'm ready to finalize.",
+          "timestamp": "2025-10-11T04:54:53.369Z"
+        }
+      ],
+      "tokens": {
+        "input": 8528,
+        "output": 18,
+        "cached": 8412,
+        "thoughts": 206,
+        "tool": 0,
+        "total": 8752
+      },
+      "model": "gemini-2.5-pro"
+    }
+  ]
+}
