@@ -1,5 +1,0 @@
- A complete log of this run can be found in: /Users/hideaki/.npm/_logs/2025-08-25T20_35_39_228Z-debug-0.log
---33 verbose stack File:".
-0 verbose cli /usr/local/Cellar/node/21.7.1/bin/node /usr/local/bin/npm1 info using npm@10.5.02 info using node@v21.7.13 timing npm:load:whichnode Completed in 2ms4 timing config:load:defaults Completed in 1ms5 timing config:load:file:/usr/local/lib/node_modules/npm/npmrc Completed in 2ms6 timing config:load:builtin Completed in 3ms7 timing config:load:cli Completed in 2ms8 timing config:load:env Completed in 1ms9 timing config:load:file:/Users/hideaki/WORKSPACE/schools_api/data/api_web/.npmrc Completed in 0ms10 timing config:load:project Completed in 2ms11 timing config:load:file:/Users/hideaki/.npmrc Completed in 0ms12 timing config:load:user Completed in 1ms13 timing config:load:file:/usr/local/etc/npmrc Completed in 0ms14 timing confi
- JSON.parse Note: package.json must be actual JSON, not just JavaScript.
- A complete log of this run can be found in: /Users/hideaki/.npm/_logs/2025-08-25T20_51_09_704Z-debug-0.log
