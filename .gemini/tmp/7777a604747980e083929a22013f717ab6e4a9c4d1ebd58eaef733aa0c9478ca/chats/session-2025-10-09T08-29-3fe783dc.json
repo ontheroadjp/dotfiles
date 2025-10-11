@@ -1,0 +1,41 @@
+{
+  "sessionId": "3fe783dc-f819-4bf4-a697-1b0fe6f6e269",
+  "projectHash": "7777a604747980e083929a22013f717ab6e4a9c4d1ebd58eaef733aa0c9478ca",
+  "startTime": "2025-10-09T08:29:33.426Z",
+  "lastUpdated": "2025-10-09T08:29:40.756Z",
+  "messages": [
+    {
+      "id": "d770fa20-efd1-48ba-b5a6-50f07df50de4",
+      "timestamp": "2025-10-09T08:29:33.426Z",
+      "type": "user",
+      "content": "## 説明 (Description)\nぶっ壊れた\n\n## 再現手順 (Steps to Reproduce)\n1. ブラウザを起動する\n2. クリックする\n3. 下へスクロール\n4. もっと見るをクリック\n\n\nTranslate the following Japanese text to English:"
+    },
+    {
+      "id": "da39be1f-f559-4de2-974e-62c9383dae64",
+      "timestamp": "2025-10-09T08:29:40.756Z",
+      "type": "gemini",
+      "content": "## Description\nIt's broken\n\n## Steps to Reproduce\n1. Launch the browser\n2. Click\n3. Scroll down\n4. Click \"More\"",
+      "thoughts": [
+        {
+          "subject": "Interpreting Bug Report",
+          "description": "I'm now digging into the Japanese bug report. So far, \"ぶっ壊れた\" looks like a casual way of saying \"broken,\" and \"再現手順\" clearly points to \"Steps to Reproduce.\" I'm ready to unpack the steps outlined within the report.",
+          "timestamp": "2025-10-09T08:29:40.091Z"
+        },
+        {
+          "subject": "Unpacking the Steps",
+          "description": "I've translated the provided Japanese text describing a bug report. The casual \"It's broken\" is followed by clear steps to reproduce the issue. The initial steps involve launching a browser, clicking, scrolling, and clicking \"More.\" I'm ready to synthesize this information.",
+          "timestamp": "2025-10-09T08:29:40.738Z"
+        }
+      ],
+      "tokens": {
+        "input": 6140,
+        "output": 34,
+        "cached": 0,
+        "thoughts": 137,
+        "tool": 0,
+        "total": 6311
+      },
+      "model": "gemini-2.5-pro"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "sessionId": "8ad0f862-8ba4-4637-94ef-5ce878801689",
+  "projectHash": "8b6646a94f3ce8cd8b2ee99dff2717f663a50a4d3688edffc6b5d058e73df70f",
+  "startTime": "2025-10-11T04:54:04.528Z",
+  "lastUpdated": "2025-10-11T04:54:08.009Z",
+  "messages": [
+    {
+      "id": "73a6273e-158d-4c4b-9a34-6c517435393b",
+      "timestamp": "2025-10-11T04:54:04.528Z",
+      "type": "user",
+      "content": "翻訳テストだよ\n翻訳テストだよ\n翻訳テストだよ\n翻訳テストだよ\n\n\nTranslate the following Japanese text to English:"
+    },
+    {
+      "id": "af09a04b-0b42-4bcc-b7b5-fc3f7516a620",
+      "timestamp": "2025-10-11T04:54:08.009Z",
+      "type": "gemini",
+      "content": "This is a translation test.\nThis is a translation test.\nThis is a translation test.\nThis is a translation test.",
+      "thoughts": [
+        {
+          "subject": "Translating the Japanese",
+          "description": "I've successfully translated \"翻訳テストだよ\" to English. The output is \"This is a translation test.\" This was a straightforward task, and the meaning came through clearly.",
+          "timestamp": "2025-10-11T04:54:07.811Z"
+        }
+      ],
+      "tokens": {
+        "input": 8535,
+        "output": 27,
+        "cached": 0,
+        "thoughts": 37,
+        "tool": 0,
+        "total": 8599
+      },
+      "model": "gemini-2.5-pro"
+    }
+  ]
+}
