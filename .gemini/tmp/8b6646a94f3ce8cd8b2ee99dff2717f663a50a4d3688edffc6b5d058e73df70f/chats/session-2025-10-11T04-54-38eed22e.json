@@ -1,0 +1,36 @@
+{
+  "sessionId": "38eed22e-ec2b-4614-a85b-d8c320d3de96",
+  "projectHash": "8b6646a94f3ce8cd8b2ee99dff2717f663a50a4d3688edffc6b5d058e73df70f",
+  "startTime": "2025-10-11T04:54:32.320Z",
+  "lastUpdated": "2025-10-11T04:54:34.997Z",
+  "messages": [
+    {
+      "id": "1f658e95-5d52-4c41-a4b5-9db683b8e665",
+      "timestamp": "2025-10-11T04:54:32.320Z",
+      "type": "user",
+      "content": "今日は良い天気ですね\n\n\nTranslate the following Japanese text to English:"
+    },
+    {
+      "id": "dfae940c-f1ac-4760-80e8-620aa7971334",
+      "timestamp": "2025-10-11T04:54:34.997Z",
+      "type": "gemini",
+      "content": "It's nice weather today, isn't it?",
+      "thoughts": [
+        {
+          "subject": "Deciphering a Japanese Phrase",
+          "description": "I've considered the straightforward nature of the task. The user requires the English translation of \"今日は良い天気ですね.\" My focus is solely on providing an accurate and concise equivalent. I believe I'm ready to deliver the translation.",
+          "timestamp": "2025-10-11T04:54:34.992Z"
+        }
+      ],
+      "tokens": {
+        "input": 8524,
+        "output": 12,
+        "cached": 8411,
+        "thoughts": 30,
+        "tool": 0,
+        "total": 8566
+      },
+      "model": "gemini-2.5-pro"
+    }
+  ]
+}

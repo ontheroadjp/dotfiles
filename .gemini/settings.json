@@ -1,0 +1,17 @@
+{
+  "general": {
+    "preferredEditor": "vim",
+    "vimMode": true,
+    "checkpointing": {
+      "enabled": true
+    }
+  },
+  "ui": {
+    "theme": "GitHub"
+  },
+  "security": {
+      "auth": {
+          "selectedType": "oauth-personal"
+      }
+  }
+}
