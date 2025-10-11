@@ -1,1 +1,13 @@
+# Exclude Gemini CLI specific files
 .gemini/oauth_creds.json
+.gemini/tmp/
+.gemini/__pycache__/
+.gemini/history/
+
+# Exclude log files
+*.log
+*.log.*
+
+# Exclude backup files and directories
+bk_*
+bk_*/
