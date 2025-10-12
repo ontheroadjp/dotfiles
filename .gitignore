@@ -19,3 +19,8 @@
 bk_*
 bk_*/
 mac_osx/karabiner_elements/automatic_backups/
+
+# Exclude environment files and virtual environments
+tools/deepl-translate-en/.env
+tools/deepl-translate-en/venv/
+bin/deepl-translate-en
