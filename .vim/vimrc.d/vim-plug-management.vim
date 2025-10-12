@@ -36,7 +36,8 @@ Plug 'tpope/vim-surround', { 'on': [] }
 Plug 'Yggdroot/indentLine', { 'on': [] }
 Plug 'ontheroadjp/vim-commentout', { 'on': [] }
 Plug 'ontheroadjp/vim-brackets', { 'on': [] }
-Plug 'ontheroadjp/vim-gemini-translate', { 'on': [] }
+Plug 'ontheroadjp/vim-deepl-translate', { 'on': [] }
+" Plug 'ontheroadjp/vim-deepl-translate', { 'dir': '~/dev/src/github.com/ontheroadjp/vim-deepl-translate' }
 
 if plugin_env.mode == 0
     Plug 'ervandew/supertab', { 'on': [] }
@@ -77,7 +78,7 @@ function! plugin_env.lazy_load_plugs(timer) abort
         \ 'indentLine',
         \ 'vim-commentout',
         \ 'vim-brackets',
-        \ 'vim-gemini-translate',
+        \ 'vim-deepl-translate',
         \ )
     if self.mode == 0
         call plug#load(
@@ -110,6 +111,7 @@ function! plugin_env.lazy_load_plugs_settings(timer) abort
     so ${HOME}/dotfiles/.vim/vimrc.d/plugins/surround.vim
     so ${HOME}/dotfiles/.vim/vimrc.d/plugins/indentLine.vim
     so ${HOME}/dotfiles/.vim/vimrc.d/plugins/vim-commentout.vim
+    so ${HOME}/dotfiles/.vim/vimrc.d/plugins/vim-deepl-translate.vim
     if self.mode == 0
         so ${HOME}/dotfiles/.vim/vimrc.d/plugins/supertab.vim
         so ${HOME}/dotfiles/.vim/vimrc.d/plugins/snipmate.vim
