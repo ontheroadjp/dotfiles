@@ -171,6 +171,7 @@ source ${DOTPATH}/.zsh.d/dev/python.zsh
 zsh-defer source ${DOTPATH}/.zsh.d/networking.zsh
 # zsh-defer source ${DOTPATH}/.zsh.d/shell-tools.zsh
 zsh-defer source ${HOME}/dev/src/github.com/ontheroadjp/shell-tools/shell-tools.sh
+alias en="deepl-translate-en"
 
 #-------------------------------------------------
 # Tools
