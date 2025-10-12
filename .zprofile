@@ -5,7 +5,8 @@ export EDITOR=vim
 export TERM=xterm
 export DOTPATH=${HOME}/dotfiles
 export WORKSPACE="${HOME}/WORKSPACE"
-# export PATH=${DOTPATH}/bin:${PATH}
+export PATH=${DOTPATH}/bin:${PATH}
+export PATH=/usr/local/Cellar/node/21.7.1/bin:${PATH}
 # export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:${PATH}
 autoload -Uz colors && colors   # use color
 
@@ -153,6 +154,7 @@ zsh-defer source ${DOTPATH}/.zsh.d/core/docker.zsh
 zsh-defer source ${DOTPATH}/.zsh.d/core/git.zsh
 zsh-defer source ${DOTPATH}/.zsh.d/core/peco.zsh
 zsh-defer source ${DOTPATH}/.zsh.d/core/fzf.zsh
+source ${DOTPATH}/.zsh.d/core/gemini.zsh
 
 #-------------------------------------------------
 # Load Dev
@@ -196,4 +198,3 @@ alias imgsize="_display_image_size"
 alias me="glow ${MEMO_PATH}"
 
 echo 'Load .zprofile.'
-
