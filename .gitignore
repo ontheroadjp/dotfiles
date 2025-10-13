@@ -1,8 +1,8 @@
 # Exclude Gemini CLI specific files
-.gemini/oauth_creds.json
-.gemini/tmp/
-.gemini/__pycache__/
-.gemini/history/
+home/.gemini/oauth_creds.json
+home/.gemini/tmp/
+home/.gemini/__pycache__/
+home/.gemini/history/
 .config/configstore/update-notifier-@google/gemini-cli.json
 
 # vim plugins
