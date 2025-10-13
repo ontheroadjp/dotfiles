@@ -154,6 +154,7 @@ zsh-defer source ${DOTPATH}/.zsh.d/core/docker.zsh
 zsh-defer source ${DOTPATH}/.zsh.d/core/git.zsh
 zsh-defer source ${DOTPATH}/.zsh.d/core/peco.zsh
 zsh-defer source ${DOTPATH}/.zsh.d/core/fzf.zsh
+zsh-defer source ${DOTPATH}/.zsh.d/core/ripgrap.zsh
 source ${DOTPATH}/.zsh.d/core/gemini.zsh
 
 #-------------------------------------------------
@@ -176,7 +177,7 @@ alias en="deepl-translate-en | pbcopy"
 #-------------------------------------------------
 # Tools
 #-------------------------------------------------
-export RIPGREP_CONFIG_PATH="${DOTPATH}/.config/ripgrep/.ripgreprc"
+# export RIPGREP_CONFIG_PATH="${DOTPATH}/.config/ripgrep/.ripgreprc"
 alias exif="exiftool $@"
 
 #-------------------------------------------------
