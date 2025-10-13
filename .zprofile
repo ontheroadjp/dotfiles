@@ -155,7 +155,7 @@ zsh-defer source ${DOTPATH}/.zsh.d/core/git.zsh
 zsh-defer source ${DOTPATH}/.zsh.d/core/peco.zsh
 zsh-defer source ${DOTPATH}/.zsh.d/core/fzf.zsh
 zsh-defer source ${DOTPATH}/.zsh.d/core/ripgrap.zsh
-source ${DOTPATH}/.zsh.d/core/gemini.zsh
+zsh-defer source ${DOTPATH}/.zsh.d/core/gemini.zsh
 
 #-------------------------------------------------
 # Load Dev
