@@ -1,53 +1,54 @@
-# ~/.zshrc または ~/.bashrc に追加
 gemini() {
-  # カレントブランチ名を取得
+  # Get current branch name
   local branch
   branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
 
-  # git 管理下でない場合はそのまま続行
+  # If not under git control, continue as is
   if [ $? -ne 0 ]; then
-    echo "⚠️ Git リポジトリではありません。Gemini CLI を起動します。"
+    echo "⚠️  Start the Gemini CLI, not the Git repository.
+"
     command gemini "$@"
     return
   fi
 
-  # ワーキングツリーの状態を確認
+  # Check working tree status
   local git_status
   git_status=$(git status --porcelain)
 
-  # チェック条件
+  # Check Conditions
   local clean=true
   local on_dev=true
 
   if [ "$branch" != "dev" ]; then
-    echo "⚠️ 現在のブランチは '$branch' です（dev ではありません）"
+    echo "⚠️  Current branch is '$branch' (not dev)
+"
     on_dev=false
   fi
 
   if [ -n "$git_status" ]; then
-    echo "⚠️ ワーキングツリーに未コミットの変更があります"
+    echo "⚠️  There are uncommitted changes to the king tree"
     clean=false
   fi
 
-  # どちらかが不適なら確認を出す
+  # Issue confirmation if either is unsuitable
   if [ "$on_dev" = false ] || [ "$clean" = false ]; then
     echo
-    echo "次のいずれかを選んでください:"
-    echo "  [c] 継続して gemini を起動"
-    echo "  [a] 中断"
+    echo "Choose one of the following:"
+    echo " [c] continue to launch gemini"
+    echo " [a] Suspend"
     echo -n "> "
     read -r ans
     case "$ans" in
       c|C)
-        echo "👉 Gemini CLI を起動します..."
+        echo "👉 Start Gemini CLI..."
         ;;
       *)
-        echo "⛔ 中断しました。"
+        echo "⛔ Interrupted..."
         return 1
         ;;
     esac
   fi
 
-  # 通常の gemini CLI 実行
+  # Normal gemini CLI execution
   command gemini "$@"
 }

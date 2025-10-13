@@ -48,7 +48,10 @@
                                 },
                                 "to": [
                                     {
-                                        "key_code": "return_or_enter"
+                                        "key_code": "japanese_eisuu"
+                                    },
+                                    {
+                                        "key_code": "japanese_eisuu"
                                     },
                                     {
                                         "key_code": "japanese_eisuu"

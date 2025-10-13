@@ -15,6 +15,9 @@
 *.log
 *.log.*
 
+# Exclude tags files
+tags
+
 # Exclude backup files and directories
 bk_*
 bk_*/
@@ -24,3 +27,8 @@ mac_osx/karabiner_elements/automatic_backups/
 tools/deepl-translate-en/.env
 tools/deepl-translate-en/venv/
 bin/deepl-translate-en
+
+# Exclude Vagrant
+.vagrant.d
+
+
