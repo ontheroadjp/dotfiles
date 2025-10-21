@@ -4,6 +4,7 @@
 export EDITOR=vim
 export TERM=xterm
 export DOTPATH=${HOME}/dotfiles
+export DOTFILES_BIN=${DOTPATH}/bin
 export WORKSPACE="${HOME}/WORKSPACE"
 export PATH=${DOTPATH}/bin:${PATH}
 export PATH=/usr/local/Cellar/node/21.7.1/bin:${PATH}
@@ -42,7 +43,6 @@ alias e='exit'
 alias h='cd ${HOME}'
 alias dot='cd ${DOTPATH}'
 alias w='cd ${WORKSPACE}'
-alias init='exec $SHELL -l'
 
 #-------------------------------------------------
 # For MacOSX only
@@ -140,8 +140,6 @@ setopt share_history
 #-------------------------------------------------
 if _is_exist go; then
     export GOPATH="${HOME}/dev"
-    #export GOBIN="${GOPATH}/bin"
-    # export PATH="${PATH}:${GOPATH}/bin"
     mkdir -p ${GOPATH}
 fi
 
@@ -170,15 +168,22 @@ source ${DOTPATH}/.zsh.d/dev/python.zsh
 # Load others
 #-------------------------------------------------
 zsh-defer source ${DOTPATH}/.zsh.d/networking.zsh
-# zsh-defer source ${DOTPATH}/.zsh.d/shell-tools.zsh
-zsh-defer source ${HOME}/dev/src/github.com/ontheroadjp/shell-tools/shell-tools.sh
-alias en="deepl-translate-en | pbcopy"
+# zsh-defer source ${HOME}/dev/src/github.com/ontheroadjp/shell-tools/shell-tools.sh
 
 #-------------------------------------------------
 # Tools
 #-------------------------------------------------
-# export RIPGREP_CONFIG_PATH="${DOTPATH}/.config/ripgrep/.ripgreprc"
 alias exif="exiftool $@"
+
+alias en="deepl-translate | pbcopy"
+
+# Shell Tools
+
+# GithubGG
+ln -sf $(ghq root)/github.com/ontheroadjp/GithubGG/manage_github_repositories.sh ${DOTPATH}/bin
+ln -sf $(ghq root)/github.com/ontheroadjp/GithubGG/manage_github_issues.sh ${DOTPATH}/bin
+alias GGr='manage_github_repositories.sh'
+alias GGi='manage_github_issues.sh'
 
 #-------------------------------------------------
 # Utilities

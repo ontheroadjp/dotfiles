@@ -14,6 +14,10 @@ autocmd ColorScheme * highlight LineNr ctermbg=none
 "-------------------------
 colorscheme base16-ocean
 
+" if has("termguicolors")
+"     set termguicolors
+" endif
+
 "-------------------------
 " Extra
 "-------------------------
@@ -21,18 +25,24 @@ augroup Visuals
     autocmd!
     " Line number
     au VimEnter * hi LineNr guifg=Blue guibg=DarkGray gui=none ctermfg=gray ctermbg=none cterm=none
+
     " Window virtical split bar
     au VimEnter * hi VertSplit guifg=Blue guibg=DarkGray gui=none ctermfg=Black ctermbg=Black cterm=none
     set fillchars+=vert::
+
     " Match brackets
-    au Vimenter * hi MatchParen ctermbg=blue guibg=lightblue
+    au VimEnter * hi MatchParen ctermbg=blue guibg=lightblue
+
     " Search highlight
     au VimEnter * hi Search guifg=Blue guibg=DarkGray gui=none ctermfg=White ctermbg=Blue cterm=none
+
     " Folding
-    au VimEnter * hi Folded guifg=Blue guibg=DarkGray gui=none ctermfg=Blue ctermbg=Black cterm=none
-    au VimEnter * hi FoldColumn guifg=Blue guibg=DarkGray gui=none ctermfg=Blue ctermbg=Black cterm=none
+    au ColorScheme * hi Folded guifg=Blue guibg=DarkGray gui=none ctermfg=Blue ctermbg=Black cterm=none
+    au ColorScheme * hi FoldColumn guifg=Blue guibg=DarkGray gui=none ctermfg=Blue ctermbg=Black cterm=none
+
     " sign column
     au VimEnter * hi SignColumn ctermfg=white guifg=black ctermbg=black guibg=black
+
     " Quickfix
     au QuickfixCmdPost * hi QuickFixLine ctermbg=Yellow guibg=Yellow
 augroup END

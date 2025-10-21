@@ -6,9 +6,10 @@
 "10:light-green   11:light-yellow	12:light-blue	13:light-pink	14: light-cyan
 "15: white
 augroup status_line
-    au InsertEnter * hi StatusLine guifg=Blue guibg=DarkGray gui=none ctermfg=white ctermbg=030  cterm=none
-    au InsertLeave * hi StatusLine guifg=Blue guibg=DarkGray gui=none ctermfg=cyan ctermbg=066  cterm=none
-    au WinEnter * hi StatusLine guifg=Blue guibg=DarkYellow gui=none ctermfg=cyan ctermbg=066 cterm=none
+    au InsertEnter * hi StatusLine guifg=Blue guibg=DarkGray gui=none ctermfg=white ctermbg=30  cterm=none
+    au InsertLeave * hi StatusLine guifg=Blue guibg=DarkGray gui=none ctermfg=cyan ctermbg=66  cterm=none
+    " au WinEnter * hi StatusLine guifg=Blue guibg=DarkYellow gui=none ctermfg=cyan ctermbg=66 cterm=none
+    au WinEnter * hi StatusLine guifg=Blue guibg=DarkYellow gui=none ctermfg=cyan ctermbg=66 cterm=none | hi StatusLineNC guifg=Blue guibg=DarkGray
     au WinLeave * hi StatusLineNC guifg=Blue guibg=DarkYellow gui=none ctermfg=cyan ctermbg=240 cterm=none
     au VimEnter * hi StatusLine guifg=Blue guibg=DarkYellow gui=none ctermfg=cyan ctermbg=240 cterm=none
 augroup END

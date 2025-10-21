@@ -1,3 +1,4 @@
+alias init='exec $SHELL -l'
 # -----------------------------------
 # zsh - GIT & vi mode
 # -----------------------------------
@@ -119,3 +120,5 @@ fi
 export PATH="/usr/local/sbin:$PATH"
 
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+. "$HOME/.local/bin/env"

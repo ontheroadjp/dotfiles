@@ -1,0 +1,792 @@
+# この viminfo ファイルは Vim 9.1 によって生成されました.
+# 変更する際には十分注意してください!
+
+# Viminfo version
+|1,4
+
+# このファイルが書かれた時の 'encoding' の値
+*encoding=utf-8
+
+
+# hlsearch on (H) or off (h):
+~h
+# 最後の 検索パターン:
+~MSle0~/GHQ
+
+# 最後に置換された文字列:
+$
+
+# コマンドライン 項目の履歴 (新しいものから古いものへ):
+:wq
+|2,0,1761049088,,"wq"
+:q
+|2,0,1761028686,,"q"
+:w
+|2,0,1761028587,,"w"
+:gi
+|2,0,1760963931,,"gi"
+:so ~/.vimrc
+|2,0,1760963724,,"so ~/.vimrc"
+:Rr
+|2,0,1760959434,,"Rr"
+:rr
+|2,0,1760956821,,"rr"
+:789g
+|2,0,1760956810,,"789g"
+:Ww
+|2,0,1760959181,,"Ww"
+:PlugInstall
+|2,0,1760957858,,"PlugInstall"
+:echo exists('*fzf#run')
+|2,0,1760957715,,"echo exists('*fzf#run')"
+:Files
+|2,0,1760957672,,"Files"
+:fzf
+|2,0,1760957316,,"fzf"
+:q!
+|2,0,1760929362,,"q!"
+
+# 検索文字列 項目の履歴 (新しいものから古いものへ):
+? \s\+$
+|2,1,1761049088,,"\\s\\+$"
+?/GHQ
+|2,1,1761028626,47,"GHQ"
+?/battery
+|2,1,1761008448,47,"battery"
+? \<ListAndOpenGitHubIssues\>
+|2,1,1760964052,,"\\<ListAndOpenGitHubIssues\\>"
+?/ghl
+|2,1,1760964048,47,"ghl"
+?/<lea
+|2,1,1760963958,47,"<lea"
+?/fzf
+|2,1,1760963674,47,"fzf"
+? ^\s*$
+|2,1,1760957681,,"^\\s*$"
+?/_cd_to_repo
+|2,1,1760954560,47,"_cd_to_repo"
+?/core
+|2,1,1760954392,47,"core"
+?/cd_to_repo
+|2,1,1760954452,47,"cd_to_repo"
+?/rr
+|2,1,1760954305,47,"rr"
+?/zsh
+|2,1,1760942888,47,"zsh"
+?/tmux
+|2,1,1760948515,47,"tmux"
+?/line
+|2,1,1760929416,47,"line"
+?/nuber
+|2,1,1760929409,47,"nuber"
+?/split
+|2,1,1760929348,47,"split"
+?/source
+|2,1,1760945072,47,"source"
+?/viminfo
+|2,1,1760926346,47,"viminfo"
+?/init
+|2,1,1760930958,47,"init"
+?/pop
+|2,1,1760929101,47,"pop"
+?/popup
+|2,1,1760929090,47,"popup"
+
+# 式 項目の履歴 (新しいものから古いものへ):
+
+# 入力行 項目の履歴 (新しいものから古いものへ):
+@N
+|2,3,1760970645,,"N"
+
+# デバッグ行 項目の履歴 (新しいものから古いものへ):
+
+# レジスタ:
+"0	LINE	0
+	ln -sf ${HOME}/dev/src/github.com/ontheroadjp/GithubGG/manage_github_repositories.sh ${DOTPATH}/bin
+|3,0,0,1,1,0,1761028613,"ln -sf ${HOME}/dev/src/github.com/ontheroadjp/GithubGG/manage_github_repositories.sh ${DOTPATH}/bin"
+"1	LINE	0
+	DEEPL_API_KEY=your_api_key
+|3,0,1,1,1,0,1761010455,"DEEPL_API_KEY=your_api_key"
+"2	LINE	0
+	DEEPL_API_KEY=your_api_key
+|3,0,2,1,1,0,1761010455,"DEEPL_API_KEY=your_api_key"
+"3	LINE	0
+	DEEPL_API_KEY=your_api_key
+|3,0,3,1,1,0,1761010413,"DEEPL_API_KEY=your_api_key"
+"4	LINE	0
+	# --------------------------------
+|3,0,4,1,1,0,1761008366,"# --------------------------------"
+"5	LINE	0
+	# --------------------------------
+|3,0,5,1,1,0,1761008363,"# --------------------------------"
+"6	LINE	0
+	# --------------------------------
+|3,0,6,1,1,0,1761008358,"# --------------------------------"
+"7	LINE	0
+	# --------------------------------
+|3,0,7,1,1,0,1761008351,"# --------------------------------"
+"8	LINE	0
+	# --------------------------------
+	# set-hook -g after-new-session "source-file ~/dotfiles/.tmux/.tmux.base.conf"
+	# --------------------------------
+	
+|3,0,8,1,4,0,1761008334,"# --------------------------------","# set-hook -g after-new-session \"source-file ~/dotfiles/.tmux/.tmux.base.conf\"","# --------------------------------",""
+"9	LINE	0
+	# bind g display-popup -d "#{pane_current_path}" -E -w 80% -h 70% "zsh -l"
+	# bind -n C-q run-shell "zsh -c \"tmuxpopup\""
+	# bind g run-shell "zsh -c \"tmuxpopup\""
+	
+|3,0,9,1,4,0,1761008319,"# bind g display-popup -d \"#{pane_current_path}\" -E -w 80% -h 70% \"zsh -l\"","# bind -n C-q run-shell \"zsh -c \\\"tmuxpopup\\\"\"","# bind g run-shell \"zsh -c \\\"tmuxpopup\\\"\"",""
+"z	LINE	0
+	    function _cd_to_repository_from_ghq_list_by_fzf() {
+	        local to=$(ghq list | fzf-tmux -p 65%)
+	        [ ! -z ${to} ] && cd $(ghq root)/${to}
+	    }
+|3,0,35,1,4,0,1760955048,"    function _cd_to_repository_from_ghq_list_by_fzf() {","        local to=$(ghq list | fzf-tmux -p 65%)","        [ ! -z ${to} ] && cd $(ghq root)/${to}","    }"
+""-	CHAR	0
+	p
+|3,1,36,0,1,0,1761028648,"p"
+
+# グローバル変数:
+
+# ファイルマーク:
+'P  1  0  ~/dotfiles/.zprofile
+|4,80,1,0,1760926323,"~/dotfiles/.zprofile"
+'V  1  0  ~/.vimrc
+|4,86,1,0,1760926318,"~/.vimrc"
+'0  142  6  ~/dotfiles/.zprofile
+|4,48,142,6,1761049088,"~/dotfiles/.zprofile"
+'1  143  5  ~/dotfiles/.zprofile
+|4,49,143,5,1761028690,"~/dotfiles/.zprofile"
+'2  143  5  ~/dotfiles/.zprofile
+|4,50,143,5,1761028690,"~/dotfiles/.zprofile"
+'3  1  0  ~/dotfiles/tools/deepl-translate/deepl-translate.py
+|4,51,1,0,1761010645,"~/dotfiles/tools/deepl-translate/deepl-translate.py"
+'4  1  0  ~/dotfiles/tools/deepl-translate/deepl-translate.py
+|4,52,1,0,1761010645,"~/dotfiles/tools/deepl-translate/deepl-translate.py"
+'5  36  0  ~/dotfiles/tools/deepl-translate/docs/deepl-translate.md
+|4,53,36,0,1761010549,"~/dotfiles/tools/deepl-translate/docs/deepl-translate.md"
+'6  36  0  ~/dotfiles/tools/deepl-translate/docs/deepl-translate.md
+|4,54,36,0,1761010549,"~/dotfiles/tools/deepl-translate/docs/deepl-translate.md"
+'7  1  52  ~/dotfiles/tools/deepl-translate/.env.example
+|4,55,1,52,1761010508,"~/dotfiles/tools/deepl-translate/.env.example"
+'8  1  52  ~/dotfiles/tools/deepl-translate/.env.example
+|4,56,1,52,1761010508,"~/dotfiles/tools/deepl-translate/.env.example"
+'9  1  0  ~/dotfiles/tools/deepl-translate/.env
+|4,57,1,0,1761010405,"~/dotfiles/tools/deepl-translate/.env"
+
+# ジャンプリスト (新しいものが先):
+-'  142  6  ~/dotfiles/.zprofile
+|4,39,142,6,1761049088,"~/dotfiles/.zprofile"
+-'  143  0  ~/dotfiles/.zprofile
+|4,39,143,0,1761049078,"~/dotfiles/.zprofile"
+-'  143  5  ~/dotfiles/.zprofile
+|4,39,143,5,1761028690,"~/dotfiles/.zprofile"
+-'  185  12  ~/dotfiles/.zprofile
+|4,39,185,12,1761028626,"~/dotfiles/.zprofile"
+-'  185  12  ~/dotfiles/.zprofile
+|4,39,185,12,1761028626,"~/dotfiles/.zprofile"
+-'  1  0  ~/dotfiles/tools/deepl-translate/deepl-translate.py
+|4,39,1,0,1761010645,"~/dotfiles/tools/deepl-translate/deepl-translate.py"
+-'  1  0  ~/dotfiles/tools/deepl-translate/deepl-translate.py
+|4,39,1,0,1761010645,"~/dotfiles/tools/deepl-translate/deepl-translate.py"
+-'  36  0  ~/dotfiles/tools/deepl-translate/docs/deepl-translate.md
+|4,39,36,0,1761010549,"~/dotfiles/tools/deepl-translate/docs/deepl-translate.md"
+-'  36  0  ~/dotfiles/tools/deepl-translate/docs/deepl-translate.md
+|4,39,36,0,1761010549,"~/dotfiles/tools/deepl-translate/docs/deepl-translate.md"
+-'  36  0  ~/dotfiles/tools/deepl-translate/docs/deepl-translate.md
+|4,39,36,0,1761010549,"~/dotfiles/tools/deepl-translate/docs/deepl-translate.md"
+-'  1  0  ~/dotfiles/tools/deepl-translate/docs/deepl-translate.md
+|4,39,1,0,1761010545,"~/dotfiles/tools/deepl-translate/docs/deepl-translate.md"
+-'  1  0  ~/dotfiles/tools/deepl-translate/docs/deepl-translate.md
+|4,39,1,0,1761010545,"~/dotfiles/tools/deepl-translate/docs/deepl-translate.md"
+-'  1  0  ~/dotfiles/tools/deepl-translate/docs/deepl-translate.md
+|4,39,1,0,1761010545,"~/dotfiles/tools/deepl-translate/docs/deepl-translate.md"
+-'  1  52  ~/dotfiles/tools/deepl-translate/.env.example
+|4,39,1,52,1761010508,"~/dotfiles/tools/deepl-translate/.env.example"
+-'  1  52  ~/dotfiles/tools/deepl-translate/.env.example
+|4,39,1,52,1761010508,"~/dotfiles/tools/deepl-translate/.env.example"
+-'  1  52  ~/dotfiles/tools/deepl-translate/.env.example
+|4,39,1,52,1761010508,"~/dotfiles/tools/deepl-translate/.env.example"
+-'  1  52  ~/dotfiles/tools/deepl-translate/.env.example
+|4,39,1,52,1761010508,"~/dotfiles/tools/deepl-translate/.env.example"
+-'  1  52  ~/dotfiles/tools/deepl-translate/.env.example
+|4,39,1,52,1761010508,"~/dotfiles/tools/deepl-translate/.env.example"
+-'  1  0  ~/dotfiles/tools/deepl-translate/.env
+|4,39,1,0,1761010405,"~/dotfiles/tools/deepl-translate/.env"
+-'  1  0  ~/dotfiles/tools/deepl-translate/.env
+|4,39,1,0,1761010405,"~/dotfiles/tools/deepl-translate/.env"
+-'  1  0  ~/dotfiles/tools/deepl-translate/.env
+|4,39,1,0,1761010405,"~/dotfiles/tools/deepl-translate/.env"
+-'  1  0  ~/dotfiles/tools/deepl-translate/.env
+|4,39,1,0,1761010405,"~/dotfiles/tools/deepl-translate/.env"
+-'  1  0  ~/dotfiles/tools/deepl-translate/.env
+|4,39,1,0,1761010405,"~/dotfiles/tools/deepl-translate/.env"
+-'  1  0  ~/dotfiles/tools/deepl-translate/.env
+|4,39,1,0,1761010405,"~/dotfiles/tools/deepl-translate/.env"
+-'  1  0  ~/dotfiles/tools/deepl-translate/.env
+|4,39,1,0,1761010405,"~/dotfiles/tools/deepl-translate/.env"
+-'  1  0  ~/dotfiles/tools/deepl-translate/.env
+|4,39,1,0,1761010405,"~/dotfiles/tools/deepl-translate/.env"
+-'  1  0  ~/dotfiles/tools/deepl-translate/.env
+|4,39,1,0,1761010405,"~/dotfiles/tools/deepl-translate/.env"
+-'  1  0  ~/dotfiles/tools/deepl-translate/.env.example
+|4,39,1,0,1761010393,"~/dotfiles/tools/deepl-translate/.env.example"
+-'  1  0  ~/dotfiles/tools/deepl-translate/.env.example
+|4,39,1,0,1761010393,"~/dotfiles/tools/deepl-translate/.env.example"
+-'  1  0  ~/dotfiles/tools/deepl-translate/.env.example
+|4,39,1,0,1761010393,"~/dotfiles/tools/deepl-translate/.env.example"
+-'  1  0  ~/dotfiles/tools/deepl-translate/.env.example
+|4,39,1,0,1761010393,"~/dotfiles/tools/deepl-translate/.env.example"
+-'  1  0  ~/dotfiles/tools/deepl-translate/.env.example
+|4,39,1,0,1761010393,"~/dotfiles/tools/deepl-translate/.env.example"
+-'  1  0  ~/dotfiles/tools/deepl-translate/.env.example
+|4,39,1,0,1761010393,"~/dotfiles/tools/deepl-translate/.env.example"
+-'  1  0  ~/dotfiles/tools/deepl-translate/.env.example
+|4,39,1,0,1761010393,"~/dotfiles/tools/deepl-translate/.env.example"
+-'  1  0  ~/dotfiles/tools/deepl-translate/.env.example
+|4,39,1,0,1761010393,"~/dotfiles/tools/deepl-translate/.env.example"
+-'  29  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,29,0,1761010378,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  29  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,29,0,1761010378,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  29  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,29,0,1761010378,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  29  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,29,0,1761010378,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  29  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,29,0,1761010378,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  29  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,29,0,1761010378,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  29  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,29,0,1761010378,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  29  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,29,0,1761010378,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  29  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,29,0,1761010378,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  29  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,29,0,1761010378,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  29  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,29,0,1761010378,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  29  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,29,0,1761010378,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  29  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,29,0,1761010378,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  29  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,29,0,1761010378,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  29  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,29,0,1761010378,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  29  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,29,0,1761010378,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  29  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,29,0,1761010378,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  29  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,29,0,1761010378,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  29  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,29,0,1761010378,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  29  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,29,0,1761010378,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  29  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,29,0,1761010378,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  29  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,29,0,1761010378,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  29  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,29,0,1761010378,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  29  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,29,0,1761010378,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  29  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,29,0,1761010378,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  29  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,29,0,1761010378,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  29  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,29,0,1761010378,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  29  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,29,0,1761010378,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  29  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,29,0,1761010378,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  29  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,29,0,1761010378,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  29  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,29,0,1761010378,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  29  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,29,0,1761010378,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  29  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,29,0,1761010378,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  1  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,1,0,1761010363,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  1  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,1,0,1761010363,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  1  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,1,0,1761010363,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  1  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,1,0,1761010363,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  1  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,1,0,1761010363,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  1  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,1,0,1761010363,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  1  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,1,0,1761010363,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  1  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,1,0,1761010363,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  1  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,1,0,1761010363,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  1  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,1,0,1761010363,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  1  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,1,0,1761010363,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  1  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,1,0,1761010363,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  1  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,1,0,1761010363,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  1  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,1,0,1761010363,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  1  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,1,0,1761010363,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  1  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,1,0,1761010363,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  1  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,1,0,1761010363,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  1  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,1,0,1761010363,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  1  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,1,0,1761010363,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  1  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,1,0,1761010363,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  1  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,1,0,1761010363,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  1  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,1,0,1761010363,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  1  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,1,0,1761010363,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  1  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,1,0,1761010363,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  1  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,1,0,1761010363,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  1  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,1,0,1761010363,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  1  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,1,0,1761010363,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  1  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,1,0,1761010363,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  1  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,1,0,1761010363,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  1  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,1,0,1761010363,"~/dotfiles/tools/deepl-translate/setup.sh"
+-'  1  0  ~/dotfiles/tools/deepl-translate/setup.sh
+|4,39,1,0,1761010363,"~/dotfiles/tools/deepl-translate/setup.sh"
+
+# バッファリスト:
+%~/dotfiles/.zprofile	142	6
+%~/WORKSPACE/GG/.gitignore	2	3
+
+# ファイル内マークの履歴 (新しいものから古いもの):
+
+> ~/dotfiles/.zprofile
+	*	1761049085	0
+	"	142	6
+	^	142	7
+	.	142	6
+	+	185	84
+	+	186	74
+	+	184	7
+	+	188	33
+	+	187	36
+	+	174	0
+	+	180	0
+	+	183	0
+	+	180	25
+	+	182	12
+	+	142	6
+	m	185	12
+
+> ~/[unite] - default
+	*	1761049075	0
+	"	1	3
+	^	1	4
+	.	2	0
+	+	20	0
+	+	15	0
+	+	10	0
+	+	7	0
+	+	5	0
+	+	2	0
+
+> NERD_tree_tab_1
+	*	1761028682	0
+	"	10	0
+	.	1	0
+	+	1	0
+
+> ~/WORKSPACE/GG/[unite] - default
+	*	1761028643	0
+	"	1	0
+	^	1	0
+	.	2	0
+	+	25	0
+	+	23	0
+	+	2	0
+
+> ~/dotfiles/tools/deepl-translate/deepl-translate.py
+	*	1761010645	0
+	"	1	0
+
+> ~/dotfiles/tools/deepl-translate/docs/deepl-translate.md
+	*	1761010548	0
+	"	36	0
+
+> ~/dotfiles/tools/deepl-translate/.env.example
+	*	1761010504	0
+	"	1	52
+	^	1	53
+	.	1	38
+	+	1	0
+	+	1	38
+
+> ~/dotfiles/tools/deepl-translate/.env
+	*	1761010404	0
+	"	1	0
+
+> ~/dotfiles/tools/deepl-translate/setup.sh
+	*	1761010377	0
+	"	29	0
+
+> ~/dotfiles/tools/deepl-translate/requirements.txt
+	*	1761010353	0
+	"	2	0
+
+> ~/dotfiles/tools/deepl-translate/.gitignore
+	*	1761010317	0
+	"	4	3
+	^	4	4
+	.	4	3
+	+	4	3
+
+> ~/dev/src/github.com/ontheroadjp/GithubGG/.git/config
+	*	1761009980	0
+	"	12	22
+	^	11	11
+	.	11	21
+	+	11	21
+
+> ~/dev/src/github.com/ontheroadjp/GithubGG/.gitignore
+	*	1761009930	0
+	"	2	3
+	^	2	4
+	.	2	3
+	+	2	3
+
+> ~/WORKSPACE/GG/.gitignore
+	*	1761009796	0
+	"	2	3
+	^	2	4
+	.	2	3
+	+	2	3
+
+> ~/dotfiles/.tmux.conf
+	*	1761008455	0
+	"	78	16
+	^	43	9
+	.	43	8
+	+	1	1
+	+	1	0
+	+	12	0
+	+	10	0
+	+	8	0
+	+	10	49
+	+	10	0
+	+	10	41
+	+	10	55
+	+	10	46
+	+	10	0
+	+	10	7
+	+	8	13
+	+	10	0
+	+	10	75
+	+	10	0
+	+	10	48
+	+	10	51
+	+	10	49
+	+	10	0
+	+	10	67
+	+	10	0
+	+	10	70
+	+	10	0
+	+	10	7
+	+	23	9
+	+	10	5
+	+	23	0
+	+	33	0
+	+	34	4
+	+	10	5
+	+	10	7
+	+	10	0
+	+	16	35
+	+	17	15
+	+	18	15
+	+	19	29
+	+	20	11
+	+	17	15
+	+	18	15
+	+	19	29
+	+	20	11
+	+	10	7
+	+	10	6
+	+	10	0
+	+	34	5
+	+	23	0
+	+	10	0
+	+	8	0
+	+	26	0
+	+	24	0
+	+	9	0
+	+	7	0
+	+	44	39
+	+	43	8
+
+> ~/WORKSPACE/GG/README.md
+	*	1760971802	0
+	"	1	0
+	.	1	0
+	+	108	0
+	+	65	0
+	+	1	0
+
+> ~/WORKSPACE/GG/README.
+	*	1760971789	0
+	"	1	0
+
+> ~/WORKSPACE/GG/README.ja.md
+	*	1760971694	0
+	"	7	0
+
+> ~/dotfiles/hoge.todo
+	*	1760970645	0
+	"	16	0
+	.	1	0
+	+	52	0
+	+	35	0
+	+	18	0
+	+	1	0
+
+> /private/var/folders/5z/p6trgl9n7kl_8wlnvf7d2xh00000gn/T/tmp.PK6HH3t5
+	*	1760968097	0
+	"	1	0
+
+> ~/.vimrc
+	*	1760964068	0
+	"	256	0
+	.	774	0
+	+	529	10
+	+	774	21
+	+	774	52
+	+	774	0
+	+	774	31
+	+	774	0
+	+	774	37
+	+	774	0
+	+	774	55
+	+	774	0
+
+> ~/dotfiles/[unite] - default
+	*	1760964042	0
+	"	1	3
+	^	1	4
+	.	2	0
+	+	75	0
+	+	69	0
+	+	48	0
+	+	47	0
+	+	41	0
+	+	35	0
+	+	34	0
+	+	1	0
+	+	34	0
+	+	28	0
+	+	7	0
+	+	2	0
+
+> ~/dotfiles/.vim/vimrc.d/vim-plug-management.vim
+	*	1760963681	0
+	"	124	0
+	.	124	0
+	+	57	0
+	+	58	0
+	+	57	0
+	+	55	0
+	+	65	0
+	+	66	0
+	+	56	0
+	+	57	0
+	+	124	0
+
+> ~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/battery/battery.fnc
+	*	1760963648	0
+	"	88	0
+
+> ~/dotfiles/.zsh.d/core/tmux.zsh
+	*	1760963577	0
+	"	22	0
+	.	19	0
+	+	27	0
+	+	20	0
+	+	27	0
+	+	21	0
+	+	5	0
+	+	7	0
+	+	27	0
+	+	26	0
+	+	24	0
+	+	19	0
+
+> ~/dotfiles/README.md
+	*	1760963541	0
+	"	1	0
+
+> ~/dev/src/github.com/RobinLinus/snapdrop/package.json
+	*	1760957554	0
+	"	39	0
+
+> ~/dotfiles/.zsh.d/core/git.zsh
+	*	1760956675	0
+	"	101	34
+	^	97	24
+	.	101	14
+	+	100	0
+	+	93	29
+	+	97	0
+	+	91	17
+	+	99	0
+	+	98	49
+	+	101	0
+	+	101	18
+	+	93	27
+	+	94	0
+	+	95	8
+	+	94	0
+	+	94	26
+	+	94	20
+	+	99	0
+	+	86	0
+	+	88	46
+	+	89	0
+	+	100	0
+	+	101	14
+	+	98	0
+	+	98	11
+	+	94	0
+	+	98	20
+	+	98	0
+	+	98	15
+	+	92	15
+	+	98	0
+	+	92	0
+	+	101	0
+	+	94	0
+	+	91	33
+	+	98	14
+	+	97	23
+	+	101	14
+
+> ~/dotfiles/.zsh.d/core/cdla.zsh
+	*	1760954483	0
+	"	22	0
+
+> ~/dotfiles/.zsh.d/core/fzf.zsh
+	*	1760954442	0
+	"	13	0
+
+> ~/dotfiles/NERD_tree_tab_1
+	*	1760954018	0
+	"	7	0
+	.	1	0
+	+	1	0
+
+> ~/dev/src/github.com/ontheroadjp/shell-tools/dictionary/[unite] - default
+	*	1760944960	0
+	"	1	3
+	^	1	4
+	.	2	0
+	+	13	0
+	+	8	0
+	+	2	0
+
+> ~/.zshenv
+	*	1760944956	0
+	"	9	0
+
+> ~/dev/src/github.com/ontheroadjp/shell-tools/dictionary/dictionary.py
+	*	1760943995	0
+	"	1	0
+	^	50	0
+	.	49	17
+	+	1	22
+	+	49	17
+
+> ~/dev/src/github.com/ontheroadjp/shell-tools/dictionary/lib/dictionary.py
+	*	1760943830	0
+	"	3	0
+	.	45	0
+	+	45	0
+
+> ~/dev/src/github.com/ontheroadjp/shell-tools/dictionary/lib/dict-word-example.fnc
+	*	1760943572	0
+	"	3	7
+
+> ~/dev/src/github.com/ontheroadjp/shell-tools/dictionary/README.md
+	*	1760943544	0
+	"	1	0
+
+> ~/dev/src/github.com/ontheroadjp/shell-tools/dictionary/dictionary.fnc
+	*	1760943441	0
+	"	9	0
+	^	6	6
+	.	6	5
+	+	6	5
+
+> ~/dev/src/github.com/ontheroadjp/shell-tools/[unite] - default
+	*	1760942933	0
+	"	1	3
+	^	1	4
+	.	2	0
+	+	8	0
+	+	2	0
+
+> ~/.zshrc
+	*	1760942929	0
+	"	1	12
+	.	1	0
+	+	1	0
+
+> ~/dev/src/github.com/ontheroadjp/shell-tools/get-ssid/get-ssid.fnc
+	*	1760940183	0
+	"	3	0
+	.	26	0
+	+	26	0
+
+> ~/dev/src/github.com/ontheroadjp/shell-tools/battery.fnc
+	*	1760939960	0
+	"	1	0
+	.	255	0
+	+	255	0
+
+> ~/dev/src/github.com/ontheroadjp/shell-tools/colors/colors.fnc
+	*	1760939792	0
+	"	8	0
+
+> ~/dev/src/github.com/ontheroadjp/shell-tools/backup/backup.fnc
+	*	1760936043	0
+	"	2	0
+
+> ~/dotfiles/.vim/[unite] - default
+	*	1760931167	0
+	"	1	0
+	^	1	0
+	.	2	0
+	+	34	0
+	+	29	0
+	+	23	0
+	+	2	0
+
+> ~/dotfiles/.vim/hoge.vim
+	*	1760926384	0
+	"	57	0

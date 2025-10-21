@@ -52,7 +52,6 @@ elseif plugin_env.mode == 1
     Plug 'hrsh7th/vim-vsnip', { 'on': [] }
     Plug 'hrsh7th/vim-vsnip-integ', { 'on': [] }
 endif
-call plug#end()
 
 " Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }	" Filter
 " Plug 'junegunn/fzf.vim'	                            " Filter
@@ -62,6 +61,8 @@ call plug#end()
 " Plug 'mattn/vim-lsp-settings'	                        " LSP
 " Plug 'prabirshrestha/asyncomplete-lsp.vim'	        " LSP/Completion
 " Plug 'vim-scripts/AutoComplPop', { 'on': [] }	        " Completion
+
+call plug#end()
 
 " ----------------------------------------------------
 "  Plugins Load

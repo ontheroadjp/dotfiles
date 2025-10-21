@@ -1,3 +1,4 @@
+set nocompatible
 " ================================================
 " Gemini + GitHub CLI Integration for Vim
 " ================================================
@@ -102,16 +103,16 @@ endfunction
 "       * label       : Issue label(s) (optional)
 "       * assignee    : GitHub username(s) to assign (optional)
 "       * milestone   : GitHub milestone name (optional; if empty, skipped)
-" 
+"
 "   - Markdown Body:
 "       * The content after the YAML front matter is used as the issue body.
-" 
+"
 "   - Execution:
 "       * Can be triggered manually via :call SendBufferToGH()
 "       * Can be triggered automatically on saving *.todo / *.bug files
 "         with confirmation prompt.
 "       * Manual shortcut mapping: <leader>ghi
-" 
+"
 " Behavior:
 "   1. Parse YAML front matter from the top of the buffer.
 "   2. Extract title, label, assignee, and milestone fields.
@@ -123,11 +124,11 @@ endfunction
 "       - Automatically delete the local buffer file and close the buffer.
 "   7. On failure:
 "       - Display error message and gh CLI output for debugging.
-" 
+"
 " Requirements:
 "   - GitHub CLI (gh) must be installed and authenticated.
 "   - Buffer must contain valid YAML front matter with at least a title.
-" 
+"
 " Notes:
 "   - Milestone is optional; if the field is empty or does not exist in the
 "     repository, it will be skipped silently.
@@ -136,7 +137,7 @@ endfunction
 "   - The function uses a temporary file in /tmp to send the Markdown body
 "     to the GitHub CLI.
 "   - Designed for use with Vim or Neovim.
-" 
+"
 " Example YAML front matter for a todo issue:
 "   ---
 "   title: Organize dotfiles
@@ -144,14 +145,14 @@ endfunction
 "   assignee: @me
 "   milestone: v1.0 Release
 "   ---
-" 
+"
 "   ## Description
 "   Categorize and move scattered files and directories into .config/.
-" 
+"
 "   ## Objectives / Points
 "   - Files directly under ~/ will not be moved
 "   - A script to create symlinks is required
-" 
+"
 " ===========================================================================
 function! SendBufferToGH()
   let l:lines = getline(1, '$')
@@ -417,7 +418,7 @@ command Dic !dict <cword>
 "let g:loaded_man                = 1
 "let g:loaded_matchit            = 1
 " "let g:loaded_matchparen         = 1
-"let g:loaded_shada_plugin       = 1
+" let g:loaded_shada_plugin       = 1
 "let g:loaded_spellfile_plugin   = 1
 "let g:loaded_tutor_mode_plugin  = 1
 "let g:did_install_default_menus = 1
@@ -432,6 +433,11 @@ augroup vim_start_end
     " remove trailing whitespace when saved
     autocmd BufWritePre * :%s/\s\+$//ge
 augroup END
+
+" viminf
+set viminfo='100,<50,s10,h,!,%
+set viminfofile=~/.vim/viminfo
+
 
 "================================================================ Quickfix
 " open:copen, close:ccl
@@ -461,6 +467,10 @@ so ${HOME}/dotfiles/.vim/vimrc.d/ui/color-schema.vim
 set laststatus=2
 so ${HOME}/dotfiles/.vim/vimrc.d/ui/vim-status-line.vim
 
+" if has('termguicolors')
+"   set termguicolors
+" endif
+
 "================================================================ General settings
 set encoding=utf-8                              " set charactor code
 " set encoding=utf-8 nobomb                        " set charactor code
@@ -478,10 +488,10 @@ set clipboard+=unnamed
 "--------------------------------------------------------------- Line number
 set number                                  " show line number
 " set relativenumber                        " show relative line number
-nnoremap <C-N><C-N> :set invnumber<CR>          " toggle show/hide line number
-nnoremap <C-M><C-M> :setl rnu!<CR>              " toggle normal/relativenumber
+nnoremap <leader>nn :set invnumber<CR>          " toggle show/hide line number
+nnoremap <leader>mm :setl rnu!<CR>              " toggle normal/relativenumber
 
-"--------------------------------------------------------------- Indent
+"--------------------------------------------------------------- Tab(Indent)
 set expandtab                  " replace tab to space
 set tabstop=4                  " indent width
 set shiftwidth=4               " auto indent width
@@ -513,11 +523,10 @@ vnoremap n <C-c>
 
 " change insert-normal mode
 inoremap <C-n> <C-o>
-inoremap <C-n> <C-o>
 
 "------------------------------------------------------------- Window
 nnoremap -- :split<CR>                  " horizontal split
-nnoremap \ :rightbelow vsp<CR>         " virtical split
+nnoremap \\ :rightbelow vsp<CR>         " virtical split
 set winheight=25
 map ✩ <C-S-k-from-iterm2>
 map ✡ <C-S-j-from-iterm2>
@@ -547,6 +556,10 @@ nnoremap <C-w><C-w> <C-w>o
 " nnoremap <silent> ]b :bnext<CR>
 " nnoremap <silent> [B :bfirst<CR>
 " nnoremap <silent> ]B :blast<CR>
+
+"--------------------------------------------------------------- Scrolling
+nnoremap <C-n> <C-d> "Scroll down half a page
+nnoremap <C-u> <C-u> "scroll up half page
 
 "--------------------------------------------------------------- Moving cursor
 nnoremap k gk
@@ -611,12 +624,12 @@ nnoremap <silent> <Space><Space> *N
 
 set shortmess-=S
 " nnoremap <expr> c/ _(":%s/<Cursor>//gn")
-" function! s:move_cursor_pos_mapping(str, ...) 
+" function! s:move_cursor_pos_mapping(str, ...)
 "     let left = get(a:, 1, "<Left>")
 "     let lefts = join(map(split(matchstr(a:str, '.*<Cursor>\zs.*\ze'), '.\zs'), 'left'), "")
 "     return substitute(a:str, '<Cursor>', '', '') . lefts
 " endfunction
-" 
+"
 " function! _(str)
 "     return s:move_cursor_pos_mapping(a:str, "\<Left>")
 " endfunction
@@ -630,6 +643,13 @@ set foldmethod=indent       "Folding range
 set fillchars=fold:.
 " set fillchars=foldopen:@
 " set fillchars=foldsep:.
+function! MyFoldText()
+    return printf('+-- %d lines: %s', v:foldend-v:foldstart+1, getline(v:foldstart))
+endfunction
+
+set foldtext=%{MyFoldText()}
+
+
 
 "" Region of cursor
 "" zO  -- Open all folds under the cursor recursively
@@ -650,7 +670,7 @@ nnoremap gp p
 nnoremap gP P
 
 " " past in normalmode
-" if &term =~ "xterm" 
+" if &term =~ "xterm"
 "     let &t_ti .= "\e[?2004h"
 "     let &t_te .= "\e[?2004l"
 "     let &pastetoggle = "\e[201~"
