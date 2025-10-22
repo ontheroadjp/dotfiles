@@ -1,6 +1,11 @@
 #-------------------------------------------------
 # Variables
 #-------------------------------------------------
+export LANG="en_US.UTF-8"
+export LC_COLLATE="en_US.UTF-8"
+export LC_CTYPE="en_US.UTF-8"
+export LC_MESSAGES="en_US.UTF-8"
+
 export EDITOR=vim
 export TERM=xterm
 export DOTPATH=${HOME}/dotfiles
@@ -178,6 +183,9 @@ alias exif="exiftool $@"
 alias en="deepl-translate | pbcopy"
 
 # Shell Tools
+export SHELL_TOOLS_ROOT=$(ghq root)/github.com/ontheroadjp/Shell-Tools
+source ${SHELL_TOOLS_ROOT}/load_shell_tools.sh
+source ${SHELL_TOOLS_ROOT}/load_shell_tools_tmux.sh
 
 # GithubGG
 ln -sf $(ghq root)/github.com/ontheroadjp/GithubGG/manage_github_repositories.sh ${DOTPATH}/bin
