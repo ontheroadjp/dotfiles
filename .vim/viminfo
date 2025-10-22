@@ -17,10 +17,10 @@
 $
 
 # Command Line History (newest to oldest):
-:w
-|2,0,1761126150,,"w"
 :q
-|2,0,1761125492,,"q"
+|2,0,1761130900,,"q"
+:w
+|2,0,1761128501,,"w"
 :72
 |2,0,1761120926,,"72"
 :73
@@ -64,7 +64,7 @@ $
 
 # Search String History (newest to oldest):
 ? \s\+$
-|2,1,1761126150,,"\\s\\+$"
+|2,1,1761128501,,"\\s\\+$"
 ? ^\s*$
 |2,1,1761120695,,"^\\s*$"
 ?/battery
@@ -159,94 +159,38 @@ $
 # Debug Line History (newest to oldest):
 
 # Registers:
-""0	LINE	0
-	export LANG="en_US.UTF-8"
-	export LC_COLLATE="en_US.UTF-8"
-	export LC_CTYPE="en_US.UTF-8"
-	export LC_MESSAGES="en_US.UTF-8"
-|3,1,0,1,4,0,1761125532,"export LANG=\"en_US.UTF-8\"","export LC_COLLATE=\"en_US.UTF-8\"","export LC_CTYPE=\"en_US.UTF-8\"","export LC_MESSAGES=\"en_US.UTF-8\""
+""0	CHAR	0
+	zsh-defer 
+|3,1,0,0,1,0,1761128401,"zsh-defer "
 "1	LINE	0
-	set-option -g status-right '󰖩 #(ssid) 󱊢#(get-battery) 󰍛 󰝲#(get-load-average -c tmux) 󰔠 [#[fg=cyan]#(LANG=en_US.UTF-8 date "+%b %e, %Y (%a) %H:%M")#[fg=white]]'
-|3,0,1,1,1,0,1761120930,"set-option -g status-right '󰖩 #(ssid) 󱊢#(get-battery) 󰍛 󰝲#(get-load-average -c tmux) 󰔠 [#[fg=cyan]#(LANG=en_US.UTF-8 date \"+%b %e, %Y (%a) %H:%M\")#[fg=white]]'"
+	
+|3,0,1,1,1,0,1761126525,""
 "2	LINE	0
+	
+|3,0,2,1,1,0,1761126525,""
+"3	LINE	0
+	#set-option -g status-right '󰖩 #(ssid) 󱊢#(get-battery) 󰍛 󰝲#(get-load-average -c tmux) 󰔠 [#[fg=cyan]%b %e, %Y (%a) %H:%M#[fg=white]]'
+	# set -g status-right '#(env LANG=en_US.UTF-8 LC_TIME=en_US.UTF-8 date "+%b %e, %Y (%a) %H:%M")'
+|3,0,3,1,2,0,1761126394,"#set-option -g status-right '󰖩 #(ssid) 󱊢#(get-battery) 󰍛 󰝲#(get-load-average -c tmux) 󰔠 [#[fg=cyan]%b %e, %Y (%a) %H:%M#[fg=white]]'","# set -g status-right '#(env LANG=en_US.UTF-8 LC_TIME=en_US.UTF-8 date \"+%b %e, %Y (%a) %H:%M\")'"
+"4	LINE	0
+	set-option -g status-right '󰖩 #(ssid) 󱊢#(get-battery) 󰍛 󰝲#(get-load-average -c tmux) 󰔠 [#[fg=cyan]#(LANG=en_US.UTF-8 date "+%b %e, %Y (%a) %H:%M")#[fg=white]]'
+|3,0,4,1,1,0,1761120930,"set-option -g status-right '󰖩 #(ssid) 󱊢#(get-battery) 󰍛 󰝲#(get-load-average -c tmux) 󰔠 [#[fg=cyan]#(LANG=en_US.UTF-8 date \"+%b %e, %Y (%a) %H:%M\")#[fg=white]]'"
+"5	LINE	0
 	# macOS で確実に英語表記にする例
 	set-option -g status-right '#( /usr/bin/env LANG=en_US.UTF-8 LC_TIME=en_US.UTF-8 date "+%b %e, %Y (%a) %H:%M" )'
-|3,0,2,1,2,0,1761120686,"# macOS で確実に英語表記にする例","set-option -g status-right '#( /usr/bin/env LANG=en_US.UTF-8 LC_TIME=en_US.UTF-8 date \"+%b %e, %Y (%a) %H:%M\" )'"
-"3	LINE	0
-	set-option -g status-right '󰖩 #(ssid) 󱊢#(get-battery) 󰍛 󰝲#(get-load-average -c tmux) 󰔠 [#[fg=cyan]#(LANG=en_US.UTF-8 date "+%b %e, %Y (%a) %H:%M")#[fg=white]]'
-|3,0,3,1,1,0,1761120637,"set-option -g status-right '󰖩 #(ssid) 󱊢#(get-battery) 󰍛 󰝲#(get-load-average -c tmux) 󰔠 [#[fg=cyan]#(LANG=en_US.UTF-8 date \"+%b %e, %Y (%a) %H:%M\")#[fg=white]]'"
-"4	LINE	0
-	set-option -g status-right '󰖩 #(ssid) 󱊢#(get-battery) 󰍛 󰝲#(get-load-average -c tmux) 󰔠 [#[fg=cyan]#(LC_TIME=en_US.UTF-8 date "+%b %e, %Y (%a) %H:%M")#[fg=white]]'
-|3,0,4,1,1,0,1761120561,"set-option -g status-right '󰖩 #(ssid) 󱊢#(get-battery) 󰍛 󰝲#(get-load-average -c tmux) 󰔠 [#[fg=cyan]#(LC_TIME=en_US.UTF-8 date \"+%b %e, %Y (%a) %H:%M\")#[fg=white]]'"
-"5	LINE	0
-	set-environment -g LC_TIME en_US.UTF-8
-|3,0,5,1,1,0,1761120449,"set-environment -g LC_TIME en_US.UTF-8"
+|3,0,5,1,2,0,1761120686,"# macOS で確実に英語表記にする例","set-option -g status-right '#( /usr/bin/env LANG=en_US.UTF-8 LC_TIME=en_US.UTF-8 date \"+%b %e, %Y (%a) %H:%M\" )'"
 "6	LINE	0
-	set-option -g status-right '󰖩 #(ssid) 󱊢#(get-battery) 󰍛 󰝲#(get-load-average -c tmux) 󰔠 [#[fg=cyan]#(date "+%b %d, %Y (%a) %H:%M")#[fg=white]]'
-|3,0,6,1,1,0,1761120439,"set-option -g status-right '󰖩 #(ssid) 󱊢#(get-battery) 󰍛 󰝲#(get-load-average -c tmux) 󰔠 [#[fg=cyan]#(date \"+%b %d, %Y (%a) %H:%M\")#[fg=white]]'"
+	set-option -g status-right '󰖩 #(ssid) 󱊢#(get-battery) 󰍛 󰝲#(get-load-average -c tmux) 󰔠 [#[fg=cyan]#(LANG=en_US.UTF-8 date "+%b %e, %Y (%a) %H:%M")#[fg=white]]'
+|3,0,6,1,1,0,1761120637,"set-option -g status-right '󰖩 #(ssid) 󱊢#(get-battery) 󰍛 󰝲#(get-load-average -c tmux) 󰔠 [#[fg=cyan]#(LANG=en_US.UTF-8 date \"+%b %e, %Y (%a) %H:%M\")#[fg=white]]'"
 "7	LINE	0
-	ln -s ${SHELL_TOOLS_ROOT}/tmux/get-battery/get-battery ${DOTPATH}/bin
-|3,0,7,1,1,0,1761116761,"ln -s ${SHELL_TOOLS_ROOT}/tmux/get-battery/get-battery ${DOTPATH}/bin"
-"8	BLOCK	5
-	source
-	source
-	source
-	source
-|3,0,8,2,4,5,1761116184,"source","source","source","source"
+	set-option -g status-right '󰖩 #(ssid) 󱊢#(get-battery) 󰍛 󰝲#(get-load-average -c tmux) 󰔠 [#[fg=cyan]#(LC_TIME=en_US.UTF-8 date "+%b %e, %Y (%a) %H:%M")#[fg=white]]'
+|3,0,7,1,1,0,1761120561,"set-option -g status-right '󰖩 #(ssid) 󱊢#(get-battery) 󰍛 󰝲#(get-load-average -c tmux) 󰔠 [#[fg=cyan]#(LC_TIME=en_US.UTF-8 date \"+%b %e, %Y (%a) %H:%M\")#[fg=white]]'"
+"8	LINE	0
+	set-environment -g LC_TIME en_US.UTF-8
+|3,0,8,1,1,0,1761120449,"set-environment -g LC_TIME en_US.UTF-8"
 "9	LINE	0
-	#!/bin/bash
-	
-	set -Ceu
-	
-	SCRIPT_FILE_NAME=$(basename $0)
-	SCRIPT_NAME=${SCRIPT_FILE_NAME%.*}
-	SELF=$(cd $(dirname $0); pwd)
-	LOGGING=false
-	VERSION="0.1.0"
-	SEPARATER='---------------------------'
-	
-	function _usage() {
-	    echo "Usage: ${SCRIPT_NAME} [OPTIONS] FILE"
-	    echo "  This is the boilerplate for shell script."
-	    echo
-	    echo "Options:"
-	    echo "  -h, --help                     Show help"
-	    echo "  -v, --version                  Show script version"
-	    echo "  -a, --long-a ARG               Option which must have argument"
-	    echo "  -b, --long-b [ARG]             Either with or without argument is possible"
-	    echo "  -c, --long-c                   Option without argument"
-	    echo "      --verbose                  Print various logging information"
-	    echo
-	    exit 0
-	}
-	
-	function _log() {
-	    ${LOGGING} && echo "$@" || return 0
-	}
-	
-	function _err() {
-	    echo "$1" && exit 1
-	}
-	
-	function _is_cmd_exist() {
-	    type $@ > /dev/null 2>&1
-	}
-	
-	function _is_file_exist() {
-	    [ -f $1 ] > /dev/null 2>&1
-	}
-	
-	function _is_dir_exist() {
-	    [ -d $1 ] > /dev/null 2>&1
-	}
-	
-	# -------------------------------------------------------------
-	
-	ARG_VALUES=()
-	OPT_A=""
-|3,0,9,1,50,0,1761115733,"#!/bin/bash","","set -Ceu","","SCRIPT_FILE_NAME=$(basename $0)","SCRIPT_NAME=${SCRIPT_FILE_NAME%.*}","SELF=$(cd $(dirname $0); pwd)","LOGGING=false","VERSION=\"0.1.0\"","SEPARATER='---------------------------'","","function _usage() {","    echo \"Usage: ${SCRIPT_NAME} [OPTIONS] FILE\"","    echo \"  This is the boilerplate for shell script.\"","    echo","    echo \"Options:\"",>57
-|<"    echo \"  -h, --help                     Show help\"","    echo \"  -v, --version                  Show script version\"","    echo \"  -a, --long-a ARG               Option which must have argument\"","    echo \"  -b, --long-b [ARG]             Either with or without argument is possible\"","    echo \"  -c, --long-c                   Option without argument\"","    echo \"      --verbose                  Print various logging information\"","    echo","    exit 0","}","",>19
-|<"function _log() {","    ${LOGGING} && echo \"$@\" || return 0","}","","function _err() {","    echo \"$1\" && exit 1","}","","function _is_cmd_exist() {","    type $@ > /dev/null 2>&1","}","","function _is_file_exist() {","    [ -f $1 ] > /dev/null 2>&1","}","","function _is_dir_exist() {","    [ -d $1 ] > /dev/null 2>&1","}","","# -------------------------------------------------------------","","ARG_VALUES=()","OPT_A=\"\""
+	set-option -g status-right '󰖩 #(ssid) 󱊢#(get-battery) 󰍛 󰝲#(get-load-average -c tmux) 󰔠 [#[fg=cyan]#(date "+%b %d, %Y (%a) %H:%M")#[fg=white]]'
+|3,0,9,1,1,0,1761120439,"set-option -g status-right '󰖩 #(ssid) 󱊢#(get-battery) 󰍛 󰝲#(get-load-average -c tmux) 󰔠 [#[fg=cyan]#(date \"+%b %d, %Y (%a) %H:%M\")#[fg=white]]'"
 "z	LINE	0
 	    function _cd_to_repository_from_ghq_list_by_fzf() {
 	        local to=$(ghq list | fzf-tmux -p 65%)
@@ -254,8 +198,8 @@ $
 	    }
 |3,0,35,1,4,0,1760955048,"    function _cd_to_repository_from_ghq_list_by_fzf() {","        local to=$(ghq list | fzf-tmux -p 65%)","        [ ! -z ${to} ] && cd $(ghq root)/${to}","    }"
 "-	CHAR	0
-	#
-|3,0,36,0,1,0,1761120784,"#"
+	yellow
+|3,0,36,0,1,0,1761126702,"yellow"
 
 # global variables:
 
@@ -264,58 +208,124 @@ $
 |4,80,1,0,1760926323,"~/dotfiles/.zprofile"
 'V  1  0  ~/.vimrc
 |4,86,1,0,1760926318,"~/.vimrc"
-'0  77  0  ~/dotfiles/.tmux.conf
-|4,48,77,0,1761126166,"~/dotfiles/.tmux.conf"
-'1  1  0  ~/dotfiles/.tmux.conf
-|4,49,1,0,1761125492,"~/dotfiles/.tmux.conf"
-'2  1  0  ~/dotfiles/.tmux.conf
-|4,50,1,0,1761125492,"~/dotfiles/.tmux.conf"
-'3  3  37  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-load-average/get-load-average
-|4,51,3,37,1761125490,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-load-average/get-load-average"
-'4  49  0  ~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools.sh
-|4,52,49,0,1761125488,"~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools.sh"
-'5  17  36  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-battery/get-battery
-|4,53,17,36,1761119319,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-battery/get-battery"
-'6  91  0  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery
-|4,54,91,0,1761118525,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery"
-'7  91  0  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery
-|4,55,91,0,1761118525,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery"
-'8  91  0  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery
-|4,56,91,0,1761118525,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery"
-'9  91  0  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery
-|4,57,91,0,1761118525,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery"
+'0  192  9  ~/dotfiles/.zprofile
+|4,48,192,9,1761130900,"~/dotfiles/.zprofile"
+'1  122  0  ~/dotfiles/tools/github/gh-issue.sh
+|4,49,122,0,1761130653,"~/dotfiles/tools/github/gh-issue.sh"
+'2  76  0  ~/dotfiles/.tmux.conf
+|4,50,76,0,1761126166,"~/dotfiles/.tmux.conf"
+'3  77  0  ~/dotfiles/.tmux.conf
+|4,51,77,0,1761126166,"~/dotfiles/.tmux.conf"
+'4  1  0  ~/dotfiles/.tmux.conf
+|4,52,1,0,1761125492,"~/dotfiles/.tmux.conf"
+'5  1  0  ~/dotfiles/.tmux.conf
+|4,53,1,0,1761125492,"~/dotfiles/.tmux.conf"
+'6  1  0  ~/dotfiles/.tmux.conf
+|4,54,1,0,1761125492,"~/dotfiles/.tmux.conf"
+'7  1  0  ~/dotfiles/.tmux.conf
+|4,55,1,0,1761125492,"~/dotfiles/.tmux.conf"
+'8  3  37  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-load-average/get-load-average
+|4,56,3,37,1761125490,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-load-average/get-load-average"
+'9  49  0  ~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools.sh
+|4,57,49,0,1761125488,"~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools.sh"
 
 # Jumplist (newest first):
+-'  192  9  ~/dotfiles/.zprofile
+|4,39,192,9,1761130900,"~/dotfiles/.zprofile"
+-'  122  0  ~/dotfiles/tools/github/gh-issue.sh
+|4,39,122,0,1761130653,"~/dotfiles/tools/github/gh-issue.sh"
+-'  1  0  ~/dotfiles/tools/github/gh-issue.sh
+|4,39,1,0,1761130641,"~/dotfiles/tools/github/gh-issue.sh"
+-'  82  42  ~/dotfiles/.tmux.conf
+|4,39,82,42,1761128389,"~/dotfiles/.tmux.conf"
+-'  76  18  ~/dotfiles/.tmux.conf
+|4,39,76,18,1761126518,"~/dotfiles/.tmux.conf"
+-'  77  0  ~/dotfiles/.tmux.conf
+|4,39,77,0,1761126166,"~/dotfiles/.tmux.conf"
 -'  77  0  ~/dotfiles/.tmux.conf
 |4,39,77,0,1761126166,"~/dotfiles/.tmux.conf"
 -'  1  0  ~/dotfiles/.tmux.conf
 |4,39,1,0,1761126130,"~/dotfiles/.tmux.conf"
+-'  1  0  ~/dotfiles/.tmux.conf
+|4,39,1,0,1761126130,"~/dotfiles/.tmux.conf"
+-'  1  0  ~/dotfiles/.tmux.conf
+|4,39,1,0,1761126130,"~/dotfiles/.tmux.conf"
+-'  77  0  ~/dotfiles/.tmux.conf
+|4,39,77,0,1761126123,"~/dotfiles/.tmux.conf"
+-'  79  0  ~/dotfiles/.tmux.conf
+|4,39,79,0,1761126123,"~/dotfiles/.tmux.conf"
 -'  79  0  ~/dotfiles/.tmux.conf
 |4,39,79,0,1761126123,"~/dotfiles/.tmux.conf"
 -'  189  0  ~/dotfiles/.zprofile
 |4,39,189,0,1761125927,"~/dotfiles/.zprofile"
+-'  189  0  ~/dotfiles/.zprofile
+|4,39,189,0,1761125927,"~/dotfiles/.zprofile"
+-'  189  0  ~/dotfiles/.zprofile
+|4,39,189,0,1761125927,"~/dotfiles/.zprofile"
+-'  4  0  ~/dotfiles/.zprofile
+|4,39,4,0,1761125918,"~/dotfiles/.zprofile"
+-'  4  0  ~/dotfiles/.zprofile
+|4,39,4,0,1761125918,"~/dotfiles/.zprofile"
 -'  4  0  ~/dotfiles/.zprofile
 |4,39,4,0,1761125918,"~/dotfiles/.zprofile"
 -'  1  0  ~/dotfiles/.zprofile
 |4,39,1,0,1761125528,"~/dotfiles/.zprofile"
+-'  1  0  ~/dotfiles/.zprofile
+|4,39,1,0,1761125528,"~/dotfiles/.zprofile"
+-'  1  0  ~/dotfiles/.zprofile
+|4,39,1,0,1761125528,"~/dotfiles/.zprofile"
+-'  1  0  ~/dotfiles/.tmux.conf
+|4,39,1,0,1761125492,"~/dotfiles/.tmux.conf"
 -'  1  0  ~/dotfiles/.tmux.conf
 |4,39,1,0,1761125492,"~/dotfiles/.tmux.conf"
 -'  3  37  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-load-average/get-load-average
 |4,39,3,37,1761125490,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-load-average/get-load-average"
 -'  3  37  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-load-average/get-load-average
 |4,39,3,37,1761125490,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-load-average/get-load-average"
+-'  3  37  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-load-average/get-load-average
+|4,39,3,37,1761125490,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-load-average/get-load-average"
+-'  3  37  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-load-average/get-load-average
+|4,39,3,37,1761125490,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-load-average/get-load-average"
+-'  3  37  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-load-average/get-load-average
+|4,39,3,37,1761125490,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-load-average/get-load-average"
+-'  3  37  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-load-average/get-load-average
+|4,39,3,37,1761125490,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-load-average/get-load-average"
+-'  49  0  ~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools.sh
+|4,39,49,0,1761125488,"~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools.sh"
+-'  49  0  ~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools.sh
+|4,39,49,0,1761125488,"~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools.sh"
+-'  49  0  ~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools.sh
+|4,39,49,0,1761125488,"~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools.sh"
+-'  49  0  ~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools.sh
+|4,39,49,0,1761125488,"~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools.sh"
 -'  49  0  ~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools.sh
 |4,39,49,0,1761125488,"~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools.sh"
 -'  49  0  ~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools.sh
 |4,39,49,0,1761125488,"~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools.sh"
 -'  78  0  ~/dotfiles/.tmux.conf
 |4,39,78,0,1761125475,"~/dotfiles/.tmux.conf"
+-'  78  0  ~/dotfiles/.tmux.conf
+|4,39,78,0,1761125475,"~/dotfiles/.tmux.conf"
+-'  75  0  ~/dotfiles/.tmux.conf
+|4,39,75,0,1761120860,"~/dotfiles/.tmux.conf"
+-'  75  0  ~/dotfiles/.tmux.conf
+|4,39,75,0,1761120860,"~/dotfiles/.tmux.conf"
+-'  75  0  ~/dotfiles/.tmux.conf
+|4,39,75,0,1761120860,"~/dotfiles/.tmux.conf"
 -'  75  0  ~/dotfiles/.tmux.conf
 |4,39,75,0,1761120860,"~/dotfiles/.tmux.conf"
 -'  75  0  ~/dotfiles/.tmux.conf
 |4,39,75,0,1761120860,"~/dotfiles/.tmux.conf"
 -'  77  0  ~/dotfiles/.tmux.conf
 |4,39,77,0,1761120695,"~/dotfiles/.tmux.conf"
+-'  77  0  ~/dotfiles/.tmux.conf
+|4,39,77,0,1761120695,"~/dotfiles/.tmux.conf"
+-'  83  0  ~/dotfiles/.tmux.conf
+|4,39,83,0,1761120692,"~/dotfiles/.tmux.conf"
+-'  87  0  ~/dotfiles/.tmux.conf
+|4,39,87,0,1761120692,"~/dotfiles/.tmux.conf"
+-'  86  0  ~/dotfiles/.tmux.conf
+|4,39,86,0,1761120692,"~/dotfiles/.tmux.conf"
 -'  87  0  ~/dotfiles/.tmux.conf
 |4,39,87,0,1761120692,"~/dotfiles/.tmux.conf"
 -'  86  0  ~/dotfiles/.tmux.conf
@@ -324,6 +334,18 @@ $
 |4,39,5,37,1761120636,"~/dotfiles/.tmux.conf"
 -'  5  37  ~/dotfiles/.tmux.conf
 |4,39,5,37,1761120636,"~/dotfiles/.tmux.conf"
+-'  5  37  ~/dotfiles/.tmux.conf
+|4,39,5,37,1761120636,"~/dotfiles/.tmux.conf"
+-'  5  37  ~/dotfiles/.tmux.conf
+|4,39,5,37,1761120636,"~/dotfiles/.tmux.conf"
+-'  5  37  ~/dotfiles/.tmux.conf
+|4,39,5,37,1761120636,"~/dotfiles/.tmux.conf"
+-'  78  0  ~/dotfiles/.tmux.conf
+|4,39,78,0,1761120592,"~/dotfiles/.tmux.conf"
+-'  81  0  ~/dotfiles/.tmux.conf
+|4,39,81,0,1761120592,"~/dotfiles/.tmux.conf"
+-'  80  0  ~/dotfiles/.tmux.conf
+|4,39,80,0,1761120592,"~/dotfiles/.tmux.conf"
 -'  81  0  ~/dotfiles/.tmux.conf
 |4,39,81,0,1761120592,"~/dotfiles/.tmux.conf"
 -'  80  0  ~/dotfiles/.tmux.conf
@@ -332,6 +354,30 @@ $
 |4,39,1,0,1761119326,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-load-average/get-load-average"
 -'  1  0  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-load-average/get-load-average
 |4,39,1,0,1761119326,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-load-average/get-load-average"
+-'  1  0  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-load-average/get-load-average
+|4,39,1,0,1761119326,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-load-average/get-load-average"
+-'  1  0  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-load-average/get-load-average
+|4,39,1,0,1761119326,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-load-average/get-load-average"
+-'  1  0  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-load-average/get-load-average
+|4,39,1,0,1761119326,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-load-average/get-load-average"
+-'  1  0  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-load-average/get-load-average
+|4,39,1,0,1761119326,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-load-average/get-load-average"
+-'  17  36  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-battery/get-battery
+|4,39,17,36,1761119319,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-battery/get-battery"
+-'  17  36  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-battery/get-battery
+|4,39,17,36,1761119319,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-battery/get-battery"
+-'  17  36  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-battery/get-battery
+|4,39,17,36,1761119319,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-battery/get-battery"
+-'  17  36  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-battery/get-battery
+|4,39,17,36,1761119319,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-battery/get-battery"
+-'  17  36  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-battery/get-battery
+|4,39,17,36,1761119319,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-battery/get-battery"
+-'  17  36  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-battery/get-battery
+|4,39,17,36,1761119319,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-battery/get-battery"
+-'  17  36  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-battery/get-battery
+|4,39,17,36,1761119319,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-battery/get-battery"
+-'  17  36  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-battery/get-battery
+|4,39,17,36,1761119319,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-battery/get-battery"
 -'  17  36  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-battery/get-battery
 |4,39,17,36,1761119319,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-battery/get-battery"
 -'  17  36  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-battery/get-battery
@@ -344,10 +390,30 @@ $
 |4,39,82,0,1761118815,"~/dotfiles/.tmux.conf"
 -'  81  0  ~/dotfiles/.tmux.conf
 |4,39,81,0,1761118815,"~/dotfiles/.tmux.conf"
+-'  82  0  ~/dotfiles/.tmux.conf
+|4,39,82,0,1761118815,"~/dotfiles/.tmux.conf"
+-'  81  0  ~/dotfiles/.tmux.conf
+|4,39,81,0,1761118815,"~/dotfiles/.tmux.conf"
 -'  8  0  ~/dotfiles/.tmux.conf
 |4,39,8,0,1761118535,"~/dotfiles/.tmux.conf"
 -'  8  0  ~/dotfiles/.tmux.conf
 |4,39,8,0,1761118535,"~/dotfiles/.tmux.conf"
+-'  8  0  ~/dotfiles/.tmux.conf
+|4,39,8,0,1761118535,"~/dotfiles/.tmux.conf"
+-'  8  0  ~/dotfiles/.tmux.conf
+|4,39,8,0,1761118535,"~/dotfiles/.tmux.conf"
+-'  8  0  ~/dotfiles/.tmux.conf
+|4,39,8,0,1761118535,"~/dotfiles/.tmux.conf"
+-'  91  0  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery
+|4,39,91,0,1761118525,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery"
+-'  91  0  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery
+|4,39,91,0,1761118525,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery"
+-'  91  0  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery
+|4,39,91,0,1761118525,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery"
+-'  91  0  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery
+|4,39,91,0,1761118525,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery"
+-'  91  0  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery
+|4,39,91,0,1761118525,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery"
 -'  91  0  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery
 |4,39,91,0,1761118525,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery"
 -'  91  0  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery
@@ -362,143 +428,70 @@ $
 |4,39,1,0,1761118494,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-battery/get-battery"
 -'  1  0  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-battery/get-battery
 |4,39,1,0,1761118494,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-battery/get-battery"
--'  1  0  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-battery/get-battery
-|4,39,1,0,1761118494,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-battery/get-battery"
--'  12  19  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-battery/get-battery
-|4,39,12,19,1761118492,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-battery/get-battery"
--'  12  19  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-battery/get-battery
-|4,39,12,19,1761118492,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-battery/get-battery"
--'  12  19  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-battery/get-battery
-|4,39,12,19,1761118492,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-battery/get-battery"
--'  12  19  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-battery/get-battery
-|4,39,12,19,1761118492,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-battery/get-battery"
--'  10  57  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-battery/get-battery
-|4,39,10,57,1761118168,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-battery/get-battery"
--'  10  57  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-battery/get-battery
-|4,39,10,57,1761118168,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-battery/get-battery"
--'  10  57  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-battery/get-battery
-|4,39,10,57,1761118168,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-battery/get-battery"
--'  10  57  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-battery/get-battery
-|4,39,10,57,1761118168,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-battery/get-battery"
--'  1  0  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery
-|4,39,1,0,1761117862,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery"
--'  1  0  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery
-|4,39,1,0,1761117862,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery"
--'  1  0  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery
-|4,39,1,0,1761117862,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery"
--'  1  0  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery
-|4,39,1,0,1761117862,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery"
--'  1  0  ~/dotfiles/.tmux.conf
-|4,39,1,0,1761117853,"~/dotfiles/.tmux.conf"
--'  1  0  ~/dotfiles/.tmux.conf
-|4,39,1,0,1761117853,"~/dotfiles/.tmux.conf"
--'  1  0  ~/dotfiles/.tmux.conf
-|4,39,1,0,1761117853,"~/dotfiles/.tmux.conf"
--'  1  0  ~/dotfiles/.tmux.conf
-|4,39,1,0,1761117853,"~/dotfiles/.tmux.conf"
--'  253  10  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery
-|4,39,253,10,1761117833,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery"
--'  253  10  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery
-|4,39,253,10,1761117833,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery"
--'  253  10  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery
-|4,39,253,10,1761117833,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery"
--'  253  10  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery
-|4,39,253,10,1761117833,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery"
--'  253  10  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery
-|4,39,253,10,1761117833,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery"
--'  253  10  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery
-|4,39,253,10,1761117833,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery"
--'  253  10  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery
-|4,39,253,10,1761117833,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery"
--'  253  10  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery
-|4,39,253,10,1761117833,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery"
--'  253  10  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery
-|4,39,253,10,1761117833,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery"
--'  253  10  ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery
-|4,39,253,10,1761117833,"~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery"
--'  212  0  ~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh
-|4,39,212,0,1761117617,"~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh"
--'  212  0  ~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh
-|4,39,212,0,1761117617,"~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh"
--'  212  0  ~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh
-|4,39,212,0,1761117617,"~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh"
--'  212  0  ~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh
-|4,39,212,0,1761117617,"~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh"
--'  212  0  ~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh
-|4,39,212,0,1761117617,"~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh"
--'  212  0  ~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh
-|4,39,212,0,1761117617,"~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh"
--'  212  0  ~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh
-|4,39,212,0,1761117617,"~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh"
--'  212  0  ~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh
-|4,39,212,0,1761117617,"~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh"
--'  212  0  ~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh
-|4,39,212,0,1761117617,"~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh"
--'  212  0  ~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh
-|4,39,212,0,1761117617,"~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh"
--'  212  0  ~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh
-|4,39,212,0,1761117617,"~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh"
--'  212  0  ~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh
-|4,39,212,0,1761117617,"~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh"
--'  212  0  ~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh
-|4,39,212,0,1761117617,"~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh"
--'  212  0  ~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh
-|4,39,212,0,1761117617,"~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh"
--'  212  0  ~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh
-|4,39,212,0,1761117617,"~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh"
--'  212  0  ~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh
-|4,39,212,0,1761117617,"~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh"
--'  212  0  ~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh
-|4,39,212,0,1761117617,"~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh"
--'  212  0  ~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh
-|4,39,212,0,1761117617,"~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh"
--'  212  0  ~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh
-|4,39,212,0,1761117617,"~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh"
--'  212  0  ~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh
-|4,39,212,0,1761117617,"~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh"
--'  212  0  ~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh
-|4,39,212,0,1761117617,"~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh"
--'  212  0  ~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh
-|4,39,212,0,1761117617,"~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh"
--'  212  0  ~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh
-|4,39,212,0,1761117617,"~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh"
--'  212  0  ~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh
-|4,39,212,0,1761117617,"~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh"
--'  212  0  ~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh
-|4,39,212,0,1761117617,"~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh"
--'  212  0  ~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh
-|4,39,212,0,1761117617,"~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh"
--'  212  0  ~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh
-|4,39,212,0,1761117617,"~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh"
--'  212  0  ~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh
-|4,39,212,0,1761117617,"~/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp/stock-jp.sh"
--'  46  0  ~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools.sh
-|4,39,46,0,1761117525,"~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools.sh"
--'  46  0  ~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools.sh
-|4,39,46,0,1761117525,"~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools.sh"
--'  73  44  ~/dotfiles/.tmux.conf
-|4,39,73,44,1761117465,"~/dotfiles/.tmux.conf"
--'  73  44  ~/dotfiles/.tmux.conf
-|4,39,73,44,1761117465,"~/dotfiles/.tmux.conf"
--'  73  44  ~/dotfiles/.tmux.conf
-|4,39,73,44,1761117465,"~/dotfiles/.tmux.conf"
--'  73  44  ~/dotfiles/.tmux.conf
-|4,39,73,44,1761117465,"~/dotfiles/.tmux.conf"
--'  73  44  ~/dotfiles/.tmux.conf
-|4,39,73,44,1761117465,"~/dotfiles/.tmux.conf"
 
 # Buffer list:
-%~/dotfiles/.zprofile	189	0
-%~/dotfiles/.tmux.conf	77	0
+%~/dotfiles/.zprofile	192	9
+%~/dotfiles/.tmux.conf	82	42
 %~/dev/src/github.com/ontheroadjp/shell-tools/tmux/battery/battery	91	0
 
 # History of marks within files (newest to oldest):
 
+> ~/dotfiles/tools/github/gh-issue.sh
+	*	1761130652	0
+	"	122	0
+
+> ~/dotfiles/.zprofile
+	*	1761128501	0
+	"	192	9
+	.	188	0
+	+	189	84
+	+	190	74
+	+	187	7
+	+	192	33
+	+	191	36
+	+	179	0
+	+	185	0
+	+	187	0
+	+	185	25
+	+	187	12
+	+	147	6
+	+	8	5
+	+	187	69
+	+	189	24
+	+	187	44
+	+	189	0
+	+	8	0
+	+	4	0
+	+	189	46
+	+	187	34
+	+	189	0
+	+	188	0
+	+	187	0
+	+	188	0
+	m	189	12
+
+> ~/[unite] - default
+	*	1761128389	0
+	"	1	6
+	^	1	7
+	.	2	0
+	+	42	0
+	+	37	0
+	+	32	0
+	+	29	0
+	+	27	0
+	+	24	0
+	+	19	0
+	+	14	0
+	+	11	0
+	+	8	0
+	+	2	0
+
 > ~/dotfiles/.tmux.conf
-	*	1761126150	0
-	"	77	0
-	^	78	106
-	.	77	0
+	*	1761126704	0
+	"	82	42
+	^	82	43
+	.	82	42
 	+	1	1
 	+	1	0
 	+	15	0
@@ -554,79 +547,46 @@ $
 	+	10	0
 	+	47	39
 	+	46	8
-	+	77	122
-	+	77	0
-	+	77	113
-	+	77	0
-	+	77	133
-	+	77	0
-	+	77	113
+	+	76	122
+	+	76	0
+	+	76	113
+	+	76	0
+	+	76	133
+	+	76	0
+	+	76	113
 	+	4	38
-	+	82	0
-	+	77	0
-	+	82	115
-	+	82	0
-	+	77	0
+	+	78	0
+	+	76	0
+	+	78	115
+	+	78	0
+	+	76	0
 	+	4	0
 	+	76	0
-	+	81	177
-	+	77	0
-	+	81	0
+	+	78	177
+	+	76	0
+	+	78	0
 	+	4	0
-	+	81	0
-	+	77	0
-	+	80	174
-	+	80	0
-	+	77	0
+	+	78	0
+	+	76	0
+	+	78	174
+	+	78	0
+	+	76	0
 	+	6	0
-	+	79	0
-	+	78	105
 	+	77	0
-	m	79	0
-
-> ~/[unite] - default
-	*	1761125926	0
-	"	1	8
-	^	1	9
-	.	2	0
-	+	36	0
-	+	31	0
-	+	26	0
-	+	23	0
-	+	21	0
-	+	18	0
-	+	13	0
-	+	8	0
-	+	5	0
-	+	2	0
-
-> ~/dotfiles/.zprofile
-	*	1761125918	0
-	"	189	0
-	.	188	0
-	+	189	84
-	+	190	74
-	+	187	7
-	+	192	33
-	+	191	36
-	+	179	0
-	+	185	0
-	+	187	0
-	+	185	25
-	+	187	12
-	+	147	6
-	+	8	5
-	+	187	69
-	+	189	24
-	+	187	44
-	+	189	0
-	+	8	0
-	+	4	0
-	+	189	46
-	+	187	34
-	+	189	0
-	+	188	0
-	m	189	12
+	+	76	105
+	+	76	0
+	+	76	98
+	+	76	185
+	+	76	28
+	+	76	0
+	+	76	16
+	+	76	29
+	+	76	0
+	+	78	0
+	+	82	43
+	+	86	35
+	+	82	42
+	m	77	0
 
 > ~/dev/src/github.com/ontheroadjp/shell-tools/tmux/get-load-average/get-load-average
 	*	1761119338	0

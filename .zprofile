@@ -184,8 +184,8 @@ alias en="deepl-translate | pbcopy"
 
 # Shell Tools
 export SHELL_TOOLS_ROOT=$(ghq root)/github.com/ontheroadjp/Shell-Tools
-source ${SHELL_TOOLS_ROOT}/load_shell_tools.sh
-source ${SHELL_TOOLS_ROOT}/load_shell_tools_tmux.sh
+zsh-defer source ${SHELL_TOOLS_ROOT}/load_shell_tools.sh
+zsh-defer source ${SHELL_TOOLS_ROOT}/load_shell_tools_tmux.sh
 
 # GithubGG
 ln -sf $(ghq root)/github.com/ontheroadjp/GithubGG/manage_github_repositories.sh ${DOTPATH}/bin
