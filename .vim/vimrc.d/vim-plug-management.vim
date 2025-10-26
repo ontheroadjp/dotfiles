@@ -39,6 +39,10 @@ Plug 'ontheroadjp/vim-brackets', { 'on': [] }
 Plug 'ontheroadjp/vim-deepl-translate', { 'on': [] }
 " Plug 'ontheroadjp/vim-deepl-translate', { 'dir': '~/dev/src/github.com/ontheroadjp/vim-deepl-translate' }
 
+" GitHub
+Plug 'ontheroadjp/vim-gh', { 'on': [] }
+" Plug 'ontheroadjp/vim-gh', { 'dir': '~/dev/src/github.com/ontheroadjp/vim-gh' }
+
 if plugin_env.mode == 0
     Plug 'ervandew/supertab', { 'on': [] }
     Plug 'garbas/vim-snipmate', { 'on': [] }
@@ -80,6 +84,7 @@ function! plugin_env.lazy_load_plugs(timer) abort
         \ 'vim-commentout',
         \ 'vim-brackets',
         \ 'vim-deepl-translate',
+        \ 'vim-gh',
         \ )
     if self.mode == 0
         call plug#load(
