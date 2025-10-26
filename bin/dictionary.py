@@ -1,0 +1,1 @@
+/Users/hideaki/dev/src/github.com/ontheroadjp/Shell-Tools/python_scripts/dictionary/dictionary.py

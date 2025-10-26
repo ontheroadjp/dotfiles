@@ -75,8 +75,8 @@ function! EnsureLabelExists(label)
   let l:found = 0
   for l:item in g:gh_labels
     if l:item.name ==# a:label
-      let l:cmd = 'gh label create ' . shellescape(l:item.name) . \
-                  \ ' --color ' . shellescape(l:item.color) . \
+      let l:cmd = 'gh label create ' . shellescape(l:item.name) .
+                  \ ' --color ' . shellescape(l:item.color) .
                   \ ' --description ' . shellescape(l:item.description)
       call system(l:cmd)
       let l:found = 1
@@ -223,9 +223,12 @@ function! SendBufferToGH()
     call delete(l:tmpfile)
     return 1
   else
-    echoerr "❌ Failed to create issue."
-    echom l:output
-    return 0
+      echoerr "❌ Failed to create issue."
+      echohl WarningMsg
+      echom "Command: " . l:cmd
+      echom "Output: " . l:output
+      echohl None
+      return 0
   endif
 endfunction
 
@@ -380,14 +383,12 @@ endfunction
 nnoremap <silent> <leader>ghl :call ListAndOpenGitHubIssues()<CR>
 
 
-" ----------------------------------------------------
-
-
+" -------------------------------------------------------------------
 
 "map <F5> :wall!<CR>:!glow ~/memo<CR><CR>
 noremap <C-s> :w<CR>
 
-command Dic !dict <cword>
+command Dic !/usr/local/var/pyenv/shims/python pdict <cword>
 
  " ================================================== Disable default plugins
  " Disable TOhtml.
@@ -417,8 +418,8 @@ command Dic !dict <cword>
 "  " Disable other plugins
 "let g:loaded_man                = 1
 "let g:loaded_matchit            = 1
-" "let g:loaded_matchparen         = 1
-" let g:loaded_shada_plugin       = 1
+"let g:loaded_matchparen         = 1
+"let g:loaded_shada_plugin       = 1
 "let g:loaded_spellfile_plugin   = 1
 "let g:loaded_tutor_mode_plugin  = 1
 "let g:did_install_default_menus = 1
@@ -434,21 +435,20 @@ augroup vim_start_end
     autocmd BufWritePre * :%s/\s\+$//ge
 augroup END
 
-" viminf
+" viminfo
 set viminfo='100,<50,s10,h,!,%
 set viminfofile=~/.vim/viminfo
-
 
 "================================================================ Quickfix
 " open:copen, close:ccl
 au QuickfixCmdPost *grep* cwindow      " open vimgrep result in quickfix
 au QuickfixCmdPost make,grep,grepadd,vimgrep copen  " open quickfix window for :grep
 nnoremap <C-up> :copen<CR>                  " open quickfix window
-nnoremap <C-y> :ccl<CR>                     " close quickfix window
+nnoremap <C-down> :ccl<CR>                  " close quickfix window
 " nnoremap <up> :cprevious<CR>                " move to previous item
 " nnoremap <down> :cnext<CR>                  " move to next item
-" nnoremap [Q :<C-u>cfirst<CR>               " move to first item
-" nnoremap ]Q :<C-u>clast<CR>                " move to last item
+" nnoremap [Q :<C-u>cfirst<CR>                " move to first item
+" nnoremap ]Q :<C-u>clast<CR>                 " move to last item
 
 " use ripgrep if installed
 if executable('rg')
@@ -488,8 +488,8 @@ set clipboard+=unnamed
 "--------------------------------------------------------------- Line number
 set number                                  " show line number
 " set relativenumber                        " show relative line number
-nnoremap <leader>nn :set invnumber<CR>          " toggle show/hide line number
-nnoremap <leader>mm :setl rnu!<CR>              " toggle normal/relativenumber
+nnoremap <leader>nn :set invnumber<CR>      " toggle show/hide line number
+nnoremap <leader>mm :setl rnu!<CR>          " toggle normal/relativenumber
 
 "--------------------------------------------------------------- Tab(Indent)
 set expandtab                  " replace tab to space
@@ -501,8 +501,8 @@ set smartindent                " to determining indent width automatically in ne
 " let g:sh_indent_case_labels=1
 
 "--------------------------------------------------------- Backup/Swap file
-set nobackup                                     " disable backup file
-set noswapfile                                   " disable swap file
+set nobackup                    " disable backup file
+set noswapfile                  " disable swap file
 
 "--------------------------------------------------------------- Command
 " Save as root user
@@ -528,20 +528,18 @@ inoremap <C-n> <C-o>
 nnoremap -- :split<CR>                  " horizontal split
 nnoremap \\ :rightbelow vsp<CR>         " virtical split
 set winheight=25
-map ✩ <C-S-k-from-iterm2>
-map ✡ <C-S-j-from-iterm2>
-nnoremap <C-S-k-from-iterm2> <C-w>k
-noremap <C-S-j-from-iterm2> <C-w>j
 
+" map ✩ <C-S-k-from-iterm2>
+" map ✡ <C-S-j-from-iterm2>
+" nnoremap <C-S-k-from-iterm2> <C-w>k
+" noremap <C-S-j-from-iterm2> <C-w>j
+
+" window move toggle
+nnoremap <C-u> <C-w><C-p>
+
+" close other windows
 nnoremap <C-w><C-w> <C-w>o
-
-"nnoremap \2 :close<CR>                 " close window
-"nnoremap \h <C-w>h                     " move to left window
-"nnoremap \j <C-w>j                     " move to bottom window
-"nnoremap \k <C-w>k                     " move to above window
-"nnoremap \l <C-w>l                     " move to right window
-"nnoremap \q <c-w><c-w>                 " move between window
-"nnoremap TT <C-w>T
+nnoremap <C-e><C-e> <C-w>o
 
 "----------------------------------------------------------------- Tab
 "nnoremap <silent> tn :tabnew<CR>        " open new tab
@@ -558,8 +556,19 @@ nnoremap <C-w><C-w> <C-w>o
 " nnoremap <silent> ]B :blast<CR>
 
 "--------------------------------------------------------------- Scrolling
-nnoremap <C-n> <C-d> "Scroll down half a page
-nnoremap <C-u> <C-u> "scroll up half page
+" Default Key bindings
+" H     : move cursor to top of the page
+" M     : move cursor to middle of the page
+" L     :  move cursor to bottom of the page
+" <C-u> : Scroll down half a page
+" <C-d> : scroll up half a page
+" zz    : the cursor line moves to middle of a page
+
+" nnoremap <C-n> <C-d>
+" nnoremap <C-u> <C-u>
+
+" nnoremap <C-k> Hzz
+" nnoremap <C-j> Lzz
 
 "--------------------------------------------------------------- Moving cursor
 nnoremap k gk
@@ -571,25 +580,17 @@ nnoremap gj j
 vnoremap gk k
 vnoremap gj j
 
+nnoremap <C-k> 5k
+nnoremap <C-j> 5j
+
+" nnoremap <C-u> zz
+" nnoremap <C-d> zz
+
 " move cursor in insert mode
-
-" inoremap <C-k> <Up>
-" inoremap <C-j> <Down>
-" inoremap <C-h> <Left>
-" inoremap <C-l> <Right>
-
 inoremap <expr> <C-k> pumvisible() ? "<C-p>" : "<Up>"
 inoremap <expr> <C-j> pumvisible() ? "<C-n>" : "<Down>"
 inoremap <C-h> <Left>
 inoremap <C-l> <Right>
-
-"--------------------------------------------------------------- Scroll
-
-nnoremap <C-k> Hzz
-nnoremap <C-j> Lzz
-
-nnoremap <C-k> 5kzz
-nnoremap <C-j> 5jzz
 
 "--------------------------------------------------------------- Jump to
 " motion prefix ` to <space>
@@ -702,7 +703,7 @@ augroup shell
     autocmd BufNewFile *.{sh,bash,fnc} 0r $HOME/dotfiles/.vim/templates/sh.tpl
     autocmd BufNewFile *.{bats} 0r $HOME/dotfiles/.vim/templates/bats.tpl
 augroup END
-augroup markdown
+augroup gh_issue
     autocmd!
     autocmd BufNewFile *.{consideration} 0r $HOME/dotfiles/.vim/templates/github/issue_consideration.tpl
     autocmd BufNewFile *.{todo} 0r $HOME/dotfiles/.vim/templates/github/issue_todo.tpl

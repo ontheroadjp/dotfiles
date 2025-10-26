@@ -28,53 +28,24 @@ au FileType unite inoremap <silent> <buffer> kj <ESC>:q<CR>
 au FileType unite nnoremap <silent> <buffer> ,, :q<CR>
 au FileType unite inoremap <silent> <buffer> ,, <ESC>:q<CR>
 
-" open in horizontal window
-au FileType unite nnoremap <silent> <buffer> <expr> <C-h> unite#do_action('split')
-au FileType unite inoremap <silent> <buffer> <expr> <C-h> unite#do_action('split')
-
-" open in virtical window
-au FileType unite nnoremap <silent> <buffer> <expr> <C-v> unite#do_action('vsplit')
-au FileType unite inoremap <silent> <buffer> <expr> <C-v> unite#do_action('vsplit')
-
-" Ignore files/dirs inside of .gitignore and .git/
-" function! s:unite_gitignore_source()
-"     let sources = []
-"     if filereadable('./.gitignore')
-"         for file in readfile('./.gitignore')
-"           " コメント行と空行は追加しない
-"             if file !~ "^#\\|^\s\*$"
-"                 call add(sources, file)
-"             endif
-"         endfor
-"     endif
-"     if isdirectory('./.git')
-"         call add(sources, '.git')
-"     endif
-"     call add(sources, '.git')
-"     call add(sources, 'node_modules')
-"     call add(sources, 'venv')
-"     call add(sources, '.pytest_cache')
-"     call add(sources, '.ruff_cache')
-"     call add(sources, '*.cache')
-"     call add(sources, 'Dropbox')
-"     call add(sources, '.egg-info')
-"     let pattern = escape(join(sources, '|'), './|')
-"     call unite#custom#source('file_rec,file_rec/async', 'ignore_pattern', pattern)
-"     call unite#custom#source('grep', 'ignore_pattern', pattern)
-" endfunction
-" call s:unite_gitignore_source()
-
 " ----------------------------
 " The prefix key.
+" ----------------------------
 nnoremap    [unite]   <Nop>
 nmap    ,f [unite]
 
+" ----------------------------
 " unite.vim keymap
-nnoremap <silent> [unite]r :<C-u>Unite<Space>file_mru buffer<CR>
-nnoremap <silent> [unite]f :<C-u>Unite<Space>file<CR>
+" ----------------------------
 
+" MRU Normal
+" nnoremap <silent> [unite]r :<C-u>Unite<Space>file_mru buffer<CR>
+
+" MRU start → return to original window after selection (<C-w><C-p> supported)
+nnoremap <silent> [unite]r :<C-u>Unite<Space>-no-split<Space>file_mru<Space>buffer<CR>
+
+nnoremap <silent> [unite]f :<C-u>Unite<Space>file<CR>
 nnoremap <silent> [unite]w :<C-u>call unite#start([['file', '~/WORKSPACE']])<CR>
-" nnoremap <silent> [unite]/ :<C-u>Unite -buffer-name=search line -start-insert -no-quit<CR>
 nnoremap <silent> [unite]/ :<C-u>Unite -buffer-name=search line -start-insert<CR>
 
 "nnoremap [unite]u  :<C-u>Unite -no-split<Space>
