@@ -7,6 +7,7 @@ home/.gemini/history/
 
 # vim plugins
 .vim/plugged/
+.vim/viminfo
 
 # compiled files
 *.zwc
