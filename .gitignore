@@ -22,6 +22,9 @@ tags
 bk_*
 bk_*/
 mac_osx/karabiner_elements/automatic_backups/
+mac_osx/HandBrakeCLI1.4.2
+mac_osx/HandBrakeCLI-1.10.2
+
 
 # Exclude environment files and virtual environments
 tools/deepl-translate-en/.env
@@ -30,5 +33,4 @@ bin/deepl-translate-en
 
 # Exclude Vagrant
 .vagrant.d
-
 

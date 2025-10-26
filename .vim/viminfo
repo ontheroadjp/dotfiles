@@ -11,18 +11,18 @@
 # hlsearch on (H) or off (h):
 ~h
 # Last Search Pattern:
-~MSle0~/[unite]r
+~MSle0~/Hand
 
 # Last Substitute String:
 $
 
 # Command Line History (newest to oldest):
+:wq
+|2,0,1761438616,,"wq"
 :q
-|2,0,1761438250,,"q"
+|2,0,1761438527,,"q"
 :w
 |2,0,1761294417,,"w"
-:wq
-|2,0,1761291731,,"wq"
 :q!
 |2,0,1761290909,,"q!"
 :wincmd p
@@ -102,7 +102,9 @@ $
 
 # Search String History (newest to oldest):
 ? \s\+$
-|2,1,1761294417,,"\\s\\+$"
+|2,1,1761438616,,"\\s\\+$"
+?/Hand
+|2,1,1761438546,47,"Hand"
 ?/battery
 |2,1,1761294389,47,"battery"
 ? ^\s*$
@@ -288,13 +290,16 @@ $
 	function _black_fill() { xargs -I{} echo $'\e[40m{}\e[m' }
 	function _red_fill() { xargs -I{} echo $'\e[41m{}\e[m' }
 |3,0,0,1,5,0,1761438211,"function _cyan() { xargs -I{} echo $'\\e[36m{}\\e[m' }","function _white() { xargs -I{} echo $'\\e[37m{}\\e[m' }","","function _black_fill() { xargs -I{} echo $'\\e[40m{}\\e[m' }","function _red_fill() { xargs -I{} echo $'\\e[41m{}\\e[m' }"
-""1	LINE	0
+"1	LINE	0
 	
-|3,1,1,1,1,0,1761291924,""
+|3,0,1,1,1,0,1761438567,""
 "2	LINE	0
 	
-|3,0,2,1,1,0,1761291907,""
+|3,0,2,1,1,0,1761291924,""
 "3	LINE	0
+	
+|3,0,3,1,1,0,1761291907,""
+"4	LINE	0
 	" open in horizontal window
 	" au FileType unite nnoremap <silent> <buffer> <expr> <C-h> unite#do_action('split')
 	" au FileType unite inoremap <silent> <buffer> <expr> <C-h> unite#do_action('split')
@@ -330,32 +335,29 @@ $
 	"     call unite#custom#source('grep', 'ignore_pattern', pattern)
 	" endfunction
 	" call s:unite_gitignore_source()
-|3,0,3,1,35,0,1761291905,"\" open in horizontal window","\" au FileType unite nnoremap <silent> <buffer> <expr> <C-h> unite#do_action('split')","\" au FileType unite inoremap <silent> <buffer> <expr> <C-h> unite#do_action('split')","","\" open in virtical window","\" au FileType unite nnoremap <silent> <buffer> <expr> <C-v> unite#do_action('vsplit')","\" au FileType unite inoremap <silent> <buffer> <expr> <C-v> unite#do_action('vsplit')","",>53
+|3,0,4,1,35,0,1761291905,"\" open in horizontal window","\" au FileType unite nnoremap <silent> <buffer> <expr> <C-h> unite#do_action('split')","\" au FileType unite inoremap <silent> <buffer> <expr> <C-h> unite#do_action('split')","","\" open in virtical window","\" au FileType unite nnoremap <silent> <buffer> <expr> <C-v> unite#do_action('vsplit')","\" au FileType unite inoremap <silent> <buffer> <expr> <C-v> unite#do_action('vsplit')","",>53
 |<"\" Ignore files/dirs inside of .gitignore and .git/","\" function! s:unite_gitignore_source()","\"     let sources = []","\"     if filereadable('./.gitignore')","\"         for file in readfile('./.gitignore')","\"           \" コメント行と空行は追加しない","\"             if file !~ \"^#\\\\|^\\s\\*$\"","\"                 call add(sources, file)","\"             endif","\"         endfor","\"     endif","\"     if isdirectory('./.git')",>38
 |<"\"         call add(sources, '.git')","\"     endif","\"     call add(sources, '.git')","\"     call add(sources, 'node_modules')","\"     call add(sources, 'venv')","\"     call add(sources, '.pytest_cache')","\"     call add(sources, '.ruff_cache')","\"     call add(sources, '*.cache')","\"     call add(sources, 'Dropbox')","\"     call add(sources, '.egg-info')","\"     let pattern = escape(join(sources, '|'), './|')",>87
 |<"\"     call unite#custom#source('file_rec,file_rec/async', 'ignore_pattern', pattern)","\"     call unite#custom#source('grep', 'ignore_pattern', pattern)","\" endfunction","\" call s:unite_gitignore_source()"
-"4	LINE	0
+"5	LINE	0
 	" MRU 通常
 	" nnoremap <silent> [unite]r :<C-u>Unite<Space>file_mru buffer<CR>
 	
 	" MRU 起動 → 選択後に元のウィンドウに戻る(<C-w><C-p> 対応)
 	nnoremap <silent> [unite]r :<C-u>Unite<Space>-no-split<Space>file_mru<Space>buffer<CR>
-|3,0,4,1,5,0,1761291719,"\" MRU 通常","\" nnoremap <silent> [unite]r :<C-u>Unite<Space>file_mru buffer<CR>","","\" MRU 起動 → 選択後に元のウィンドウに戻る(<C-w><C-p> 対応)","nnoremap <silent> [unite]r :<C-u>Unite<Space>-no-split<Space>file_mru<Space>buffer<CR>"
-"5	LINE	0
-	" nnoremap <silent> [unite]/ :<C-u>Unite -buffer-name=search line -start-insert -no-quit<CR>
-|3,0,5,1,1,0,1761291608,"\" nnoremap <silent> [unite]/ :<C-u>Unite -buffer-name=search line -start-insert -no-quit<CR>"
+|3,0,5,1,5,0,1761291719,"\" MRU 通常","\" nnoremap <silent> [unite]r :<C-u>Unite<Space>file_mru buffer<CR>","","\" MRU 起動 → 選択後に元のウィンドウに戻る(<C-w><C-p> 対応)","nnoremap <silent> [unite]r :<C-u>Unite<Space>-no-split<Space>file_mru<Space>buffer<CR>"
 "6	LINE	0
-	
-|3,0,6,1,1,0,1761291453,""
+	" nnoremap <silent> [unite]/ :<C-u>Unite -buffer-name=search line -start-insert -no-quit<CR>
+|3,0,6,1,1,0,1761291608,"\" nnoremap <silent> [unite]/ :<C-u>Unite -buffer-name=search line -start-insert -no-quit<CR>"
 "7	LINE	0
 	
-|3,0,7,1,1,0,1761291450,""
+|3,0,7,1,1,0,1761291453,""
 "8	LINE	0
 	
-|3,0,8,1,1,0,1761291449,""
+|3,0,8,1,1,0,1761291450,""
 "9	LINE	0
-	nnoremap <silent> [unite]r :<C-u>Unite<Space>-no-split<Space>-on-close='wincmd<Space>p'<Space>file_mru buffer<CR>
-|3,0,9,1,1,0,1761291402,"nnoremap <silent> [unite]r :<C-u>Unite<Space>-no-split<Space>-on-close='wincmd<Space>p'<Space>file_mru buffer<CR>"
+	
+|3,0,9,1,1,0,1761291449,""
 "k	CHAR	0
 	kkkVkkkkkjjvvkkkTkkkkkkkkkkkkkkkkkkkjjjjjjjjjjjjjjjTjjjj
 |3,0,20,0,1,0,1761180641,"kkkVkkkkkjjvvkkkTkkkkkkkkkkkkkkkkkkkjjjjjjjjjjjjjjjTjjjj"
@@ -368,9 +370,9 @@ $
 	nnoremap <C-S-k-from-iterm2> <C-w>k
 	noremap <C-S-j-from-iterm2> <C-w>j
 |3,0,35,1,4,0,1761285202,"map ✩ <C-S-k-from-iterm2>","map ✡ <C-S-j-from-iterm2>","nnoremap <C-S-k-from-iterm2> <C-w>k","noremap <C-S-j-from-iterm2> <C-w>j"
-"-	CHAR	0
-	起動 → 選択後に元のウィンドウに戻る
-|3,0,36,0,1,0,1761291458,"起動 → 選択後に元のウィンドウに戻る"
+""-	CHAR	0
+	/
+|3,1,36,0,1,0,1761438613,"/"
 
 # global variables:
 
@@ -379,32 +381,130 @@ $
 |4,80,1,0,1760926323,"~/dotfiles/.zprofile"
 'V  1  0  ~/.vimrc
 |4,86,1,0,1760926318,"~/.vimrc"
-'0  33  0  ~/.vimrc
-|4,48,33,0,1761438250,"~/.vimrc"
-'1  14  18  ~/.vimrc
-|4,49,14,18,1761438247,"~/.vimrc"
-'2  1  0  ~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools_tmux.sh
-|4,50,1,0,1761294374,"~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools_tmux.sh"
-'3  1  0  ~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools_tmux.sh
-|4,51,1,0,1761294374,"~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools_tmux.sh"
-'4  45  0  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,52,45,0,1761291942,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
-'5  45  0  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,53,45,0,1761291942,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
-'6  40  0  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,54,40,0,1761291732,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
-'7  73  0  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,55,73,0,1761291732,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
-'8  40  0  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,56,40,0,1761291732,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
-'9  73  0  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,57,73,0,1761291732,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
+'0  27  0  ~/dotfiles/.gitignore
+|4,48,27,0,1761438616,"~/dotfiles/.gitignore"
+'1  33  0  ~/.vimrc
+|4,49,33,0,1761438527,"~/.vimrc"
+'2  22  21  ~/dotfiles/.git/config
+|4,50,22,21,1761438438,"~/dotfiles/.git/config"
+'3  22  21  ~/dotfiles/.git/config
+|4,51,22,21,1761438374,"~/dotfiles/.git/config"
+'4  33  0  ~/.vimrc
+|4,52,33,0,1761438250,"~/.vimrc"
+'5  33  0  ~/.vimrc
+|4,53,33,0,1761438250,"~/.vimrc"
+'6  33  0  ~/.vimrc
+|4,54,33,0,1761438250,"~/.vimrc"
+'7  33  0  ~/.vimrc
+|4,55,33,0,1761438250,"~/.vimrc"
+'8  14  18  ~/.vimrc
+|4,56,14,18,1761438247,"~/.vimrc"
+'9  14  18  ~/.vimrc
+|4,57,14,18,1761438247,"~/.vimrc"
 
 # Jumplist (newest first):
+-'  27  0  ~/dotfiles/.gitignore
+|4,39,27,0,1761438616,"~/dotfiles/.gitignore"
+-'  1  0  ~/dotfiles/.gitignore
+|4,39,1,0,1761438538,"~/dotfiles/.gitignore"
+-'  33  0  ~/.vimrc
+|4,39,33,0,1761438527,"~/.vimrc"
+-'  33  0  ~/.vimrc
+|4,39,33,0,1761438527,"~/.vimrc"
+-'  22  21  ~/dotfiles/.git/config
+|4,39,22,21,1761438438,"~/dotfiles/.git/config"
+-'  22  21  ~/dotfiles/.git/config
+|4,39,22,21,1761438438,"~/dotfiles/.git/config"
+-'  1  0  ~/dotfiles/.git/config
+|4,39,1,0,1761438408,"~/dotfiles/.git/config"
+-'  1  0  ~/dotfiles/.git/config
+|4,39,1,0,1761438408,"~/dotfiles/.git/config"
+-'  22  21  ~/dotfiles/.git/config
+|4,39,22,21,1761438374,"~/dotfiles/.git/config"
+-'  22  21  ~/dotfiles/.git/config
+|4,39,22,21,1761438374,"~/dotfiles/.git/config"
+-'  1  0  ~/dotfiles/.git/config
+|4,39,1,0,1761438366,"~/dotfiles/.git/config"
+-'  1  0  ~/dotfiles/.git/config
+|4,39,1,0,1761438366,"~/dotfiles/.git/config"
+-'  1  0  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
+|4,39,1,0,1761438254,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
+-'  1  0  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
+|4,39,1,0,1761438254,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
+-'  1  3  ~/dotfiles/[unite] - default
+|4,39,1,3,1761438253,"~/dotfiles/[unite] - default"
+-'  1  3  ~/dotfiles/[unite] - default
+|4,39,1,3,1761438253,"~/dotfiles/[unite] - default"
+-'  33  0  ~/.vimrc
+|4,39,33,0,1761438250,"~/.vimrc"
+-'  33  0  ~/.vimrc
+|4,39,33,0,1761438250,"~/.vimrc"
+-'  33  0  ~/.vimrc
+|4,39,33,0,1761438250,"~/.vimrc"
+-'  33  0  ~/.vimrc
+|4,39,33,0,1761438250,"~/.vimrc"
+-'  33  0  ~/.vimrc
+|4,39,33,0,1761438250,"~/.vimrc"
 -'  33  0  ~/.vimrc
 |4,39,33,0,1761438250,"~/.vimrc"
 -'  14  18  ~/.vimrc
 |4,39,14,18,1761438247,"~/.vimrc"
+-'  14  18  ~/.vimrc
+|4,39,14,18,1761438247,"~/.vimrc"
+-'  14  18  ~/.vimrc
+|4,39,14,18,1761438247,"~/.vimrc"
+-'  14  18  ~/.vimrc
+|4,39,14,18,1761438247,"~/.vimrc"
+-'  14  18  ~/.vimrc
+|4,39,14,18,1761438247,"~/.vimrc"
+-'  14  18  ~/.vimrc
+|4,39,14,18,1761438247,"~/.vimrc"
+-'  14  18  ~/.vimrc
+|4,39,14,18,1761438247,"~/.vimrc"
+-'  14  18  ~/.vimrc
+|4,39,14,18,1761438247,"~/.vimrc"
+-'  2  0  ~/dotfiles/.zprofile
+|4,39,2,0,1761438245,"~/dotfiles/.zprofile"
+-'  22  0  ~/dotfiles/.zsh.d/dev/python.zsh
+|4,39,22,0,1761438245,"~/dotfiles/.zsh.d/dev/python.zsh"
+-'  1  4  ~/dev/src/github.com/ontheroadjp/GithubGG/[unite] - default
+|4,39,1,4,1761438245,"~/dev/src/github.com/ontheroadjp/GithubGG/[unite] - default"
+-'  2  0  ~/dotfiles/.zprofile
+|4,39,2,0,1761438245,"~/dotfiles/.zprofile"
+-'  22  0  ~/dotfiles/.zsh.d/dev/python.zsh
+|4,39,22,0,1761438245,"~/dotfiles/.zsh.d/dev/python.zsh"
+-'  1  4  ~/dev/src/github.com/ontheroadjp/GithubGG/[unite] - default
+|4,39,1,4,1761438245,"~/dev/src/github.com/ontheroadjp/GithubGG/[unite] - default"
+-'  2  0  ~/dotfiles/.zprofile
+|4,39,2,0,1761438245,"~/dotfiles/.zprofile"
+-'  22  0  ~/dotfiles/.zsh.d/dev/python.zsh
+|4,39,22,0,1761438245,"~/dotfiles/.zsh.d/dev/python.zsh"
+-'  1  4  ~/dev/src/github.com/ontheroadjp/GithubGG/[unite] - default
+|4,39,1,4,1761438245,"~/dev/src/github.com/ontheroadjp/GithubGG/[unite] - default"
+-'  2  0  ~/dotfiles/.zprofile
+|4,39,2,0,1761438245,"~/dotfiles/.zprofile"
+-'  22  0  ~/dotfiles/.zsh.d/dev/python.zsh
+|4,39,22,0,1761438245,"~/dotfiles/.zsh.d/dev/python.zsh"
+-'  1  4  ~/dev/src/github.com/ontheroadjp/GithubGG/[unite] - default
+|4,39,1,4,1761438245,"~/dev/src/github.com/ontheroadjp/GithubGG/[unite] - default"
+-'  2  0  ~/dotfiles/.zprofile
+|4,39,2,0,1761438245,"~/dotfiles/.zprofile"
+-'  22  0  ~/dotfiles/.zsh.d/dev/python.zsh
+|4,39,22,0,1761438245,"~/dotfiles/.zsh.d/dev/python.zsh"
+-'  1  4  ~/dev/src/github.com/ontheroadjp/GithubGG/[unite] - default
+|4,39,1,4,1761438245,"~/dev/src/github.com/ontheroadjp/GithubGG/[unite] - default"
+-'  2  0  ~/dotfiles/.zprofile
+|4,39,2,0,1761438245,"~/dotfiles/.zprofile"
+-'  22  0  ~/dotfiles/.zsh.d/dev/python.zsh
+|4,39,22,0,1761438245,"~/dotfiles/.zsh.d/dev/python.zsh"
+-'  1  4  ~/dev/src/github.com/ontheroadjp/GithubGG/[unite] - default
+|4,39,1,4,1761438245,"~/dev/src/github.com/ontheroadjp/GithubGG/[unite] - default"
+-'  2  0  ~/dotfiles/.zprofile
+|4,39,2,0,1761438245,"~/dotfiles/.zprofile"
+-'  22  0  ~/dotfiles/.zsh.d/dev/python.zsh
+|4,39,22,0,1761438245,"~/dotfiles/.zsh.d/dev/python.zsh"
+-'  1  4  ~/dev/src/github.com/ontheroadjp/GithubGG/[unite] - default
+|4,39,1,4,1761438245,"~/dev/src/github.com/ontheroadjp/GithubGG/[unite] - default"
 -'  2  0  ~/dotfiles/.zprofile
 |4,39,2,0,1761438245,"~/dotfiles/.zprofile"
 -'  22  0  ~/dotfiles/.zsh.d/dev/python.zsh
@@ -417,200 +517,262 @@ $
 |4,39,76,0,1761438191,"~/dotfiles/.tmux.conf"
 -'  1  4  ~/dev/src/github.com/ontheroadjp/shell-tools/[unite] - default
 |4,39,1,4,1761438191,"~/dev/src/github.com/ontheroadjp/shell-tools/[unite] - default"
+-'  29  18  ~/dotfiles/.zprofile
+|4,39,29,18,1761438191,"~/dotfiles/.zprofile"
+-'  76  0  ~/dotfiles/.tmux.conf
+|4,39,76,0,1761438191,"~/dotfiles/.tmux.conf"
+-'  1  4  ~/dev/src/github.com/ontheroadjp/shell-tools/[unite] - default
+|4,39,1,4,1761438191,"~/dev/src/github.com/ontheroadjp/shell-tools/[unite] - default"
+-'  29  18  ~/dotfiles/.zprofile
+|4,39,29,18,1761438191,"~/dotfiles/.zprofile"
+-'  76  0  ~/dotfiles/.tmux.conf
+|4,39,76,0,1761438191,"~/dotfiles/.tmux.conf"
+-'  1  4  ~/dev/src/github.com/ontheroadjp/shell-tools/[unite] - default
+|4,39,1,4,1761438191,"~/dev/src/github.com/ontheroadjp/shell-tools/[unite] - default"
+-'  29  18  ~/dotfiles/.zprofile
+|4,39,29,18,1761438191,"~/dotfiles/.zprofile"
+-'  76  0  ~/dotfiles/.tmux.conf
+|4,39,76,0,1761438191,"~/dotfiles/.tmux.conf"
+-'  1  4  ~/dev/src/github.com/ontheroadjp/shell-tools/[unite] - default
+|4,39,1,4,1761438191,"~/dev/src/github.com/ontheroadjp/shell-tools/[unite] - default"
+-'  29  18  ~/dotfiles/.zprofile
+|4,39,29,18,1761438191,"~/dotfiles/.zprofile"
+-'  76  0  ~/dotfiles/.tmux.conf
+|4,39,76,0,1761438191,"~/dotfiles/.tmux.conf"
+-'  1  4  ~/dev/src/github.com/ontheroadjp/shell-tools/[unite] - default
+|4,39,1,4,1761438191,"~/dev/src/github.com/ontheroadjp/shell-tools/[unite] - default"
+-'  29  18  ~/dotfiles/.zprofile
+|4,39,29,18,1761438191,"~/dotfiles/.zprofile"
+-'  76  0  ~/dotfiles/.tmux.conf
+|4,39,76,0,1761438191,"~/dotfiles/.tmux.conf"
+-'  1  4  ~/dev/src/github.com/ontheroadjp/shell-tools/[unite] - default
+|4,39,1,4,1761438191,"~/dev/src/github.com/ontheroadjp/shell-tools/[unite] - default"
+-'  29  18  ~/dotfiles/.zprofile
+|4,39,29,18,1761438191,"~/dotfiles/.zprofile"
+-'  76  0  ~/dotfiles/.tmux.conf
+|4,39,76,0,1761438191,"~/dotfiles/.tmux.conf"
+-'  1  4  ~/dev/src/github.com/ontheroadjp/shell-tools/[unite] - default
+|4,39,1,4,1761438191,"~/dev/src/github.com/ontheroadjp/shell-tools/[unite] - default"
+-'  29  18  ~/dotfiles/.zprofile
+|4,39,29,18,1761438191,"~/dotfiles/.zprofile"
+-'  76  0  ~/dotfiles/.tmux.conf
+|4,39,76,0,1761438191,"~/dotfiles/.tmux.conf"
+-'  1  4  ~/dev/src/github.com/ontheroadjp/shell-tools/[unite] - default
+|4,39,1,4,1761438191,"~/dev/src/github.com/ontheroadjp/shell-tools/[unite] - default"
+-'  7  0  ~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools_tmux.sh
+|4,39,7,0,1761438177,"~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools_tmux.sh"
+-'  7  0  ~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools_tmux.sh
+|4,39,7,0,1761438177,"~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools_tmux.sh"
+-'  7  0  ~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools_tmux.sh
+|4,39,7,0,1761438177,"~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools_tmux.sh"
+-'  7  0  ~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools_tmux.sh
+|4,39,7,0,1761438177,"~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools_tmux.sh"
+-'  7  0  ~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools_tmux.sh
+|4,39,7,0,1761438177,"~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools_tmux.sh"
+-'  7  0  ~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools_tmux.sh
+|4,39,7,0,1761438177,"~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools_tmux.sh"
+-'  7  0  ~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools_tmux.sh
+|4,39,7,0,1761438177,"~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools_tmux.sh"
 -'  7  0  ~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools_tmux.sh
 |4,39,7,0,1761438177,"~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools_tmux.sh"
 -'  1  0  ~/dotfiles/.zprofile
 |4,39,1,0,1761438088,"~/dotfiles/.zprofile"
+-'  1  0  ~/dotfiles/.zprofile
+|4,39,1,0,1761438088,"~/dotfiles/.zprofile"
+-'  1  0  ~/dotfiles/.zprofile
+|4,39,1,0,1761438088,"~/dotfiles/.zprofile"
+-'  1  0  ~/dotfiles/.zprofile
+|4,39,1,0,1761438088,"~/dotfiles/.zprofile"
+-'  1  0  ~/dotfiles/.zprofile
+|4,39,1,0,1761438088,"~/dotfiles/.zprofile"
+-'  1  0  ~/dotfiles/.zprofile
+|4,39,1,0,1761438088,"~/dotfiles/.zprofile"
+-'  1  0  ~/dotfiles/.zprofile
+|4,39,1,0,1761438088,"~/dotfiles/.zprofile"
+-'  1  0  ~/dotfiles/.zprofile
+|4,39,1,0,1761438088,"~/dotfiles/.zprofile"
 -'  10  0  ~/dev/src/github.com/ontheroadjp/GithubGG/[unite] - default
 |4,39,10,0,1761438086,"~/dev/src/github.com/ontheroadjp/GithubGG/[unite] - default"
--'  82  0  ~/dotfiles/.tmux.conf
-|4,39,82,0,1761294389,"~/dotfiles/.tmux.conf"
--'  1  18  ~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools_tmux.sh
-|4,39,1,18,1761294385,"~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools_tmux.sh"
--'  1  0  ~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools.sh
-|4,39,1,0,1761294385,"~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools.sh"
--'  1  0  ~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools_tmux.sh
-|4,39,1,0,1761294374,"~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools_tmux.sh"
--'  61  8  ~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools.sh
-|4,39,61,8,1761294321,"~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools.sh"
--'  61  8  ~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools.sh
-|4,39,61,8,1761294321,"~/dev/src/github.com/ontheroadjp/shell-tools/load_shell_tools.sh"
--'  1  0  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,1,0,1761291951,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  45  0  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,45,0,1761291942,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  45  0  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,45,0,1761291942,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  45  0  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,45,0,1761291942,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  31  0  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,31,0,1761291820,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  31  0  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,31,0,1761291820,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  31  0  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,31,0,1761291820,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  11  0  ~/.vimrc
-|4,39,11,0,1761291753,"~/.vimrc"
--'  11  0  ~/.vimrc
-|4,39,11,0,1761291753,"~/.vimrc"
--'  1  0  ~/dotfiles/.zprofile
-|4,39,1,0,1761291753,"~/dotfiles/.zprofile"
--'  1  4  ~/dev/src/github.com/ontheroadjp/GithubGG/[unite] - default
-|4,39,1,4,1761291753,"~/dev/src/github.com/ontheroadjp/GithubGG/[unite] - default"
--'  11  0  ~/.vimrc
-|4,39,11,0,1761291753,"~/.vimrc"
--'  1  0  ~/dotfiles/.zprofile
-|4,39,1,0,1761291753,"~/dotfiles/.zprofile"
--'  1  4  ~/dev/src/github.com/ontheroadjp/GithubGG/[unite] - default
-|4,39,1,4,1761291753,"~/dev/src/github.com/ontheroadjp/GithubGG/[unite] - default"
--'  31  0  ~/dev/src/github.com/ontheroadjp/GithubGG/[unite] - default
-|4,39,31,0,1761291752,"~/dev/src/github.com/ontheroadjp/GithubGG/[unite] - default"
--'  23  0  ~/dev/src/github.com/ontheroadjp/GithubGG/[unite] - default
-|4,39,23,0,1761291752,"~/dev/src/github.com/ontheroadjp/GithubGG/[unite] - default"
--'  23  0  ~/dev/src/github.com/ontheroadjp/GithubGG/[unite] - default
-|4,39,23,0,1761291752,"~/dev/src/github.com/ontheroadjp/GithubGG/[unite] - default"
--'  1  0  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,1,0,1761291743,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  1  0  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,1,0,1761291743,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  40  0  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,40,0,1761291732,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  73  0  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,73,0,1761291732,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  40  0  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,40,0,1761291732,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  73  0  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,73,0,1761291732,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  40  0  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,40,0,1761291732,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  73  0  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,73,0,1761291732,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  46  0  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,46,0,1761291719,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  79  0  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,79,0,1761291719,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  46  0  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,46,0,1761291719,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  79  0  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,79,0,1761291719,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  46  0  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,46,0,1761291719,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  79  0  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,79,0,1761291719,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  21  0  ~/dev/src/github.com/ontheroadjp/GithubGG/README.ja.md
-|4,39,21,0,1761291690,"~/dev/src/github.com/ontheroadjp/GithubGG/README.ja.md"
--'  21  0  ~/dev/src/github.com/ontheroadjp/GithubGG/README.ja.md
-|4,39,21,0,1761291690,"~/dev/src/github.com/ontheroadjp/GithubGG/README.ja.md"
--'  21  0  ~/dev/src/github.com/ontheroadjp/GithubGG/README.ja.md
-|4,39,21,0,1761291690,"~/dev/src/github.com/ontheroadjp/GithubGG/README.ja.md"
--'  21  0  ~/dev/src/github.com/ontheroadjp/GithubGG/README.ja.md
-|4,39,21,0,1761291690,"~/dev/src/github.com/ontheroadjp/GithubGG/README.ja.md"
--'  21  0  ~/dev/src/github.com/ontheroadjp/GithubGG/README.ja.md
-|4,39,21,0,1761291690,"~/dev/src/github.com/ontheroadjp/GithubGG/README.ja.md"
--'  36  0  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,36,0,1761291688,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  71  0  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,71,0,1761291688,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  36  0  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,36,0,1761291688,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  71  0  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,71,0,1761291688,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  36  0  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,36,0,1761291688,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  71  0  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,71,0,1761291688,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  15  12  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,15,12,1761291590,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  15  12  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,15,12,1761291590,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  15  12  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,15,12,1761291590,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  15  12  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,15,12,1761291590,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  15  12  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,15,12,1761291590,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  52  46  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,52,46,1761291575,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  86  46  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,86,46,1761291575,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  52  46  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,52,46,1761291575,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  86  46  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,86,46,1761291575,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  52  46  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,52,46,1761291575,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  86  46  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,86,46,1761291575,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  2  0  ~/dotfiles/.zsh.d/dev/python.zsh
-|4,39,2,0,1761291561,"~/dotfiles/.zsh.d/dev/python.zsh"
--'  2  0  ~/dotfiles/.zsh.d/dev/python.zsh
-|4,39,2,0,1761291561,"~/dotfiles/.zsh.d/dev/python.zsh"
--'  2  0  ~/dotfiles/.zsh.d/dev/python.zsh
-|4,39,2,0,1761291561,"~/dotfiles/.zsh.d/dev/python.zsh"
--'  1  0  ~/dev/src/github.com/ontheroadjp/GithubGG/[unite] - default
-|4,39,1,0,1761291561,"~/dev/src/github.com/ontheroadjp/GithubGG/[unite] - default"
--'  2  0  ~/dotfiles/.zsh.d/dev/python.zsh
-|4,39,2,0,1761291561,"~/dotfiles/.zsh.d/dev/python.zsh"
--'  2  0  ~/dotfiles/.zsh.d/dev/python.zsh
-|4,39,2,0,1761291561,"~/dotfiles/.zsh.d/dev/python.zsh"
--'  1  0  ~/dev/src/github.com/ontheroadjp/GithubGG/[unite] - default
-|4,39,1,0,1761291561,"~/dev/src/github.com/ontheroadjp/GithubGG/[unite] - default"
--'  51  47  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,51,47,1761291544,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  85  47  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,85,47,1761291544,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  51  47  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,51,47,1761291544,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  85  47  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,85,47,1761291544,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  51  47  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,51,47,1761291544,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  85  47  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,85,47,1761291544,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  1  0  ~/dotfiles/.zprofile
-|4,39,1,0,1761291439,"~/dotfiles/.zprofile"
--'  7  0  /private/etc/profile
-|4,39,7,0,1761291431,"/private/etc/profile"
--'  7  0  /private/etc/profile
-|4,39,7,0,1761291431,"/private/etc/profile"
--'  7  0  /private/etc/profile
-|4,39,7,0,1761291431,"/private/etc/profile"
--'  7  0  /private/etc/profile
-|4,39,7,0,1761291431,"/private/etc/profile"
--'  7  0  /private/etc/profile
-|4,39,7,0,1761291431,"/private/etc/profile"
--'  1  0  /private/etc/profile
-|4,39,1,0,1761291410,"/private/etc/profile"
--'  1  0  /private/etc/profile
-|4,39,1,0,1761291410,"/private/etc/profile"
--'  1  0  /private/etc/profile
-|4,39,1,0,1761291410,"/private/etc/profile"
--'  1  0  /private/etc/profile
-|4,39,1,0,1761291410,"/private/etc/profile"
--'  1  0  /private/etc/profile
-|4,39,1,0,1761291410,"/private/etc/profile"
--'  78  0  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,78,0,1761291404,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  78  0  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,78,0,1761291404,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  78  0  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,78,0,1761291404,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  73  2  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,73,2,1761291316,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  73  2  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,73,2,1761291316,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
--'  1  0  ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-|4,39,1,0,1761291284,"~/dotfiles/.vim/vimrc.d/plugins/unite.vim"
+-'  10  0  ~/dev/src/github.com/ontheroadjp/GithubGG/[unite] - default
+|4,39,10,0,1761438086,"~/dev/src/github.com/ontheroadjp/GithubGG/[unite] - default"
+-'  10  0  ~/dev/src/github.com/ontheroadjp/GithubGG/[unite] - default
+|4,39,10,0,1761438086,"~/dev/src/github.com/ontheroadjp/GithubGG/[unite] - default"
+-'  10  0  ~/dev/src/github.com/ontheroadjp/GithubGG/[unite] - default
+|4,39,10,0,1761438086,"~/dev/src/github.com/ontheroadjp/GithubGG/[unite] - default"
+-'  10  0  ~/dev/src/github.com/ontheroadjp/GithubGG/[unite] - default
+|4,39,10,0,1761438086,"~/dev/src/github.com/ontheroadjp/GithubGG/[unite] - default"
+-'  10  0  ~/dev/src/github.com/ontheroadjp/GithubGG/[unite] - default
+|4,39,10,0,1761438086,"~/dev/src/github.com/ontheroadjp/GithubGG/[unite] - default"
 
 # Buffer list:
-%~/dotfiles/.vim/vimrc.d/plugins/unite.vim	1	0
-%/private/etc/profile	7	0
-%~/dotfiles/.zprofile	2	0
-%~/dotfiles/.zsh.d/dev/python.zsh	22	0
-%~/dev/src/github.com/ontheroadjp/GithubGG/README.ja.md	21	0
-%~/.vimrc	33	0
+%~/dotfiles/.gitignore	27	0
 
 # History of marks within files (newest to oldest):
+
+> ~/dotfiles/.gitignore
+	*	1761438615	0
+	"	27	0
+	^	26	51
+	.	26	0
+	+	27	0
+	+	37	0
+	+	25	0
+	+	26	0
+	l	26	5
+
+> ~/dotfiles/.git/config
+	*	1761438436	0
+	"	22	21
+	^	22	11
+	.	22	21
+	+	18	0
+	+	21	0
+	+	22	21
+
+> ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
+	*	1761438254	0
+	"	1	0
+	.	47	0
+	+	1	0
+	+	46	0
+	+	1	0
+	+	46	0
+	+	1	0
+	+	46	0
+	+	48	0
+	+	46	0
+	+	46	75
+	+	46	0
+	+	46	93
+	+	46	0
+	+	46	9
+	+	46	0
+	+	40	0
+	+	46	70
+	+	49	0
+	+	41	0
+	+	31	0
+	+	33	0
+	+	37	0
+	+	39	0
+	+	47	0
+	m	47	0
+
+> ~/.vimrc
+	*	1761438254	0
+	"	33	0
+	^	538	27
+	.	538	15
+	+	294	10
+	+	775	21
+	+	775	52
+	+	775	0
+	+	775	31
+	+	775	0
+	+	775	37
+	+	775	0
+	+	775	55
+	+	775	0
+	+	706	15
+	+	294	55
+	+	294	0
+	+	294	1
+	+	294	5
+	+	294	0
+	+	294	44
+	+	294	0
+	+	294	43
+	+	294	44
+	+	294	31
+	+	294	32
+	+	294	0
+	+	78	65
+	+	79	61
+	+	225	0
+	+	1	0
+	+	294	0
+	+	294	15
+	+	294	18
+	+	294	12
+	+	294	0
+	+	294	12
+	+	294	19
+	+	294	17
+	+	294	15
+	+	294	0
+	+	294	15
+	+	294	16
+	+	294	31
+	+	294	0
+	+	294	7
+	+	294	11
+	+	294	28
+	+	294	2
+	+	294	21
+	+	294	0
+	+	294	17
+	+	294	40
+	+	294	33
+	+	294	35
+	+	294	28
+	+	294	12
+	+	294	32
+	+	294	12
+	+	294	22
+	+	294	0
+	+	294	20
+	+	294	0
+	+	294	39
+	+	294	0
+	+	294	12
+	+	540	12
+	+	540	13
+	+	540	12
+	+	540	0
+	+	538	12
+	+	587	0
+	+	537	19
+	+	570	0
+	+	567	0
+	+	586	0
+	+	560	4
+	+	561	5
+	+	562	5
+	+	563	9
+	+	564	8
+	+	563	9
+	+	565	6
+	+	560	7
+	+	561	7
+	+	562	7
+	+	563	7
+	+	564	7
+	+	565	7
+	+	539	0
+	+	543	0
+	+	542	17
+	+	528	22
+	+	538	15
+
+> ~/dotfiles/[unite] - default
+	*	1761438253	0
+	"	1	3
+	^	1	4
+	.	2	0
+	+	87	0
+	+	81	0
+	+	60	0
+	+	59	0
+	+	53	0
+	+	47	0
+	+	46	0
+	+	1	0
+	+	46	0
+	+	40	0
+	+	19	0
+	+	14	0
+	+	10	0
+	+	2	0
 
 > ~/dev/src/github.com/ontheroadjp/GithubGG/[unite] - default
 	*	1761438245	0
@@ -706,102 +868,6 @@ $
 	"	22	0
 	.	27	0
 	+	27	0
-
-> ~/.vimrc
-	*	1761438245	0
-	"	33	0
-	^	538	27
-	.	538	15
-	+	294	10
-	+	775	21
-	+	775	52
-	+	775	0
-	+	775	31
-	+	775	0
-	+	775	37
-	+	775	0
-	+	775	55
-	+	775	0
-	+	706	15
-	+	294	55
-	+	294	0
-	+	294	1
-	+	294	5
-	+	294	0
-	+	294	44
-	+	294	0
-	+	294	43
-	+	294	44
-	+	294	31
-	+	294	32
-	+	294	0
-	+	78	65
-	+	79	61
-	+	225	0
-	+	1	0
-	+	294	0
-	+	294	15
-	+	294	18
-	+	294	12
-	+	294	0
-	+	294	12
-	+	294	19
-	+	294	17
-	+	294	15
-	+	294	0
-	+	294	15
-	+	294	16
-	+	294	31
-	+	294	0
-	+	294	7
-	+	294	11
-	+	294	28
-	+	294	2
-	+	294	21
-	+	294	0
-	+	294	17
-	+	294	40
-	+	294	33
-	+	294	35
-	+	294	28
-	+	294	12
-	+	294	32
-	+	294	12
-	+	294	22
-	+	294	0
-	+	294	20
-	+	294	0
-	+	294	39
-	+	294	0
-	+	294	12
-	+	540	12
-	+	540	13
-	+	540	12
-	+	540	0
-	+	538	12
-	+	587	0
-	+	537	19
-	+	570	0
-	+	567	0
-	+	586	0
-	+	560	4
-	+	561	5
-	+	562	5
-	+	563	9
-	+	564	8
-	+	563	9
-	+	565	6
-	+	560	7
-	+	561	7
-	+	562	7
-	+	563	7
-	+	564	7
-	+	565	7
-	+	539	0
-	+	543	0
-	+	542	17
-	+	528	22
-	+	538	15
 
 > ~/dev/src/github.com/ontheroadjp/shell-tools/[unite] - default
 	*	1761438209	0
@@ -984,35 +1050,6 @@ $
 	+	60	13
 	+	61	8
 
-> ~/dotfiles/.vim/vimrc.d/plugins/unite.vim
-	*	1761291951	0
-	"	1	0
-	.	47	0
-	+	1	0
-	+	46	0
-	+	1	0
-	+	46	0
-	+	1	0
-	+	46	0
-	+	48	0
-	+	46	0
-	+	46	75
-	+	46	0
-	+	46	93
-	+	46	0
-	+	46	9
-	+	46	0
-	+	40	0
-	+	46	70
-	+	49	0
-	+	41	0
-	+	31	0
-	+	33	0
-	+	37	0
-	+	39	0
-	+	47	0
-	m	47	0
-
 > ~/dev/src/github.com/ontheroadjp/GithubGG/README.ja.md
 	*	1761291702	0
 	"	21	0
@@ -1076,13 +1113,6 @@ $
 	.	4	0
 	+	1	0
 	+	4	0
-
-> ~/dotfiles/.git/config
-	*	1761276960	0
-	"	19	1
-	.	21	0
-	+	18	0
-	+	21	0
 
 > ~/WORKSPACE/mapbox/access_key.key
 	*	1761276273	0
@@ -1392,25 +1422,6 @@ $
 	"	1	0
 	^	1	0
 	.	2	0
-	+	2	0
-
-> ~/dotfiles/[unite] - default
-	*	1761143558	0
-	"	1	3
-	^	1	4
-	.	2	0
-	+	79	0
-	+	73	0
-	+	52	0
-	+	51	0
-	+	45	0
-	+	39	0
-	+	38	0
-	+	1	0
-	+	38	0
-	+	32	0
-	+	11	0
-	+	6	0
 	+	2	0
 
 > ~/dev/src/github.com/ontheroadjp/deepl-clipboard-translater/.env
@@ -1812,16 +1823,3 @@ $
 	+	4	5
 	+	5	7
 	+	3	7
-
-> ~/dev/src/github.com/ontheroadjp/shell-tools/shell_functions/dirmarks/dirmarks.fnc
-	*	1761100823	0
-	"	5	26
-	^	5	27
-	.	5	26
-	+	44	18
-	+	44	10
-	+	44	7
-	+	44	14
-	+	44	0
-	+	7	36
-	+	5	26
