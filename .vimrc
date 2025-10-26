@@ -1,11 +1,3 @@
-set nocompatible
-" -------------------------------------------------------------------
-
-"map <F5> :wall!<CR>:!glow ~/memo<CR><CR>
-noremap <C-s> :w<CR>
-
-command Dic !/usr/local/var/pyenv/shims/python pdict <cword>
-
  " ================================================== Disable default plugins
  " Disable TOhtml.
 "let g:loaded_2html_plugin       = 1
@@ -44,6 +36,13 @@ command Dic !/usr/local/var/pyenv/shims/python pdict <cword>
 "let g:did_indent_on             = 1
 "let g:did_load_ftplugin         = 1
 "let g:loaded_rrhelper           = 1
+
+set nocompatible
+
+"map <F5> :wall!<CR>:!glow ~/memo<CR><CR>
+noremap <C-s> :w<CR>
+
+command Dic !/usr/local/var/pyenv/shims/python pdict <cword>
 
 augroup vim_start_end
     autocmd!
@@ -102,7 +101,7 @@ set linespace=4
 set clipboard+=unnamed
 
 "--------------------------------------------------------------- Line number
-set number                                  " show line number
+ret number                                  " show line number
 " set relativenumber                        " show relative line number
 nnoremap <leader>nn :set invnumber<CR>      " toggle show/hide line number
 nnoremap <leader>mm :setl rnu!<CR>          " toggle normal/relativenumber
