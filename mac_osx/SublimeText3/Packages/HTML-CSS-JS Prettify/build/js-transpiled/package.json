@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@babel/runtime": "7.1.2",
+    "@babel/runtime": "7.26.10",
     "core-js": "2.5.7",
     "editorconfig-parser": "0.0.2",
     "fs-extra": "7.0.0",
