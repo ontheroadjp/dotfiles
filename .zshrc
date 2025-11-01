@@ -1,4 +1,17 @@
 alias init='exec $SHELL -l'
+
+# Terminal initialization
+stty sane
+bindkey -v
+bindkey '^[[A' up-line-or-history
+bindkey '^[[B' down-line-or-history
+bindkey '^[[C' forward-char
+bindkey '^[[D' backward-char
+bindkey '^[[3~' delete-char
+
+stty erase '^?'
+bindkey '^?' backward-delete-char
+
 # -----------------------------------
 # zsh - GIT & vi mode
 # -----------------------------------

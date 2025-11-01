@@ -3,7 +3,7 @@
 " ----------------------------------------------------
 " Plugin Install: :PlugInstall
 " Plugin Uninstall: :PlugClean
-" Show Plugin State: PlugState
+" Show Plugin State: PlugStatus
 " ----------------------------------------------------
 " mode0: SuperTab + SnipMate
 " mode1: asyncomplete + vim-vsnip
@@ -35,6 +35,7 @@ Plug 'airblade/vim-gitgutter', { 'on': [] }
 Plug 'tpope/vim-surround', { 'on': [] }
 Plug 'Yggdroot/indentLine', { 'on': [] }
 Plug 'ontheroadjp/vim-commentout', { 'on': [] }
+" Plug 'ontheroadjp/vim-commentout', { 'dir': '~/dev/src/github.com/ontheroadjp/vim-commentout' }
 Plug 'ontheroadjp/vim-brackets', { 'on': [] }
 Plug 'ontheroadjp/vim-deepl-translate', { 'on': [] }
 " Plug 'ontheroadjp/vim-deepl-translate', { 'dir': '~/dev/src/github.com/ontheroadjp/vim-deepl-translate' }

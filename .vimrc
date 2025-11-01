@@ -101,7 +101,7 @@ set linespace=4
 set clipboard+=unnamed
 
 "--------------------------------------------------------------- Line number
-ret number                                  " show line number
+set number                                  " show line number
 " set relativenumber                        " show relative line number
 nnoremap <leader>nn :set invnumber<CR>      " toggle show/hide line number
 nnoremap <leader>mm :setl rnu!<CR>          " toggle normal/relativenumber

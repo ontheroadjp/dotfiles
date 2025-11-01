@@ -107,6 +107,8 @@ function _history_selection_fzf() {
         fzf --reverse --height=30%
     )
 
+
+
     CURSOR=$#BUFFER
     zle reset-prompt
 }
