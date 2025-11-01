@@ -3,7 +3,7 @@
 " ----------------------------------------------------
 " Plugin Install: :PlugInstall
 " Plugin Uninstall: :PlugClean
-" Show Plugin State: PlugState
+" Show Plugin State: PlugStatus
 " ----------------------------------------------------
 " mode0: SuperTab + SnipMate
 " mode1: asyncomplete + vim-vsnip
@@ -35,9 +35,14 @@ Plug 'airblade/vim-gitgutter', { 'on': [] }
 Plug 'tpope/vim-surround', { 'on': [] }
 Plug 'Yggdroot/indentLine', { 'on': [] }
 Plug 'ontheroadjp/vim-commentout', { 'on': [] }
+" Plug 'ontheroadjp/vim-commentout', { 'dir': '~/dev/src/github.com/ontheroadjp/vim-commentout' }
 Plug 'ontheroadjp/vim-brackets', { 'on': [] }
 Plug 'ontheroadjp/vim-deepl-translate', { 'on': [] }
 " Plug 'ontheroadjp/vim-deepl-translate', { 'dir': '~/dev/src/github.com/ontheroadjp/vim-deepl-translate' }
+
+" GitHub
+Plug 'ontheroadjp/vim-gh', { 'on': [] }
+" Plug 'ontheroadjp/vim-gh', { 'dir': '~/dev/src/github.com/ontheroadjp/vim-gh' }
 
 if plugin_env.mode == 0
     Plug 'ervandew/supertab', { 'on': [] }
@@ -52,7 +57,6 @@ elseif plugin_env.mode == 1
     Plug 'hrsh7th/vim-vsnip', { 'on': [] }
     Plug 'hrsh7th/vim-vsnip-integ', { 'on': [] }
 endif
-call plug#end()
 
 " Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }	" Filter
 " Plug 'junegunn/fzf.vim'	                            " Filter
@@ -62,6 +66,8 @@ call plug#end()
 " Plug 'mattn/vim-lsp-settings'	                        " LSP
 " Plug 'prabirshrestha/asyncomplete-lsp.vim'	        " LSP/Completion
 " Plug 'vim-scripts/AutoComplPop', { 'on': [] }	        " Completion
+
+call plug#end()
 
 " ----------------------------------------------------
 "  Plugins Load
@@ -79,6 +85,7 @@ function! plugin_env.lazy_load_plugs(timer) abort
         \ 'vim-commentout',
         \ 'vim-brackets',
         \ 'vim-deepl-translate',
+        \ 'vim-gh',
         \ )
     if self.mode == 0
         call plug#load(

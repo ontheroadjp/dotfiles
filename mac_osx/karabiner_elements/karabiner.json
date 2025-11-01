@@ -48,7 +48,10 @@
                                 },
                                 "to": [
                                     {
-                                        "key_code": "return_or_enter"
+                                        "key_code": "japanese_eisuu"
+                                    },
+                                    {
+                                        "key_code": "japanese_eisuu"
                                     },
                                     {
                                         "key_code": "japanese_eisuu"
@@ -426,6 +429,41 @@
                                 "to": [
                                     {
                                         "key_code": "backslash",
+                                        "modifiers": [
+                                            "left_command",
+                                            "shift"
+                                        ]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "iTerm2 & alacritty: Typinator search (⌘ + shift + u)",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.googlecode\\.iterm2",
+                                            "^org\\.alacritty"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "u",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control",
+                                            "shift"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "u",
                                         "modifiers": [
                                             "left_command",
                                             "shift"

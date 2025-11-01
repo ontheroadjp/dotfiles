@@ -650,3 +650,5 @@ alias his="peco_history"
 #export DDD_HOME=${HOME}/dev/src/github.com/nutsllc/docker-dd-compose
 #export DDD_SEARCH_DIR=${HOME}/dev/src
 #source ${DDD_HOME}/docker-dd-compose
+
+. "$HOME/.local/bin/env"

@@ -82,11 +82,23 @@ function _go_to_repository_root() {
 alias G="_go_to_repository_root"
 
 if _is_exist ghq && _is_exist fzf; then
-    function _cd_to_repository_from_ghq_list_by_fzf() {
+
+    # function _cd_to_repository_from_ghq_list_by_fzf() {
+    #     local to=$(ghq list | fzf-tmux -p 65%)
+    #     [ ! -z ${to} ] && cd $(ghq root)/${to}
+    # }
+
+    function _echo_ghq_repository() {
         local to=$(ghq list | fzf-tmux -p 65%)
-        [ ! -z ${to} ] && cd $(ghq root)/${to}
+        [ ! -z ${to} ] && {
+            echo "$(ghq root)/${to}"
+        }
     }
-    alias rr='_cd_to_repository_from_ghq_list_by_fzf'
+    function _cd_to_ghq_repository() {
+        cd "$(_echo_ghq_repository)"
+    }
+
+    alias rr='_cd_to_ghq_repository'
 fi
 
 #-------------------------------------------------

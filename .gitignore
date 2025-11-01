@@ -1,12 +1,13 @@
 # Exclude Gemini CLI specific files
-.gemini/oauth_creds.json
-.gemini/tmp/
-.gemini/__pycache__/
-.gemini/history/
+home/.gemini/oauth_creds.json
+home/.gemini/tmp/
+home/.gemini/__pycache__/
+home/.gemini/history/
 .config/configstore/update-notifier-@google/gemini-cli.json
 
 # vim plugins
 .vim/plugged/
+.vim/viminfo
 
 # compiled files
 *.zwc
@@ -15,12 +16,22 @@
 *.log
 *.log.*
 
+# Exclude tags files
+tags
+
 # Exclude backup files and directories
 bk_*
 bk_*/
 mac_osx/karabiner_elements/automatic_backups/
+mac_osx/HandBrakeCLI1.4.2
+mac_osx/HandBrakeCLI-1.10.2
+
 
 # Exclude environment files and virtual environments
 tools/deepl-translate-en/.env
 tools/deepl-translate-en/venv/
 bin/deepl-translate-en
+
+# Exclude Vagrant
+.vagrant.d
+

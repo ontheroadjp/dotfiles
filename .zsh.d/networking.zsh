@@ -13,10 +13,11 @@
 function _urlencode {
   echo "$1" | nkf -WwMQ | sed 's/=$//g' | tr = % | tr -d '\n'
 }
+alias urlenc="_urlencode"
 
 # show IP Address
-alias ip='ipconfig getifaddr en0'
-#alias ip='ipconfig getifaddr en1'
+alias ip0='ipconfig getifaddr en0'
+alias ip1='ipconfig getifaddr en1'
 
 # dstat - Server resourse monitoring
 if _is_exist dstat; then

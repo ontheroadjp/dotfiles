@@ -5,15 +5,24 @@
 " 5:pink	       6:cyan	         7:light-gray	 8:gray	         9:light-red
 "10:light-green   11:light-yellow	12:light-blue	13:light-pink	14: light-cyan
 "15: white
-augroup status_line
-    au InsertEnter * hi StatusLine guifg=Blue guibg=DarkGray gui=none ctermfg=white ctermbg=030  cterm=none
-    au InsertLeave * hi StatusLine guifg=Blue guibg=DarkGray gui=none ctermfg=cyan ctermbg=066  cterm=none
-    au WinEnter * hi StatusLine guifg=Blue guibg=DarkYellow gui=none ctermfg=cyan ctermbg=066 cterm=none
-    au WinLeave * hi StatusLineNC guifg=Blue guibg=DarkYellow gui=none ctermfg=cyan ctermbg=240 cterm=none
-    au VimEnter * hi StatusLine guifg=Blue guibg=DarkYellow gui=none ctermfg=cyan ctermbg=240 cterm=none
+
+" augroup status_line
+"     au InsertEnter * hi StatusLine guifg=Blue guibg=DarkGray gui=none ctermfg=white ctermbg=30  cterm=none
+"     au InsertLeave * hi StatusLine guifg=Blue guibg=DarkGray gui=none ctermfg=cyan ctermbg=66  cterm=none
+"     " au WinEnter * hi StatusLine guifg=Blue guibg=DarkYellow gui=none ctermfg=cyan ctermbg=66 cterm=none
+"     au WinEnter * hi StatusLine guifg=Blue guibg=DarkYellow gui=none ctermfg=cyan ctermbg=66 cterm=none | hi StatusLineNC guifg=Blue guibg=DarkGray
+"     au WinLeave * hi StatusLineNC guifg=Blue guibg=DarkYellow gui=none ctermfg=cyan ctermbg=240 cterm=none
+"     au VimEnter * hi StatusLine guifg=Blue guibg=DarkYellow gui=none ctermfg=cyan ctermbg=240 cterm=none
+" augroup END
+
+augroup statusline
+    autocmd!
+    autocmd InsertEnter * highlight StatusLine ctermfg=250 ctermbg=52 cterm=none
+    autocmd InsertLeave * highlight StatusLine ctermfg=250 ctermbg=61 cterm=none
+    autocmd WinEnter * highlight StatusLine ctermfg=250 ctermbg=61 cterm=none
+    autocmd WinLeave * highlight StatusLine ctermfg=240 ctermbg=233 cterm=none
 augroup END
 
-nnoremap <C-g><C-g> :call ToggleStatusLine()<CR>
 function! ToggleStatusLine() abort
     if &ls
         set laststatus=0
@@ -21,6 +30,7 @@ function! ToggleStatusLine() abort
         set laststatus=2
     endif
 endfunction
+nnoremap <C-g><C-g> :call ToggleStatusLine()<CR>
 
 " <LEFT SIDE>
 " set statusline=%{fugitive#statusline()}    " show git branch name

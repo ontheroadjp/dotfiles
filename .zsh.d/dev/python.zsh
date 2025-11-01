@@ -25,4 +25,3 @@ function auto_venv() {
 # check on the starting shell
 auto_venv
 
-

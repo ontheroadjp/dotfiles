@@ -1,0 +1,1 @@
+/Users/hideaki/dotfiles/home/_GEMINI.md

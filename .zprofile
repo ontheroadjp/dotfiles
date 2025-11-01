@@ -1,9 +1,29 @@
+function ssh() {
+  if [[ -n "$TMUX" ]]; then
+    local pane_id=$(tmux display -p '#{pane_id}')
+    # if [[ "$*" == *nobita* ]]; then
+      tmux select-pane -P 'fg=cyan,bg=black'
+    # fi
+    command ssh "$@"
+    tmux select-pane -t $pane_id -P 'fg=default,bg=default'
+  else
+    command ssh "$@"
+  fi
+}
+
 #-------------------------------------------------
 # Variables
 #-------------------------------------------------
+export LANG="en_US.UTF-8"
+export LC_COLLATE="en_US.UTF-8"
+export LC_CTYPE="en_US.UTF-8"
+export LC_MESSAGES="en_US.UTF-8"
+
 export EDITOR=vim
 export TERM=xterm
+export TERM=xterm-256color
 export DOTPATH=${HOME}/dotfiles
+export DOTFILES_BIN=${DOTPATH}/bin
 export WORKSPACE="${HOME}/WORKSPACE"
 export PATH=${DOTPATH}/bin:${PATH}
 export PATH=/usr/local/Cellar/node/21.7.1/bin:${PATH}
@@ -42,7 +62,6 @@ alias e='exit'
 alias h='cd ${HOME}'
 alias dot='cd ${DOTPATH}'
 alias w='cd ${WORKSPACE}'
-alias init='exec $SHELL -l'
 
 #-------------------------------------------------
 # For MacOSX only
@@ -140,8 +159,6 @@ setopt share_history
 #-------------------------------------------------
 if _is_exist go; then
     export GOPATH="${HOME}/dev"
-    #export GOBIN="${GOPATH}/bin"
-    # export PATH="${PATH}:${GOPATH}/bin"
     mkdir -p ${GOPATH}
 fi
 
@@ -154,7 +171,8 @@ zsh-defer source ${DOTPATH}/.zsh.d/core/docker.zsh
 zsh-defer source ${DOTPATH}/.zsh.d/core/git.zsh
 zsh-defer source ${DOTPATH}/.zsh.d/core/peco.zsh
 zsh-defer source ${DOTPATH}/.zsh.d/core/fzf.zsh
-source ${DOTPATH}/.zsh.d/core/gemini.zsh
+zsh-defer source ${DOTPATH}/.zsh.d/core/ripgrap.zsh
+zsh-defer source ${DOTPATH}/.zsh.d/core/gemini.zsh
 
 #-------------------------------------------------
 # Load Dev
@@ -169,15 +187,33 @@ source ${DOTPATH}/.zsh.d/dev/python.zsh
 # Load others
 #-------------------------------------------------
 zsh-defer source ${DOTPATH}/.zsh.d/networking.zsh
-# zsh-defer source ${DOTPATH}/.zsh.d/shell-tools.zsh
-zsh-defer source ${HOME}/dev/src/github.com/ontheroadjp/shell-tools/shell-tools.sh
-alias en="deepl-translate-en"
 
 #-------------------------------------------------
 # Tools
 #-------------------------------------------------
-export RIPGREP_CONFIG_PATH="${DOTPATH}/.config/ripgrep/.ripgreprc"
 alias exif="exiftool $@"
+
+# GithubGG
+
+# ln -sf $(ghq root)/github.com/ontheroadjp/GithubGG/manage_github_repositories.sh ${DOTPATH}/bin
+# ln -sf $(ghq root)/github.com/ontheroadjp/GithubGG/manage_github_issues.sh ${DOTPATH}/bin
+# alias GGr='manage_github_repositories.sh'
+# alias GGi='manage_github_issues.sh'
+
+alias GGr='$(ghq root)/github.com/ontheroadjp/GithubGG/manage_github_repositories.sh'
+alias GGi='$(ghq root)/github.com/ontheroadjp/GithubGG/manage_github_issues.sh'
+
+# Shell Tools
+export SHELL_TOOLS_ROOT=$(ghq root)/github.com/ontheroadjp/Shell-Tools
+zsh-defer source ${SHELL_TOOLS_ROOT}/load_shell_tools.sh
+zsh-defer source ${SHELL_TOOLS_ROOT}/load_shell_tools_tmux.sh
+
+# deepl clipboard translator
+
+alias en="python $(ghq root)/github.com/ontheroadjp/deepl-clipboard-translater/deepl-clipboard-translater.py -o en | pbcopy"
+alias ja="python $(ghq root)/github.com/ontheroadjp/deepl-clipboard-translater/deepl-clipboard-translater.py -o ja | pbcopy"
+alias zh="python $(ghq root)/github.com/ontheroadjp/deepl-clipboard-translater/deepl-clipboard-translater.py -o zh | pbcopy"
+alias ko="python $(ghq root)/github.com/ontheroadjp/deepl-clipboard-translater/deepl-clipboard-translater.py -o ko | pbcopy"
 
 #-------------------------------------------------
 # Utilities
