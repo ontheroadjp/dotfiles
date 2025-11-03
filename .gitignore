@@ -6,8 +6,8 @@ home/.gemini/history/
 .config/configstore/update-notifier-@google/gemini-cli.json
 
 # vim plugins
-.vim/plugged/
-.vim/viminfo
+home/vim/.vim/plugged/
+home/vim/.vim/viminfo
 
 # compiled files
 *.zwc
@@ -33,5 +33,5 @@ tools/deepl-translate-en/venv/
 bin/deepl-translate-en
 
 # Exclude Vagrant
-.vagrant.d
+home/vagrant/.vagrant.d
 
