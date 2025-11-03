@@ -1,5 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =3
-let g:netrw_dirhist_3='/Users/hideaki/dev/src/github.com/ontheroadjp/vim-commentout/autoload'
-let g:netrw_dirhist_2='/Users/hideaki/dev/src/github.com/ontheroadjp/shell-tools/shell_scripts/stock-jp'
-let g:netrw_dirhist_1='/Users/hideaki/dev/src/github.com/ontheroadjp/shell-tools/battery'
