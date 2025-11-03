@@ -3,20 +3,24 @@
 # --------------------------------------------------------------------
 # zmodload zsh/zprof && zprof
 
-ZSH_HOME="${DOTPATH}/home/zsh"
-VIM_HOME="${DOTPATH}/home/vim"
+# --------------------------------------------------------------------
+# HOME Directories
+# --------------------------------------------------------------------
+export DOTPATH=${HOME}/dotfiles
+export ZSH_HOME="${DOTPATH}/home/zsh"
+export VIM_HOME="${DOTPATH}/home/vim"
 
 # --------------------------------------------------------------------
 # built-in command
 # --------------------------------------------------------------------
-function pushd {
+pushd() {
     builtin pushd "$@" > /dev/null
 }
-function popd {
+popd() {
     builtin popd "$@" > /dev/null
 }
 
-function sed() {
+sed() {
     if [[ "$(uname)" == "Darwin" ]]; then
         if command -v gsed >/dev/null 2>&1; then
             gsed "$@"
@@ -29,19 +33,23 @@ function sed() {
 # zsh compile
 # --------------------------------------------------------------------
 function source() {
-    ensure_zcompiled $1
-    builtin source $1
+    ensure_zcompiled "$1"
+    builtin source "$1"
 }
+
 function ensure_zcompiled() {
     local compiled="$1.zwc"
     if [[ "$1" -nt "$compiled" || ! -r "$compiled" ]]; then
-        zcompile $1
+        zcompile "$1"
         echo "\033[1;36mCompiling\033[m $1"
     fi
 }
 ensure_zcompiled ~/.zshenv
 ensure_zcompiled ~/.zshrc
 ensure_zcompiled ~/.zprofile
+
+# Compile in zsh.d/core/zsh.zsh
+# ensure_zcompiled ~/.zcompdump
 
 # --------------------------------------------------------------------
 # Load plugin - zsh-defer

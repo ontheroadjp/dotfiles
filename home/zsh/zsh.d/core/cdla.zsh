@@ -25,13 +25,16 @@ alias la='_print_la'
 
 function _cdla() {
     [ $# -eq 0 ] && place=${HOME} || place="$@"
-	    # _print_la "${palace}" && pushd "${place}"
-	    pushd "$@" && _print_la
+
+    # _print_la "${palace}" && pushd "${place}"
+    pushd "$@"
 
     [ $(uname) = 'Darwin' ] && {
         rm .DS_Store > /dev/null 2>&1
         rm .netrwhist > /dev/null 2>&1
     }
+
+    _print_la
     auto_venv
 }
 # alias cd='_cdla'
