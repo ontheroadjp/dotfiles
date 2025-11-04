@@ -1,11 +1,9 @@
 # -----------------------------------
-# zsh - GIT & vi mode
+# zsh - Git & vi mode
 # -----------------------------------
 function _load_git_prompt() {
-
     # It is more stable & faster without zsh-defer
     source ~/dotfiles/bin/git-prompt.zsh
-
     setopt prompt_subst
     GIT_PS1_SHOWDIRTYSTATE=true         # unstaged (*) and staged but no commit (+)
     # GIT_PS1_SHOWUNTRACKEDFILES=true	  # new and untracked file (%)
@@ -16,14 +14,8 @@ function _load_git_prompt() {
 PROMPT_STYLE=1
 if [ ${PROMPT_STYLE} -ne 0 ]; then; _load_git_prompt; fi
 
-# ---- Colors ----
-black="%{$fg[black]%}"
-yellow="%{$fg[yellow]%}"
-red="%{$fg[red]%}"
-cyan="%{$fg[cyan]%}"
-green="%{$fg[green]%}"
-blue="%{$fg[blue]%}"
-reset="%{$reset_color%}"
+alias minimal="PROMPT_STYLE=0"
+alias general="PROMPT_STYLE=1"
 
 function zle-line-init {
     # # Right side Prompt
@@ -34,41 +26,50 @@ function zle-line-init {
 
     # Left side Prompt
     case $PROMPT_STYLE in
-        # (MINIMAL)
         0)
-            LEFT_VIM_NORMAL=' normal mode:'
-            LEFT_GIT_NORMAL=''
-            LEFT_VIM_INSERT=' $'
-            LEFT_GIT_INSERT=''
+            # (MINIMAL)
+            # ps1_normal="%F{red}$ %f"
+            ps1_normal="%{%F{red}%}$ %{%f%}"
+            ps1_insert="$ "
         ;;
-        # (NORMAL)
         *)
-            local tmp=""
-            if [[ -n ${VIRTUAL_ENV} ]]; then
-                tmp="($(basename "$(dirname "$VIRTUAL_ENV")"))"
+            # (GENERAL)
+            if [[ -n $VIRTUAL_ENV ]]; then
+                VIRTUAL_ENV_PROMPT=" (${${VIRTUAL_ENV:h:t}})"
             else
-                tmp=""
+                VIRTUAL_ENV_PROMPT=""
             fi
-            VIRTUAL_ENV_PROMPT=${tmp}
 
-            LEFT_VIM_NORMAL=' normal mode:'
-            LEFT_GIT_NORMAL=''
+            TIME="%T"
+            DIR_NAME="%c"
 
-            # LEFT_VIM_INSERT='[%{$fg[green]%}%T%{${reset_color}%} %{$fg[blue]%}%c%{${reset_color}%}'
-            # LEFT_GIT_INSERT='%{$fg[red]%}$(__git_ps1 "(%s)")%{${reset_color}%}%{$fg[cyan]%}${VIRTUAL_ENV_PROMPT}%{${reset_color}%}]\$ '
-            LEFT_VIM_INSERT='${green}%T${reset} ${blue}%c${reset}'
-            # LEFT_GIT_INSERT='${red}$(__git_ps1 "(%s)")${reset}'
-            LEFT_GIT_INSERT='${red}${GIT_PROMPT}${reset}'
-            LEFT_VIRTUAL_ENV='${cyan}${VIRTUAL_ENV_PROMPT}${reset}'
+            ps1_normal="[\
+${TIME} \
+${DIR_NAME} \
+${GIT_PROMPT} \
+${VIRTUAL_ENV_PROMPT}\
+]$ "
+            ps1_insert="[\
+%{%F{green}%}${TIME}%{%f%} \
+%{%F{blue}%}${DIR_NAME}%{%f%} \
+%{%F{red}%}${GIT_PROMPT}%{%f%}\
+%{%F{cyan}%}${VIRTUAL_ENV_PROMPT}%{%f%}\
+]$ "
         ;;
     esac
 
-    case ${KEYMAP} in
-        vicmd) PS1="[${LEFT_VIM_NORMAL} ${LEFT_GIT_NORMAL}]\$ " ;;
-        main|viins) PS1="[${LEFT_VIM_INSERT} ${LEFT_GIT_INSERT}${LEFT_VIRTUAL_ENV}]\$ " ;;
-    esac
+    PS1="${ps1_insert}"
     zle reset-prompt
 }
 zle -N zle-line-init
-# zle -N zle-keymap-select
+
+function zle-keymap-select {
+    case ${KEYMAP} in
+        vicmd) PS1="${ps1_normal}" ;;
+        main|viins) PS1="${ps1_insert}" ;;
+    esac
+    zle reset-prompt
+}
+# Fires when switching INSERT mode ↔ NORMAL (vi command) mode
+zle -N zle-keymap-select
 

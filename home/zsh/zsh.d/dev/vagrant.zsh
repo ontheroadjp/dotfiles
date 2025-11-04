@@ -21,3 +21,4 @@ alias vs='vagrant status'
 #        source `brew --prefix`/etc/bash_completion.d/vagrant
 #    fi
 echo "Load Vagrant settings."
+

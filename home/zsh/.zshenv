@@ -59,7 +59,7 @@ source ${ZSH_HOME}/plugins/zsh-defer/zsh-defer.plugin.zsh
 # --------------------------------------------------------------------
 # Load plugin - lazy_load_env
 # --------------------------------------------------------------------
-source ${ZSH_HOME}/zsh.d/lazy_load_env.sh
+# source ${ZSH_HOME}/zsh.d/lazy_load_env.sh
 
 echo "Load .zshenv.."
 

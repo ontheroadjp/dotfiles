@@ -4,7 +4,7 @@
 export FZF_TMUX=1
 export FZF_TMUX_OPTS="-p 80%"
 export FZF_DEFAULT_OPTS="
-    -0 -1 --reverse --height=100% --pointer='@@' --prompt=': ' \
+    -0 -1 --reverse --height=100% --pointer='👉' --prompt=': ' \
     --color='bg+:#242C43,bg:#29324D,spinner:#81A1C1,hl:#616E88' \
     --color='fg:#D8DEE9,header:#616E88,info:#81A1C1,pointer:#81A1C1' \
     --color='marker:#81A1C1,fg+:#A9D889,prompt:#81A1C1,hl+:#81A1C1' \
@@ -16,15 +16,26 @@ export FZF_DEFAULT_OPTS="
 # 1. Search for text in files using Ripgrep
 # 2. Interactively restart Ripgrep with reload action
 # 3. Open the file in Vim
-RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case --hidden "
+RG_PREFIX="rg \
+    --column \
+    --line-number \
+    --no-heading \
+    --color=always \
+    --smart-case \
+    --hidden \
+    "
 # INITIAL_QUERY="${*:-}"
 function _liverg() {
-    fzf --ansi --disabled --query "${INITIAL_QUERY}" \
+    fzf-tmux \
+        -p 90% \
+        --ansi \
+        --disabled \
+        --query "${INITIAL_QUERY}" \
         --bind "start:reload:${RG_PREFIX} {q}" \
         --bind "change:reload:sleep 0.1; ${RG_PREFIX} {q} || true" \
         --delimiter : \
         --preview 'bat --color=always {1} --highlight-line {2}' \
-        --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
+        --preview-window 'right,50%,border-bottom,+{2}+3/3,~3' \
         --bind 'enter:become(vim {1} +{2})'
 }
 alias liverg='_liverg'
@@ -35,7 +46,7 @@ alias lrg='_liverg'
 # -------------------------------------------------
 function _co_to_sub_directory() {
     local dir
-    dir=$(find . -type d -print | fzf-tmux -p 50% --ansi)
+    dir=$(rg --files | xargs -n1 dirname | sort -u | fzf-tmux -p 50% --ansi)
     if [[ -n "$dir" ]]; then
         cd "$dir" || return
     fi
@@ -55,16 +66,21 @@ if [[ -n $(echo ${^fpath}/chpwd_recent_dirs(N)) && -n $(echo ${^fpath}/cdr(N)) ]
     zstyle ':chpwd:*' recent-dirs-file "$HOME/.cache/chpwd-recent-dirs"
 fi
 
-function _fzf-cdr () {
-    local selected_dir="$(cdr -l | awk '{print $2}' | fzf-tmux -p 65%)"
-    if [ -n "$selected_dir" ]; then
-        echo $(${selected_dir} | cut -d ' ' -f5 -f6)
-        BUFFER="cd $(echo ${selected_dir} | cut -d ' ' -f5 -f6)"
-        zle accept-line
+function _co_to_mru_directory () {
+    local dir="$(cdr -l | awk '{print $2}' | sort -u | fzf-tmux -p 50% --ansi)"
+    # if [ -n "$dir" ]; then
+    #     echo $(${dir} | cut -d ' ' -f5 -f6)
+    #     BUFFER="cd $(echo ${dir} | cut -d ' ' -f5 -f6)"
+    #     zle accept-line
+    # fi
+    if [[ -n "$dir" ]]; then
+        cd "$dir" || return
     fi
+
 }
-zle -N _fzf-cdr
-bindkey '^E' _fzf-cdr
+alias mru="_co_to_mru_directory"
+# zle -N _co_to_mru_directory
+# bindkey '^E' _co_to_mru_directory
 
 # -------------------------------------------------
 # Open with vim

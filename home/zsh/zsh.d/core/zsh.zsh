@@ -2,8 +2,26 @@
 # zsh
 #-------------------------------------------------
 [ ${SHELL} = '/bin/zsh' ] && {
+
     # dilay default 0.4sec
     KEYTIMEOUT=0
+
+    #-------------------------------------------------
+    # OS specific settings
+    #-------------------------------------------------
+    if [ $(uname) = "Darwin" ]; then
+        # For MacOSX
+        zsh-defer source ${ZSH_HOME}/zsh.d/core/macosx.zsh
+    elif [ "$(expr substr $(uname -s) 1 5)" = 'Linux' ]; then
+        # For Linux only
+        echo 'Wellcome to Linux!'
+    elif [ "$(expr substr $(uname -s) 1 10)" = 'MINGW32_NT' ]; then
+        # For Windows (Cygwin) only
+        echo 'Wellcome to Cygwin!'
+    else
+        # For other OS only
+        echo "Wellcome to $(uname -a) !"
+    fi
 
     #-------------------------------------------------
     # complition - zcompdump
@@ -41,7 +59,7 @@
     zstyle ':completion:*' cache-path ${ZSH_HOME}/zsh/.zcompcache
 
     #-------------------------------------------------
-    # .sshhistory
+    # .zsh_history
     #-------------------------------------------------
     HISTFILE=${HOME}/.zsh_history
     HISTSIZE=100000
@@ -50,5 +68,12 @@
     # share .zshhistory
     setopt inc_append_history
     setopt share_history
+
+    #-------------------------------------------------
+    # vi mode
+    # kj to return normal mode
+    #-------------------------------------------------
+    bindkey -M viins 'kj' vi-cmd-mode
+    bindkey -M viins 'jk' vi-cmd-mode
 }
 

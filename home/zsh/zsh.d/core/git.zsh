@@ -5,13 +5,13 @@ function _is_git_repo() {
     git log > /dev/null 2>&1
 }
 
-function gontheroadjp() {
+function git_ontheroadjp() {
     git config --global user.name "ontheroadjp"
     git config --global user.email "dev@ontheroad.jp"
     git config --list | grep user
 }
 
-function gnutsllc() {
+function git_nutsllc() {
     git config --global user.name "nutsllc"
     git config --global user.email "dev@nutsllc.jp"
     git config --list | grep user
@@ -47,7 +47,7 @@ function _get_gitignore() {
     local url="https://raw.githubusercontent.com/github/gitignore/master/Global/macOS.gitignore"
     curl -L -o .gitignore ${url}
 }
-alias gignore='_get_gitignore'
+alias get_git_ignore='_get_gitignore'
 
 #-------------------------------------------------
 # .githook
@@ -104,30 +104,32 @@ fi
 #-------------------------------------------------
 # Go to the github.com
 #-------------------------------------------------
-if _is_exist ghq && _is_exist peco; then
+if _is_exist ghq && _is_exist fzf; then
     function _open_github_from_ghq_list() {
         local target=$(ghq list \
                         | sed 's:GitHub - ::' \
                         | sed 's@^@https://@g' \
-                        | peco --prompt "Open GitHub.com >" --query "${*}"
+                        | fzf
                     )
         [ ! -z ${target} ] && open ${target}
     }
-    alias rrg='_open_github_from_ghq_list';
+    alias rrgit='_open_github_from_ghq_list';
 fi
 
 function _open_github_from_current_dir() {
     local url="https://github.com"
     if _is_git_repo; then
+
         local target=$(git remote get-url origin 2>/dev/null \
             | sed -e 's/:/\//g' \
             | sed -e 's%.*\(github.com.*\)%https://\1%' \
             | sed -e "s%$%\n${url}/ontheroadjp\n${url}/nutsllc%" \
-            | peco --prompt "Open GitHub.com >" --query "${*}"
+            | fzf
             )
+
     else
         local target=$(print "${url}/ontheroadjp\n${url}/nutsllc" \
-            | peco --prompt "Open GitHub.com >" --query "${*}"
+            | fzf
             )
     fi
     #open $(git remote get-url origin)
@@ -137,7 +139,7 @@ alias github="_open_github_from_current_dir"
 
 # gist
 function _view_gist() {
-    id=$(gh gist list | peco | awk '{print $1}')
+    id=$(gh gist list | fzf | awk '{print $1}')
     gh gist view ${id}
 }
 alias gistv=_view_gist

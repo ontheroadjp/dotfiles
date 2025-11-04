@@ -33,5 +33,6 @@ tools/deepl-translate-en/venv/
 bin/deepl-translate-en
 
 # Exclude Vagrant
+home/vagrant/
 home/vagrant/.vagrant.d
 

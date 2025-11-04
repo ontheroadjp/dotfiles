@@ -20,3 +20,4 @@ alias pub='php artisan vendor:publish --force'
 alias sv='php artisan serve'
 alias rl='php artisan route:list'
 alias t='vendor/bin/phpunit --colors'
+
