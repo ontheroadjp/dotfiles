@@ -3,7 +3,8 @@
 # -----------------------------------
 function _load_git_prompt() {
     # It is more stable & faster without zsh-defer
-    source ~/dotfiles/bin/git-prompt.zsh
+    # source ~/dotfiles/bin/git-prompt.zsh
+    source ${ZSH_HOME}/plugins/git-prompt.zsh
     setopt prompt_subst
     GIT_PS1_SHOWDIRTYSTATE=true         # unstaged (*) and staged but no commit (+)
     # GIT_PS1_SHOWUNTRACKEDFILES=true	  # new and untracked file (%)

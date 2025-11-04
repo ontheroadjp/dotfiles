@@ -1,6 +1,8 @@
 #-------------------------------------------------
 # Git
 #-------------------------------------------------
+source ${ZSH_HOME}/plugins/git-complition.zsh
+
 function _is_git_repo() {
     git log > /dev/null 2>&1
 }
