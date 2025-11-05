@@ -211,6 +211,9 @@ vnoremap gj j
 
 nnoremap <C-k> 5k
 nnoremap <C-j> 5j
+vnoremap <C-k> 5k
+vnoremap <C-j> 5j
+
 
 " nnoremap <C-u> zz
 " nnoremap <C-d> zz

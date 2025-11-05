@@ -1,4 +1,3 @@
-
 # ----------------------------------
 # .zsh_sessions
 # ----------------------------------
@@ -13,6 +12,19 @@
 # export PATH="${HOME}/dotfiles/mac_osx/HandBrakeCLI1.4.2/HandBrakeCLI:${PATH}"   # for HandBrakeCLI
 export MEMO_PATH=${WORKSPACE}/Dropbox/Documents/NOTE/dev
 
+# --------------------------------------------------------------------
+# built-in command
+# --------------------------------------------------------------------
+sed() {
+    # if [[ "$(uname)" == "Darwin" ]]; then
+        if command -v gsed >/dev/null 2>&1; then
+            gsed "$@"
+        fi
+    # fi
+    command sed "$@"
+}
+
+# --------------------------------------------------------------------
 # Normal command replace
 alias tree='tree -N'    # for display Japanese char
 
@@ -44,10 +56,10 @@ alias sleepon='sudo pmset -a disablesleep 0'
 alias sleepoff='sudo pmset -a disablesleep 1'
 
 # kill notifyd process
-function kill-notifyd-process() {
-    process=$(ps ax | egrep "[0-9] /usr/sbin/notifyd" | awk '{print $1}')
-    sudo kill -9 ${process}
-}
+# function kill-notifyd-process() {
+#     process=$(ps ax | egrep "[0-9] /usr/sbin/notifyd" | awk '{print $1}')
+#     sudo kill -9 ${process}
+# }
 
 # show smtp(d) log
 alias smtplog='sudo log stream --predicater'\''(process == "smtpd") \

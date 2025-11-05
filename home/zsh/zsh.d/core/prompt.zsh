@@ -3,7 +3,6 @@
 # -----------------------------------
 function _load_git_prompt() {
     # It is more stable & faster without zsh-defer
-    # source ~/dotfiles/bin/git-prompt.zsh
     source ${ZSH_HOME}/plugins/git-prompt.zsh
     setopt prompt_subst
     GIT_PS1_SHOWDIRTYSTATE=true         # unstaged (*) and staged but no commit (+)
@@ -29,7 +28,6 @@ function zle-line-init {
     case $PROMPT_STYLE in
         0)
             # (MINIMAL)
-            # ps1_normal="%F{red}$ %f"
             ps1_normal="%{%F{red}%}$ %{%f%}"
             ps1_insert="$ "
         ;;

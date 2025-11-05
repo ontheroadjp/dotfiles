@@ -9,13 +9,8 @@ export LANG="en_US.UTF-8"
 export DOTFILES_BIN=${DOTPATH}/bin
 export WORKSPACE="${HOME}/WORKSPACE"
 export PATH=${DOTFILES_BIN}:${PATH}
-[[ -x "$(command -v vim)" ]] && export EDITOR=vim
-# if command -v vim >/dev/null 2>&1; then
-#     export EDITOR=vim
-# fi
-# if [[ -n $TMUX ]]; then
-#   export TERM="tmux-256color"
-# fi
+# [[ -x "$(command -v vim)" ]] && export EDITOR=vim
+export EDITOR=vim
 
 #-------------------------------------------------
 # use color
@@ -43,16 +38,18 @@ zsh-defer source ${ZSH_HOME}/zsh.d/utilities/functions.zsh
 #-------------------------------------------------
 # Delayed load NG
 source ${ZSH_HOME}/zsh.d/core/tmux_logo.zsh
+source ${ZSH_HOME}/zsh.d/core/prompt.zsh
 
 # Delayed load OK
 zsh-defer source ${ZSH_HOME}/zsh.d/core/zsh.zsh
 zsh-defer source ${ZSH_HOME}/zsh.d/core/tmux.zsh
 zsh-defer source ${ZSH_HOME}/zsh.d/core/cdla.zsh
-zsh-defer source ${ZSH_HOME}/zsh.d/core/docker.zsh
-zsh-defer source ${ZSH_HOME}/zsh.d/core/git.zsh
-zsh-defer source ${ZSH_HOME}/zsh.d/core/peco.zsh
-zsh-defer source ${ZSH_HOME}/zsh.d/core/fzf.zsh
 zsh-defer source ${ZSH_HOME}/zsh.d/core/ripgrap.zsh
+zsh-defer source ${ZSH_HOME}/zsh.d/core/fzf.zsh
+
+zsh-defer source ${ZSH_HOME}/zsh.d/core/git.zsh
+zsh-defer source ${ZSH_HOME}/zsh.d/core/docker.zsh
+zsh-defer source ${ZSH_HOME}/zsh.d/core/peco.zsh
 zsh-defer source ${ZSH_HOME}/zsh.d/core/gemini.zsh
 
 #-------------------------------------------------
@@ -76,11 +73,6 @@ zsh-defer source ${ZSH_HOME}/zsh.d/networking.zsh
 # Load Tools
 #-------------------------------------------------
 zsh-defer source ${ZSH_HOME}/zsh.d/tools.zsh
-
-#-------------------------------------------------
-# prompt
-#-------------------------------------------------
-source ${ZSH_HOME}/zsh.d/core/prompt.zsh
 
 # ------------------------------------------
 # Cleaning

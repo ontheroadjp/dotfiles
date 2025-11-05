@@ -71,6 +71,61 @@ endif
 call plug#end()
 
 " ----------------------------------------------------
+"  Load settings
+" ----------------------------------------------------
+function! plugin_env.lazy_load_plugs_settings(timer) abort
+    so ${VIM_HOME}/.vim/vimrc.d/plugins/unite.vim
+    so ${VIM_HOME}/.vim/vimrc.d/plugins/nerdtree.vim
+    so ${VIM_HOME}/.vim/vimrc.d/plugins/vim-gitgutter.vim
+    so ${VIM_HOME}/.vim/vimrc.d/plugins/vim-emmet.vim
+    so ${VIM_HOME}/.vim/vimrc.d/plugins/surround.vim
+    so ${VIM_HOME}/.vim/vimrc.d/plugins/indentLine.vim
+    so ${VIM_HOME}/.vim/vimrc.d/plugins/vim-commentout.vim
+    so ${VIM_HOME}/.vim/vimrc.d/plugins/vim-brackets.vim
+    so ${VIM_HOME}/.vim/vimrc.d/plugins/vim-deepl-translate.vim
+    if self.mode == 0
+        so ${VIM_HOME}/.vim/vimrc.d/plugins/supertab.vim
+        so ${VIM_HOME}/.vim/vimrc.d/plugins/snipmate.vim
+    elseif self.mode == 1
+        so ${VIM_HOME}/.vim/vimrc.d/plugins/asyncomplete.vim
+        so ${VIM_HOME}/.vim/vimrc.d/plugins/vim-vsnip.vim
+    endif
+    " filer
+    " so $VIM_HOME/.vim/vimrc.d/plugins/fzf.vim
+    " so $VIM_HOME/.vim/vimrc.d/plugins/tagbar.vim
+    " so $VIM_HOME/.vim/vimrc.d/plugins/taglist.vim
+    " so $VIM_HOME/.vim/vimrc.d/plugins/srcexplorer.vim
+    " lsp
+    " so $VIM_HOME/.vim/vimrc.d/plugins/vim-lsp.vim
+    " so $VIM_HOME/.vim/vimrc.d/plugins/vim-lsp-settings.vim
+    " moving cursor
+    " so $VIM_HOME/.vim/vimrc.d/plugins/vim-easymotion.vim
+    " completion
+    " so $VIM_HOME/.vim/vimrc.d/plugins/autocomplpop.vim
+    " reference
+    " so $VIM_HOME/.vim/vimrc.d/plugins/vim-ref.vim
+    " so $VIM_HOME/.vim/vimrc.d/plugins/dash.vim
+    " utilities
+    " so $VIM_HOME/.vim/vimrc.d/plugins/quickrun.vim
+    " so $VIM_HOME/.vim/vimrc.d/plugins/qfixhome.vim
+    " so $VIM_HOME/.vim/vimrc.d/plugins/vdebug.vim
+    augroup PHP
+        autocmd!
+        autocmd BufNewFile,BufRead *.php
+            \ so $VIM_HOME/.vim/vimrc.d/plugins/php.vim
+        autocmd BufNewFile,BufRead *.php
+            \ so $VIM_HOME/.vim/vimrc.d/plugins/vim-php-namespace.vim
+        autocmd BufNewFile,BufRead *.php
+            \ so $VIM_HOME/.vim/vimrc.d/plugins/php-getter-setter.vim
+        autocmd BufNewFile,BufRead *.php
+            \ so $VIM_HOME/.vim/vimrc.d/plugins/vim-php-cs-fixer.vim
+        autocmd BufNewFile,BufRead *.php
+            \ so $VIM_HOME/.vim/vimrc.d/plugins/pdv-phpdocumentor-for-vim.vim
+    augroup END
+endfunction
+call timer_start(10, plugin_env.lazy_load_plugs_settings)
+
+" ----------------------------------------------------
 "  Plugins Load
 " ----------------------------------------------------
 function! plugin_env.lazy_load_plugs(timer) abort
@@ -107,58 +162,4 @@ function! plugin_env.lazy_load_plugs(timer) abort
     endif
 endfunction
 call timer_start(20, plugin_env.lazy_load_plugs)
-
-" ----------------------------------------------------
-"  Load settings
-" ----------------------------------------------------
-function! plugin_env.lazy_load_plugs_settings(timer) abort
-    so $VIM_HOME/.vim/vimrc.d/plugins/unite.vim
-    so $VIM_HOME/.vim/vimrc.d/plugins/nerdtree.vim
-    so $VIM_HOME/.vim/vimrc.d/plugins/vim-gitgutter.vim
-    so $VIM_HOME/.vim/vimrc.d/plugins/vim-emmet.vim
-    so $VIM_HOME/.vim/vimrc.d/plugins/surround.vim
-    so $VIM_HOME/.vim/vimrc.d/plugins/indentLine.vim
-    so $VIM_HOME/.vim/vimrc.d/plugins/vim-commentout.vim
-    so $VIM_HOME/.vim/vimrc.d/plugins/vim-deepl-translate.vim
-    if self.mode == 0
-        so $VIM_HOME/.vim/vimrc.d/plugins/supertab.vim
-        so $VIM_HOME/.vim/vimrc.d/plugins/snipmate.vim
-    elseif self.mode == 1
-        so ${HOME}/dotfiles/.vim/vimrc.d/plugins/asyncomplete.vim
-        so ${HOME}/dotfiles/.vim/vimrc.d/plugins/vim-vsnip.vim
-    endif
-    " filer
-    " so $VIM_HOME/.vim/vimrc.d/plugins/fzf.vim
-    " so $VIM_HOME/.vim/vimrc.d/plugins/tagbar.vim
-    " so $VIM_HOME/.vim/vimrc.d/plugins/taglist.vim
-    " so $VIM_HOME/.vim/vimrc.d/plugins/srcexplorer.vim
-    " lsp
-    " so $VIM_HOME/.vim/vimrc.d/plugins/vim-lsp.vim
-    " so $VIM_HOME/.vim/vimrc.d/plugins/vim-lsp-settings.vim
-    " moving cursor
-    " so $VIM_HOME/.vim/vimrc.d/plugins/vim-easymotion.vim
-    " completion
-    " so $VIM_HOME/.vim/vimrc.d/plugins/autocomplpop.vim
-    " reference
-    " so $VIM_HOME/.vim/vimrc.d/plugins/vim-ref.vim
-    " so $VIM_HOME/.vim/vimrc.d/plugins/dash.vim
-    " utilities
-    " so $VIM_HOME/.vim/vimrc.d/plugins/quickrun.vim
-    " so $VIM_HOME/.vim/vimrc.d/plugins/qfixhome.vim
-    " so $VIM_HOME/.vim/vimrc.d/plugins/vdebug.vim
-    augroup PHP
-        autocmd!
-        autocmd BufNewFile,BufRead *.php
-            \ so $VIM_HOME/.vim/vimrc.d/plugins/php.vim
-        autocmd BufNewFile,BufRead *.php
-            \ so $VIM_HOME/.vim/vimrc.d/plugins/vim-php-namespace.vim
-        autocmd BufNewFile,BufRead *.php
-            \ so $VIM_HOME/.vim/vimrc.d/plugins/php-getter-setter.vim
-        autocmd BufNewFile,BufRead *.php
-            \ so $VIM_HOME/.vim/vimrc.d/plugins/vim-php-cs-fixer.vim
-        autocmd BufNewFile,BufRead *.php
-            \ so $VIM_HOME/.vim/vimrc.d/plugins/pdv-phpdocumentor-for-vim.vim
-    augroup END
-endfunction
-call timer_start(30, plugin_env.lazy_load_plugs_settings)
 
