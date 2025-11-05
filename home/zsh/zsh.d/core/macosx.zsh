@@ -10,7 +10,7 @@
 # export PATH="/usr/local/sbin:${PATH}"       # for Homebrew
 # export PATH="/usr/local/share:${PATH}"      # for Python
 # export PATH="${HOME}/dotfiles/mac_osx/HandBrakeCLI1.4.2/HandBrakeCLI:${PATH}"   # for HandBrakeCLI
-export MEMO_PATH=${WORKSPACE}/Dropbox/Documents/NOTE/dev
+# export MEMO_PATH=${WORKSPACE}/Dropbox/Documents/NOTE/dev
 
 # --------------------------------------------------------------------
 # built-in command

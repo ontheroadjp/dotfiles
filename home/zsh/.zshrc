@@ -20,8 +20,8 @@ autoload -Uz colors && colors
 #-------------------------------------------------
 # Generic alias
 #-------------------------------------------------
-# alias init='exec $SHELL -l'
 alias init='exec $SHELL -i'
+# alias init='exec $SHELL -i'
 alias c='clear'
 alias e='exit'
 alias h='cd ${HOME}'

@@ -15,7 +15,7 @@ PROMPT_STYLE=1
 if [ ${PROMPT_STYLE} -ne 0 ]; then; _load_git_prompt; fi
 
 alias minimal="PROMPT_STYLE=0"
-alias general="PROMPT_STYLE=1"
+alias general="PROMPT_STYLE=1 && _load_git_prompt"
 
 function zle-line-init {
     # # Right side Prompt

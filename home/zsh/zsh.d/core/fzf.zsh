@@ -46,7 +46,7 @@ alias lrg='_liverg'
 # -------------------------------------------------
 ## cdr settings
 CHPWD_RECENT_FILE="${HOME}/.cache/chpwd-recent-dirs"
-_setup_chpwd_recent_dirs() {
+function _setup_chpwd_recent_dirs() {
     if [[ -n $(echo ${^fpath}/chpwd_recent_dirs(N)) && -n $(echo ${^fpath}/cdr(N)) ]]; then
         autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
         add-zsh-hook chpwd chpwd_recent_dirs
