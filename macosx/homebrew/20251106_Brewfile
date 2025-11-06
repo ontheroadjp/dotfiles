@@ -1,0 +1,172 @@
+tap "argon/mas"
+tap "heroku/brew"
+tap "homebrew/bundle"
+tap "homebrew/cask"
+tap "homebrew/core"
+tap "motemen/ghq"
+tap "sanemat/font"
+tap "yt-dlp/taps"
+brew "xz"
+brew "libtiff"
+brew "libvmaf"
+brew "aom"
+brew "apr-util"
+brew "icu4c@77"
+brew "python@3.12"
+brew "oniguruma"
+brew "bat"
+brew "bats-core"
+brew "freetype"
+brew "fontconfig"
+brew "glib"
+brew "cairo"
+brew "ccat"
+brew "chardet", link: false
+brew "cloc"
+brew "coreutils"
+brew "ctags"
+brew "exiftool"
+brew "fd"
+brew "p11-kit"
+brew "unbound"
+brew "gnutls"
+brew "harfbuzz"
+brew "libass"
+brew "pango"
+brew "srt"
+brew "tesseract"
+brew "ffmpeg"
+brew "open-mpi"
+brew "fftw"
+brew "figlet"
+brew "fontforge"
+brew "unixodbc"
+brew "freetds"
+brew "fswatch"
+brew "fzf"
+brew "gawk"
+brew "gdbm"
+brew "gh"
+brew "ghq"
+brew "git-filter-repo"
+brew "glow"
+brew "gnu-sed"
+brew "go"
+brew "gobject-introspection"
+brew "libheif"
+brew "graphicsmagick"
+brew "guile"
+brew "htop"
+brew "httping"
+brew "hugo"
+brew "hunspell"
+brew "hyperfine"
+brew "pcre"
+brew "tcl-tk"
+brew "python@3.8"
+brew "imagemagick"
+brew "libxml2"
+brew "jpeg"
+brew "jpegoptim"
+brew "jq"
+brew "krb5"
+brew "lftp"
+brew "libavif"
+brew "libpq"
+brew "librsvg"
+brew "lua"
+brew "lynx"
+brew "mas"
+brew "mplayer"
+brew "neofetch"
+brew "nkf"
+brew "nmap"
+brew "nodebrew"
+brew "openslide"
+brew "optipng"
+brew "peco"
+brew "perl"
+brew "pipx"
+brew "pyenv"
+brew "python-requests"
+brew "python@3.9"
+brew "qt"
+brew "rbenv"
+brew "ripgrep"
+brew "rlwrap"
+brew "socat"
+brew "tmux"
+brew "translate-shell"
+brew "tree"
+brew "unar"
+brew "vagrant-completion"
+brew "vim"
+brew "vips"
+brew "w3m"
+brew "watch"
+brew "wget"
+brew "yarn"
+brew "yewtube"
+brew "youtube-dl"
+brew "yt-dlp", link: false
+brew "zsh"
+brew "heroku/brew/heroku"
+cask "alacritty"
+cask "chromedriver"
+cask "font-hack-nerd-font"
+cask "hammerspoon"
+cask "mark-text"
+cask "stolendata-mpv"
+cask "xquartz"
+mas "1Password", id: 443987910
+mas "1Password 7", id: 1333542190
+mas "Adobe Revel", id: 455068834
+mas "AnyMP4 AVCHD Converter", id: 640034674
+mas "AS Timer", id: 512464723
+mas "Be Focused", id: 973134470
+mas "Bear", id: 1091189122
+mas "Caffeine", id: 411246225
+mas "Craft", id: 1487937127
+mas "Drafts", id: 1435957248
+mas "EchofonLite", id: 403858460
+mas "GarageBand", id: 682658836
+mas "GoodNotes", id: 1444383602
+mas "iMovie", id: 408981434
+mas "JPEGmini", id: 498944723
+mas "Keynote", id: 409183694
+mas "LINE", id: 539883307
+mas "MarsEdit", id: 402376225
+mas "MarsEdit", id: 1198319098
+mas "mChapters", id: 563131976
+mas "Microsoft Remote Desktop", id: 715768417
+mas "MILK Books", id: 1486465681
+mas "Mimeo Photos", id: 1282504627
+mas "Music Tag Editor", id: 511170796
+mas "Notability", id: 736189492
+mas "Numbers", id: 409203825
+mas "OmniFocus", id: 867299399
+mas "Pages", id: 409201541
+mas "Paster", id: 688825825
+mas "Photos Duplicate Cleaner", id: 592704001
+mas "PicFrame", id: 475067528
+mas "PopClip", id: 445189367
+mas "PrestoPhoto", id: 1433634474
+mas "Prime Video", id: 545519333
+mas "QREncoder", id: 452695239
+mas "Round PicFrame", id: 755419885
+mas "Slack", id: 803453959
+mas "Spark", id: 1176895641
+mas "Super Bundle for iBooks", id: 829473270
+mas "Tag Editor Lite", id: 984278082
+mas "TeraCopy", id: 1378806557
+mas "Todoist", id: 585829637
+mas "ToyViewer", id: 414298354
+mas "Unsplash Wallpapers", id: 1284863847
+mas "Vimari", id: 1480933944
+mas "WeChat", id: 836500024
+mas "WinArchiver Lite", id: 414855915
+mas "Xcode", id: 497799835
+mas "Yoink", id: 457622435
+go "github.com/rubenv/sql-migrate/sql-migrate"
+go "github.com/rhysd/vim-startuptime"
+go "github.com/spiegel-im-spiegel/xls2csv"

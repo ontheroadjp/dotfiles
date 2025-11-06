@@ -1,1 +1,0 @@
-/Users/hideaki/dev/src/github.com/ontheroadjp/GithubGG/manage_github_repositories.sh

@@ -106,31 +106,32 @@ function _fzf_powered_shell() {
     _fzf_source() {
         case "${mode}" in
             sub)
-                find . \
-                    \( \
-                    -path '*/.git*' -o \
-                    -path '*/Apps*' -o \
-                    -path '*/.dropbox*' -o \
-                    -path '*/node_modules*' -o \
-                    -path '*/gems*' -o \
-                    -path '*/venv*' -o \
-                    -path '*/.venv*' -o \
-                    -path '*/__pycache__*' -o \
-                    -path '*/.cache*' -o \
-                    -path '*/dist*' -o \
-                    -path '*/build*' -o \
-                    -path '*/tmp*' -o \
-                    -path '*/temp*' \
-                    \) -prune \
-                    -o \( -type d -print \) | sort -u
+                # find . \
+                #     \( \
+                #     -path '*/.git*' -o \
+                #     -path '*/Apps*' -o \
+                #     -path '*/.dropbox*' -o \
+                #     -path '*/node_modules*' -o \
+                #     -path '*/gems*' -o \
+                #     -path '*/venv*' -o \
+                #     -path '*/.venv*' -o \
+                #     -path '*/__pycache__*' -o \
+                #     -path '*/.cache*' -o \
+                #     -path '*/dist*' -o \
+                #     -path '*/build*' -o \
+                #     -path '*/tmp*' -o \
+                #     -path '*/temp*' \
+                #     \) -prune \
+                #     -o \( -type d -print \) | sort -u
 
                 # fd . . --type d \
-                #     --exclude .git \
-                #     --exclude node_modules \
-                #     --exclude venv \
-                #     --exclude __pycache__ \
-                #     --exclude gems \
-                #     --hidden
+                fd  --type d \
+                    --exclude .git \
+                    --exclude node_modules \
+                    --exclude venv \
+                    --exclude __pycache__ \
+                    --exclude gems \
+                    --hidden
                 ;;
             ww)
                 find "${WORKSPACE}" -type d -maxdepth 1 \

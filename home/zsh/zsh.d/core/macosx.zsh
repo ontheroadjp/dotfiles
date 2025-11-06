@@ -26,11 +26,12 @@ sed() {
 
 # --------------------------------------------------------------------
 # Normal command replace
+# --------------------------------------------------------------------
 alias tree='tree -N'    # for display Japanese char
 
 # Editor
 alias cot="open -a /Applications/CotEditor.app" # CotEditor
-alias md="open -a /Applications/MarkText.app"     # Typora
+alias md="open -a /Applications/MarkText.app"   # MarkText or Typora
 
 # ctag
 # changing the BSD version to the version installed by Homebrew
@@ -60,8 +61,4 @@ alias sleepoff='sudo pmset -a disablesleep 1'
 #     process=$(ps ax | egrep "[0-9] /usr/sbin/notifyd" | awk '{print $1}')
 #     sudo kill -9 ${process}
 # }
-
-# show smtp(d) log
-alias smtplog='sudo log stream --predicater'\''(process == "smtpd") \
-                        || (process == "smtp")'\'' --info'
 

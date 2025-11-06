@@ -10,6 +10,11 @@ export DOTPATH=${HOME}/dotfiles
 export ZSH_HOME="${DOTPATH}/home/zsh"
 export VIM_HOME="${DOTPATH}/home/vim"
 
+#-------------------------------------------------
+# Functions
+#-------------------------------------------------
+function _is_exist() { type $@ > /dev/null 2>&1 }
+
 # --------------------------------------------------------------------
 # zsh compile
 # --------------------------------------------------------------------
@@ -30,12 +35,10 @@ ensure_zcompiled ~/.zshrc
 ensure_zcompiled ~/.zprofile
 
 # --------------------------------------------------------------------
-# Load plugin - zsh-defer
+# Load plugin
 # --------------------------------------------------------------------
 source ${ZSH_HOME}/plugins/zsh-defer/zsh-defer.plugin.zsh
 # source ${ZSH_HOME}/zsh.d/lazy_load_env.sh
-
-
 
 echo "Load .zshenv.."
 

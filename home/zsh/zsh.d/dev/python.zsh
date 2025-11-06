@@ -58,3 +58,8 @@ function auto_venv() {
 # check on the starting shell
 auto_venv
 
+# ------------------------------------------
+# Web Server
+# ------------------------------------------
+
+alias httpd='python -m http.server 8080'

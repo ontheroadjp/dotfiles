@@ -1,14 +1,3 @@
-" function! FzfFilesRg()
-"   let l:command = "rg --files --hidden -g '!TEMP' -Timg"
-"   call fzf#run(fzf#wrap({
-"         \ 'source': l:command,
-"         \ 'options': '--preview "bat --color=always {}" --preview-window=right:55%"',
-"         \ }))
-" endfunction
-" nnoremap ,fs :call FzfFilesRg()<CR>
-
-
-
  " ================================================== Disable default plugins
  " Disable TOhtml.
 "let g:loaded_2html_plugin       = 1
