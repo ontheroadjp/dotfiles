@@ -1,0 +1,21 @@
+# !/bin/sh
+
+if battery_info=$(/usr/bin/pmset -g ps | awk '{ if (NR == 2) print $3 " " $3 }' | sed -e "s/;//g" -e "s/%//") ; then
+    if [[ $(/usr/bin/pmset -g ps)  =~ "discharging" ]]; then
+        is_charged=false
+    else
+        is_charged=true
+    fi
+
+    battery_quantity=$(echo $battery_info | awk '{print $1}')
+    # if [[ ! $battery_info =~ "discharging" ]]; then
+    if ${is_charged}; then
+        battery="#[bg=black,fg=cyan]⚡$battery_quantity% #[default]"
+    elif (( $battery_quantity < 16 )); then
+        battery="#[bg=black,fg=red] $battery_quantity% #[default]"
+    else
+        battery="#[bg=black,fg=cyan] $battery_quantity% #[default]"
+    fi
+    echo $battery
+fi
+

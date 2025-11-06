@@ -40,9 +40,9 @@ RIPGREP_CONFIG_PATH=/Users/hideaki/dotfiles/.config/ripgrep/.ripgreprc
 FZF_TMUX=1
 FZF_TMUX_OPTS=-p 80%
 FZF_DEFAULT_OPTS=
-    -0 -1 --reverse --height=100% --pointer='👉' --prompt=': '     --color='bg+:#242C43,bg:#29324D,spinner:#81A1C1,hl:#616E88'     --color='fg:#D8DEE9,header:#616E88,info:#81A1C1,pointer:#81A1C1'     --color='marker:#81A1C1,fg+:#A9D889,prompt:#81A1C1,hl+:#81A1C1' 
+    -0 -1 --reverse --height=100% --pointer='👉' --prompt=': '     --color='bg+:#242C43,bg:#29324D,spinner:#81A1C1,hl:#616E88'     --color='fg:#D8DEE9,header:#616E88,info:#81A1C1,pointer:#81A1C1'     --color='marker:#81A1C1,fg+:#A9D889,prompt:#81A1C1,hl+:#81A1C1'
 GOPATH=/Users/hideaki/dev
-SHELL_TOOLS_ROOT=/Users/hideaki/dev/src/github.com/ontheroadjp/Shell-Tools
+SHELLTOOLS_ROOT=/Users/hideaki/dev/src/github.com/ontheroadjp/Shell-Tools
 DIRMARKS_DATA_DIR=/Users/hideaki/dev/src/github.com/ontheroadjp/Shell-Tools/shell_functions/dirmarks/data
 QUICK_MEMO_DATA_DIR=/Users/hideaki/dev/src/github.com/ontheroadjp/Shell-Tools/shell_functions/quick-memo/data
 SHELL_STASH_DATA_DIR=/Users/hideaki/dev/src/github.com/ontheroadjp/Shell-Tools/shell_functions/shell-stash/data

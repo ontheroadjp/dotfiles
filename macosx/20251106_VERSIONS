@@ -1,0 +1,76 @@
+[15:18 dotfiles (dev)]$ zsh --version
+zsh 5.9 (x86_64-apple-darwin20.6.0)
+
+[15:18 dotfiles (dev)]$ tmux -V
+tmux 3.4
+
+[15:18 dotfiles (dev)]$ sw_vers
+ProductName:    macOS
+ProductVersion: 11.7.10
+BuildVersion:   20G1427
+
+[15:19 dotfiles (dev)]$ vim --version
+VIM - Vi IMproved 9.1 (2024 Jan 02, compiled Aug 27 2025 16:14:27)
+macOS version - x86_64
+Included patches: 1-1700
+Compiled by Homebrew
+Huge version without GUI.  Features included (+) or not (-):
++acl               +find_in_path      +multi_byte        -tcl
++arabic            +float             +multi_lang        +termguicolors
++autocmd           +folding           -mzscheme          +terminal
++autochdir         -footer            +netbeans_intg     +terminfo
+-autoservername    +fork()            +num64             +termresponse
+-balloon_eval      +gettext           +packages          +textobjects
++balloon_eval_term -hangul_input      +path_extra        +textprop
+-browse            +iconv             +perl              +timers
+++builtin_terms    +insert_expand     +persistent_undo   +title
++byte_offset       +ipv6              +popupwin          -toolbar
++channel           +job               +postscript        +user_commands
++cindent           +jumplist          +printer           +vartabs
++clientserver      +keymap            +profile           +vertsplit
++clipboard         +lambda            -python            +vim9script
++cmdline_compl     +langmap           +python3           +viminfo
++cmdline_hist      +libcall           +quickfix          +virtualedit
++cmdline_info      +linebreak         +reltime           +visual
++comments          +lispindent        +rightleft         +visualextra
++conceal           +listcmds          +ruby              +vreplace
++cryptv            +localmap          +scrollbind        -wayland
++cscope            +lua               +signs             -wayland_clipboard
++cursorbind        +menu              +smartindent       +wildignore
++cursorshape       +mksession         +socketserver      +wildmenu
++dialog_con        +modify_fname      +sodium            +windows
++diff              +mouse             +sound             +writebackup
++digraphs          -mouseshape        +spell             -X11
+-dnd               +mouse_dec         +startuptime       -xattr
+-ebcdic            -mouse_gpm         +statusline        -xfontset
++emacs_tags        -mouse_jsbterm     -sun_workshop      -xim
++eval              +mouse_netterm     +syntax            -xpm
++ex_extra          +mouse_sgr         +tabpanel          -xsmp
++extra_search      -mouse_sysmouse    +tag_binary        -xterm_clipboard
+-farsi             +mouse_urxvt       -tag_old_static    -xterm_save
++file_in_path      +mouse_xterm       -tag_any_white
+   system vimrc file: "$VIM/vimrc"
+     user vimrc file: "$HOME/.vimrc"
+ 2nd user vimrc file: "~/.vim/vimrc"
+ 3rd user vimrc file: "~/.config/vim/vimrc"
+      user exrc file: "$HOME/.exrc"
+       defaults file: "$VIMRUNTIME/defaults.vim"
+  fall-back for $VIM: "/usr/local/share/vim"
+Compilation: clang -c -I. -Iproto -DHAVE_CONFIG_H -DMACOS_X -DMACOS_X_DARWIN -I/usr/local/Cellar/libsodium/1.0.20/include -g -O2 -D_REENTRANT -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1
+Linking: clang -L/usr/local/lib -o vim -lm -lncurses -L/usr/local/Cellar/libsodium/1.0.20/lib -lsodium -liconv -lintl -framework AppKit -L/usr/local/opt/lua/lib -llua5.4 -fstack-protector-strong -L/System/Library/Perl/5.30/darwin-thread-multi-2level/CORE -lperl -L/usr/local/opt/python@3.13/Frameworks/Python.framework/Versions/3.13/lib/python3.13/config-3.13-darwin -lpython3.13 -lintl -framework CoreFoundation -lruby.3.4 -L/usr/local/Cellar/ruby/3.4.5/lib
+
+[15:20 dotfiles (dev)]$ fzf --version
+0.48.1 (brew)
+
+[15:20 dotfiles (dev)]$ rg --version
+ripgrep 14.1.0
+
+features:-simd-accel,+pcre2
+simd(compile):+SSE2,+SSSE3,-AVX2
+simd(runtime):+SSE2,+SSSE3,+AVX2
+
+PCRE2 10.42 is available (JIT is available)
+
+[15:20 dotfiles (dev)]$ fd --version
+fd 10.3.0
+

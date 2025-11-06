@@ -1,30 +1,29 @@
 #-------------------------------------------------
 # Tools
 #-------------------------------------------------
-
-repo_base="$(ghq root)/github.com/ontheroadjp"
+REPO_BASE="$(ghq root)/github.com/ontheroadjp"
 
 # exif tool
 alias exif="exiftool $@"
 
-alias GG='${repo_base}/GithubGG/gh_repo.sh list'
-alias GGv='${repo_base}/GithubGG/gh_repo.sh view'
-alias GGr='${repo_base}/GithubGG/gh_repo.sh'
-alias GGi='${repo_base}/GithubGG/gh_issue.sh list'
-alias GGih='${repo_base}/GithubGG/gh_issue.sh'
-alias GGie='${repo_base}/GithubGG/gh_issue.sh edit'
-alias GGiv='${repo_base}/GithubGG/gh_issue.sh web'
+# github-gg
+alias GG='${REPO_BASE}/GithubGG/gh_repo.sh list'
+alias GGv='${REPO_BASE}/GithubGG/gh_repo.sh view'
+alias GGr='${REPO_BASE}/GithubGG/gh_repo.sh'
+alias GGi='${REPO_BASE}/GithubGG/gh_issue.sh list'
+alias GGih='${REPO_BASE}/GithubGG/gh_issue.sh'
+alias GGie='${REPO_BASE}/GithubGG/gh_issue.sh edit'
+alias GGiv='${REPO_BASE}/GithubGG/gh_issue.sh web'
 
 # Shell Tools
-export SHELL_TOOLS_ROOT=$(ghq root)/github.com/ontheroadjp/Shell-Tools
-zsh-defer source ${SHELL_TOOLS_ROOT}/load_shell_tools.sh
-zsh-defer source ${SHELL_TOOLS_ROOT}/load_shell_tools_tmux.sh
+export SHELLTOOLS_ROOT=$(ghq root)/github.com/ontheroadjp/Shell-Tools
+zsh-defer source ${SHELLTOOLS_ROOT}/load_shell_tools.sh
 
 # deepl clipboard translator
-alias en="python ${repo_base}/deepl-clipboard-translater/deepl-clipboard-translater.py -o en | pbcopy"
-alias ja="python ${repo_base}/deepl-clipboard-translater/deepl-clipboard-translater.py -o ja | pbcopy"
-alias zh="python ${repo_base}/deepl-clipboard-translater/deepl-clipboard-translater.py -o zh | pbcopy"
-alias ko="python ${repo_base}/deepl-clipboard-translater/deepl-clipboard-translater.py -o ko | pbcopy"
+alias en="python ${REPO_BASE}/deepl-clipboard-translater/deepl-clipboard-translater.py -o en | pbcopy"
+alias ja="python ${REPO_BASE}/deepl-clipboard-translater/deepl-clipboard-translater.py -o ja | pbcopy"
+alias zh="python ${REPO_BASE}/deepl-clipboard-translater/deepl-clipboard-translater.py -o zh | pbcopy"
+alias ko="python ${REPO_BASE}/deepl-clipboard-translater/deepl-clipboard-translater.py -o ko | pbcopy"
 
 #-------------------------------------------------
 # Utilities
