@@ -61,40 +61,128 @@
 #
 # -------------------------------
 
+# User Preferences
+# GIT_PS1_SHOWDIRTYSTATE=true         # unstaged (*) and staged but no commit (+)
+# GIT_PS1_SHOWUNTRACKEDFILES=false    # new and untracked file (%)
+# GIT_PS1_SHOWSTASHSTATE=true         # stashed ($)
+# GIT_PS1_SHOWUPSTREAM=auto           # upstream (<, >, <>, =)
+
 GIT_PROMPT=""
-__GIT_PROMPT_LAST_PWD=""
-__GIT_PROMPT_LAST_HEAD=""
-__GIT_PROMPT_LAST_STATE=""
+__GIT_PS1_LAST_PWD=""
+__GIT_PS1_LAST_HEAD=""
+__GIT_PS1_LAST_STATE=""
 
-# Fast Git prompt update
 __git_ps1_update_fast() {
-    local head state gitstring
+    local head \
+        state \
+        gitstring \
+        line \
+        staged_found=0 \
+        work_found=0 \
+        stash_found=0 \
+        upstream_mark=""
 
-    # Empty if not a Git repository
-    git rev-parse --git-dir >/dev/null 2>&1 || { GIT_PROMPT=""; return }
+    git rev-parse --git-dir >/dev/null 2>&1 || {
+        GIT_PROMPT="";
+        return
+    }
 
-    # HEAD branch name or SHA
-    head=$(git symbolic-ref --quiet HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null)
-    [[ "$head" == refs/heads/* ]] && head="${head#refs/heads/}"
+    # Retrieved in git command 1 time
+    local lines
+    lines=("${(@f)$(\
+        git status --porcelain=2 \
+                --branch \
+                --untracked-files=no \
+                2>/dev/null\
+            )}"
+        )
 
-    # Status check: working tree changes and index changes
-    local w="" i=""
-    git diff --quiet 2>/dev/null || w="*"
-    git diff --cached --quiet 2>/dev/null || i="+"
+    for line in "${lines[@]}"; do
+        case "${line}" in
+            "# branch.head "*)
 
-    # Git prompt string
-    state="${w}${i}"
+                # Get only immediately after branch.head
+                head="${line#\# branch.head }"
 
-    # Update only the first time or when there is a change
-    if [[ "$PWD" != "$__GIT_PROMPT_LAST_PWD" || "$head" != "$__GIT_PROMPT_LAST_HEAD" || "$state" != "$__GIT_PROMPT_LAST_STATE" ]]; then
-        __GIT_PROMPT_LAST_PWD="$PWD"
-        __GIT_PROMPT_LAST_HEAD="$head"
-        __GIT_PROMPT_LAST_STATE="$state"
+                # Remove trailing whitespace and line breaks
+                head="${head%%$'\n'}"
+                head="${head%%$'\r'}"
+
+                # detached HEAD or replace with SHA if empty
+                if [[ -z "${head}" || "${head}" == "(detached)" ]]; then
+                    head=$(git rev-parse --short HEAD 2>/dev/null)
+                fi
+                ;;
+
+            "1 "*)
+                local index=${line:2:1}
+                local worktree=${line:3:1}
+                [[ "${GIT_PS1_SHOWDIRTYSTATE}" == true \
+                    && "${index}" != "." ]] \
+                    && staged_found=1
+                [[ "${GIT_PS1_SHOWDIRTYSTATE}" == true \
+                    && "${worktree}" != "." ]] \
+                    && work_found=1
+                ;;
+
+            "?"*)
+                [[ "${GIT_PS1_SHOWUNTRACKEDFILES}" == true ]] \
+                    && work_found=1
+                ;;
+        esac
+    done
+
+    # stash
+    if [[ "${GIT_PS1_SHOWSTASHSTATE}" == true ]]; then
+        git rev-parse --verify refs/stash >/dev/null 2>&1 && stash_found=1
+    fi
+
+    # upstream
+    if [[ "${GIT_PS1_SHOWUPSTREAM}" != "false" ]]; then
+        if git rev-parse \
+            --abbrev-ref \
+            --symbolic-full-name \
+            @{upstream} \
+            >/dev/null 2>&1; then
+
+            local ahead behind
+            read ahead behind < <(\
+                git rev-list \
+                    --left-right \
+                    --count \
+                    @{upstream}...HEAD \
+                    2>/dev/null\
+                )
+            if [[ ${ahead} -gt 0 && ${behind} -gt 0 ]]; then
+                upstream_mark="<>"
+            elif [[ ${ahead} -gt 0 ]]; then
+                upstream_mark=">"
+            elif [[ ${behind} -gt 0 ]]; then
+                upstream_mark="<"
+            else
+                upstream_mark="="
+            fi
+        fi
+    fi
+
+    # state made
+    state=""
+    [[ ${staged_found} -eq 1 ]] && state+="+"
+    [[ ${work_found} -eq 1 ]] && state+="*"
+    [[ ${stash_found} -eq 1 ]] && state+="$"
+    [[ -n ${upstream_mark} ]] && state+="${upstream_mark}"
+
+    # Cache
+    if [[ "${PWD}" != "${__GIT_PS1_LAST_PWD}" \
+            || "${head}" != "${__GIT_PS1_LAST_HEAD}" \
+            || "${state}" != "${__GIT_PS1_LAST_STATE}" ]]; then
+        __GIT_PS1_LAST_PWD="${PWD}"
+        __GIT_PS1_LAST_HEAD="${head}"
+        __GIT_PS1_LAST_STATE="${state}"
         gitstring="${head}${state}"
         GIT_PROMPT="(${gitstring})"
     fi
 }
 
-# Update before prompt drawing
 precmd() { __git_ps1_update_fast }
 

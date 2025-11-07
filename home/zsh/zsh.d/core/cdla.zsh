@@ -24,15 +24,17 @@ alias la='_print_la'
 # }
 
 function _cdla() {
-    [ $# -eq 0 ] && place=${HOME} || place="$@"
+    # [ $# -eq 0 ] && place=${HOME} || place="$@"
 
     # _print_la "${palace}" && pushd "${place}"
-    pushd "$@"
+    # pushd "$@"
+    local to="$@"
+    pushd ${to:-$HOME}
 
-    [ $(uname) = 'Darwin' ] && {
-        rm .DS_Store > /dev/null 2>&1
-        rm .netrwhist > /dev/null 2>&1
-    }
+    # [ $(uname) = 'Darwin' ] && {
+    #     rm .DS_Store > /dev/null 2>&1
+    #     rm .netrwhist > /dev/null 2>&1
+    # }
 
     _print_la
     auto_venv
@@ -46,11 +48,12 @@ function cd() { _cdla "$@" }
 alias b='popd && clear && la'
 
 # general settings ------------------------------------------------
-alias HOME="cd ${HOME}"
 alias .="pwd"
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
+alias .....="cd ../../../../"
+alias ......="cd ../../../../../"
 
 function _copy_current_dir_path() {
     echo -n $(pwd) | pbcopy && echo 'copy: '$(pbpaste)

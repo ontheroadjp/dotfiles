@@ -9,7 +9,7 @@ KEYTIMEOUT=0
 #-------------------------------------------------
 if [ $(uname) = "Darwin" ]; then
     # For MacOSX
-    zsh-defer source ${ZSH_HOME}/zsh.d/core/macosx.zsh
+    zsh-defer zsource ${ZSH_HOME}/zsh.d/core/macosx.zsh
 elif [ "$(expr substr $(uname -s) 1 5)" = 'Linux' ]; then
     # For Linux only
     echo 'Wellcome to Linux!'
@@ -25,13 +25,8 @@ fi
 # complition - zcompdump
 #-------------------------------------------------
 autoload -Uz compinit
-
-# for dump in ${ZSH_HOME}/.zcompdump(N.mh+24); do
-#     compinit
-# done
-# compinit -C
-
 ZCD=${ZSH_HOME:-$HOME}/.zcompdump
+
 _zcompinit_func() {
     if [[ ! -f ${ZCD}.zwc || ${ZCD} -nt ${ZCD}.zwc ]]; then
         compinit -d ${ZCD}
@@ -39,12 +34,13 @@ _zcompinit_func() {
     else
         compinit -C -d ${ZCD}
     fi
+    unfunction _zcompinit_func
 }
 
 # Initialize only when Tab is pressed first
-zmodload zsh/complist
-bindkey '^I' complete-word
-(( ${+_compautoload} )) || _compautoload=1
+#zmodload zsh/complist
+# bindkey '^I' complete-word
+# (( ${+_compautoload} )) || _compautoload=1
 
 # Delayed execution
 zsh-defer _zcompinit_func

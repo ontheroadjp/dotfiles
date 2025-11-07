@@ -17,59 +17,69 @@ autoload -Uz colors && colors
 #-------------------------------------------------
 # Generic alias
 #-------------------------------------------------
-alias init='exec $SHELL -l'
+# alias init='exec $SHELL -l'
 alias c='clear'
 alias e='exit'
 alias h='cd ${HOME}'
 alias dot='cd ${DOTPATH}'
 alias w='cd ${WORKSPACE}'
 
+function _restart_shell() {
+    exec $SHELL -l -i
+    local dir="${XDG_DATA_HOME:-$HOME}/printenv"
+    local filename="$(date '+%Y%m%d')_printenv.txt"
+    mkdir -p "${dir}" && printenv > "${dir}/${filename}"
+}
+alias init='_restart_shell'
+
 #-------------------------------------------------
 # Load Utilities
 #-------------------------------------------------
-# zsh-defer source ${ZSH_HOME}/zsh.d/utilities/functions.zsh
+# zsh-defer zsource ${ZSH_HOME}/zsh.d/utilities/functions.zsh
 
 #-------------------------------------------------
 # Load Core
 #-------------------------------------------------
 # Delayed load NG
-source ${ZSH_HOME}/zsh.d/core/tmux_logo.zsh
-source ${ZSH_HOME}/zsh.d/core/prompt.zsh
-# source ${ZSH_HOME}/zsh.d/core/prompt-async.zsh
+zsource ${ZSH_HOME}/zsh.d/core/tmux_logo.zsh
+zsource ${ZSH_HOME}/zsh.d/core/prompt.zsh
+# zsource ${ZSH_HOME}/zsh.d/core/prompt-async.zsh
 
 # Delayed load OK
-zsh-defer source ${ZSH_HOME}/zsh.d/core/zsh.zsh
-zsh-defer source ${ZSH_HOME}/zsh.d/core/tmux.zsh
-zsh-defer source ${ZSH_HOME}/zsh.d/core/cdla.zsh
-zsh-defer source ${ZSH_HOME}/zsh.d/core/ripgrap.zsh
-zsh-defer source ${ZSH_HOME}/zsh.d/core/fzf.zsh
+zsh-defer zsource ${ZSH_HOME}/zsh.d/core/zsh.zsh
+zsh-defer zsource ${ZSH_HOME}/zsh.d/core/tmux.zsh
+zsh-defer zsource ${ZSH_HOME}/zsh.d/core/cdla.zsh
+zsh-defer zsource ${ZSH_HOME}/zsh.d/core/ripgrap.zsh
+zsh-defer zsource ${ZSH_HOME}/zsh.d/core/fzf.zsh
 
-zsh-defer source ${ZSH_HOME}/zsh.d/core/git.zsh
-zsh-defer source ${ZSH_HOME}/zsh.d/core/docker.zsh
-zsh-defer source ${ZSH_HOME}/zsh.d/core/peco.zsh
-zsh-defer source ${ZSH_HOME}/zsh.d/core/gemini.zsh
+zsh-defer zsource ${ZSH_HOME}/zsh.d/core/git.zsh
+zsh-defer zsource ${ZSH_HOME}/zsh.d/core/docker.zsh
+zsh-defer zsource ${ZSH_HOME}/zsh.d/core/peco.zsh
+zsh-defer zsource ${ZSH_HOME}/zsh.d/core/gemini.zsh
 
 #-------------------------------------------------
 # Load Dev
 #-------------------------------------------------
-zsh-defer source ${ZSH_HOME}/zsh.d/dev/go.zsh
-# zsh-defer source ${ZSH_HOME}/zsh.d/dev/php.zsh
-# zsh-defer source ${ZSH_HOME}/zsh.d/dev/ruby.zsh
-# zsh-defer source ${ZSH_HOME}/zsh.d/dev/vagrant.zsh
+zsh-defer zsource ${ZSH_HOME}/zsh.d/dev/go.zsh
+# zsh-defer zsource ${ZSH_HOME}/zsh.d/dev/php.zsh
+# zsh-defer zsource ${ZSH_HOME}/zsh.d/dev/ruby.zsh
+# zsh-defer zsource ${ZSH_HOME}/zsh.d/dev/vagrant.zsh
 
 # Lazy load processed with external files
-source ${ZSH_HOME}/zsh.d/dev/node.zsh
-source ${ZSH_HOME}/zsh.d/dev/python.zsh
+zsource ${ZSH_HOME}/zsh.d/dev/node.zsh
+zsource ${ZSH_HOME}/zsh.d/dev/python.zsh
 
 #-------------------------------------------------
 # Load Tools
 #-------------------------------------------------
-zsh-defer source ${ZSH_HOME}/zsh.d/tools.zsh
+
+zsh-defer zsource ${ZSH_HOME}/zsh.d/tools/dirmarks.zsh
+zsh-defer zsource ${ZSH_HOME}/zsh.d/tools/shelltools.zsh
 
 # ------------------------------------------
 # Cleaning
 # ------------------------------------------
-unfunction source   # do not zsh-defer for safety
+unfunction source   # do not zsh-defer defer_for safety
 
 echo "Load .zshrc."
 
