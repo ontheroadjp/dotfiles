@@ -98,10 +98,13 @@ __git_ps1_update_fast() {
         upstream_mark=""
 
     # Determine if git is managed or not
-    git rev-parse --git-dir >/dev/null 2>&1 || {
-        GIT_PROMPT="";
+    if ! git rev-parse --git-dir >/dev/null 2>&1; then
+        GIT_PROMPT=""
+        __GIT_PS1_LAST_PWD=""
+        __GIT_PS1_LAST_HEAD=""
+        __GIT_PS1_LAST_STATE=""
         return
-    }
+    fi
 
     # Retrieved in git command only one time
     local lines

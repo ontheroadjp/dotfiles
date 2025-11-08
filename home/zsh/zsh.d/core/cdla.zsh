@@ -8,14 +8,19 @@ popd() {
 #----------------------------------------------------------------
 # cdla - Changing directory
 #----------------------------------------------------------------
+SHOW_FULL_PATH_AT_LA=1
 function _print_la() {
     [ $(uname) = 'Darwin' ] && {
         ls -laGh "$@"
     } || {
         ls -lah --color=auto "$@"
     }
+
+    [ ${SHOW_FULL_PATH_AT_LA} -ne 0 ] && echo "\e[34m@$(pwd)\e[0m"
 }
 alias la='_print_la'
+alias nopwd='SHOW_FULL_PATH_AT_LA=0'
+alias yespwd='SHOW_FULL_PATH_AT_LA=1'
 
 # [ $(uname) = 'Darwin' ] && {
 #     alias la='ls -laGh'
@@ -23,12 +28,14 @@ alias la='_print_la'
 #     alias la='ls -lah --color=auto'
 # }
 
+CLEAR_BEFORE_CD=1
 function _cdla() {
     # [ $# -eq 0 ] && place=${HOME} || place="$@"
 
     # _print_la "${palace}" && pushd "${place}"
     # pushd "$@"
     local to="$@"
+    [ ${CLEAR_BEFORE_CD} -ne 0 ] && clear
     pushd ${to:-$HOME}
 
     # [ $(uname) = 'Darwin' ] && {
@@ -39,8 +46,9 @@ function _cdla() {
     _print_la
     auto_venv
 }
-# alias cd='_cdla'
 function cd() { _cdla "$@" }
+alias noclear='CLEAR_BEFORE_CD=0'
+alias yesclear='CLEAR_BEFORE_CD=1'
 
 
 # back to the previous location -----------------------------------
