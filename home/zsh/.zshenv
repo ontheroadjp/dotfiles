@@ -83,6 +83,7 @@ ensure_zcompiled ${HOME}/.zprofile
 # Load plugin
 # --------------------------------------------------------------------
 source ${ZSH_HOME}/plugins/zsh-defer/zsh-defer.plugin.zsh
+# source ${ZSH_HOME}/plugins/zsh-defer-nuts/zsh-defer-nuts.zsh
 # source ${ZSH_HOME}/zsh.d/lazy_load_env.sh
 
 echo "Load .zshenv.."

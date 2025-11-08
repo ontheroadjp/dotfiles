@@ -1,76 +1,91 @@
-# -------------------------------
-# git-prompt-fast.zsh
+# -----------------------------------------------------------------------------
+# git-prompt.zsh
 # Super fast Git prompt for Zsh (no color)
-# -------------------------------
+# -----------------------------------------------------------------------------
 #
 # Author   : Nuts LLC
-# Created  : 2025-11-03
+# Created  : 2025-11-08
 #
 # Description:
-#   This script provides a minimal, fast, and stable Git prompt for Zsh.
-#   It displays the current Git branch or short commit hash along with
-#   a minimal status indicator for unstaged (*) and staged (+) changes.
-#   The prompt string is stored in $GIT_PROMPT and can be embedded in PS1.
+#   Provides a fast, minimal Git prompt for Zsh. It retrieves the current branch
+#   or commit hash and a minimal status indicator with a single call to `git status`.
+#   The prompt string is stored in the variable $GIT_PROMPT and can be embedded
+#   in PS1. Designed for synchronous updates to ensure accurate branch/state info.
 #
 # Features:
-#   - Fast synchronous update to ensure branch name and state are always accurate.
-#   - Only updates when there is a change in PWD, branch, or working tree/index state.
-#   - Avoids expensive Git operations at every keystroke.
-#   - No color codes, simplifying prompt rendering and avoiding escape sequence issues.
-#   - Compatible with zle-line-init and chpwd hooks for reliable updates when entering a new directory.
-#   - Displays branch names without the refs/heads/ prefix.
+#   - Only updates when PWD, branch, or working tree/index state changes.
+#   - Minimal Git commands to improve startup and prompt speed.
+#   - Shows branch names without the refs/heads/ prefix.
+#   - Supports optional indicators for:
+#       * Unstaged changes (*)
+#       * Staged but uncommitted changes (+)
+#       * Untracked files (%)
+#       * Stashed changes ($)
+#       * Upstream divergence (<, >, <>, =)
+#   - Handles detached HEAD by showing short SHA instead of branch name.
 #
 # Variables:
-#   GIT_PROMPT               : The final Git prompt string, e.g., (master*+)
-#   __GIT_PROMPT_LAST_PWD    : Tracks the last PWD for change detection
-#   __GIT_PROMPT_LAST_HEAD   : Tracks the last Git HEAD for change detection
-#   __GIT_PROMPT_LAST_STATE  : Tracks the last Git state (*, +) for change detection
+#   GIT_PROMPT               : Stores the final Git prompt string, e.g., (master*+)
+#   __GIT_PS1_LAST_PWD       : Caches the last PWD for change detection
+#   __GIT_PS1_LAST_HEAD      : Caches the last Git HEAD
+#   __GIT_PS1_LAST_STATE     : Caches the last state string (*, +, $, upstream)
 #
-# Functions:
-#   __git_ps1_update_fast     : Updates $GIT_PROMPT if any relevant changes occurred
+# Optional Environment Variables:
+#   GIT_PS1_SHOWDIRTYSTATE   : true/false to enable * and + indicators (default true)
+#   GIT_PS1_SHOWUNTRACKEDFILES : true/false to enable % indicator (default false)
+#   GIT_PS1_SHOWSTASHSTATE   : true/false to enable $ indicator (default true)
+#   GIT_PS1_SHOWUPSTREAM     : auto/false to enable upstream status (default auto)
+#
+# Function:
+#   __git_ps1_update_fast
+#       - Updates $GIT_PROMPT if relevant changes occurred.
+#       - Uses a single `git status --porcelain=2 --branch --untracked-files=no`
+#         call to retrieve branch name and working tree/index status.
+#       - Updates indicators for staged/unstaged changes, stashes, untracked files,
+#         and upstream divergence.
+#       - Caches previous values to avoid unnecessary prompt updates.
 #
 # Usage:
 #   1) Source this file in your .zshrc:
 #        source ~/dotfiles/bin/git-prompt-fast.zsh
-#   2) Include $GIT_PROMPT in your PS1 or in zle-line-init:
+#   2) Embed $GIT_PROMPT in your prompt:
 #        PS1="[%n@%m %c${GIT_PROMPT}]$ "
-#   3) Ensure you call __git_ps1_update_fast in precmd or chpwd hooks:
+#   3) Ensure updates before each prompt:
 #        precmd() { __git_ps1_update_fast }
+#   4) Optionally hook into chpwd to update prompt when changing directories:
 #        autoload -Uz add-zsh-hook
 #        add-zsh-hook chpwd __git_ps1_update_fast
 #
-# Known pitfalls addressed in this implementation:
-#   - Branch name sometimes displayed as "refs/heads/master": stripped to just "master".
-#   - Extra prompt lines due to calling a non-existent function (__git_ps1_update_sync) removed.
-#   - Non-async updates prevent race conditions where branch name may not display immediately.
-#   - Initial prompt rendering handled in zle-line-init for vi-mode compatibility.
-#   - Minimal Git commands to maintain zsh startup speed (~0.05-0.07s per interactive shell).
-#   - Avoids errors in directories that are not Git repositories.
-#
-# Async update notes:
-#   - Background update can be implemented with e.g., zsh-defer or jobs.
-#   - Async updates may improve perceived speed for very large repos.
-#   - However, branch/state may temporarily show outdated info until async job completes.
-#   - Requires careful prompt redrawing to prevent ghost characters or extra lines.
+# Notes:
+#   - Designed to be synchronous; async updates possible but may cause brief
+#     outdated info display.
+#   - Does not apply color codes; keep rendering simple and fast.
+#   - For very large repositories, consider async or deferred updates.
+#   - Avoids errors in non-Git directories.
 #
 # Limitations:
-#   - Does not show stashes ($) or untracked files (%) by default.
-#   - No upstream branch comparison (<, >, <>, =).
-#   - Color hints are intentionally omitted for simplicity.
-#   - Designed for synchronous updates; async mode is possible but may lead to inconsistent display.
-#
-# -------------------------------
+#   - Upstream comparison works only if an upstream branch exists.
+#   - Untracked file indicator is disabled by default.
+#   - No special handling for merge/rebase states.
+# -----------------------------------------------------------------------------
 
 # User Preferences
-# GIT_PS1_SHOWDIRTYSTATE=true         # unstaged (*) and staged but no commit (+)
-# GIT_PS1_SHOWUNTRACKEDFILES=false    # new and untracked file (%)
-# GIT_PS1_SHOWSTASHSTATE=true         # stashed ($)
-# GIT_PS1_SHOWUPSTREAM=auto           # upstream (<, >, <>, =)
+# () is the default value
+# GIT_PS1_SHOWDIRTYSTATE=(true)|false       # unstaged (*) and staged but no commit (+)
+# GIT_PS1_SHOWUNTRACKEDFILES=true|(false)   # new and untracked file (%)
+# GIT_PS1_SHOWSTASHSTATE=(true)|false       # stashed ($)
+# GIT_PS1_SHOWUPSTREAM=(auto)|false         # upstream (<, >, <>, =)
 
 GIT_PROMPT=""
 __GIT_PS1_LAST_PWD=""
 __GIT_PS1_LAST_HEAD=""
 __GIT_PS1_LAST_STATE=""
+
+# Set default values if not already set
+: ${GIT_PS1_SHOWDIRTYSTATE:=true}      # unstaged (*) and staged (+)
+: ${GIT_PS1_SHOWUNTRACKEDFILES:=false} # untracked files (%)
+: ${GIT_PS1_SHOWSTASHSTATE:=true}      # stashed ($)
+: ${GIT_PS1_SHOWUPSTREAM:=auto}        # upstream (<, >, <>, =)
 
 __git_ps1_update_fast() {
     local head \
@@ -82,12 +97,13 @@ __git_ps1_update_fast() {
         stash_found=0 \
         upstream_mark=""
 
+    # Determine if git is managed or not
     git rev-parse --git-dir >/dev/null 2>&1 || {
         GIT_PROMPT="";
         return
     }
 
-    # Retrieved in git command 1 time
+    # Retrieved in git command only one time
     local lines
     lines=("${(@f)$(\
         git status --porcelain=2 \
@@ -173,16 +189,17 @@ __git_ps1_update_fast() {
     [[ -n ${upstream_mark} ]] && state+="${upstream_mark}"
 
     # Cache
-    if [[ "${PWD}" != "${__GIT_PS1_LAST_PWD}" \
-            || "${head}" != "${__GIT_PS1_LAST_HEAD}" \
-            || "${state}" != "${__GIT_PS1_LAST_STATE}" ]]; then
-        __GIT_PS1_LAST_PWD="${PWD}"
-        __GIT_PS1_LAST_HEAD="${head}"
-        __GIT_PS1_LAST_STATE="${state}"
-        gitstring="${head}${state}"
-        GIT_PROMPT="(${gitstring})"
+    local cached_pwd="${PWD%%/}"
+    local cached_head="${head%%[[:space:]]}"
+    local cached_state="${state%%[[:space:]]}"
+
+    if [[ "${cached_pwd}" != "${__GIT_PS1_LAST_PWD}" || \
+                "${cached_head}" != "${__GIT_PS1_LAST_HEAD}" || \
+                "${cached_state}" != "${__GIT_PS1_LAST_STATE}" ]]; then
+        __GIT_PS1_LAST_PWD="${cached_pwd}"
+        __GIT_PS1_LAST_HEAD="${cached_head}"
+        __GIT_PS1_LAST_STATE="${cached_state}"
+        GIT_PROMPT="(${cached_head}${cached_state})"
     fi
 }
-
-precmd() { __git_ps1_update_fast }
 
