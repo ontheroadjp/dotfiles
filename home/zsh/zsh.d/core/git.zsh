@@ -81,7 +81,7 @@ function _go_to_repository_root() {
         echo "not git repo."
     fi
 }
-alias G="_go_to_repository_root"
+alias g="_go_to_repository_root"
 
 #-------------------------------------------------
 # Go to the github.com

@@ -9,24 +9,20 @@ let g:unite_enable_ignore_case = 1
 let g:unite_enable_smart_case = 1
 
 " twice "ESC" to close
-au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
-au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
+" au FileType unite nnoremap <silent> <buffer> <ESC><ESC> q<CR>
+" au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>q<CR>
 
 " twice "j" to close
-au FileType unite nnoremap <silent> <buffer> jj :q<CR>
-au FileType unite inoremap <silent> <buffer> jj <ESC>:q<CR>
+au FileType unite nnoremap <silent> <buffer> jj <ESC>q
+au FileType unite inoremap <silent> <buffer> jj <ESC>q
 
 " "jk" to close
-au FileType unite nnoremap <silent> <buffer> jk :q<CR>
-au FileType unite inoremap <silent> <buffer> jk <ESC>:q<CR>
-
-" "kj" to close
-au FileType unite nnoremap <silent> <buffer> kj :q<CR>
-au FileType unite inoremap <silent> <buffer> kj <ESC>:q<CR>
+" au FileType unite nnoremap <silent> <buffer> jk :q<CR>
+" au FileType unite inoremap <silent> <buffer> jk <ESC>:q<CR>
 
 " twice "," to close
-au FileType unite nnoremap <silent> <buffer> ,, :q<CR>
-au FileType unite inoremap <silent> <buffer> ,, <ESC>
+au FileType unite nnoremap <silent> <buffer> ,, <ESC>q
+au FileType unite inoremap <silent> <buffer> ,, <ESC>q
 
 " ----------------------------
 " Extra

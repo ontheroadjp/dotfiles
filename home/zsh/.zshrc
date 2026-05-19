@@ -1,3 +1,5 @@
+export DISABLE_AUTOUPDATER=1
+
 #-------------------------------------------------
 # Variables
 #-------------------------------------------------
@@ -21,7 +23,7 @@ autoload -Uz colors && colors
 alias c='clear'
 alias e='exit'
 alias h='cd ${HOME}'
-alias dot='cd ${DOTPATH}'
+alias d='cd ${DOTPATH}'
 alias w='cd ${WORKSPACE}'
 
 function _restart_shell() {
@@ -51,11 +53,16 @@ zsh-defer zsource ${ZSH_HOME}/zsh.d/core/tmux.zsh
 zsh-defer zsource ${ZSH_HOME}/zsh.d/core/cdla.zsh
 zsh-defer zsource ${ZSH_HOME}/zsh.d/core/ripgrap.zsh
 zsh-defer zsource ${ZSH_HOME}/zsh.d/core/fzf.zsh
+zsh-defer zsource ${ZSH_HOME}/zsh.d/core/vps.zsh
 
 zsh-defer zsource ${ZSH_HOME}/zsh.d/core/git.zsh
 zsh-defer zsource ${ZSH_HOME}/zsh.d/core/docker.zsh
 zsh-defer zsource ${ZSH_HOME}/zsh.d/core/peco.zsh
+zsh-defer zsource ${ZSH_HOME}/zsh.d/core/ai.zsh
+zsh-defer zsource ${ZSH_HOME}/zsh.d/core/dev.zsh
 zsh-defer zsource ${ZSH_HOME}/zsh.d/core/gemini.zsh
+zsh-defer zsource ${ZSH_HOME}/zsh.d/core/codex.zsh
+zsh-defer zsource ${ZSH_HOME}/zsh.d/core/claude_code.zsh
 
 #-------------------------------------------------
 # Load Dev
@@ -100,4 +107,28 @@ echo "Load .zshrc."
 if (which zprof > /dev/null 2>&1) ;then
   zprof | less
 fi
+
+
+# Health Check
+URLS=(
+    "https://tmux.starton.jp"
+    "https://cert.starton.jp"
+    "https://slack.starton.jp"
+    "https://nextstep.starton.jp"
+    "https://api.starton.jp/schools/health"
+    "https://edu.starton.jp/past_exam_reports/"
+    "https://edu.starton.jp/kouku/"
+    "https://dev1.starton.jp"
+    "https://dev2.starton.jp"
+    "https://dev3.starton.jp"
+    "https://nutsllc.jp"
+)
+
+for url in "${URLS[@]}"; do
+    if curl -fsS -o /dev/null -w '%{http_code}\n' "$url" > /dev/null 2>&1; then
+        echo "👍 $url"
+    else
+        echo "⚠️ $url"
+    fi
+done
 

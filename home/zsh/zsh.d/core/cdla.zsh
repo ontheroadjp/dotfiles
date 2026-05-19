@@ -16,11 +16,14 @@ function _print_la() {
         ls -lah --color=auto "$@"
     }
 
-    [ ${SHOW_FULL_PATH_AT_LA} -ne 0 ] && echo "\e[34m@$(pwd)\e[0m"
+# [ ${SHOW_FULL_PATH_AT_LA} -ne 0 ] && echo "\e[34m@ $(pwd | sed -e 's:\/Users\/.*/\?:\$\{HOME\}\/:g')\e[0m"
+[ ${SHOW_FULL_PATH_AT_LA} -ne 0 ] && echo "\e[34m $(pwd | sed -e "s:^\(${HOME}/\)\(.*\):\$HOME 👉 \2/ :")\e[0m"
 }
 alias la='_print_la'
 alias nopwd='SHOW_FULL_PATH_AT_LA=0'
 alias yespwd='SHOW_FULL_PATH_AT_LA=1'
+
+compdef la=ls
 
 # [ $(uname) = 'Darwin' ] && {
 #     alias la='ls -laGh'

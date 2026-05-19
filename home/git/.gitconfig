@@ -15,6 +15,7 @@
 	df = diff
     graph = log --graph --date-order --all --pretty=format:'%h %Cred%d %Cgreen%ad %Cblue%cn %Creset%s' --date=short
     ls = !"f(){ git ls-files | sed -e '/^[^\\/]*$/d' -e 's/\\/[^\\/]*$//g' | sort | uniq | fzf; }; f"
+	sweep = "!git branch --merged main | grep -v 'main' | xargs git branch -d 2>/dev/null; git branch -r --merged origin/main | grep -v 'origin/main' | grep -v 'origin/HEAD' | sed 's/origin\\///' | xargs -I {} git push origin --delete {}; git remote prune origin"
 [user]
 	name = ontheroadjp
 	email = dev@ontheroad.jp
@@ -22,5 +23,14 @@
     ui = true
 [ghq]
     root = ~/dev/src
+    https = false
 [url "https://5ca4a03069d18ecbc8b40926fcbf67eb85a3b8c3:x-oauth-basic@github.com/"]
 	insteadOf = https://github.com/
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/local/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/local/bin/gh auth git-credential
+[url "git@github.com:"]
+	instedOf = https://github.com/

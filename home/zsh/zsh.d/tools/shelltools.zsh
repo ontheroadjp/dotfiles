@@ -20,10 +20,13 @@ export SHELLTOOLS_ROOT=$(ghq root)/github.com/ontheroadjp/Shell-Tools
 zsh-defer source ${SHELLTOOLS_ROOT}/load_shell_tools.sh
 
 # deepl clipboard translator
-alias en="python ${REPO_BASE}/deepl-clipboard-translater/deepl-clipboard-translater.py -o en | pbcopy"
-alias ja="python ${REPO_BASE}/deepl-clipboard-translater/deepl-clipboard-translater.py -o ja | pbcopy"
-alias zh="python ${REPO_BASE}/deepl-clipboard-translater/deepl-clipboard-translater.py -o zh | pbcopy"
-alias ko="python ${REPO_BASE}/deepl-clipboard-translater/deepl-clipboard-translater.py -o ko | pbcopy"
+alias en="python ${REPO_BASE}/deepl-translater/deepl-translater.py -o en"
+alias ja="python ${REPO_BASE}/deepl-translater/deepl-translater.py -o ja"
+alias zh="python ${REPO_BASE}/deepl-translater/deepl-translater.py -o zh"
+alias ko="python ${REPO_BASE}/deepl-translater/deepl-translater.py -o ko"
+
+# create git commit message
+alias msg="python ${REPO_BASE}/create-commit-message/create_commit_message.py -s"
 
 #-------------------------------------------------
 # Utilities

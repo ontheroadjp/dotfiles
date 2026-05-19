@@ -1,3 +1,5 @@
+nnoremap <leader>p "dp
+
  " ================================================== Disable default plugins
  " Disable TOhtml.
 "let g:loaded_2html_plugin       = 1
@@ -153,7 +155,7 @@ set winheight=25
 " noremap <C-S-j-from-iterm2> <C-w>j
 
 " window move toggle
-nnoremap <C-u> <C-w><C-p>
+nnoremap <C-u> <C-w><C-w>
 
 " close other windows
 nnoremap <C-w><C-w> <C-w>o
@@ -321,18 +323,18 @@ autocmd BufNewFile,BufRead *.{consideration,todo,bug,enhancement,spec,docs,test}
 
 augroup shell
     autocmd!
-    autocmd BufNewFile *.{sh,bash,fnc} 0r $HOME/dotfiles/.vim/templates/sh.tpl
-    autocmd BufNewFile *.{bats} 0r $HOME/dotfiles/.vim/templates/bats.tpl
+    autocmd BufNewFile *.{sh,bash,fnc} 0r $VIM_HOME/.vim/templates/sh.tpl
+    autocmd BufNewFile *.{bats} 0r $VIM_HOME/.vim/home/vim/templates/bats.tpl
 augroup END
 augroup gh_issue
     autocmd!
-    autocmd BufNewFile *.{consideration} 0r $HOME/dotfiles/.vim/templates/github/issue_consideration.tpl
-    autocmd BufNewFile *.{todo} 0r $HOME/dotfiles/.vim/templates/github/issue_todo.tpl
-    autocmd BufNewFile *.{enhancement} 0r $HOME/dotfiles/.vim/templates/github/issue_enhancement.tpl
-    autocmd BufNewFile *.{spec} 0r $HOME/dotfiles/.vim/templates/github/issue_spec.tpl
-    autocmd BufNewFile *.{bug} 0r $HOME/dotfiles/.vim/templates/github/issue_bug.tpl
-    autocmd BufNewFile *.{docs} 0r $HOME/dotfiles/.vim/templates/github/issue_docs.tpl
-    autocmd BufNewFile *.{test} 0r $HOME/dotfiles/.vim/templates/github/issue_test.tpl
+    autocmd BufNewFile *.{consideration} 0r $VIM_HOME/.vim/templates/github/issue_consideration.tpl
+    autocmd BufNewFile *.{todo} 0r $VIM_HOME/.vim/templates/github/issue_todo.tpl
+    autocmd BufNewFile *.{enhancement} 0r $VIM_HOME/.vim/templates/github/issue_enhancement.tpl
+    autocmd BufNewFile *.{spec} 0r $VIM_HOME/.vim/templates/github/issue_spec.tpl
+    autocmd BufNewFile *.{bug} 0r $VIM_HOME/.vim/templates/github/issue_bug.tpl
+    autocmd BufNewFile *.{docs} 0r $VIM_HOME/.vim/templates/github/issue_docs.tpl
+    autocmd BufNewFile *.{test} 0r $VIM_HOME/.vim/templates/github/issue_test.tpl
 augroup END
 augroup PHP
     autocmd!
@@ -350,14 +352,14 @@ augroup PHP
 augroup END
 augroup Javascript
     autocmd!
-    autocmd BufNewFile *.vue 0r $HOME/dotfiles/.vim/templates/vue.tpl
+    autocmd BufNewFile *.vue 0r $VIM_HOME/.vim/templates/vue.tpl
     " load ESLint
     au Filetype javascript cnoremap eslint !clear && node_modules/eslint/bin/eslint.js %<CR>
     au BufNewFile,BufRead *.vue tabstop=0 softtabstop=0 shiftwidth=0
 augroup END
 augroup Python
     autocmd!
-    autocmd BufNewFile *.{py} 0r $HOME/dotfiles/.vim/templates/python.tpl
+    autocmd BufNewFile *.{py} 0r $VIM_HOME/.vim/templates/python.tpl
     " linter
     autocmd BufNewFile,BufRead *.{py}
         \ noremap <leader>li :call Run('ruff check')<CR>

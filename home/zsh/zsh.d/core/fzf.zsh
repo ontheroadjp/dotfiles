@@ -1,4 +1,3 @@
-# -------------------------------------------------
 # Settings
 # -------------------------------------------------
 export FZF_TMUX=1
@@ -8,6 +7,7 @@ export FZF_DEFAULT_OPTS="
     --color='bg+:#242C43,bg:#29324D,spinner:#81A1C1,hl:#616E88' \
     --color='fg:#D8DEE9,header:#616E88,info:#81A1C1,pointer:#81A1C1' \
     --color='marker:#81A1C1,fg+:#A9D889,prompt:#81A1C1,hl+:#81A1C1' \
+    --bind ctrl-l:abort \
 "
 
 # -------------------------------------------------
@@ -133,6 +133,16 @@ function _fzf_powered_shell() {
                     --exclude gems \
                     --hidden
                 ;;
+            dd)
+                fd  --type d \
+                    --exclude .git \
+                    --exclude node_modules \
+                    --exclude venv \
+                    --exclude __pycache__ \
+                    --exclude gems \
+                    --hidden \
+                    . "${DOTPATH}"
+                ;;
             ww)
                 find "${WORKSPACE}" -type d -maxdepth 1 \
                     | grep -v '^.$' \
@@ -175,10 +185,12 @@ function _fzf_powered_shell() {
 
 # directory navigation
 alias sub='_fzf_powered_shell sub cd'
+alias dd='_fzf_powered_shell dd cd'
 alias ww='_fzf_powered_shell ww cd'
 alias rr='_fzf_powered_shell rr cd'
 
 alias subp='_fzf_powered_shell sub echo'
+alias ddp='_fzf_powered_shell dd echo'
 alias wwp='_fzf_powered_shell ww echo'
 alias rrp='_fzf_powered_shell rr echo'
 

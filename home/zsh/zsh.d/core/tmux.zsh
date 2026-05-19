@@ -38,7 +38,7 @@ if [[ -n "$TMUX" ]]; then
       if [[ -n "$TMUX" ]]; then
         local pane_id=$(tmux display -p '#{pane_id}')
         # if [[ "$*" == *nobita* ]]; then
-          tmux select-pane -P 'fg=white,bg=black'
+          tmux select-pane -P 'bg=colour060,fg=default'
         # fi
         command ssh "$@"
         tmux select-pane -t $pane_id -P 'fg=default,bg=default'
@@ -47,4 +47,16 @@ if [[ -n "$TMUX" ]]; then
       fi
     }
 fi
+
+#-------------------------------------------------
+# auto change pane name
+#-------------------------------------------------
+function _set_tmux_pane_title() {
+  if [[ -n "$TMUX" ]]; then
+    tmux select-pane -T "${1%% *}"
+  fi
+}
+
+autoload -Uz add-zsh-hook
+add-zsh-hook preexec _set_tmux_pane_title
 

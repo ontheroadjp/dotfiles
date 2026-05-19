@@ -1,17 +1,30 @@
 {
   "general": {
     "preferredEditor": "vim",
-    "vimMode": true,
+    "vimMode": false,
     "checkpointing": {
       "enabled": true
-    }
+    },
+    "previewFeatures": true
   },
   "ui": {
-    "theme": "GitHub"
+    "theme": "GitHub",
+    "showMemoryUsage": true,
+    "hideBanner": true
   },
   "security": {
-      "auth": {
-          "selectedType": "oauth-personal"
-      }
+    "auth": {
+      "selectedType": "oauth-personal"
+    }
+  },
+  "output": {
+    "format": "json"
+  },
+  "tools": {
+    "shell": {
+      "showColor": true
+    },
+    "autoAccept": true,
+    "useRipgrep": true
   }
 }

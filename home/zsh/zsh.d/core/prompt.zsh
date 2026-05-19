@@ -84,10 +84,3 @@ function zle-keymap-select {
 # Fires when switching INSERT mode ↔ NORMAL (vi command) mode
 zle -N zle-keymap-select
 
-# precmd() {
-    # if [ ${PROMPT_STYLE} -ne 0 ]; then; __git_ps1_update_fast; fi
-# }
-# preexec() {
-#   :
-# }
-

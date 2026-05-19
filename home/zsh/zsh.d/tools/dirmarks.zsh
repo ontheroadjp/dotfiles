@@ -54,7 +54,7 @@ function _dirmarks() {
             local to=${DIRMARKS_STATE_DIR}/${2}${2}
             [ -f ${to} ] && {
                 cd $(cat ${to})
-                echo "jump: ${to}"
+                # echo "jump: ${to}"
             } || echo "not set."
             return 0
             ;;

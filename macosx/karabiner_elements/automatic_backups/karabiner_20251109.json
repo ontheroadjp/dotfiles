@@ -18,13 +18,12 @@
                 },
                 "rules": [
                     {
-                        "description": "Terminal & iTerm2 & alacritty: 日本語入力の kj で IME 切り替える & kj",
+                        "description": "iTerm2 & alacritty: 日本語入力の kj で IME 切り替える & kj",
                         "manipulators": [
                             {
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^com\\.apple\\.Terminal",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.alacritty"
                                         ],
@@ -121,13 +120,12 @@
                         ]
                     },
                     {
-                        "description": "Terminal & iTerm2 & alacritty: (⌘ + o) でペイン移動 & FEP 英語へ",
+                        "description": "iTerm2 & alacritty: (⌘ + o) でペイン移動 & FEP 英語へ",
                         "manipulators": [
                             {
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^com\\.apple\\.Terminal",
                                             "^com\\.googlecode\\.iterm2",
                                             "^org\\.alacritty"
                                         ],
@@ -166,13 +164,12 @@
                         ]
                     },
                     {
-                        "description": "Terminal & iTerm2 & alacritty: (⌘ + k) でコピーモードトグル & FEP 英語へ",
+                        "description": "iTerm2 & alacritty: (⌘ + k) でコピーモードトグル & FEP 英語へ",
                         "manipulators": [
                             {
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^com\\.apple\\.Terminal",
                                             "^com\\.googlecode\\.iterm2",
                                             "^org\\.alacritty"
                                         ],
@@ -211,13 +208,12 @@
                         ]
                     },
                     {
-                        "description": "Terminal & iTerm2 & alacritty: (⌘ + b) tmux prefix を押したときに FEP 英語へ",
+                        "description": "iTerm2 & alacritty: (⌘ + b) tmux prefix を押したときに FEP 英語へ",
                         "manipulators": [
                             {
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^com\\.apple\\.Terminal",
                                             "^com\\.googlecode\\.iterm2",
                                             "^org\\.alacritty"
                                         ],
@@ -256,7 +252,7 @@
                         ]
                     },
                     {
-                        "description": "Terminal & iTerm2 & alacritty: 日本語の「っj」で英語へ切り替えてインサートモード抜ける",
+                        "description": "iTerm2 & alacritty: 日本語の「っj」で英語へ切り替えてインサートモード抜ける",
                         "manipulators": [
                             {
                                 "conditions": [
@@ -311,13 +307,12 @@
                         ]
                     },
                     {
-                        "description": "Terminal & iterm2 & alacritty: Command to Ctrl",
+                        "description": "iterm2 & alacritty: Command to Ctrl",
                         "manipulators": [
                             {
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^com\\.apple\\.Terminal",
                                             "^com\\.googlecode\\.iterm2",
                                             "^org\\.alacritty"
                                         ],
@@ -342,13 +337,12 @@
                         ]
                     },
                     {
-                        "description": "Terminal & iTerm2 & alacritty: Toggle FEP (en/ja)",
+                        "description": "iTerm2 & alacritty: Toggle FEP (en/ja)",
                         "manipulators": [
                             {
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^com\\.apple\\.Terminal",
                                             "^com\\.googlecode\\.iterm2",
                                             "^org\\.alacritty"
                                         ],
@@ -376,13 +370,12 @@
                         ]
                     },
                     {
-                        "description": "Terminal & iTerm2 & alacritty: Alfred Window",
+                        "description": "iTerm2 & alacritty: Alfred Window",
                         "manipulators": [
                             {
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^com\\.apple\\.Terminal",
                                             "^com\\.googlecode\\.iterm2",
                                             "^org\\.alacritty"
                                         ],
@@ -412,13 +405,12 @@
                         ]
                     },
                     {
-                        "description": "Terminal & iTerm2 & alacritty: Alfred Clipboard History",
+                        "description": "iTerm2 & alacritty: Alfred Clipboard History",
                         "manipulators": [
                             {
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^com\\.apple\\.Terminal",
                                             "^com\\.googlecode\\.iterm2",
                                             "^org\\.alacritty"
                                         ],
@@ -448,13 +440,12 @@
                         ]
                     },
                     {
-                        "description": "Terminal & iTerm2 & alacritty: Typinator search (⌘ + shift + u)",
+                        "description": "iTerm2 & alacritty: Typinator search (⌘ + shift + u)",
                         "manipulators": [
                             {
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^com\\.apple\\.Terminal",
                                             "^com\\.googlecode\\.iterm2",
                                             "^org\\.alacritty"
                                         ],
@@ -484,13 +475,12 @@
                         ]
                     },
                     {
-                        "description": "Terminal & iTerm2 & alacritty: Change App (⌘ + Tab)",
+                        "description": "iTerm2 & alacritty: Change App (⌘ + Tab)",
                         "manipulators": [
                             {
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^com\\.apple\\.Terminal",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.alacritty"
                                         ],
@@ -518,13 +508,12 @@
                         ]
                     },
                     {
-                        "description": "Terminal & iTerm2 & alacritty: Copy (⌘ + shift + c)",
+                        "description": "iTerm2 & alacritty: Copy (⌘ + shift + c)",
                         "manipulators": [
                             {
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^com\\.apple\\.Terminal",
                                             "^com\\.googlecode\\.iterm2",
                                             "^org\\.alacritty"
                                         ],
@@ -535,8 +524,7 @@
                                     "key_code": "c",
                                     "modifiers": {
                                         "mandatory": [
-                                            "left_control",
-                                            "shift"
+                                            "left_control"
                                         ]
                                     }
                                 },
@@ -544,7 +532,8 @@
                                     {
                                         "key_code": "c",
                                         "modifiers": [
-                                            "left_command"
+                                            "left_command",
+                                            "shift"
                                         ]
                                     }
                                 ],
@@ -553,13 +542,12 @@
                         ]
                     },
                     {
-                        "description": "Terminal & iTerm2 & alacritty: Paste (⌘ + shift + v)",
+                        "description": "iTerm2 & alacritty: Paste (⌘ + shift + v)",
                         "manipulators": [
                             {
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^com\\.apple\\.Terminal",
                                             "^com\\.googlecode\\.iterm2",
                                             "^org\\.alacritty"
                                         ],
@@ -588,13 +576,12 @@
                         ]
                     },
                     {
-                        "description": "Terminal & iTerm2 & alacritty: Quit (⌘ + q)",
+                        "description": "iTerm2 & alacritty: Quit (⌘ + q)",
                         "manipulators": [
                             {
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^com\\.apple\\.Terminal",
                                             "^com\\.googlecode\\.iterm2",
                                             "^org\\.alacritty"
                                         ],
@@ -622,15 +609,47 @@
                         ]
                     },
                     {
-                        "description": "Terminal & iTerm2 & alacritty: ChatGPT (⌘ + shift + g)",
+                        "description": "iTerm2: Typinator window",
                         "manipulators": [
                             {
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^com\\.apple\\.Terminal",
-                                            "^com\\.googlecode\\.iterm2",
-                                            "^org\\.alacritty"
+                                            "^com\\.googlecode\\.iterm2"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "u",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control",
+                                            "shift"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "u",
+                                        "modifiers": [
+                                            "left_command",
+                                            "shift"
+                                        ]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "iTerm2: ChatGPT (⌘ + Shift + g)",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.googlecode\\.iterm2"
                                         ],
                                         "type": "frontmost_application_if"
                                     }

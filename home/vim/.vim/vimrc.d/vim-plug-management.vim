@@ -9,22 +9,40 @@
 " mode1: asyncomplete + vim-vsnip
 let plugin_env = { 'mode': 0 }
 
+" ----------------------------------------------------
 " check the specified plugin is installed
-function! IsPlugged(name) abort
-    if exists('g:plugs')
-            \ && has_key(g:plugs, a:name)
-            \ && isdirectory(g:plugs[a:name].dir)
-        return 1
-    endif
-    return 0
-endfunction
+" ----------------------------------------------------
+" function! IsPlugged(name) abort
+"     if exists('g:plugs')
+"             \ && has_key(g:plugs, a:name)
+"             \ && isdirectory(g:plugs[a:name].dir)
+"         return 1
+"     endif
+"     return 0
+" endfunction
 
+" ----------------------------------------------------
+" Register plugins
+" ----------------------------------------------------
 call plug#begin()
-" Core
-Plug 'Shougo/unite.vim', { 'on': [] }
-Plug 'Shougo/neomru.vim', { 'on': [] }
-Plug 'Shougo/vimproc.vim', {'do' : 'make', 'on': [] }
+" unite
+" Plug 'Shougo/unite.vim', { 'on': [] }
+" Plug 'Shougo/neomru.vim', { 'on': [] }
+" Plug 'Shougo/vimproc.vim', {'do' : 'make', 'on': [] }
+
+" fzf
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim', { 'on': [] }
+Plug 'lambdalisue/mr.vim', { 'on': [] }
+
+" Filer
 Plug 'preservim/nerdtree', { 'on': ['NERDTreeToggle'] }
+
+" LSP
+" Plug 'prabirshrestha/vim-lsp'	                        " LSP
+" Plug 'mattn/vim-lsp-settings'	                        " LSP
+" Plug 'prabirshrestha/asyncomplete-lsp.vim'	        " LSP/Completion
+" Plug 'vim-scripts/AutoComplPop', { 'on': [] }	        " Completion
 
 " Snippet
 Plug 'honza/vim-snippets', { 'on': [] }
@@ -32,12 +50,14 @@ Plug 'mattn/emmet-vim', {'for': ['html', 'javascript', 'vue', 'ejs']}
 
 " Editing
 Plug 'airblade/vim-gitgutter', { 'on': [] }
-Plug 'tpope/vim-surround', { 'on': [] }
 Plug 'Yggdroot/indentLine', { 'on': [] }
+Plug 'tpope/vim-surround', { 'on': [] }
+Plug 'ontheroadjp/vim-editing', { 'on': [] }
 Plug 'ontheroadjp/vim-commentout', { 'on': [] }
 Plug 'ontheroadjp/vim-brackets', { 'on': [] }
 Plug 'ontheroadjp/vim-deepl-translate', { 'on': [] }
-" Plug 'ontheroadjp/vim-commentout', { 'dir': '~/dev/src/github.com/ontheroadjp/vim-commentout' }
+" Plug 'ontheroadjp/vim-editing', { 'dir': '~/dev/src/github.com/ontheroadjp/vim-editing', 'on': [] }
+" Plug 'ontheroadjp/vim-commentout', { 'dir': '~/dev/src/github.com/ontheroadjp/vim-commentout', 'on': [] }
 " Plug 'ontheroadjp/vim-brackets', { 'dir': '~/dev/src/github.com/ontheroadjp/vim-brackets' }
 " Plug 'ontheroadjp/vim-deepl-translate', { 'dir': '~/dev/src/github.com/ontheroadjp/vim-deepl-translate' }
 
@@ -59,22 +79,13 @@ elseif plugin_env.mode == 1
     Plug 'hrsh7th/vim-vsnip-integ', { 'on': [] }
 endif
 
-" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }	" Filter
-" Plug 'junegunn/fzf.vim'	                            " Filter
-" Plug '/usr/local/opt/fzf'	                            " Filter
-" Plug 'lambdalisue/mr.vim'	                            " Filter
-" Plug 'prabirshrestha/vim-lsp'	                        " LSP
-" Plug 'mattn/vim-lsp-settings'	                        " LSP
-" Plug 'prabirshrestha/asyncomplete-lsp.vim'	        " LSP/Completion
-" Plug 'vim-scripts/AutoComplPop', { 'on': [] }	        " Completion
-
 call plug#end()
 
 " ----------------------------------------------------
 "  Load settings
 " ----------------------------------------------------
 function! plugin_env.lazy_load_plugs_settings(timer) abort
-    so ${VIM_HOME}/.vim/vimrc.d/plugins/unite.vim
+    " so ${VIM_HOME}/.vim/vimrc.d/plugins/unite.vim
     so ${VIM_HOME}/.vim/vimrc.d/plugins/nerdtree.vim
     so ${VIM_HOME}/.vim/vimrc.d/plugins/vim-gitgutter.vim
     so ${VIM_HOME}/.vim/vimrc.d/plugins/vim-emmet.vim
@@ -91,7 +102,7 @@ function! plugin_env.lazy_load_plugs_settings(timer) abort
         so ${VIM_HOME}/.vim/vimrc.d/plugins/vim-vsnip.vim
     endif
     " filer
-    " so $VIM_HOME/.vim/vimrc.d/plugins/fzf.vim
+    so $VIM_HOME/.vim/vimrc.d/plugins/fzf.vim
     " so $VIM_HOME/.vim/vimrc.d/plugins/tagbar.vim
     " so $VIM_HOME/.vim/vimrc.d/plugins/taglist.vim
     " so $VIM_HOME/.vim/vimrc.d/plugins/srcexplorer.vim
@@ -123,21 +134,21 @@ function! plugin_env.lazy_load_plugs_settings(timer) abort
             \ so $VIM_HOME/.vim/vimrc.d/plugins/pdv-phpdocumentor-for-vim.vim
     augroup END
 endfunction
-call timer_start(10, plugin_env.lazy_load_plugs_settings)
+call timer_start(100, plugin_env.lazy_load_plugs_settings)
 
 " ----------------------------------------------------
 "  Plugins Load
 " ----------------------------------------------------
 function! plugin_env.lazy_load_plugs(timer) abort
     call plug#load(
-        \ 'unite.vim',
-        \ 'neomru.vim',
-        \ 'vimproc.vim',
+        \ 'fzf.vim',
+        \ 'mr.vim',
         \ 'nerdtree',
-        \ 'vim-gitgutter',
         \ 'vim-snippets',
-        \ 'vim-surround',
+        \ 'vim-gitgutter',
         \ 'indentLine',
+        \ 'vim-surround',
+        \ 'vim-editing',
         \ 'vim-commentout',
         \ 'vim-brackets',
         \ 'vim-deepl-translate',
@@ -161,5 +172,5 @@ function! plugin_env.lazy_load_plugs(timer) abort
             \ )
     endif
 endfunction
-call timer_start(20, plugin_env.lazy_load_plugs)
+call timer_start(200, plugin_env.lazy_load_plugs)
 
