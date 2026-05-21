@@ -65,11 +65,12 @@ function _main() {
         "https://dev2.starton.jp"
         "https://dev3.starton.jp"
         "https://nutsllc.jp"
+        "https://ontheroadjp.github.io/dammy/"
     )
 
     for url in "${URLS[@]}"; do
         # -I でヘッダーのみ取得の方がヘルスチェックには高速
-        if curl -fsS -o /dev/null -w '%{http_code}\n' "$url" > /dev/null 2>&1; then
+        if curl -fsSIL --max-time 5 -o /dev/null -w '%{http_code}\n' "$url" > /dev/null 2>&1; then
             echo "👍 $url"
         else
             echo "⚠️ $url"
@@ -120,8 +121,8 @@ function _init() {
                 ;;
             -*)
                 # フラグ判定のロジックを整理
-                [[ "$1" =~ "z" ] ] && IS_FLAG_Z=true
-                [[ "$1" =~ "b" ] ] && IS_FLAG_P=true
+                [[ "$1" =~ "z" ]] && IS_FLAG_Z=true
+                [[ "$1" =~ "b" ]] && IS_FLAG_P=true
                 shift
                 ;;
             *)
@@ -155,3 +156,4 @@ _log "${SEPARATER}"
 _main
 
 exit 0
+

@@ -27,16 +27,16 @@ eval "$(gh completion -s $(echo ${SHELL} | cut -d '/' -f 3))"
 #-------------------------------------------------
 # alias & functions
 #-------------------------------------------------
-alias gg='git graph'
-alias ggstat='git graph --stat'
 alias gl='git log'
-alias gl1='git log --oneline --graph'
+alias gg='git log --oneline --graph'
+alias ggg='git log --oneline --graph --stat'
 alias gs='git status'
 alias gd='git diff'
+alias gds='git diff --staged'
 alias gc='git checkout'
-alias gmaster='git checkout master'
-alias gdev='git checkout dev'
+alias gcb='git checkout -b works'
 alias gb='git branch'
+alias gba='git branch -a'
 function _git_commit_as_wip() { git add -A && git commit -m "[WIP] ${1}" }
 alias gwip='_git_commit_as_wip $@'
 function _git_add_and_git_status() { git add "$@" && git status }
@@ -49,7 +49,7 @@ function _get_gitignore() {
     local url="https://raw.githubusercontent.com/github/gitignore/master/Global/macOS.gitignore"
     curl -L -o .gitignore ${url}
 }
-alias get_git_ignore='_get_gitignore'
+alias gitignore='_get_gitignore'
 
 #-------------------------------------------------
 # .githook

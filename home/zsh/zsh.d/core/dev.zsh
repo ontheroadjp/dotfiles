@@ -27,3 +27,7 @@ tunneltmux() {
     -R 10322:127.0.0.1:10322 nobita
 }
 
+lo() {
+    open http://localhost:${1:-8080}
+}
+

@@ -1,6 +1,19 @@
 export DISABLE_AUTOUPDATER=1
 
 #-------------------------------------------------
+# History
+#-------------------------------------------------
+HISTSIZE=1000000            # メモリ上に保存する履歴の件数
+SAVEHIST=1000000            # 履歴ファイル（HDD/SSD）に保存する履歴の件数
+HISTFILE=~/.zsh_history     # 履歴の保存先ファイル（デフォルトは ~/.zsh_history）
+
+# --- オプション設定（より便利にするために） ---
+setopt EXTENDED_HISTORY     # 履歴ファイルに実行時刻を記録する（fzfで見たときには出ませんが、データとして重要）
+setopt HIST_IGNORE_DUPS     # 同じコマンドを連続して実行した場合は履歴に残さない
+setopt SHARE_HISTORY        # 複数の端末間で履歴を共有する（別のウィンドウで打ったコマンドもすぐ履歴に出る）
+setopt APPEND_HISTORY       # 履歴ファイルに追記する（上書きを防ぐ）
+
+#-------------------------------------------------
 # Variables
 #-------------------------------------------------
 export TERM=xterm-256color
@@ -22,9 +35,13 @@ autoload -Uz colors && colors
 # alias init='exec $SHELL -l'
 alias c='clear'
 alias e='exit'
+alias t='tree -C'
+alias r='rg'
+alias sn='sed -n'
 alias h='cd ${HOME}'
 alias d='cd ${DOTPATH}'
 alias w='cd ${WORKSPACE}'
+
 
 function _restart_shell() {
     exec $SHELL -l -i
@@ -109,26 +126,4 @@ if (which zprof > /dev/null 2>&1) ;then
 fi
 
 
-# Health Check
-URLS=(
-    "https://tmux.starton.jp"
-    "https://cert.starton.jp"
-    "https://slack.starton.jp"
-    "https://nextstep.starton.jp"
-    "https://api.starton.jp/schools/health"
-    "https://edu.starton.jp/past_exam_reports/"
-    "https://edu.starton.jp/kouku/"
-    "https://dev1.starton.jp"
-    "https://dev2.starton.jp"
-    "https://dev3.starton.jp"
-    "https://nutsllc.jp"
-)
-
-for url in "${URLS[@]}"; do
-    if curl -fsS -o /dev/null -w '%{http_code}\n' "$url" > /dev/null 2>&1; then
-        echo "👍 $url"
-    else
-        echo "⚠️ $url"
-    fi
-done
 
