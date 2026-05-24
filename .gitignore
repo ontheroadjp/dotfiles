@@ -2,6 +2,10 @@
 .DS_Store
 .TrashBox.log
 
+#
+bin/*
+!bin/.gitkeep
+
 # Exclude Gemini CLI specific files
 home/.gemini/oauth_creds.json
 home/.gemini/tmp/
@@ -35,7 +39,10 @@ tools/deepl-translate-en/.env
 tools/deepl-translate-en/venv/
 bin/deepl-translate-en
 
+# Exclude credentials files (XDG config secrets)
+home/.config/shell-tools/**/credentials
+home/.config/**/.env
+
 # Exclude Vagrant
 home/vagrant/
 home/vagrant/.vagrant.d
-

@@ -25,7 +25,7 @@ function git_nutsllc() {
 eval "$(gh completion -s $(echo ${SHELL} | cut -d '/' -f 3))"
 
 #-------------------------------------------------
-# alias & functions
+# git alias & functions
 #-------------------------------------------------
 alias gl='git log'
 alias gg='git log --oneline --graph'
@@ -34,13 +34,21 @@ alias gs='git status'
 alias gd='git diff'
 alias gds='git diff --staged'
 alias gc='git checkout'
-alias gcb='git checkout -b works'
+alias gcm='git checkout -B main'
+alias gcb='git checkout -B works'
 alias gb='git branch'
 alias gba='git branch -a'
 function _git_commit_as_wip() { git add -A && git commit -m "[WIP] ${1}" }
 alias gwip='_git_commit_as_wip $@'
 function _git_add_and_git_status() { git add "$@" && git status }
 alias ga='_git_add_and_git_status'
+
+#-------------------------------------------------
+# github alias & functions
+#-------------------------------------------------
+alias ghil="gh issue list"
+alias ghpl="gh pr list"
+alias ghpm="gh pr merge --merge --delete-branch"
 
 #-------------------------------------------------
 # .gitignore
@@ -124,7 +132,7 @@ function _view_gist() {
     id=$(gh gist list | fzf | awk '{print $1}')
     gh gist view ${id}
 }
-alias gistv=_view_gist
+alias gist=_view_gist
 
 echo "Load Git settings."
 

@@ -31,7 +31,7 @@ _fzf_powered_shell_fd() {
 
     # Action Limit
     case "${action}" in
-        cd|echo|vim) ;;
+        cd|echo|vim|mkdir) ;;
         *)  echo "Error: invalid action: ${action}"
             return 1
             ;;
@@ -47,7 +47,9 @@ _fzf_powered_shell_fd() {
     esac
 
     # ext
-    [[ -n "${4:-}" ]] && ext=(-e "$4")
+    if [[ $action == "vim" ]]; then
+        [[ -n "${4:-}" ]] && ext=(-e "$4")
+    fi
 
     # Generate selection
     _fzf_source() {
@@ -79,8 +81,9 @@ _fzf_powered_shell_fd() {
     # Action Execution
     case "${action}" in
         cd)   cd "${target}" ;;
-        echo) echo "${target}";;
+        echo) echo "${target}" ;;
         vim)  vim "${target}" ;;
+        mkdir) mkdir -p "${target}/$4" && echo "mkdir: ${target}/$4";;
     esac
 }
 
@@ -96,12 +99,17 @@ ddv() { _fzf_powered_shell_fd file vim d "$@" }
 wwv() { _fzf_powered_shell_fd file vim w "$@" }
 rrv() { _fzf_powered_shell_fd file vim r "$@" }
 
-# display dir/file path
-getpath() { _fzf_powered_shell_fd file echo . }
-getpathd() { _fzf_powered_shell_fd file echo d }
-getpathw() { _fzf_powered_shell_fd file echo w }
-getpathr() { _fzf_powered_shell_fd file echo r }
+# mkdir
+mksub() { _fzf_powered_shell_fd dir mkdir . "$@" }
+mkd() { _fzf_powered_shell_fd dir mkdir d "$@" }
+mkw() { _fzf_powered_shell_fd dir mkdir w "$@" }
+mkr() { _fzf_powered_shell_fd dir mkdir r "$@" }
 
+# display dir/file path
+pathsub() { _fzf_powered_shell_fd file echo . }
+pathd() { _fzf_powered_shell_fd file echo d }
+pathw() { _fzf_powered_shell_fd file echo w }
+pathr() { _fzf_powered_shell_fd file echo r }
 
 _fzf_powered_shell_rg() {
     local dir

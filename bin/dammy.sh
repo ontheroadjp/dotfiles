@@ -1,1 +1,0 @@
-/Users/hideaki/dev/src/github.com/ontheroadjp/dammy/dammy.sh

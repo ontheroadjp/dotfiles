@@ -1,1 +1,0 @@
-/Users/hideaki/dev/src/github.com/ontheroadjp/create-commit-message/create_commit_message.py
