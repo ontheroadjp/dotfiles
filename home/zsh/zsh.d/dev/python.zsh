@@ -37,7 +37,7 @@ fi
 # ------------------------------------------
 function auto_venv() {
     local current_venv="$PWD/venv"
-    if [[ -n "$VIRTUAL_ENV" ]]; then
+    if [[ -n "${VIRTUAL_ENV-}" ]]; then
         if [[ ! -d "$current_venv" ]]; then
             deactivate 2>/dev/null
             echo "${fg[cyan]}🐍 Virtualenv deactivated${reset_color}"

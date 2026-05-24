@@ -62,7 +62,6 @@ alias init='_restart_shell'
 # Delayed load NG
 zsource ${ZSH_HOME}/zsh.d/core/tmux_logo.zsh
 zsource ${ZSH_HOME}/zsh.d/core/prompt.zsh
-# zsource ${ZSH_HOME}/zsh.d/core/prompt-async.zsh
 
 # Delayed load OK
 zsh-defer zsource ${ZSH_HOME}/zsh.d/core/zsh.zsh

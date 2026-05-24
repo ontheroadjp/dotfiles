@@ -37,7 +37,7 @@ function zle-line-init {
             ps1_insert="$ "
         ;;
         *) # (NORMAL)
-            if [[ -n ${VIRTUAL_ENV} ]]; then
+            if [[ -n ${VIRTUAL_ENV-} ]]; then
                 VIRTUAL_ENV_PROMPT=" (${${VIRTUAL_ENV:h:t}})"
             else
                 VIRTUAL_ENV_PROMPT=""
@@ -83,4 +83,3 @@ function zle-keymap-select {
 }
 # Fires when switching INSERT mode ↔ NORMAL (vi command) mode
 zle -N zle-keymap-select
-
