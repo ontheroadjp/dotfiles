@@ -1,7 +1,11 @@
 #-------------------------------------------------
 # Git
 #-------------------------------------------------
-source ${ZSH_HOME}/plugins/git-completion.zsh
+    fpath=(
+        ${ZSH_HOME}/plugins/git-completion.zsh
+        # $(brew --prefix)/share/zsh/site-functions
+        ${fpath}
+    )
 
 function _is_git_repo() {
     git log > /dev/null 2>&1

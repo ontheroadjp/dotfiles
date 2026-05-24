@@ -40,12 +40,16 @@ fi
 #-------------------------------------------------
 # complition - zcompdump
 #-------------------------------------------------
+# delete cache
+# rm -f ~/.zcompdump ~/.zcompdump.zwc
+
 autoload -Uz compinit
 ZCD=${ZSH_HOME:-$HOME}/.zcompdump
 
 _zcompinit_func() {
+
     if [[ ! -f ${ZCD}.zwc || ${ZCD} -nt ${ZCD}.zwc ]]; then
-        compinit -d ${ZCD}
+        compinit -C -d ${ZCD}
         zcompile ${ZCD}
     else
         compinit -C -d ${ZCD}
