@@ -2,12 +2,6 @@
 	excludesfile = ~/.gitignore_global
 	autoCRLF = false
 	hookspath = ~/dotfiles/home/git/github-tool-kit/hooks
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path =
-[mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
 [alias]
 	st = status
 	co = checkout
@@ -16,19 +10,12 @@
     graph = log --graph --date-order --all --pretty=format:'%h %Cred%d %Cgreen%ad %Cblue%cn %Creset%s' --date=short
     ls = !"f(){ git ls-files | sed -e '/^[^\\/]*$/d' -e 's/\\/[^\\/]*$//g' | sort | uniq | fzf; }; f"
 	sweep = "!git branch --merged main | grep -v 'main' | xargs git branch -d 2>/dev/null; git branch -r --merged origin/main | grep -v 'origin/main' | grep -v 'origin/HEAD' | sed 's/origin\\///' | xargs -I {} git push origin --delete {}; git remote prune origin"
-[user]
-	name = ontheroadjp
-	email = dev@ontheroad.jp
 [color]
     ui = true
 [ghq]
     root = ~/dev/src
     https = false
-[credential "https://github.com"]
-	helper = 
-	helper = !/usr/local/bin/gh auth git-credential
-[credential "https://gist.github.com"]
-	helper = 
-	helper = !/usr/local/bin/gh auth git-credential
 [url "git@github.com:"]
 	insteadof = https://github.com/
+[include]
+    path = ~/dotfiles/home/git/.gitconfig_included
