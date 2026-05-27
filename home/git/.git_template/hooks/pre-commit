@@ -1,3 +1,0 @@
-if command -v gpt_git_commit_msg.py >/dev/null 2>&1; then
-  gpt_git_commit_msg.py diff | pbcopy
-fi

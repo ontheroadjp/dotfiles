@@ -1,7 +1,7 @@
 [core]
 	excludesfile = ~/.gitignore_global
 	autoCRLF = false
-    hooksPath = ~/.git_template/hooks
+	hookspath = ~/dotfiles/home/git/github-tool-kit/hooks
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path =
@@ -24,8 +24,6 @@
 [ghq]
     root = ~/dev/src
     https = false
-[url "https://5ca4a03069d18ecbc8b40926fcbf67eb85a3b8c3:x-oauth-basic@github.com/"]
-	insteadOf = https://github.com/
 [credential "https://github.com"]
 	helper = 
 	helper = !/usr/local/bin/gh auth git-credential
@@ -33,4 +31,4 @@
 	helper = 
 	helper = !/usr/local/bin/gh auth git-credential
 [url "git@github.com:"]
-	instedOf = https://github.com/
+	insteadof = https://github.com/

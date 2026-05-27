@@ -1,7 +1,6 @@
 #-------------------------------------------------
 # tmux settings
 #-------------------------------------------------
-
 if command -v tmux >/dev/null 2>&1; then
     tmux() {
         # tmux automatically at terminal startup
@@ -49,14 +48,42 @@ if [[ -n "$TMUX" ]]; then
 fi
 
 #-------------------------------------------------
-# auto change pane name
+# set pane name automatically
 #-------------------------------------------------
-function _set_tmux_pane_title() {
-  if [[ -n "$TMUX" ]]; then
-    tmux select-pane -T "${1%% *}"
-  fi
+#function _set_tmux_pane_title_automatically() {
+# if [[ -n "$TMUX" ]]; then
+#   tmux select-pane -T "${1%% *}"
+# fi
+#}
+#
+#autoload -Uz add-zsh-hook
+#add-zsh-hook preexec _set_tmux_pane_title
+
+#-------------------------------------------------
+# set pane name manually
+#-------------------------------------------------
+function _set_tmux_pane_title_manually() {
+    tmux select-pane -T "$1"
 }
+spn() { _set_tmux_pane_title_manually "$@" }
 
-autoload -Uz add-zsh-hook
-add-zsh-hook preexec _set_tmux_pane_title
-
+#-------------------------------------------------
+# popup window
+#-------------------------------------------------
+#_toggle_tmux_popup_window() {
+# local current
+# current="$(tmux display-message -p '#{session_name}')"
+#
+# if [[ "$current" == "$1" ]]; then
+#   tmux detach-client
+# else
+#   tmux display-popup \
+#     -d "#{pane_current_path}" \
+#     -w 80% \
+#     -h 80% \
+#     -E "tmux new-session -A -s $1"
+# fi
+#}
+#
+#a() { _toggle_tmux_popup_window "popup" }
+#server() { _toggle_tmux_popup_window "server" }
