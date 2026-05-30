@@ -9,6 +9,7 @@ home/git/.gitconfig_included
 #
 bin/*
 !bin/.gitkeep
+!bin/health-check.sh
 
 # Exclude Gemini CLI specific files
 home/.gemini/oauth_creds.json
