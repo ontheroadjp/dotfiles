@@ -19,3 +19,6 @@
 	insteadof = https://github.com/
 [include]
     path = ~/dotfiles/home/git/.gitconfig_included
+[user]
+	name = ontheroadjp
+	email = dev@ontheroad.jp
