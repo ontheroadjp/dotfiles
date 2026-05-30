@@ -87,7 +87,7 @@ function _main() {
         result=$(dig MX "$domain" +short 2>/dev/null)
         if [[ -n "$result" ]]; then
             echo "👍 $domain"
-            echo "$result" | sed 's/^/   /'
+            echo "🔹$result" | sed 's/^/   /'
         else
             echo "⚠️  $domain (no MX record)"
         fi
@@ -96,12 +96,18 @@ function _main() {
     echo "${SEPARATER}"
     echo "HTTP Check"
     echo "${SEPARATER}"
+    local BLUE='\033[0;34m'
+    local YELLOW='\033[0;33m'
+    local RED='\033[0;31m'
+    local RESET='\033[0m'
     for url in "${URLS[@]}"; do
-        # -I でヘッダーのみ取得の方がヘルスチェックには高速
-        if curl -fsSIL --max-time 5 -o /dev/null -w '%{http_code}\n' "$url" > /dev/null 2>&1; then
-            echo "👍 $url"
+        status=$(curl -sSIL --max-time 5 -o /dev/null -w '%{http_code}' "$url" 2>/dev/null) || status="000"
+        if [[ "$status" == "000" ]]; then
+            echo -e "⚠️  $url (${RED}$status${RESET})"
+        elif [[ "$status" =~ ^[23] ]]; then
+            echo -e "👍 $url (${BLUE}$status${RESET})"
         else
-            echo "⚠️ $url"
+            echo -e "⚠️  $url (${YELLOW}$status${RESET})"
         fi
     done
 }
