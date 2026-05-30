@@ -88,28 +88,28 @@ _fzf_powered_shell_fd() {
 }
 
 # directory navigation
-sub() { _fzf_powered_shell_fd dir cd . }
+ff() { _fzf_powered_shell_fd dir cd . }
 dd() { _fzf_powered_shell_fd dir cd d }
 ww() { _fzf_powered_shell_fd dir cd w }
 rr() { _fzf_powered_shell_fd dir cd r }
 
 # open with vim
-subv() { _fzf_powered_shell_fd file vim . "$@" }
-ddv() { _fzf_powered_shell_fd file vim d "$@" }
-wwv() { _fzf_powered_shell_fd file vim w "$@" }
-rrv() { _fzf_powered_shell_fd file vim r "$@" }
-
-# mkdir
-mksub() { _fzf_powered_shell_fd dir mkdir . "$@" }
-mkd() { _fzf_powered_shell_fd dir mkdir d "$@" }
-mkw() { _fzf_powered_shell_fd dir mkdir w "$@" }
-mkr() { _fzf_powered_shell_fd dir mkdir r "$@" }
+vimf() { _fzf_powered_shell_fd file vim . "$@" }
+vimd() { _fzf_powered_shell_fd file vim d "$@" }
+vimw() { _fzf_powered_shell_fd file vim w "$@" }
+vimr() { _fzf_powered_shell_fd file vim r "$@" }
 
 # display dir/file path
-pathsub() { _fzf_powered_shell_fd file echo . }
-pathd() { _fzf_powered_shell_fd file echo d }
-pathw() { _fzf_powered_shell_fd file echo w }
-pathr() { _fzf_powered_shell_fd file echo r }
+.f() { _fzf_powered_shell_fd file echo . }
+.d() { _fzf_powered_shell_fd file echo d }
+.w() { _fzf_powered_shell_fd file echo w }
+.r() { _fzf_powered_shell_fd file echo r }
+
+# mkdir
+mkdirf() { _fzf_powered_shell_fd dir mkdir . "$@" }
+mkdird() { _fzf_powered_shell_fd dir mkdir d "$@" }
+mkdirw() { _fzf_powered_shell_fd dir mkdir w "$@" }
+mkdirr() { _fzf_powered_shell_fd dir mkdir r "$@" }
 
 _fzf_powered_shell_rg() {
     local dir
@@ -134,7 +134,7 @@ _fzf_powered_shell_rg() {
 
     match=$(
         rg \
-            --vimgrep \
+            -uu \
             --color=always \
             "${rg_opts[@]}" \
             . "${dir}" \
@@ -149,10 +149,10 @@ _fzf_powered_shell_rg() {
 
     vim "+call cursor(${line}, ${col})" "$file"
 }
-subvv() { _fzf_powered_shell_rg sub "$@"; }
-ddvv()  { _fzf_powered_shell_rg d "$@"; }
-wwvv()  { _fzf_powered_shell_rg w "$@"; }
-rrvv()  { _fzf_powered_shell_rg r "$@"; }
+vimff() { _fzf_powered_shell_rg sub "$@"; }
+vimdd()  { _fzf_powered_shell_rg d "$@"; }
+vimww()  { _fzf_powered_shell_rg w "$@"; }
+vimrr()  { _fzf_powered_shell_rg r "$@"; }
 
 #-------------------------------------------------
 # Command History

@@ -1,26 +1,14 @@
 #-------------------------------------------------
 # Git
 #-------------------------------------------------
-    fpath=(
-        ${ZSH_HOME}/plugins/git-completion.zsh
-        # $(brew --prefix)/share/zsh/site-functions
-        ${fpath}
-    )
+fpath=(
+    ${ZSH_HOME}/plugins/git-completion.zsh
+    # $(brew --prefix)/share/zsh/site-functions
+    ${fpath}
+)
 
 function _is_git_repo() {
     git log > /dev/null 2>&1
-}
-
-function git_ontheroadjp() {
-    git config --global user.name "ontheroadjp"
-    git config --global user.email "dev@ontheroad.jp"
-    git config --list | grep user
-}
-
-function git_nutsllc() {
-    git config --global user.name "nutsllc"
-    git config --global user.email "dev@nutsllc.jp"
-    git config --list | grep user
 }
 
 #-------------------------------------------------
@@ -32,20 +20,26 @@ eval "$(gh completion -s $(echo ${SHELL} | cut -d '/' -f 3))"
 # git alias & functions
 #-------------------------------------------------
 alias gl='git log'
-alias gg='git log --oneline --graph'
+alias gg='git graph --oneline --graph'
+# alias gg='git log --oneline --graph'
 alias ggg='git log --oneline --graph --stat'
 alias gs='git status'
-alias gd='git diff'
-alias gds='git diff --staged'
+alias gss='git status --short'
+alias gr='git remote'
+alias grv='git remote -v'
+alias gb='git branch'
+alias gbvv='git branch -vv'
+alias gba='git branch -a'
 alias gc='git checkout'
 alias gcm='git checkout -B main'
-alias gcb='git checkout -B works'
-alias gb='git branch'
-alias gba='git branch -a'
-function _git_commit_as_wip() { git add -A && git commit -m "[WIP] ${1}" }
-alias gwip='_git_commit_as_wip $@'
-function _git_add_and_git_status() { git add "$@" && git status }
-alias ga='_git_add_and_git_status'
+alias gcw='git checkout -B works'
+alias gd='git diff'
+alias gds='git diff --staged'
+alias gp='git push'
+alias gfap='git fetch --all --prune'
+ga() { git add "$@" && git status }
+gwip() { git add -A && git commit -m "[WIP] ${1}" }
+alias gbk='git checkout -b backup-$(date +%Y%m%d-%H%M%S)'
 
 #-------------------------------------------------
 # github alias & functions

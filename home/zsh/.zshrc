@@ -68,6 +68,7 @@ zsh-defer zsource ${ZSH_HOME}/zsh.d/core/zsh.zsh
 zsh-defer zsource ${ZSH_HOME}/zsh.d/core/tmux.zsh
 zsh-defer zsource ${ZSH_HOME}/zsh.d/core/cdla.zsh
 zsh-defer zsource ${ZSH_HOME}/zsh.d/core/ripgrap.zsh
+zsh-defer zsource ${ZSH_HOME}/zsh.d/core/fd.zsh
 zsh-defer zsource ${ZSH_HOME}/zsh.d/core/fzf.zsh
 zsh-defer zsource ${ZSH_HOME}/zsh.d/core/vps.zsh
 

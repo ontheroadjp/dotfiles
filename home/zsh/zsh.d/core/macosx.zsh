@@ -28,6 +28,7 @@ sed() {
 # Normal command replace
 # --------------------------------------------------------------------
 alias tree='tree -N'    # for display Japanese char
+alias pc='pbcopy'
 
 # Editor
 alias cot="open -a /Applications/CotEditor.app" # CotEditor

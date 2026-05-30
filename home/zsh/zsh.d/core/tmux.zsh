@@ -63,9 +63,33 @@ fi
 # set pane name manually
 #-------------------------------------------------
 function _set_tmux_pane_title_manually() {
-    tmux select-pane -T "$1"
+    local target=""
+    local OPTIND opt
+
+    while getopts "t:" opt; do
+        case "${opt}" in
+            t) target="${OPTARG}" ;;
+            *) echo "Usage: spn [-t pane_id] <title>" >&2; return 1 ;;
+        esac
+    done
+
+    shift $((OPTIND - 1))
+
+    local title="$1"
+
+    if [[ -z "${title}" ]]; then
+        echo "Error: Title is required." >&2
+        echo "Usage: spn [-t pane_id] <title>" >&2
+        return 1
+    fi
+
+    if [[ -n "${target}" ]]; then
+        tmux select-pane -t "${target}" -T "${title}"
+    else
+        tmux select-pane -T "${title}"
+    fi
 }
-spn() { _set_tmux_pane_title_manually "$@" }
+alias spn='_set_tmux_pane_title_manually'
 
 #-------------------------------------------------
 # popup window

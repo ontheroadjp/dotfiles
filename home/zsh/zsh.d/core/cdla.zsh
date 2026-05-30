@@ -17,7 +17,8 @@ function _print_la() {
     }
 
 # [ ${SHOW_FULL_PATH_AT_LA} -ne 0 ] && echo "\e[34m@ $(pwd | sed -e 's:\/Users\/.*/\?:\$\{HOME\}\/:g')\e[0m"
-[ ${SHOW_FULL_PATH_AT_LA} -ne 0 ] && echo "\e[34m $(pwd | sed -e "s:^\(${HOME}/\)\(.*\):\$HOME 👉 \2/ :")\e[0m"
+# [ ${SHOW_FULL_PATH_AT_LA} -ne 0 ] && echo "\e[34m $(pwd | sed -e "s:^\(${HOME}/\)\(.*\):\$HOME 👉 \2/ :")\e[0m"
+[ ${SHOW_FULL_PATH_AT_LA} -ne 0 ]
 }
 alias la='_print_la'
 alias nopwd='SHOW_FULL_PATH_AT_LA=0'

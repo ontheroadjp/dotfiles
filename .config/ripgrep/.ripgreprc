@@ -12,11 +12,15 @@
 # for Mac
 --glob=!{Applications,Library,Trash}
 
+# for zsh
+--glob=!{zwc}
+
 # for js
 --glob=!{node_modules}
+--glob=!{.next}
 
 # for python
---glob=!{egg-info,__pycache__,venv}
+--glob=!{egg-info,__pycache__,venv,.venv}
 
 # for others
 --glob=!{svn,tealdeer,Trash,vendor}

@@ -2,11 +2,15 @@
 .DS_Store
 .TrashBox.log
 
+# git
 github-tool-kit
 home/git/.gitconfig_included
 .config/shell-tools/
 
-#
+# ssh
+home/ssh/.ssh/config.local
+
+# bin
 bin/*
 !bin/.gitkeep
 !bin/health-check.sh
