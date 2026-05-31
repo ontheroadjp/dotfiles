@@ -1,9 +1,9 @@
 claude() {
     emulate -L zsh
 
-    # setopt local_traps
-    # _claude_cleanup() {
-    #     echo "TRAP"
+    setopt local_traps
+    _claude_cleanup() {
+        echo "TRAP"
     #     if [[ -n $TMUX ]]; then
     #         local pane_id num
     #         pane_id=$(tmux display-message -p "#{pane_id}" 2>/dev/null)
@@ -14,10 +14,14 @@ claude() {
     #             fi
     #         fi
     #     fi
-    # }
+        tmux select-pane -T "shell"
+    }
 
     # trap _claude_cleanup EXIT
     echo -n "node: " && node -v
     # goslack
+
+    CLAUDE_CODE_DISABLE_TERMINAL_TITLE=1
+    tmux select-pane -T "claude"
     command claude "$@"
 }
