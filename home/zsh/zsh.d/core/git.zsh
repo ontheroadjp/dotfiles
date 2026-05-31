@@ -42,11 +42,19 @@ gwip() { git add -A && git commit -m "[WIP] ${1}" }
 alias gbk='git checkout -b backup-$(date +%Y%m%d-%H%M%S)'
 
 #-------------------------------------------------
-# github alias & functions
+# gh alias & functions
 #-------------------------------------------------
 alias ghil="gh issue list"
 alias ghpl="gh pr list"
-alias ghpm="gh pr merge --merge --delete-branch"
+# alias ghpm="gh pr merge --merge --delete-branch"
+ghpm() { gh pr merge "$1" --merge "$2"}
+
+# alias grl='gh run list --limit 10'
+ghrl() { gh run list --limit "${1:-10}" }
+alias ghrv='gh run view'
+alias ghrvf='gh run view --log-failed'
+alias ghrr='gh run rerun'
+alias ghrrf='gh run rerun --failed'
 
 #-------------------------------------------------
 # .gitignore
