@@ -40,25 +40,50 @@ alias gfap='git fetch --all --prune'
 ga() { git add "$@" && git status }
 gwip() { git add -A && git commit -m "[WIP] ${1}" }
 alias gbk='git checkout -b backup-$(date +%Y%m%d-%H%M%S)'
+gsp() {
+    # 1. Setting the Stage: Synchronize the latest remote state with the local repository and clean up deleted branches
+    git fetch -p origin
+
+    # 2. Cleaning up local branches
+    # Exclude only those that exactly match 'main', while allowing leading whitespace or '*'
+    local_branches=$(git branch --merged main | grep -Ev '^\*?\s*main$')
+    if [ -n "$local_branches" ]; then
+        # Execute only if the target exists. Error suppression (2>/dev/null) has been deprecated.
+        echo "$local_branches" | xargs git branch -d
+    fi
+
+    # 3. Clean up remote branches
+    # Tighten regular expressions to prevent false positives caused by prefix matches (e.g., `origin/main-feature`)
+    # Exclude `origin/HEAD` and `origin/main` explicitly
+    remote_branches=$(git branch -r --merged origin/main | \
+        grep -Ev '^\s*origin/(main|HEAD)' | \
+        sed 's#^[[:space:]]*origin/##')
+
+    if [ -n "$remote_branches" ]; then
+        # Delete multiple branches in a single push, optimizing O(N) network I/O to O(1)
+        echo "$remote_branches" | xargs git push origin --delete
+    fi
+}
 
 #-------------------------------------------------
 # gh alias & functions
 #-------------------------------------------------
-alias ghil="gh issue list"
-alias ghpl="gh pr list"
+alias issl="gh issue list"
+issv() { gh issue view $1 --web }
+alias prl="gh pr list"
 # alias ghpm="gh pr merge --merge --delete-branch"
-ghpm() { gh pr merge "$1" --merge "$2"}
+prm() { gh pr merge "$1" --merge }
 
 # alias grl='gh run list --limit 10'
-ghrl() { gh run list --limit "${1:-10}" }
-alias ghrv='gh run view'
-alias ghrvf='gh run view --log-failed'
-alias ghrr='gh run rerun'
-alias ghrrf='gh run rerun --failed'
+runl() { gh run list --limit "${1:-10}" }
+alias runv='gh run view'
+alias runvf='gh run view --log-failed'
+alias rerun='gh run rerun'
+alias rerunf='gh run rerun --failed'
 
 #-------------------------------------------------
 # .gitignore
-#-------------------------------------------------
+#--------r----------------------------------------
 function _get_gitignore() {
     local url="https://raw.githubusercontent.com/github/gitignore/master/Global/macOS.gitignore"
     curl -L -o .gitignore ${url}
