@@ -105,7 +105,7 @@ zsh-defer zsource ${ZSH_HOME}/zsh.d/tools/shelltools.zsh
 # ------------------------------------------
 unfunction source   # do not zsh-defer defer_for safety
 
-echo "Load .zshrc."
+echo "Load .zshrc." >&2
 
 # --------------------------------------------------------------------
 # interactive shell - load .zshenv and .zshrc
@@ -124,6 +124,4 @@ echo "Load .zshrc."
 if (which zprof > /dev/null 2>&1) ;then
   zprof | less
 fi
-
-
 

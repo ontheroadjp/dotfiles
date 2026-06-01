@@ -1,2 +1,2 @@
-echo 'Load .zprofile.'
+echo 'Load .zprofile.' >&2
 

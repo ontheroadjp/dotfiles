@@ -65,5 +65,5 @@ ensure_zcompiled ${HOME}/.zprofile
 source ${ZSH_HOME}/plugins/zsh-defer/zsh-defer.plugin.zsh
 # source ${ZSH_HOME}/zsh.d/lazy_load_env.sh
 
-echo "Load .zshenv.."
+echo "Load .zshenv.." >&2
 
