@@ -17,11 +17,12 @@ codex() {
         tmux select-pane -T "shell"
     }
 
-trap _codex_cleanup EXIT
+    trap _codex_cleanup EXIT
 
-echo -n "node: " && node -v
-echo -n "python: " && python --version
-tmux select-pane -T "codex"
-goslack
-command codex "$@" --model gpt-5.3-codex
+    echo -n "node: " && node -v
+    echo -n "python: " && python --version
+    tmux select-pane -T "codex"
+    goslack
+    local model=${1:-5.5} &&  shift
+    command codex "$@" --model gpt-${model}
 }

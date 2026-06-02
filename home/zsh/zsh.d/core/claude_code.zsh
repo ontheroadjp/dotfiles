@@ -1,3 +1,5 @@
+CLAUDE_CODE_DISABLE_TERMINAL_TITLE=1
+
 claude() {
     emulate -L zsh
 
@@ -17,11 +19,9 @@ claude() {
         tmux select-pane -T "shell"
     }
 
-    # trap _claude_cleanup EXIT
+    trap _claude_cleanup EXIT
     echo -n "node: " && node -v
     # goslack
-
-    CLAUDE_CODE_DISABLE_TERMINAL_TITLE=1
     tmux select-pane -T "claude"
     command claude "$@"
 }
