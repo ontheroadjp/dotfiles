@@ -18,6 +18,16 @@ export XDG_STATE_HOME=${DOTPATH}/.local/state
 export XDG_DATA_HOME=${DOTPATH}/.local/share
 export XDG_CACHE_HOME=${DOTPATH}/.cache
 
+# --------------------------------------------------------------------
+# for Non-interactive shell ex. claude code etc.
+# --------------------------------------------------------------------
+# add NVM default node to PATH via symlink (no subprocess, fast)
+# To update: ln -sf ~/.nvm/versions/node/vX.Y.Z ~/.nvm/current
+# After switching Node versions, you only need to run one command:
+# nvm alias default 22.20.0
+# ln -sf ~/.nvm/versions/node/v22.20.0 ~/.nvm/current
+[[ -d "$HOME/.nvm/current/bin" ]] && export PATH="$HOME/.nvm/current/bin:$PATH"
+
 #-------------------------------------------------
 # Function
 #-------------------------------------------------
