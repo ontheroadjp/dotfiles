@@ -1,5 +1,33 @@
 # dotfiles
 
+Personal shell, editor, terminal, and workstation configuration for Linux and macOS.
+
+## Features
+
+- Fast Zsh startup using deferred module loading
+- Vim, tmux, Alacritty, GitHub CLI, ripgrep, and related CLI configuration
+- Ubuntu/GNOME workstation setup scripts and macOS configuration
+- Local command links backed primarily by the separate `shell-tools` repository
+
+## Installation
+
+The configuration expects this repository at `${HOME}/dotfiles`. Clone it there, link the required files into the home directory, and review platform-specific scripts before applying them. There is no tracked repository-wide installer.
+
+## Usage
+
+```sh
+zsh -il
+zsh -n home/zsh/.zshenv home/zsh/.zshrc home/zsh/.zprofile
+bash -n t480s.sh t480s_apps.sh bin/health-check.sh
+```
+
+## Design Principles
+
+- Preserve fast shell startup by loading only prompt-critical Zsh files synchronously.
+- Keep OS-specific behavior separated.
+- Review setup scripts because they use `sudo`, downloads, and service configuration.
+- Keep external command implementations in their owning repositories.
+
 * ``bash/zsh``, ``tmux``, ``vim``, ``git``, ``Docker`` の設定が中心
 * 主なツール： ``peco``, ``ghq``, ``gh``,   ``ag``, ``ctags``
 * 主な自作ツール： ``dirmarks``, ``shell-stash``
