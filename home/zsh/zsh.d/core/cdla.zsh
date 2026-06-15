@@ -67,8 +67,36 @@ alias ....="cd ../../.."
 alias .....="cd ../../../../"
 alias ......="cd ../../../../../"
 
+function clipcopy() {
+    case "$OSTYPE" in
+        darwin*)
+            pbcopy
+            ;;
+        linux*)
+            if command -v wl-copy >/dev/null 2>&1; then
+                wl-copy
+            elif command -v xclip >/dev/null 2>&1; then
+                xclip -selection clipboard
+            elif command -v xsel >/dev/null 2>&1; then
+                xsel --clipboard --input
+            else
+                echo "clipboard command not found" >&2
+                return 1
+            fi
+            ;;
+        *)
+            echo "unsupported OS: $OSTYPE" >&2
+            return 1
+            ;;
+    esac
+}
+
 function _copy_current_dir_path() {
-    echo -n $(pwd) | pbcopy && echo 'copy: '$(pbpaste)
+    local current_path
+    current_path="$PWD"
+
+    printf '%s' "$current_path" | clipcopy || return 1
+    echo "copy: $current_path"
 }
 alias ,='_copy_current_dir_path'
 
