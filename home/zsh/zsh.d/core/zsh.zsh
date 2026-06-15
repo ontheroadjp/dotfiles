@@ -27,11 +27,10 @@ if [ $(uname) = "Darwin" ]; then
     # For MacOSX
     zsh-defer zsource ${ZSH_HOME}/zsh.d/core/macosx.zsh
 elif [ "$(expr substr $(uname -s) 1 5)" = 'Linux' ]; then
-    # For Linux only
-    echo 'Wellcome to Linux!'
+    zsh-defer zsource ${ZSH_HOME}/zsh.d/core/ubuntu.zsh
 elif [ "$(expr substr $(uname -s) 1 10)" = 'MINGW32_NT' ]; then
     # For Windows (Cygwin) only
-    echo 'Wellcome to Cygwin!'
+    echo 'Welcome to Cygwin!'
 else
     # For other OS only
     echo "Wellcome to $(uname -a) !"

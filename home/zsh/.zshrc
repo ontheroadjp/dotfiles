@@ -1,5 +1,3 @@
-export DISABLE_AUTOUPDATER=1
-
 #-------------------------------------------------
 # History
 #-------------------------------------------------
@@ -21,6 +19,7 @@ export LANG="en_US.UTF-8"
 export DOTFILES_BIN=${DOTPATH}/bin
 export WORKSPACE="${HOME}/WORKSPACE"
 export PATH=${DOTFILES_BIN}:${PATH}
+export PATH=${HOME}/.local/bin:${PATH}
 # [[ -x "$(command -v vim)" ]] && export EDITOR=vim
 export EDITOR=vim
 
@@ -84,7 +83,7 @@ zsh-defer zsource ${ZSH_HOME}/zsh.d/core/claude_code.zsh
 #-------------------------------------------------
 # Load Dev
 #-------------------------------------------------
-zsh-defer zsource ${ZSH_HOME}/zsh.d/dev/go.zsh
+# zsh-defer zsource ${ZSH_HOME}/zsh.d/dev/go.zsh
 # zsh-defer zsource ${ZSH_HOME}/zsh.d/dev/php.zsh
 # zsh-defer zsource ${ZSH_HOME}/zsh.d/dev/ruby.zsh
 # zsh-defer zsource ${ZSH_HOME}/zsh.d/dev/vagrant.zsh

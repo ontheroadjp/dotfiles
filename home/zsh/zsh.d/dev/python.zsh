@@ -7,30 +7,32 @@
 # $ pyenv global 3.10.0     # Set python version to use
 # $ pyenv global            # Check current settings
 # ------------------------------------------
-export PYENV_ROOT="$HOME/.pyenv"
 
-_lazy_load_pyenv() {
-  unalias pyenv 2>/dev/null
-  unalias python 2>/dev/null
-  unalias pip 2>/dev/null
-
-  # Add pyenv to PATH (bin only, shims later via init)
-  export PATH="$PYENV_ROOT/bin:$PATH"
-
-  # Load pyenv
-  eval "$(pyenv init -)"
-  eval "$(pyenv init --path)"
-  # eval "$(pyenv virtualenv-init -)"  # optional
-
-  # Run the command again with the original args
-  "$@"
-}
-
-if [ -n "${PYENV_ROOT}" ]; then
-    alias pyenv='_lazy_load_pyenv pyenv'
-    alias python='_lazy_load_pyenv python'
-    alias pip='_lazy_load_pyenv pip'
-fi
+## for pyenv
+# export PYENV_ROOT="$HOME/.pyenv"
+#
+# _lazy_load_pyenv() {
+#   unalias pyenv 2>/dev/null
+#   unalias python 2>/dev/null
+#   unalias pip 2>/dev/null
+#
+#   # Add pyenv to PATH (bin only, shims later via init)
+#   export PATH="$PYENV_ROOT/bin:$PATH"
+#
+#   # Load pyenv
+#   eval "$(pyenv init -)"
+#   eval "$(pyenv init --path)"
+#   # eval "$(pyenv virtualenv-init -)"  # optional
+#
+#   # Run the command again with the original args
+#   "$@"
+# }
+#
+# if [ -n "${PYENV_ROOT}" ]; then
+#     alias pyenv='_lazy_load_pyenv pyenv'
+#     alias python='_lazy_load_pyenv python'
+#     alias pip='_lazy_load_pyenv pip'
+# fi
 
 # ------------------------------------------
 # auto venv

@@ -12,6 +12,11 @@
 # export PATH="${HOME}/dotfiles/mac_osx/HandBrakeCLI1.4.2/HandBrakeCLI:${PATH}"   # for HandBrakeCLI
 # export MEMO_PATH=${WORKSPACE}/Dropbox/Documents/NOTE/dev
 
+# ----------------------------------
+# claude code
+# ----------------------------------
+export DISABLE_AUTOUPDATER=1
+
 # --------------------------------------------------------------------
 # built-in command
 # --------------------------------------------------------------------
