@@ -20,8 +20,7 @@ eval "$(gh completion -s $(echo ${SHELL} | cut -d '/' -f 3))"
 # git alias & functions
 #-------------------------------------------------
 alias gl='git log'
-alias gg='git graph --oneline --graph'
-# alias gg='git log --oneline --graph'
+alias gg='git log --oneline --graph'
 alias ggg='git log --oneline --graph --stat'
 alias gs='git status'
 alias gss='git status --short'
