@@ -18,6 +18,9 @@ export XDG_STATE_HOME=${HOME}/.local/state
 export XDG_DATA_HOME=${HOME}/.local/share
 export XDG_CACHE_HOME=${HOME}/.cache
 
+# Keep PATH entries unique when login shells are restarted.
+typeset -U path PATH
+
 # --------------------------------------------------------------------
 # for Non-interactive shell ex. claude code etc.
 # --------------------------------------------------------------------
@@ -36,10 +39,6 @@ function _is_exist() { type $@ > /dev/null 2>&1 }
 # --------------------------------------------------------------------
 # zsh compile
 # --------------------------------------------------------------------
-function source() {
-    zsource $@
-}
-
 function zsource() {
     ensure_zcompiled "$1"
     builtin source "$1"
@@ -74,7 +73,7 @@ ensure_zcompiled ${HOME}/.zprofile
 # --------------------------------------------------------------------
 # Load plugin
 # --------------------------------------------------------------------
-source ${ZSH_HOME}/plugins/zsh-defer/zsh-defer.plugin.zsh
+builtin source ${ZSH_HOME}/plugins/zsh-defer/zsh-defer.plugin.zsh
 # source ${ZSH_HOME}/zsh.d/lazy_load_env.sh
 
 echo "Load .zshenv.." >&2

@@ -91,11 +91,6 @@ zsource ${ZSH_HOME}/zsh.d/dev/python.zsh
 zsh-defer zsource ${ZSH_HOME}/zsh.d/tools/dirmarks.zsh
 zsh-defer zsource ${ZSH_HOME}/zsh.d/tools/shelltools.zsh
 
-# ------------------------------------------
-# Cleaning
-# ------------------------------------------
-unfunction source   # do not zsh-defer defer_for safety
-
 echo "Load .zshrc." >&2
 
 # --------------------------------------------------------------------

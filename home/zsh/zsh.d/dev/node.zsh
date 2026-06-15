@@ -29,5 +29,5 @@
 #     alias npm='_lazy_load_nvm npm'
 # fi
 
-# for mice
-zsh-defer eval "$($HOME/.local/bin/mise activate zsh)"
+# for mise
+zsh-defer -c 'eval "$($HOME/.local/bin/mise activate zsh)"'
