@@ -31,7 +31,6 @@ autoload -Uz colors && colors
 #-------------------------------------------------
 # Generic alias
 #-------------------------------------------------
-# alias init='exec $SHELL -l'
 alias c='clear'
 alias e='exit'
 alias t='tree -C'
@@ -41,14 +40,7 @@ alias h='cd ${HOME}'
 alias d='cd ${DOTPATH}'
 alias w='cd ${WORKSPACE}'
 
-
-function _restart_shell() {
-    exec $SHELL -l -i
-    local dir="${XDG_DATA_HOME:-$HOME}/printenv"
-    local filename="$(date '+%Y%m%d')_printenv.txt"
-    mkdir -p "${dir}" && printenv > "${dir}/${filename}"
-}
-alias init='_restart_shell'
+alias init='exec zsh -l'
 
 #-------------------------------------------------
 # Load Utilities
