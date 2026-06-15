@@ -104,6 +104,7 @@ set linespace=4
 
 " Clipboard
 set clipboard+=unnamed
+set clipboard=unnamedplus
 
 "--------------------------------------------------------------- Line number
 set number                                  " show line number
@@ -328,6 +329,7 @@ augroup shell
     autocmd!
     autocmd BufNewFile *.{sh,bash,fnc} 0r $VIM_HOME/.vim/templates/sh.tpl
     autocmd BufNewFile *.{bats} 0r $VIM_HOME/.vim/home/vim/templates/bats.tpl
+    autocmd BufNewFile *.{todo} 0r $VIM_HOME/.vim/templates/todo.tpl
 augroup END
 augroup gh_issue
     autocmd!

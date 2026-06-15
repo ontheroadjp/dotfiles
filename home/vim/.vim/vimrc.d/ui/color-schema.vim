@@ -12,7 +12,10 @@ autocmd ColorScheme * highlight LineNr ctermbg=none
 "-------------------------
 " Color scheme
 "-------------------------
-colorscheme base16-ocean
+" set termguicolors    " 24bit color（真のカラー）を有効にする
+" let base16colorspace=256 " 256色モードのサポート
+" colorscheme base16-ocean
+" so ${VIM_HOME}/.vim/colors/hybrid.vim
 
 " if has("termguicolors")
 "     set termguicolors
