@@ -1,6 +1,9 @@
-[general]
+# ---- for v0.13.0 -------
+#[general]
+# ---- for v0.13.0 -------
+
 import = ["~/.config/alacritty/theme/tokyo-night.toml"]
-# import = ["~/.config/alacritty/theme/dracula.toml"]
+#import = ["~/.config/alacritty/theme/dracula.toml"]
 
 #working_directory = "~"
 live_config_reload = true
@@ -10,24 +13,44 @@ live_config_reload = true
 #args = ["-l", "-c", "tmux attach || tmux"]
 
 [env]
-# TERM = "xterm-256color"
+#TERM = "xterm-256color"
 
-# ========================== FONT =========================
+# ========================== FONT(T480s) =========================
+# ------- for T480s ---------
 [font]
-normal = { family = "Ricty Diminished", style = "Regular" }
-#normal = { family = "Cica-Regular", style = "Regular" }
-#normal = { family = "Hack Nerd Font Mono", style = "Regular" }
-bold = {style = "Regular"}
-size = 18.0
-offset = { x = 1, y = 12 }
+size = 12.0
+offset = { x = 1, y = 6 }
+
+[font.normal]
+family = "monospace" # same as DejaVu Sans Mono
+# family = "Ubunts Sans Mono"
+# family = "PlemolJP Console"
+# family = "Dicty diminished"
+style = "Regular"
+
+[font.bold]
+family = "monospace" # same as DejaVu Sans Mono
+# family = "Ubunts Sans Mono"
+# family = "PlemolJP Console"
+# family = "Dicty diminished"
+style = "Regular"
+
+# ------- for MBP15 ---------
+#[font]
+#size = 18.0
+#offset = { x = 1, y = 12 }
+#normal = { family = "Ricty Diminished", style = "Regular" }
+#bold = {style = "Regular"}
 
 # ========================= WINDOW =========================
 [window]
-decorations = "buttonless"
+# decorations = "buttonless"
+decorations = "None"
 #startup_mode = "SimpleFullscreen"
 startup_mode = "Windowed"
 padding = { x = 5, y = 0 }
 resize_increments = true
+opacity = 1.0
 
 # ========================== COLOR =========================
 [colors]
