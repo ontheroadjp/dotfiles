@@ -14,9 +14,9 @@ export VIM_HOME="${DOTPATH}/home/vim"
 # XDG Base Directory
 # --------------------------------------------------------------------
 # export XDG_CONFIG_HOME=`$HOME/.config`
-export XDG_STATE_HOME=${DOTPATH}/.local/state
-export XDG_DATA_HOME=${DOTPATH}/.local/share
-export XDG_CACHE_HOME=${DOTPATH}/.cache
+export XDG_STATE_HOME=${HOME}/.local/state
+export XDG_DATA_HOME=${HOME}/.local/share
+export XDG_CACHE_HOME=${HOME}/.cache
 
 # --------------------------------------------------------------------
 # for Non-interactive shell ex. claude code etc.
@@ -46,23 +46,25 @@ function zsource() {
 }
 
 ZCOMPILE_FORCE=0
-typeset -gA _ZCOMPILE_CACHE
 ensure_zcompiled() {
-   local src="$1"
-   local compiled="${src}.zwc"
+    local src="$1"
+    local compiled="${src}.zwc"
+    local message
 
-   # Skip if already checked
-   [[ -n "${_ZCOMPILE_CACHE[${src}]}" ]] && return
+    if [[ ${ZCOMPILE_FORCE} == 1 \
+            || ! -r "${compiled}" \
+            || "${src}" -nt "${compiled}" \
+        ]]; then
+        zcompile -R "${src}" || return
+        message="%F{cyan}Compiled%f ${src}"
 
-   if [[ ${ZCOMPILE_FORCE} == 1 \
-           || ! -r "${compiled}" \
-           || "${src}" -nt "${compiled}" \
-       ]]; then
-       zcompile -R "${src}"
-       echo "\033[1;36mCompiling\033[m ${src}"
-   fi
-
-   _ZCOMPILE_CACHE[${src}]=1
+        # zsh-defer redirects stdout and stderr, so write directly to the terminal.
+        if [[ -o interactive && -w /dev/tty ]]; then
+            print -P -r -- "${message}" > /dev/tty
+        else
+            print -P -r -- "${message}" >&2
+        fi
+    fi
 }
 
 ensure_zcompiled ${HOME}/.zshenv
