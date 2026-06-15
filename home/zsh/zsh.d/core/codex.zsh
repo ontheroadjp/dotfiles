@@ -19,7 +19,8 @@ codex() {
 
     # trap _codex_cleanup EXIT
 
-    echo -n "node: " && node -v
+    echo -n "node: "
+    node -v || return 1
     echo -n "python3: " && python3 --version
     tmux select-pane -T "codex"
     # goslack
