@@ -5,29 +5,13 @@
 KEYTIMEOUT=0
 
 #-------------------------------------------------
-# shell-core-tools
-#-------------------------------------------------
-# dirmarks
-source $(ghq root)/github.com/ontheroadjp/shell-core-tools/dirmarks/dirmarks.fnc
-
-# shell-stash
-alias ss="$(ghq root)/github.com/ontheroadjp/shell-core-tools/shell-stash/shell-stash.sh"
-alias pop="$(ghq root)/github.com/ontheroadjp/shell-core-tools/shell-stash/shell-stash.sh p"
-
-# backup
-alias bk="$(ghq root)/github.com/ontheroadjp/shell-core-tools/backup/backup.sh bk"
-alias brrm="$(ghq root)/github.com/ontheroadjp/shell-core-tools/backup/backup.sh bkrm"
-alias kb="$(ghq root)/github.com/ontheroadjp/shell-core-tools/backup/backup.sh kb"
-alias kbrm="$(ghq root)/github.com/ontheroadjp/shell-core-tools/backup/backup.sh kbrm"
-
-#-------------------------------------------------
 # OS specific settings
 #-------------------------------------------------
 if [ $(uname) = "Darwin" ]; then
     # For MacOSX
-    zsh-defer zsource ${ZSH_HOME}/zsh.d/core/macosx.zsh
+    zdefer_source ${ZSH_HOME}/zsh.d/core/macosx.zsh
 elif [ "$(expr substr $(uname -s) 1 5)" = 'Linux' ]; then
-    zsh-defer zsource ${ZSH_HOME}/zsh.d/core/ubuntu.zsh
+    zdefer_source ${ZSH_HOME}/zsh.d/core/ubuntu.zsh
 elif [ "$(expr substr $(uname -s) 1 10)" = 'MINGW32_NT' ]; then
     # For Windows (Cygwin) only
     echo 'Welcome to Cygwin!'

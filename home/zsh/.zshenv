@@ -39,9 +39,48 @@ function _is_exist() { type $@ > /dev/null 2>&1 }
 # --------------------------------------------------------------------
 # zsh compile
 # --------------------------------------------------------------------
+function _zcompile_notice() {
+    local message="$1"
+    local notice_file="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompile.notices"
+
+    if [[ -n "${zsh_defer_options:-}" ]]; then
+        [[ -d "${notice_file:h}" ]] || mkdir -p "${notice_file:h}" || return
+        print -r -- "${message}" >> "${notice_file}"
+    else
+        print -P -u2 -r -- "${message}"
+    fi
+}
+
+function _show_zcompile_notices() {
+    local notice_file="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompile.notices"
+    local message
+
+    [[ -o interactive && -r "${notice_file}" ]] || return
+    while IFS= read -r message; do
+        print -P -u2 -r -- "${message}"
+    done < "${notice_file}"
+    : >| "${notice_file}"
+}
+
 function zsource() {
-    ensure_zcompiled "$1"
-    builtin source "$1"
+    local src="$1"
+    local target
+
+    if [[ -L "${src}" && ! -e "${src}" ]]; then
+        target=$(readlink -- "${src}" 2>/dev/null)
+        _zcompile_notice "%F{yellow}Broken symlink%f ${src} -> ${target}"
+        return 0
+    fi
+
+    if [[ ! -e "${src}" ]]; then
+        _zcompile_notice "%F{yellow}Source not found%f ${src}"
+        return 0
+    fi
+
+    if ! ensure_zcompiled "${src}"; then
+        _zcompile_notice "%F{yellow}Compile failed%f ${src}; loading source instead"
+    fi
+    builtin source "${src}"
 }
 
 ZCOMPILE_FORCE=0
@@ -56,19 +95,18 @@ ensure_zcompiled() {
         ]]; then
         zcompile -R "${src}" || return
         message="%F{cyan}Compiled%f ${src}"
-
-        # zsh-defer redirects stdout and stderr, so write directly to the terminal.
-        if [[ -o interactive && -w /dev/tty ]]; then
-            print -P -r -- "${message}" > /dev/tty
-        else
-            print -P -r -- "${message}" >&2
-        fi
+        _zcompile_notice "${message}"
     fi
+}
+
+zdefer_source() {
+    zsh-defer zsource "$1"
 }
 
 ensure_zcompiled ${HOME}/.zshenv
 ensure_zcompiled ${HOME}/.zshrc
 ensure_zcompiled ${HOME}/.zprofile
+_show_zcompile_notices
 
 # --------------------------------------------------------------------
 # Load plugin

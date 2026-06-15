@@ -55,22 +55,26 @@ zsource ${ZSH_HOME}/zsh.d/core/tmux_logo.zsh
 zsource ${ZSH_HOME}/zsh.d/core/prompt.zsh
 
 # Delayed load OK
-zsh-defer zsource ${ZSH_HOME}/zsh.d/core/zsh.zsh
-zsh-defer zsource ${ZSH_HOME}/zsh.d/core/tmux.zsh
-zsh-defer zsource ${ZSH_HOME}/zsh.d/core/cdla.zsh
-zsh-defer zsource ${ZSH_HOME}/zsh.d/core/ripgrap.zsh
-zsh-defer zsource ${ZSH_HOME}/zsh.d/core/fd.zsh
-zsh-defer zsource ${ZSH_HOME}/zsh.d/core/fzf.zsh
-zsh-defer zsource ${ZSH_HOME}/zsh.d/core/vps.zsh
 
-zsh-defer zsource ${ZSH_HOME}/zsh.d/core/git.zsh
-zsh-defer zsource ${ZSH_HOME}/zsh.d/core/docker.zsh
-zsh-defer zsource ${ZSH_HOME}/zsh.d/core/peco.zsh
-zsh-defer zsource ${ZSH_HOME}/zsh.d/core/ai.zsh
-zsh-defer zsource ${ZSH_HOME}/zsh.d/core/dev.zsh
-zsh-defer zsource ${ZSH_HOME}/zsh.d/core/gemini.zsh
-zsh-defer zsource ${ZSH_HOME}/zsh.d/core/codex.zsh
-zsh-defer zsource ${ZSH_HOME}/zsh.d/core/claude_code.zsh
+zdefer_source ${ZSH_HOME}/zsh.d/core/zsh.zsh
+zdefer_source ${ZSH_HOME}/zsh.d/core/tmux.zsh
+zdefer_source ${ZSH_HOME}/zsh.d/core/cdla.zsh
+zdefer_source ${ZSH_HOME}/zsh.d/core/ripgrap.zsh
+zdefer_source ${ZSH_HOME}/zsh.d/core/fd.zsh
+zdefer_source ${ZSH_HOME}/zsh.d/core/fzf.zsh
+zdefer_source ${ZSH_HOME}/zsh.d/core/vps.zsh
+
+zdefer_source ${ZSH_HOME}/zsh.d/core/git.zsh
+zdefer_source ${ZSH_HOME}/zsh.d/core/docker.zsh
+zdefer_source ${ZSH_HOME}/zsh.d/core/peco.zsh
+zdefer_source ${ZSH_HOME}/zsh.d/core/ai.zsh
+zdefer_source ${ZSH_HOME}/zsh.d/core/dev.zsh
+zdefer_source ${ZSH_HOME}/zsh.d/core/gemini.zsh
+zdefer_source ${ZSH_HOME}/zsh.d/core/codex.zsh
+zdefer_source ${ZSH_HOME}/zsh.d/core/claude_code.zsh
+
+zdefer_source ${ZSH_HOME}/zsh.d/core/tools.zsh
+
 
 #-------------------------------------------------
 # Load Dev
@@ -83,13 +87,6 @@ zsh-defer zsource ${ZSH_HOME}/zsh.d/core/claude_code.zsh
 # Lazy load processed with external files
 zsource ${ZSH_HOME}/zsh.d/dev/node.zsh
 zsource ${ZSH_HOME}/zsh.d/dev/python.zsh
-
-#-------------------------------------------------
-# Load Tools
-#-------------------------------------------------
-
-zsh-defer zsource ${ZSH_HOME}/zsh.d/tools/dirmarks.zsh
-zsh-defer zsource ${ZSH_HOME}/zsh.d/tools/shelltools.zsh
 
 echo "Load .zshrc." >&2
 
