@@ -2,6 +2,7 @@
 # -------------------------------------------------
 export FZF_TMUX=1
 export FZF_TMUX_OPTS="-p 80%"
+
 export FZF_DEFAULT_OPTS="
     -0 -1 --reverse --height=100% --pointer='👉' --prompt=': ' \
     --color='bg+:#242C43,bg:#29324D,spinner:#81A1C1,hl:#616E88' \
@@ -9,6 +10,7 @@ export FZF_DEFAULT_OPTS="
     --color='marker:#81A1C1,fg+:#A9D889,prompt:#81A1C1,hl+:#81A1C1' \
     --bind ctrl-l:abort \
 "
+
 
 # -------------------------------------------------
 # fzf-powered shell launcher

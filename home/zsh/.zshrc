@@ -1,20 +1,7 @@
 #-------------------------------------------------
-# History
-#-------------------------------------------------
-HISTSIZE=1000000            # メモリ上に保存する履歴の件数
-SAVEHIST=1000000            # 履歴ファイル（HDD/SSD）に保存する履歴の件数
-HISTFILE=~/.zsh_history     # 履歴の保存先ファイル（デフォルトは ~/.zsh_history）
-
-# --- オプション設定（より便利にするために） ---
-setopt EXTENDED_HISTORY     # 履歴ファイルに実行時刻を記録する（fzfで見たときには出ませんが、データとして重要）
-setopt HIST_IGNORE_DUPS     # 同じコマンドを連続して実行した場合は履歴に残さない
-setopt SHARE_HISTORY        # 複数の端末間で履歴を共有する（別のウィンドウで打ったコマンドもすぐ履歴に出る）
-setopt APPEND_HISTORY       # 履歴ファイルに追記する（上書きを防ぐ）
-
-#-------------------------------------------------
 # Variables
 #-------------------------------------------------
-export TERM=xterm-256color
+# export TERM=xterm-256color
 export LANG="en_US.UTF-8"
 export DOTFILES_BIN=${DOTPATH}/bin
 export WORKSPACE="${HOME}/WORKSPACE"
@@ -39,23 +26,16 @@ alias sn='sed -n'
 alias h='cd ${HOME}'
 alias d='cd ${DOTPATH}'
 alias w='cd ${WORKSPACE}'
-
 alias init='exec zsh -l'
 
 #-------------------------------------------------
-# Load Utilities
-#-------------------------------------------------
-# zsh-defer zsource ${ZSH_HOME}/zsh.d/utilities/functions.zsh
-
-#-------------------------------------------------
-# Load Core
+# Load settings
 #-------------------------------------------------
 # Delayed load NG
 zsource ${ZSH_HOME}/zsh.d/core/tmux_logo.zsh
 zsource ${ZSH_HOME}/zsh.d/core/prompt.zsh
 
-# Delayed load OK
-
+# Delayed load core
 zdefer_source ${ZSH_HOME}/zsh.d/core/zsh.zsh
 zdefer_source ${ZSH_HOME}/zsh.d/core/tmux.zsh
 zdefer_source ${ZSH_HOME}/zsh.d/core/cdla.zsh
@@ -63,26 +43,21 @@ zdefer_source ${ZSH_HOME}/zsh.d/core/ripgrap.zsh
 zdefer_source ${ZSH_HOME}/zsh.d/core/fd.zsh
 zdefer_source ${ZSH_HOME}/zsh.d/core/fzf.zsh
 zdefer_source ${ZSH_HOME}/zsh.d/core/vps.zsh
-
-zdefer_source ${ZSH_HOME}/zsh.d/core/git.zsh
-zdefer_source ${ZSH_HOME}/zsh.d/core/docker.zsh
-zdefer_source ${ZSH_HOME}/zsh.d/core/peco.zsh
-zdefer_source ${ZSH_HOME}/zsh.d/core/ai.zsh
-zdefer_source ${ZSH_HOME}/zsh.d/core/dev.zsh
-zdefer_source ${ZSH_HOME}/zsh.d/core/gemini.zsh
-zdefer_source ${ZSH_HOME}/zsh.d/core/codex.zsh
-zdefer_source ${ZSH_HOME}/zsh.d/core/claude_code.zsh
-
 zdefer_source ${ZSH_HOME}/zsh.d/core/tools.zsh
 
-
-#-------------------------------------------------
-# Load Dev
-#-------------------------------------------------
-# zsh-defer zsource ${ZSH_HOME}/zsh.d/dev/go.zsh
-# zsh-defer zsource ${ZSH_HOME}/zsh.d/dev/php.zsh
-# zsh-defer zsource ${ZSH_HOME}/zsh.d/dev/ruby.zsh
-# zsh-defer zsource ${ZSH_HOME}/zsh.d/dev/vagrant.zsh
+# Delayed load dev
+zdefer_source ${ZSH_HOME}/zsh.d/dev/git.zsh
+zdefer_source ${ZSH_HOME}/zsh.d/dev/docker.zsh
+zdefer_source ${ZSH_HOME}/zsh.d/dev/peco.zsh
+zdefer_source ${ZSH_HOME}/zsh.d/dev/ai.zsh
+zdefer_source ${ZSH_HOME}/zsh.d/dev/dev.zsh
+zdefer_source ${ZSH_HOME}/zsh.d/dev/gemini.zsh
+zdefer_source ${ZSH_HOME}/zsh.d/dev/codex.zsh
+zdefer_source ${ZSH_HOME}/zsh.d/dev/claude_code.zsh
+# zdefer_source ${ZSH_HOME}/zsh.d/dev/go.zsh
+# zdefer_source ${ZSH_HOME}/zsh.d/dev/php.zsh
+# zdefer_source ${ZSH_HOME}/zsh.d/dev/ruby.zsh
+# zdefer_source ${ZSH_HOME}/zsh.d/dev/vagrant.zsh
 
 # Lazy load processed with external files
 zsource ${ZSH_HOME}/zsh.d/dev/node.zsh

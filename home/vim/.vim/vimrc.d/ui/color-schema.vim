@@ -1,51 +1,44 @@
 "-------------------------
-" General
+" My color
 "-------------------------
-set t_Co=256
-" set t_Sf=[3%dm
-" set t_Sb=[4%dm
+function! s:apply_my_highlights() abort
+    " Background color should be the same color as Terminal
+    hi Normal ctermfg=NONE ctermbg=NONE guifg=NONE guibg=NONE
+    hi LineNr guifg=Blue guibg=NONE gui=none ctermfg=gray ctermbg=NONE cterm=none
 
-" Background color shuld be the same color as Terminal
-autocmd ColorScheme * highlight Normal ctermbg=none
-autocmd ColorScheme * highlight LineNr ctermbg=none
-
-"-------------------------
-" Color scheme
-"-------------------------
-" set termguicolors    " 24bit color（真のカラー）を有効にする
-" let base16colorspace=256 " 256色モードのサポート
-" colorscheme base16-ocean
-" so ${VIM_HOME}/.vim/colors/hybrid.vim
-
-" if has("termguicolors")
-"     set termguicolors
-" endif
-
-"-------------------------
-" Extra
-"-------------------------
-augroup Visuals
-    autocmd!
-    " Line number
-    au VimEnter * hi LineNr guifg=Blue guibg=DarkGray gui=none ctermfg=gray ctermbg=none cterm=none
-
-    " Window virtical split bar
-    au VimEnter * hi VertSplit guifg=Blue guibg=DarkGray gui=none ctermfg=Black ctermbg=Black cterm=none
+    " Window vertical split bar
+    hi VertSplit guifg=Blue guibg=DarkGray gui=none ctermfg=Black ctermbg=Black cterm=none
     set fillchars+=vert::
 
     " Match brackets
-    au VimEnter * hi MatchParen ctermbg=blue guibg=lightblue
+    hi MatchParen ctermbg=blue guibg=lightblue
 
     " Search highlight
-    au VimEnter * hi Search guifg=Blue guibg=DarkGray gui=none ctermfg=White ctermbg=Blue cterm=none
+    hi Search    ctermfg=Black ctermbg=Yellow guifg=#2E3440 guibg=#EBCB8B gui=none cterm=none
+    hi IncSearch ctermfg=Black ctermbg=Cyan   guifg=#2E3440 guibg=#88C0D0 gui=none cterm=none
 
     " Folding
-    au ColorScheme * hi Folded guifg=Blue guibg=DarkGray gui=none ctermfg=Blue ctermbg=Black cterm=none
-    au ColorScheme * hi FoldColumn guifg=Blue guibg=DarkGray gui=none ctermfg=Blue ctermbg=Black cterm=none
+    hi Folded guifg=Black guibg=Black gui=none ctermfg=Blue ctermbg=Black cterm=none
+    hi FoldColumn guifg=Blue guibg=DarkGray gui=none ctermfg=Blue ctermbg=Black cterm=none
 
-    " sign column
-    au VimEnter * hi SignColumn ctermfg=white guifg=black ctermbg=black guibg=black
+    " comment line
+    hi Comment ctermfg=Gray guifg=Gray
+
+    " Sign column
+    hi SignColumn ctermfg=white guifg=black ctermbg=black guibg=black
 
     " Quickfix
-    au QuickfixCmdPost * hi QuickFixLine ctermbg=Yellow guibg=Yellow
+    hi QuickFixLine ctermbg=Yellow guibg=Yellow
+endfunction
+
+augroup MyColors
+    autocmd!
+    autocmd ColorScheme * call s:apply_my_highlights()
 augroup END
+
+"-------------------------
+" Color settings
+"-------------------------
+set background=dark
+colorscheme base16-ocean
+call s:apply_my_highlights()

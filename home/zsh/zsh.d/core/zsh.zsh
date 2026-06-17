@@ -30,7 +30,6 @@ autoload -Uz compinit
 ZCD=${ZSH_HOME:-$HOME}/.zcompdump
 
 _zcompinit_func() {
-
     if [[ ! -f ${ZCD}.zwc || ${ZCD} -nt ${ZCD}.zwc ]]; then
         compinit -C -d ${ZCD}
         zcompile ${ZCD}
@@ -56,20 +55,21 @@ zstyle ':completion:*' menu select
 zstyle ':completion:*' cache-path ${ZSH_HOME}/zsh/.zcompcache
 
 #-------------------------------------------------
-# .zsh_history
+# History
 #-------------------------------------------------
-HISTFILE=${HOME}/.zsh_history
-HISTSIZE=100000
-SAVEHIST=1000000
+HISTSIZE=1000000            # メモリ上に保存する履歴の件数
+SAVEHIST=1000000            # 履歴ファイル（HDD/SSD）に保存する履歴の件数
+HISTFILE=${HOME}/.zsh_history  # 履歴の保存先ファイル（デフォルトは ~/.zsh_history）
 
-# share .zshhistory
-setopt inc_append_history
-setopt share_history
+setopt EXTENDED_HISTORY     # 履歴ファイルに実行時刻を記録する（fzfで見たときには出ませんが、データとして重要）
+setopt HIST_IGNORE_DUPS     # 同じコマンドを連続して実行した場合は履歴に残さない
+setopt SHARE_HISTORY        # 複数の端末間で履歴を共有する（別のウィンドウで打ったコマンドもすぐ履歴に出る）
+setopt APPEND_HISTORY       # 履歴ファイルに追記する（上書きを防ぐ）
 
 #-------------------------------------------------
 # vi mode
 # kj to return normal mode
 #-------------------------------------------------
-bindkey -M viins 'kj' vi-cmd-mode
-bindkey -M viins 'jk' vi-cmd-mode
+# bindkey -M viins 'kj' vi-cmd-mode
+# bindkey -M viins 'jk' vi-cmd-mode
 

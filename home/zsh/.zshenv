@@ -36,6 +36,12 @@ typeset -U path PATH
 #-------------------------------------------------
 function _is_exist() { type $@ > /dev/null 2>&1 }
 
+#-------------------------------------------------
+# Guard for the interactive shell
+# The remaining setup is only needed by interactive shells.
+#-------------------------------------------------
+[[ -o interactive ]] || return
+
 # --------------------------------------------------------------------
 # zsh compile
 # --------------------------------------------------------------------
