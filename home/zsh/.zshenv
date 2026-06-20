@@ -107,14 +107,8 @@ ensure_zcompiled() {
     fi
 }
 
-_zsh_defer_started=0
 zdefer_source() {
-    if [[ $_zsh_defer_started == 0 ]]; then
-        _zsh_defer_started=1
-        zsh-defer -t 0.5 zsource "$1"
-    else
-        zsh-defer zsource "$1"
-    fi
+    zsh-defer zsource "$1"
 }
 
 ensure_zcompiled ${HOME}/.zshenv
