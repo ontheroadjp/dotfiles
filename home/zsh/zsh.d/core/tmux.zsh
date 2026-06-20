@@ -30,6 +30,12 @@ if [[ -o login ]] && [ -z "${TMUX}" ]; then
 fi
 
 #-------------------------------------------------
+# key bindings
+#-------------------------------------------------
+alias tl='tmux ls'
+alias tn='tmux new -t'
+
+#-------------------------------------------------
 # ssh
 #-------------------------------------------------
 if [[ -n "$TMUX" ]]; then
@@ -91,23 +97,3 @@ function _set_tmux_pane_title_manually() {
 }
 alias spn='_set_tmux_pane_title_manually'
 
-#-------------------------------------------------
-# popup window
-#-------------------------------------------------
-#_toggle_tmux_popup_window() {
-# local current
-# current="$(tmux display-message -p '#{session_name}')"
-#
-# if [[ "$current" == "$1" ]]; then
-#   tmux detach-client
-# else
-#   tmux display-popup \
-#     -d "#{pane_current_path}" \
-#     -w 80% \
-#     -h 80% \
-#     -E "tmux new-session -A -s $1"
-# fi
-#}
-#
-#a() { _toggle_tmux_popup_window "popup" }
-#server() { _toggle_tmux_popup_window "server" }

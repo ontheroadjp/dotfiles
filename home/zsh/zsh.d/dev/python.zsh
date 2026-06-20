@@ -42,17 +42,17 @@ function auto_venv() {
     if [[ -n "${VIRTUAL_ENV-}" ]]; then
         if [[ ! -d "$current_venv" ]]; then
             deactivate 2>/dev/null
-            echo "${fg[cyan]}🐍 Virtualenv deactivated${reset_color}"
+            print -P "%F{cyan}🐍 Virtualenv deactivated%f"
         elif [[ "$VIRTUAL_ENV" != "$current_venv" ]]; then
             deactivate 2>/dev/null
             source "$current_venv/bin/activate"
-            echo "${fg[cyan]}🐍 Virtualenv activated: $current_venv${reset_color}"
+            print -P "%F{cyan}🐍 Virtualenv activated: $current_venv%f"
         fi
     else
         # venv disabled, if there is a venv where you are, activate
         if [[ -d "$current_venv" ]]; then
             source "$current_venv/bin/activate"
-            echo "🐍 Virtualenv activated: $current_venv"
+            print -P "%F{cyan}🐍 Virtualenv activated: $current_venv%f"
         fi
     fi
 }

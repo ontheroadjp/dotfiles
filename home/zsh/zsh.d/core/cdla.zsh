@@ -67,7 +67,7 @@ alias ....="cd ../../.."
 alias .....="cd ../../../../"
 alias ......="cd ../../../../../"
 
-function clipcopy() {
+function _clipcopy() {
     case "$OSTYPE" in
         darwin*)
             pbcopy
@@ -95,7 +95,7 @@ function _copy_current_dir_path() {
     local current_path
     current_path="$PWD"
 
-    printf '%s' "$current_path" | clipcopy || return 1
+    printf '%s' "$current_path" | _clipcopy || return 1
     echo "copy: $current_path"
 }
 alias ,='_copy_current_dir_path'

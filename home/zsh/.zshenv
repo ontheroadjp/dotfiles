@@ -18,6 +18,8 @@ export XDG_STATE_HOME=${HOME}/.local/state
 export XDG_DATA_HOME=${HOME}/.local/share
 export XDG_CACHE_HOME=${HOME}/.cache
 
+source "${DOTPATH}/.env"
+
 # Keep PATH entries unique when login shells are restarted.
 typeset -U path PATH
 

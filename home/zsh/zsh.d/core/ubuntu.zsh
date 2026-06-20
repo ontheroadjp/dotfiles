@@ -13,6 +13,9 @@ alias pbcopy='wl-copy'
 alias pbpaste='wl-paste'
 alias pc=pbcopy
 
+# clipboard (gpaste)
+alias clip="gpaste-client get $(gpaste-client history | fzf | cut -d: -f1) | pbcopy"
+
 # battery
 alias power-info="upower -i $(upower -e | grep 'BAT')"
 alias power="cat /sys/class/power_supply/BAT0/capacity"
