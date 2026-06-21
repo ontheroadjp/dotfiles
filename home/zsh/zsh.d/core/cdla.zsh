@@ -11,7 +11,7 @@ popd() {
 SHOW_FULL_PATH_AT_LA=1
 function _print_la() {
     [ $(uname) = 'Darwin' ] && {
-        LC_COLLATE=C ls -laGh "$@"
+        ls -laGh "$@"
     } || {
         LC_COLLATE=C ls -lah --color=auto "$@"
     }
