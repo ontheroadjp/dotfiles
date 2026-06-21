@@ -56,6 +56,11 @@ Plug 'ontheroadjp/vim-editing', { 'on': [] }
 Plug 'ontheroadjp/vim-commentout', { 'on': [] }
 Plug 'ontheroadjp/vim-brackets', { 'on': [] }
 Plug 'ontheroadjp/vim-deepl-translate', { 'on': [] }
+Plug 'ontheroadjp/core-toolkit-for-gnome', {
+    \ 'dir': '~/repo/github.com/ontheroadjp/core-toolkit-for-gnome',
+    \ 'rtp': 'scripts/vim-switch-us-input'
+    \ }
+
 " Plug 'ontheroadjp/vim-editing', { 'dir': '~/dev/src/github.com/ontheroadjp/vim-editing', 'on': [] }
 " Plug 'ontheroadjp/vim-commentout', { 'dir': '~/dev/src/github.com/ontheroadjp/vim-commentout', 'on': [] }
 " Plug 'ontheroadjp/vim-brackets', { 'dir': '~/dev/src/github.com/ontheroadjp/vim-brackets' }
