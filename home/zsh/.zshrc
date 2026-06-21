@@ -1,10 +1,4 @@
 #-------------------------------------------------
-# Terminal
-#-------------------------------------------------
-# Disable XON/XOFF flow control (prevents Ctrl+S from freezing terminal)
-stty -ixon 2>/dev/null
-
-#-------------------------------------------------
 # Variables
 #-------------------------------------------------
 # export TERM=xterm-256color
