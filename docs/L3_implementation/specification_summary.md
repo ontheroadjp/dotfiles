@@ -8,7 +8,7 @@ Core behavior under `home/zsh/zsh.d/core/` includes navigation, Git, Docker, fuz
 
 ## Vim And tmux
 
-Vim configures UTF-8, ripgrep, clipboard, indentation, and modular UI files (`home/vim/.vimrc:73-137`). tmux disables automatic renaming, rebuilds bindings, uses `tmux-256color`, and defines popup sessions (`home/tmux/.tmux.conf:1-160`).
+Vim configures UTF-8, ripgrep, clipboard, indentation, and modular UI files (`home/vim/.vimrc:73-137`). tmux disables automatic renaming, rebuilds bindings, uses `tmux-256color`, refreshes `SESSION_MANAGER` when clients attach, and defines popup sessions (`home/tmux/.tmux.conf:1-160`).
 
 ## Workstation Setup
 
