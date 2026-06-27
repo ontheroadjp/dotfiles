@@ -4,9 +4,10 @@ alias open='xdg-open'
 alias sleepoff="sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target"
 alias sleepon="sudo systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target"
 
+alias md="marktext"
+
 # terminal
 alias terminal='gnome-terminal --working-directory="$PWD"'
-
 
 # clipboard
 alias pbcopy='wl-copy'
@@ -14,7 +15,7 @@ alias pbpaste='wl-paste'
 alias pc=pbcopy
 
 # clipboard (gpaste)
-alias clip="gpaste-client get $(gpaste-client history | fzf | cut -d: -f1) | pbcopy"
+#alias clip="gpaste-client get $(gpaste-client history | fzf | cut -d: -f1) | pbcopy"
 
 # battery
 alias power-info="upower -i $(upower -e | grep 'BAT')"
@@ -42,3 +43,4 @@ gdrive() {
         --vfs-cache-max-age 24h \
         --daemon
 }
+

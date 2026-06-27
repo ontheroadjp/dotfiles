@@ -57,14 +57,15 @@ zstyle ':completion:*' cache-path ${ZSH_HOME}/zsh/.zcompcache
 #-------------------------------------------------
 # History
 #-------------------------------------------------
-HISTSIZE=1000000            # メモリ上に保存する履歴の件数
-SAVEHIST=1000000            # 履歴ファイル（HDD/SSD）に保存する履歴の件数
-HISTFILE=${HOME}/.zsh_history  # 履歴の保存先ファイル（デフォルトは ~/.zsh_history）
+setopt share_history
+setopt hist_ignore_dups
+setopt hist_space_ignore
+setopt extended_history
+setopt append_history
 
-setopt EXTENDED_HISTORY     # 履歴ファイルに実行時刻を記録する（fzfで見たときには出ませんが、データとして重要）
-setopt HIST_IGNORE_DUPS     # 同じコマンドを連続して実行した場合は履歴に残さない
-setopt SHARE_HISTORY        # 複数の端末間で履歴を共有する（別のウィンドウで打ったコマンドもすぐ履歴に出る）
-setopt APPEND_HISTORY       # 履歴ファイルに追記する（上書きを防ぐ）
+HISTSIZE=1000000
+SAVEHIST=1000000
+HISTFILE=${HOME}/.zsh_history
 
 #-------------------------------------------------
 # vi mode
