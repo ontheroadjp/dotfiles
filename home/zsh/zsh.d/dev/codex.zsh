@@ -22,9 +22,10 @@ codex() {
     echo -n "node: "
     node -v || return 1
     echo -n "python3: " && python3 --version
-    tmux select-pane -T "codex"
     # goslack
-    # bash ~/.claude/hooks/tmux-agent-status.sh ✅;
     command codex --sandbox danger-full-access --ask-for-approval untrusted "$@"
+    tmux select-pane -T "codex"
+    bash ~/.claude/hooks/tmux-agent-status.sh ✅ 2>/dev/null
     # command codex "$@"
 }
+

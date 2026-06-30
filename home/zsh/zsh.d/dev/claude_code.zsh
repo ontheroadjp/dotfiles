@@ -23,6 +23,7 @@ claude() {
     echo -n "node: " && node -v
     # goslack
     tmux select-pane -T "claude"
-    #bash ~/.claude/hooks/tmux-agent-status.sh ✅;
+    bash ~/.claude/hooks/tmux-agent-status.sh ✅ 2>/dev/null;
     command claude "$@"
 }
+
