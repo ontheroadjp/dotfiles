@@ -2,7 +2,7 @@
 # WEB (Dockerhub)
 #-------------------------------------------------
 function _open_my_dockerhub() {
-    place="$(ghq list | sed "s:github.com:hub.docker.com/r:" | peco)"
+    place="$(ghq list | sed "s:github.com:hub.docker.com/r:" | fzf)"
     [ ! -z "${place}" ] && {
         open "https://${place}"
     }
@@ -10,7 +10,7 @@ function _open_my_dockerhub() {
 alias dockerhub='_open_my_dockerhub';
 
 function dockerhub-build() {
-    place="$(ghq list | sed "s:github.com:hub.docker.com/r:" | peco)"
+    place="$(ghq list | sed "s:github.com:hub.docker.com/r:" | fzf)"
     [ ! -z "${place}" ] && {
         open "https://${place}/builds"
     }
