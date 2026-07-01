@@ -17,6 +17,7 @@ claude() {
     #         fi
     #     fi
         tmux select-pane -T "shell"
+        bash ~/.claude/hooks/tmux-agent-status.sh 2>/dev/null;
     }
 
     trap _claude_cleanup EXIT

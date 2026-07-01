@@ -24,9 +24,6 @@ function dockerhub-build() {
     source $(ghq root)/github.com/ontheroadjp/docker-dd/docker-dd-network.fnc
     source $(ghq root)/github.com/ontheroadjp/docker-dd/docker-dd-volue.fnc
 }
-    source $(ghq root)/github.com/ontheroadjp/docker-dd/docker-dd-common.fnc
-    source $(ghq root)/github.com/ontheroadjp/docker-dd/docker-dd-network.fnc
-    source $(ghq root)/github.com/ontheroadjp/docker-dd/docker-dd-volue.fnc
 
 # for docker-compose.yml
 # alias dd="docker-compose ${@}"
