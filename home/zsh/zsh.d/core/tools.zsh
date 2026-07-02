@@ -29,7 +29,7 @@ dict() {
 
 # core-toolkit-for-gnome
 alias yt="youtube"
-alias music='mpv-player'
+alias music='mpv-music-player'
 
 # yt-dlp
 alias ytmp4='yt-dlp -t mp4'
