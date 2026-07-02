@@ -26,6 +26,7 @@ alias sn='sed -n'
 alias h='cd ${HOME}'
 alias d='cd ${DOTPATH}'
 alias w='cd ${WORKSPACE}'
+alias r='cd $(ghq root)'
 alias init='exec zsh -l'
 
 #-------------------------------------------------

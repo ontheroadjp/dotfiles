@@ -28,7 +28,16 @@ alias cal="gnome-calendar"
 # mpv
 # alias video='mpv "$(fd -e mp4 -e mkv -e webm | fzf)"'
 # alias music='mpv --no-video "$(fd -e mp3 -e mp4 -e mkv -e webm | fzf)"'
-alias video="fd -t f -e mp4 -e wmv -e m4a -e flac | fzf -m | xargs -d '\n' mpv"
+alias video="\
+    fd -t f \
+    -e mp4 \
+    -e wmv \
+    -e m4a \
+    -e flac \
+    -e mkv \
+    -e webm \
+    | fzf -m \
+    | xargs -d '\n' mpv"
 # alias music="fd -t f -e mp3 -e m4a -e flac | fzf -m | xargs -d '\n' mpv --no-video"
 
 # gocryptfs
