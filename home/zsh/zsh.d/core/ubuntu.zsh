@@ -25,20 +25,19 @@ alias power-status="cat /sys/class/power_supply/BAT0/status"
 # calender popup
 alias cal="gnome-calendar"
 
+# -----------------------------------
+# core-toolkit-for-gnome
+# -----------------------------------
+alias yt="youtube"
+
 # mpv
-# alias video='mpv "$(fd -e mp4 -e mkv -e webm | fzf)"'
-# alias music='mpv --no-video "$(fd -e mp3 -e mp4 -e mkv -e webm | fzf)"'
-alias video="\
-    fd -t f \
-    -e mp4 \
-    -e wmv \
-    -e m4a \
-    -e flac \
-    -e mkv \
-    -e webm \
-    | fzf -m \
-    | xargs -d '\n' mpv"
-# alias music="fd -t f -e mp3 -e m4a -e flac | fzf -m | xargs -d '\n' mpv --no-video"
+music() {
+    mpv-player music "$@"
+}
+
+video() {
+    mpv-player video "$@"
+}
 
 # gocryptfs
 alias neymaron="mkdir -p ~/Documents/neymar && gocryptfs ~/Documents/neymar.enc ~/Documents/neymar"
