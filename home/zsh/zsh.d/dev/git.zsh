@@ -12,11 +12,6 @@ function _is_git_repo() {
 }
 
 #-------------------------------------------------
-# Github CLI
-#-------------------------------------------------
-eval "$(gh completion -s $(echo ${SHELL} | cut -d '/' -f 3))"
-
-#-------------------------------------------------
 # git alias & functions
 #-------------------------------------------------
 alias gl='git log'
@@ -65,13 +60,24 @@ gsp() {
 }
 
 #-------------------------------------------------
-# gh alias & functions
+# Github CLI
 #-------------------------------------------------
+eval "$(gh completion -s $(echo ${SHELL} | cut -d '/' -f 3))"
+
+# gh issue
 alias issl="gh issue list"
-issv() { gh issue view $1 --web }
+issv() { gh issue view $1 }
+issweb() { gh issue view $1 --web }
+
+# gh pr
 alias prl="gh pr list"
-# alias ghpm="gh pr merge --merge --delete-branch"
+prv() { gh pr view $1 }
+
+# gh merge
 prm() { gh pr merge "$1" --merge }
+is-pr-merged() {
+    gh pr view "$1" --json state,mergedAt,mergeCommit
+}
 
 # alias grl='gh run list --limit 10'
 runl() { gh run list --limit "${1:-10}" }
