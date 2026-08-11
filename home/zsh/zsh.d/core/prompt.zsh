@@ -47,7 +47,7 @@ function zle-line-init {
             DIR_NAME="%c"
 
             if git rev-parse --is-inside-work-tree >/dev/null 2>&1 \
-                && [[ "$(git rev-parse --git-dir)" != "$(git rev-parse --git-common-dir)" ]]; then
+                && [[ "$(git rev-parse --path-format=absolute --git-dir)" != "$(git rev-parse --path-format=absolute --git-common-dir)" ]]; then
                 DIR_COLOR="%{%F{#ff69b4}%}"
             else
                 DIR_COLOR="%{%F{blue}%}"
