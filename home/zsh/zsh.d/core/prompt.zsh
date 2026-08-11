@@ -46,15 +46,22 @@ function zle-line-init {
             TIME="%T"
             DIR_NAME="%c"
 
+            if git rev-parse --is-inside-work-tree >/dev/null 2>&1 \
+                && [[ "$(git rev-parse --git-dir)" != "$(git rev-parse --git-common-dir)" ]]; then
+                DIR_COLOR="%{%F{#ff69b4}%}"
+            else
+                DIR_COLOR="%{%F{blue}%}"
+            fi
+
             ps1_normal="[\
 ${TIME} \
-${DIR_NAME} \
+${DIR_COLOR}${DIR_NAME}%{%f%} \
 ${GIT_PROMPT}\
 ${VIRTUAL_ENV_PROMPT}\
 ]$ "
             ps1_insert="[\
 %{%F{green}%}${TIME}%{%f%} \
-%{%F{blue}%}${DIR_NAME}%{%f%} \
+${DIR_COLOR}${DIR_NAME}%{%f%} \
 %{%F{red}%}${GIT_PROMPT}%{%f%}\
 %{%F{cyan}%}${VIRTUAL_ENV_PROMPT}%{%f%}\
 ]$ "
