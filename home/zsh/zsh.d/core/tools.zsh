@@ -17,6 +17,13 @@ alias kbrm="$(ghq root)/github.com/ontheroadjp/core-toolkit-for-shell/backup/bac
 # quick-memo
 alias qm="quick-memo"
 
+# deeple-translate
+alias ja="python3 /home/diego/repo/github.com/ontheroadjp/shell-tools/tools/utilities/deepl-translater/deepl-translater.py -o ja"
+alias en="python3 /home/diego/repo/github.com/ontheroadjp/shell-tools/tools/utilities/deepl-translater/deepl-translater.py -o en"
+alias ko="python3 /home/diego/repo/github.com/ontheroadjp/shell-tools/tools/utilities/deepl-translater/deepl-translater.py -o ko"
+alias zh="python3 /home/diego/repo/github.com/ontheroadjp/shell-tools/tools/utilities/deepl-translater/deepl-translater.py -o zh"
+
+
 # calc
 alias calc='noglob calc'
 
@@ -26,10 +33,6 @@ dict() {
     curl ${url}/$1 -s /concern | \
         jq -r '.headword,.part_of_speech,.meanings[].ja'
 }
-
-# core-toolkit-for-gnome
-alias yt="youtube"
-alias music='mpv-music-player'
 
 # yt-dlp
 alias ytmp4='yt-dlp -t mp4'
