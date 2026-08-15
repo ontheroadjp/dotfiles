@@ -25,8 +25,7 @@ alias gb='git branch'
 alias gbvv='git branch -vv'
 alias gba='git branch -a'
 alias gc='git checkout'
-alias gcm='git checkout -B main'
-alias gcw='git checkout -B works'
+alias gcm='git checkout main'
 alias gd='git diff'
 alias gds='git diff --staged'
 alias gp='git push'
@@ -74,7 +73,8 @@ alias prl="gh pr list"
 prv() { gh pr view $1 }
 
 # gh merge
-prm() { gh pr merge "$1" --merge }
+# prm() { gh pr merge "$1" --merge }
+prm() { gh pr merge "$1" --squash }
 is-pr-merged() {
     gh pr view "$1" --json state,mergedAt,mergeCommit
 }
