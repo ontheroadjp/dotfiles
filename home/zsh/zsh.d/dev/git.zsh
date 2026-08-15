@@ -33,7 +33,26 @@ alias gfap='git fetch --all --prune'
 ga() { git add "$@" && git status }
 gwip() { git add -A && git commit -m "[WIP] ${1}" }
 alias gbk='git checkout -b backup-$(date +%Y%m%d-%H%M%S)'
-gsp() {
+_is_pr_head_merged_into_main() {
+    local branch_name="$1"
+    local branch_oid="$2"
+    local merged_head_oids
+
+    merged_head_oids=$(gh pr list \
+        --state merged \
+        --base main \
+        --head "$branch_name" \
+        --limit 100 \
+        --json headRefOid,isCrossRepository \
+        --jq '.[] | select(.isCrossRepository == false) | .headRefOid') || return 1
+
+    printf '%s\n' "$merged_head_oids" | grep -Fxq "$branch_oid"
+}
+
+_git_sweep() {
+    local branch_name branch_oid current_branch remote_branch
+    local local_branches remote_branches
+
     # 1. Setting the Stage: Synchronize the latest remote state with the local repository and clean up deleted branches
     git fetch -p origin
 
@@ -44,6 +63,20 @@ gsp() {
         # Execute only if the target exists. Error suppression (2>/dev/null) has been deprecated.
         echo "$local_branches" | xargs git branch -d
     fi
+
+    # A squash/rebase merged branch is not an ancestor of main. Delete it only when
+    # GitHub confirms that its exact head commit was merged into main.
+    current_branch=$(git branch --show-current)
+    git branch --no-merged main --format='%(refname:short)' | while IFS= read -r branch_name; do
+        [ -z "$branch_name" ] && continue
+        [ "$branch_name" = "main" ] && continue
+        [ "$branch_name" = "$current_branch" ] && continue
+
+        branch_oid=$(git rev-parse "refs/heads/$branch_name") || continue
+        if _is_pr_head_merged_into_main "$branch_name" "$branch_oid"; then
+            git branch -D -- "$branch_name"
+        fi
+    done
 
     # 3. Clean up remote branches
     # Tighten regular expressions to prevent false positives caused by prefix matches (e.g., `origin/main-feature`)
@@ -56,7 +89,21 @@ gsp() {
         # Delete multiple branches in a single push, optimizing O(N) network I/O to O(1)
         echo "$remote_branches" | xargs git push origin --delete
     fi
+
+    git branch -r --no-merged origin/main --format='%(refname:short)' | while IFS= read -r remote_branch; do
+        [ -z "$remote_branch" ] && continue
+        [ "$remote_branch" = "origin/HEAD" ] && continue
+        [ "$remote_branch" = "origin/main" ] && continue
+        [ "${remote_branch#origin/}" = "$remote_branch" ] && continue
+
+        branch_name="${remote_branch#origin/}"
+        branch_oid=$(git rev-parse "refs/remotes/$remote_branch") || continue
+        if _is_pr_head_merged_into_main "$branch_name" "$branch_oid"; then
+            git push origin --delete "$branch_name"
+        fi
+    done
 }
+alias gsp="_git_sweep"
 
 #-------------------------------------------------
 # Github CLI
@@ -171,4 +218,3 @@ function _view_gist() {
 alias gist=_view_gist
 
 echo "Load Git settings."
-
