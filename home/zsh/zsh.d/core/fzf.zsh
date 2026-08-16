@@ -101,6 +101,14 @@ vimd() { _fzf_powered_shell_fd file vim d "$@" }
 vimw() { _fzf_powered_shell_fd file vim w "$@" }
 vimr() { _fzf_powered_shell_fd file vim r "$@" }
 
+# open file on clipboard
+vimcb () {
+    local repo_root
+    repo_root=$(git rev-parse --show-toplevel 2>/dev/null)
+    vim $(fd -E docs "$(wl-paste)" "${repo_root}" | fzf) +${1:-1}
+}
+
+
 # display dir/file path
 .f() { _fzf_powered_shell_fd file echo . }
 .d() { _fzf_powered_shell_fd file echo d }
