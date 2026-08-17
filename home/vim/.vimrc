@@ -141,6 +141,7 @@ cno<expr> %$ getcmdtype() == ':' ? expand('%:p/') : '%$'
 " JJ, jk, kj  as <esc>
 inoremap <silent> jk <esc>
 inoremap <silent> kj <esc>
+" inoremap kj <Plug>(vim-switch-us-input-leave)
 
 " visual mode to normal mode
 vnoremap n <C-c>
@@ -162,8 +163,8 @@ set winheight=25
 nnoremap <C-u> <C-w><C-w>
 
 " close other windows
-nnoremap <C-w><C-w> <C-w>o
-nnoremap <C-e><C-e> <C-w>o
+" nnoremap <C-w><C-w> <C-w>o
+" nnoremap <C-e><C-e> <C-w>o
 
 "----------------------------------------------------------------- Tab
 "nnoremap <silent> tn :tabnew<CR>        " open new tab
@@ -399,5 +400,45 @@ augroup Python
         endif
     endfunction
 augroup END
+
+
+
+" Normal mode では bracketed paste を無効化
+" Insert / Replace / Command-line mode では有効化
+
+function! s:BracketedPaste(enable) abort
+    if a:enable
+        call writefile(["\x1b[?2004h"], "/dev/tty", "b")
+    else
+        call writefile(["\x1b[?2004l"], "/dev/tty", "b")
+    endif
+endfunction
+
+function! s:UpdateBracketedPaste() abort
+    let l:m = mode(1)
+
+    " Insert / Replace / Command-line
+    if l:m =~# '^[iRc]'
+        call s:BracketedPaste(1)
+    else
+        call s:BracketedPaste(0)
+    endif
+endfunction
+
+augroup mode_bracketed_paste
+    autocmd!
+
+    " Vim 起動時は Normal mode
+    autocmd VimEnter * call s:BracketedPaste(0)
+
+    " モードが変わるたびに追従
+    autocmd ModeChanged * call s:UpdateBracketedPaste()
+
+    " Vim 終了時は端末を通常状態へ戻す
+    autocmd VimLeavePre * call s:BracketedPaste(0)
+augroup END
+
+
+
 
 filetype on
