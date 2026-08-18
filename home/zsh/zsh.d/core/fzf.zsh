@@ -106,21 +106,41 @@ _fzf_show_relative_to() {
     local line
 
     while IFS= read -r line; do
-        printf '%s\t%s\n' "${line#"${root}/"}" "$line"
-    done | fzf --delimiter=$'\t' --with-nth=1 | cut -f2-
+        printf '%s\x1f%s\n' "${line#"${root}/"}" "$line"
+    done | fzf --delimiter=$'\x1f' --with-nth=1 | cut -d $'\x1f' -f2-
 }
 
 # open search result with vim
 vimfd () {
     local repo_root
+    local selected
+
     repo_root=$(git rev-parse --show-toplevel 2>/dev/null)
-    vim $(fd -E docs "$1" "${repo_root}" | _fzf_show_relative_to "${repo_root}") +${2:-1}
+    selected=$(fd --type file -E docs "$1" "${repo_root}" | _fzf_show_relative_to "${repo_root}")
+
+    [[ -z "$selected" ]] && return 0
+
+    vim "+${2:-1}" "$selected"
 }
 
 vimrg () {
     local repo_root
+    local selected
+    local file
+    local match
+    local line
+
     repo_root=$(git rev-parse --show-toplevel 2>/dev/null)
-    vim $(rg "$1" "${repo_root}" | _fzf_show_relative_to "${repo_root}") +${2:-1}
+    selected=$(rg --line-number --with-filename --field-match-separator=$'\t' "$1" "${repo_root}" \
+        | _fzf_show_relative_to "${repo_root}")
+
+    [[ -z "$selected" ]] && return 0
+
+    file=${selected%%$'\t'*}
+    match=${selected#*$'\t'}
+    line=${match%%$'\t'*}
+
+    vim "+${line}" "$file"
 }
 
 
