@@ -124,14 +124,27 @@ vimfd () {
 }
 
 vimrg () {
+    local -a rg_options=()
     local repo_root
     local selected
     local file
     local match
     local line
+    local pattern="${1:-}"
+    local term
+
+    if (( $# > 1 )); then
+        pattern=""
+        rg_options=(--pcre2)
+
+        for term in "$@"; do
+            pattern+="(?=.*(?:${term}))"
+        done
+    fi
 
     repo_root=$(git rev-parse --show-toplevel 2>/dev/null)
-    selected=$(rg --line-number --with-filename --field-match-separator=$'\t' "$1" "${repo_root}" \
+    selected=$(rg "${rg_options[@]}" --line-number --with-filename --field-match-separator=$'\t' \
+        -- "$pattern" "${repo_root}" \
         | _fzf_show_relative_to "${repo_root}")
 
     [[ -z "$selected" ]] && return 0
