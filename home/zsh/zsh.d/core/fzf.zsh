@@ -125,26 +125,49 @@ vimfd () {
 
 vimrg () {
     local -a rg_options=()
+    local -a rg_patterns=()
     local repo_root
     local selected
     local file
     local match
     local line
-    local pattern="${1:-}"
+    local mode="and"
+    local pattern
     local term
 
-    if (( $# > 1 )); then
+    case "${1:-}" in
+        -o|--or)
+            mode="or"
+            shift
+            ;;
+        --)
+            shift
+            ;;
+    esac
+
+    [[ "${1:-}" == "--" ]] && shift
+
+    if [[ "$mode" == "or" ]]; then
+        for term in "$@"; do
+            rg_patterns+=(-e "$term")
+        done
+
+        (( $# == 0 )) && rg_patterns=(-e "")
+    elif (( $# > 1 )); then
         pattern=""
         rg_options=(--pcre2)
 
         for term in "$@"; do
             pattern+="(?=.*(?:${term}))"
         done
+        rg_patterns=(-e "$pattern")
+    else
+        rg_patterns=(-e "${1:-}")
     fi
 
     repo_root=$(git rev-parse --show-toplevel 2>/dev/null)
-    selected=$(rg "${rg_options[@]}" --line-number --with-filename --field-match-separator=$'\t' \
-        -- "$pattern" "${repo_root}" \
+    selected=$(rg "${rg_options[@]}" "${rg_patterns[@]}" \
+        --line-number --with-filename --field-match-separator=$'\t' -- "${repo_root}" \
         | _fzf_show_relative_to "${repo_root}")
 
     [[ -z "$selected" ]] && return 0
