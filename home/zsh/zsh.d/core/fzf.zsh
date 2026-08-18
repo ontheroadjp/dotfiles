@@ -101,11 +101,26 @@ vimd() { _fzf_powered_shell_fd file vim d "$@" }
 vimw() { _fzf_powered_shell_fd file vim w "$@" }
 vimr() { _fzf_powered_shell_fd file vim r "$@" }
 
-# open file on clipboard
-vimcb () {
+_fzf_show_relative_to() {
+    local root="$1"
+    local line
+
+    while IFS= read -r line; do
+        printf '%s\t%s\n' "${line#"${root}/"}" "$line"
+    done | fzf --delimiter=$'\t' --with-nth=1 | cut -f2-
+}
+
+# open search result with vim
+vimfd () {
     local repo_root
     repo_root=$(git rev-parse --show-toplevel 2>/dev/null)
-    vim $(fd -E docs "$(wl-paste)" "${repo_root}" | fzf) +${1:-1}
+    vim $(fd -E docs "$1" "${repo_root}" | _fzf_show_relative_to "${repo_root}") +${2:-1}
+}
+
+vimrg () {
+    local repo_root
+    repo_root=$(git rev-parse --show-toplevel 2>/dev/null)
+    vim $(rg "$1" "${repo_root}" | _fzf_show_relative_to "${repo_root}") +${2:-1}
 }
 
 
@@ -234,4 +249,3 @@ function _ghq_from_gh_repo_list() {
     fi
 }
 alias repo='_ghq_from_gh_repo_list'
-
