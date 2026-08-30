@@ -25,6 +25,6 @@ codex() {
     # goslack
     tmux select-pane -T "codex"
     bash ~/.claude/hooks/tmux-agent-status.sh ✅ 2>/dev/null
-    command codex --sandbox danger-full-access --ask-for-approval untrusted "$@"
+    command codex --sandbox danger-full-access --ask-for-approval on-request "$@"
 }
 
