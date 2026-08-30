@@ -86,3 +86,5 @@ fi
 
 bindkey -e
 
+
+. "$HOME/.local/share/../bin/env"
