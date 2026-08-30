@@ -96,10 +96,10 @@ ww() { _fzf_powered_shell_fd dir cd w }
 rr() { _fzf_powered_shell_fd dir cd r }
 
 # open with vim
-vimf() { _fzf_powered_shell_fd file vim . "$@" }
-vimd() { _fzf_powered_shell_fd file vim d "$@" }
-vimw() { _fzf_powered_shell_fd file vim w "$@" }
-vimr() { _fzf_powered_shell_fd file vim r "$@" }
+vimff() { _fzf_powered_shell_fd file vim . "$@" }
+vimdd() { _fzf_powered_shell_fd file vim d "$@" }
+vimww() { _fzf_powered_shell_fd file vim w "$@" }
+vimrr() { _fzf_powered_shell_fd file vim r "$@" }
 
 _fzf_show_relative_to() {
     local root="$1"
@@ -192,48 +192,48 @@ mkdird() { _fzf_powered_shell_fd dir mkdir d "$@" }
 mkdirw() { _fzf_powered_shell_fd dir mkdir w "$@" }
 mkdirr() { _fzf_powered_shell_fd dir mkdir r "$@" }
 
-_fzf_powered_shell_rg() {
-    local dir
-    local ext
-    local rg_opts=()
-    local match
-    local file
-    local line
-    local col
-
-    case "$1" in
-        sub)  dir="." ;;
-        d|dd) dir="${HOME}/dotfiles" ;;
-        w|ww) dir="${HOME}/WORKSPACE" ;;
-        r|rr) dir="$(ghq root)" ;;
-        *)    dir="." ;;
-    esac
-
-    ext="${2:-}"
-
-    [[ -n "$ext" ]] && rg_opts=(-g "*.${ext}")
-
-    match=$(
-        rg \
-            -uu \
-            --color=always \
-            "${rg_opts[@]}" \
-            . "${dir}" \
-        | fzf-tmux -p 90% --ansi
-    )
-
-    [[ -z "$match" ]] && return 0
-
-    file=$(printf '%s\n' "$match" | cut -d: -f1)
-    line=$(printf '%s\n' "$match" | cut -d: -f2)
-    col=$(printf '%s\n' "$match" | cut -d: -f3)
-
-    vim "+call cursor(${line}, ${col})" "$file"
-}
-vimff() { _fzf_powered_shell_rg sub "$@"; }
-vimdd()  { _fzf_powered_shell_rg d "$@"; }
-vimww()  { _fzf_powered_shell_rg w "$@"; }
-vimrr()  { _fzf_powered_shell_rg r "$@"; }
+# _fzf_powered_shell_rg() {
+#     local dir
+#     local ext
+#     local rg_opts=()
+#     local match
+#     local file
+#     local line
+#     local col
+#
+#     case "$1" in
+#         sub)  dir="." ;;
+#         d|dd) dir="${HOME}/dotfiles" ;;
+#         w|ww) dir="${HOME}/WORKSPACE" ;;
+#         r|rr) dir="$(ghq root)" ;;
+#         *)    dir="." ;;
+#     esac
+#
+#     ext="${2:-}"
+#
+#     [[ -n "$ext" ]] && rg_opts=(-g "*.${ext}")
+#
+#     match=$(
+#         rg \
+#             -uu \
+#             --color=always \
+#             "${rg_opts[@]}" \
+#             . "${dir}" \
+#         | fzf-tmux -p 90% --ansi
+#     )
+#
+#     [[ -z "$match" ]] && return 0
+#
+#     file=$(printf '%s\n' "$match" | cut -d: -f1)
+#     line=$(printf '%s\n' "$match" | cut -d: -f2)
+#     col=$(printf '%s\n' "$match" | cut -d: -f3)
+#
+#     vim "+call cursor(${line}, ${col})" "$file"
+# }
+# vimff() { _fzf_powered_shell_rg sub "$@"; }
+# vimdd()  { _fzf_powered_shell_rg d "$@"; }
+# vimww()  { _fzf_powered_shell_rg w "$@"; }
+# vimrr()  { _fzf_powered_shell_rg r "$@"; }
 
 #-------------------------------------------------
 # Command History
