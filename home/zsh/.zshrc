@@ -53,7 +53,7 @@ zdefer_source ${ZSH_HOME}/zsh.d/dev/docker.zsh
 zdefer_source ${ZSH_HOME}/zsh.d/dev/peco.zsh
 zdefer_source ${ZSH_HOME}/zsh.d/dev/ai.zsh
 zdefer_source ${ZSH_HOME}/zsh.d/dev/dev.zsh
-zdefer_source ${ZSH_HOME}/zsh.d/dev/gemini.zsh
+zdefer_source ${ZSH_HOME}/zsh.d/dev/antigravity.zsh
 zdefer_source ${ZSH_HOME}/zsh.d/dev/codex.zsh
 zdefer_source ${ZSH_HOME}/zsh.d/dev/claude_code.zsh
 # zdefer_source ${ZSH_HOME}/zsh.d/dev/go.zsh
@@ -88,4 +88,12 @@ fi
 bindkey -e
 
 
-. "$HOME/.local/share/../bin/env"
+#. "$HOME/.local/share/../bin/env"
+
+#export NVM_DIR="$HOME/.nvm"
+#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+
+# Added by Antigravity CLI installer
+#export PATH="/home/diego/.local/bin:$PATH"

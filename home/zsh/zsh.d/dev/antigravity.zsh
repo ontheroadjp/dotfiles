@@ -125,5 +125,5 @@ gemini() {
     # ' EXIT
 
     # Normal gemini CLI execution
-    command gemini "$@"
+    command agy --mode=accept-edits "$@"
 }
