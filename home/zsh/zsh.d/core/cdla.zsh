@@ -13,7 +13,7 @@ function _print_la() {
     [ $(uname) = 'Darwin' ] && {
         ls -laGh "$@"
     } || {
-        LC_COLLATE=C ls -lah --color=auto "$@"
+        LC_COLLATE=C.UTF-8 ls -lah --color=auto "$@"
     }
 
 # [ ${SHOW_FULL_PATH_AT_LA} -ne 0 ] && echo "\e[34m@ $(pwd | sed -e 's:\/Users\/.*/\?:\$\{HOME\}\/:g')\e[0m"
