@@ -85,7 +85,9 @@ if (which zprof > /dev/null 2>&1) ;then
   zprof | less
 fi
 
-bindkey -e
+# vi mode, but Esc is disabled so insert mode is never left by accident
+bindkey -v
+bindkey -M viins -r '^['
 
 
 #. "$HOME/.local/share/../bin/env"
