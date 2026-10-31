@@ -305,3 +305,90 @@ function _ghq_from_gh_repo_list() {
     fi
 }
 alias repo='_ghq_from_gh_repo_list'
+
+#-------------------------------------------------
+# eject external hdd
+#-------------------------------------------------
+# Safely eject any external drive (regular FS / APFS-FUSE) using fzf
+function _eject-external-hard-drive() {
+    # Check required dependencies
+    for cmd in fzf findmnt lsblk; do
+        if ! command -v "$cmd" >/dev/null 2>&1; then
+            echo "❌ Error: Required command '$cmd' is not installed." >&2
+            return 1
+        fi
+    done
+
+    # List removable candidates mounted under /run/media, /media, or /mnt
+    # Output columns: TARGET (mount point), SOURCE (device), FSTYPE, SIZE, LABEL
+    local mount_lines
+    mount_lines=$(findmnt -ln -o TARGET,SOURCE,FSTYPE,SIZE,LABEL | grep -E '^/(run/media|media|mnt)/')
+
+    if [[ -z "$mount_lines" ]]; then
+        echo "⚠️  No removable mounted drives found."
+        return 1
+    fi
+
+    # Interactive selection via fzf
+    # +1 (+no-select-1): Always prompt even if there is only 1 device
+    # +0 (+no-exit-0): Do not auto-exit
+    local selected
+    selected=$(echo "$mount_lines" | fzf +1 +0 \
+        --header="Select a drive to eject (ESC / Ctrl-C to cancel)" \
+        --prompt="Eject Drive > " \
+        --height=40% \
+        --reverse)
+
+        # Cancel if no selection was made
+        if [[ -z "$selected" ]]; then
+            echo "🚫 Eject cancelled."
+            return 0
+        fi
+
+        # Extract fields from the selected entry
+        local target_mount source_dev fstype
+        target_mount=$(echo "$selected" | awk '{print $1}')
+        source_dev=$(echo "$selected" | awk '{print $2}')
+        fstype=$(echo "$selected" | awk '{print $3}')
+
+        echo "💾 Flushing file system buffers (sync)..."
+        sync
+
+        echo "🛑 Unmounting: $target_mount ($source_dev)"
+
+        # Branch unmount command based on filesystem type
+        if [[ "$fstype" =~ ^fuse ]]; then
+            if ! sudo fusermount -u "$target_mount" 2>/dev/null; then
+                echo "   fusermount failed; attempting lazy unmount..."
+                sudo umount -l "$target_mount" 2>/dev/null
+            fi
+            # Terminate any dangling apfs-fuse processes for this target
+            sudo pkill -9 -f "apfs-fuse.*$target_mount" 2>/dev/null || true
+        else
+            if ! udisksctl unmount -b "$source_dev" 2>/dev/null; then
+                echo "   udisksctl failed; attempting fallback unmount..."
+                sudo umount "$target_mount" 2>/dev/null || sudo umount -l "$target_mount" 2>/dev/null
+            fi
+        fi
+
+        # Identify parent block device and power it off
+        local parent_dev=""
+        if [[ "$source_dev" =~ ^/dev/ ]]; then
+            local pkname
+            pkname=$(lsblk -no PKNAME "$source_dev" 2>/dev/null)
+            if [[ -n "$pkname" ]]; then
+                parent_dev="/dev/$pkname"
+            else
+                parent_dev="$source_dev"
+            fi
+        fi
+
+        if [[ -n "$parent_dev" && -b "$parent_dev" ]]; then
+            echo "⚡ Powering off device: $parent_dev"
+            udisksctl power-off -b "$parent_dev" 2>/dev/null || true
+        fi
+
+        echo "✅ Safe to disconnect the drive."
+}
+alias eject='_eject-external-hard-drive'
+
