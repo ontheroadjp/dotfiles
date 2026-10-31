@@ -260,7 +260,7 @@ _history_selection_fzf() {
 }
 
 zle -N history-selection-fzf _history_selection_fzf
-bindkey -M viins '^R' history-selection-fzf
+bindkey -M viins '^H' history-selection-fzf
 
 #-------------------------------------------------
 # Memo
