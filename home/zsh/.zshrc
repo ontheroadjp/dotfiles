@@ -35,9 +35,10 @@ alias init='exec zsh -l'
 # Delayed load NG
 zsource ${ZSH_HOME}/zsh.d/core/tmux_logo.zsh
 zsource ${ZSH_HOME}/zsh.d/core/prompt.zsh
+zsource ${ZSH_HOME}/zsh.d/core/zsh.zsh
 
 # Delayed load core
-zdefer_source ${ZSH_HOME}/zsh.d/core/zsh.zsh
+# zdefer_source ${ZSH_HOME}/zsh.d/core/zsh.zsh
 zdefer_source ${ZSH_HOME}/zsh.d/core/tmux.zsh
 zdefer_source ${ZSH_HOME}/zsh.d/core/cdla.zsh
 zdefer_source ${ZSH_HOME}/zsh.d/core/ripgrap.zsh

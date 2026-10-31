@@ -245,7 +245,7 @@ _history_selection_fzf() {
         fc -rln 1 |
         grep -v '^git commit -m' |
         awk '!seen[$0]++' |
-        fzf --reverse --height=40% --query="$BUFFER"
+        fzf --no-sort --nth=1 --reverse --height=40% --query="$BUFFER"
     )
 
     [[ -z "$selected" ]] && {
