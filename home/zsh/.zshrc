@@ -45,6 +45,7 @@ zdefer_source ${ZSH_HOME}/zsh.d/core/fd.zsh
 zdefer_source ${ZSH_HOME}/zsh.d/core/fzf.zsh
 zdefer_source ${ZSH_HOME}/zsh.d/core/vps.zsh
 zdefer_source ${ZSH_HOME}/zsh.d/core/tools.zsh
+zdefer_source ${ZSH_HOME}/zsh.d/core/system_monitor.zsh
 
 # Delayed load dev
 zdefer_source ${ZSH_HOME}/zsh.d/dev/git.zsh

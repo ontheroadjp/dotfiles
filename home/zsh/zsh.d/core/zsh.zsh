@@ -12,6 +12,7 @@ if [ $(uname) = "Darwin" ]; then
     zdefer_source ${ZSH_HOME}/zsh.d/core/macosx.zsh
 elif [ "$(expr substr $(uname -s) 1 5)" = 'Linux' ]; then
     zdefer_source ${ZSH_HOME}/zsh.d/core/ubuntu.zsh
+    alias lsm='lsblk -e 7 -o NAME,FSTYPE,FSVER,SIZE,FSAVAIL,FSUSE%,TYPE,TRAN,MODEL,MOUNTPOINTS'
 elif [ "$(expr substr $(uname -s) 1 10)" = 'MINGW32_NT' ]; then
     # For Windows (Cygwin) only
     echo 'Welcome to Cygwin!'
