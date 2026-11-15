@@ -91,14 +91,14 @@ function _clipcopy() {
     esac
 }
 
-function _copy_current_dir_path() {
-    local current_path
-    current_path="$PWD"
-
-    printf '%s' "$current_path" | _clipcopy || return 1
-    echo "copy: $current_path"
-}
-alias ,='_copy_current_dir_path'
+# function _copy_current_dir_path() {
+#     local current_path
+#     current_path="$PWD"
+#
+#     printf '%s' "$current_path" | _clipcopy || return 1
+#     echo "copy: $current_path"
+# }
+# alias ,='_copy_current_dir_path'
 
 function mkdircd() { mkdir $@ && cd $_ }
 alias mc='mkdircd'

@@ -1,3 +1,4 @@
+# -------------------------------------------------
 # Settings
 # -------------------------------------------------
 export FZF_TMUX=1
@@ -11,6 +12,100 @@ export FZF_DEFAULT_OPTS="
     --bind ctrl-l:abort \
 "
 
+function _fzf_open() {
+    fzf | xargs -r -d '\n' xdg-open
+}
+alias fzfopen='_fzf_open'
+
+
+# -------------------------------------------------
+# Copy Directory path
+# -------------------------------------------------
+function ,() {
+  local dir="$PWD"
+  local name="${PWD:t}"
+  local selected
+
+  selected=$(printf '%s\n' \
+    "Full path: $dir" \
+    "Directory: $name" |
+    fzf --height=~10 --reverse --no-multi) || return 0
+
+  case "$selected" in
+    "Full path: "*)  selected="${selected#Full path: }" ;;
+    "Directory: "*)  selected="${selected#Directory: }" ;;
+  esac
+
+  if (( $+commands[wl-copy] )); then
+    print -rn -- "$selected" | wl-copy
+  elif (( $+commands[xclip] )); then
+    print -rn -- "$selected" | xclip -selection clipboard
+  elif (( $+commands[pbcopy] )); then
+    print -rn -- "$selected" | pbcopy
+  else
+    print -u2 "Clipboard command not found"
+    return 1
+  fi
+}
+
+# -------------------------------------------------
+# Copy File path
+# -------------------------------------------------
+function ,,() {
+  local file selected
+  local -a files
+
+  files=(*(N.))
+  (( ${#files} )) || return 0
+
+  file=$(printf '%s\n' "${files[@]}" |
+    fzf --height=~40% --reverse --no-multi) || return 0
+
+  selected=$(printf '%s\n' \
+    "Full path: $PWD/$file" \
+    "Filename: $file" |
+    fzf --height=~10 --reverse --no-multi) || return 0
+
+  case "$selected" in
+    "Full path: "*) selected="${selected#Full path: }" ;;
+    "Filename: "*)  selected="${selected#Filename: }" ;;
+  esac
+
+  if (( $+commands[wl-copy] )); then
+    print -rn -- "$selected" | wl-copy
+  elif (( $+commands[xclip] )); then
+    print -rn -- "$selected" | xclip -selection clipboard
+  elif (( $+commands[pbcopy] )); then
+    print -rn -- "$selected" | pbcopy
+  else
+    print -u2 "Clipboard command not found"
+    return 1
+  fi
+}
+
+# -------------------------------------------------
+# mp4 check: H264 & AAC
+# -------------------------------------------------
+# 例: 選択したファイルの「ファイル名」をコピーした上でコーデック判定を実行
+_264aac() {
+  local target
+  target=$(fzf --prompt="Select MP4 > ") || return
+  [ -z "$target" ] && return
+
+  basename "$target" | tr -d '\n' | wl-copy
+  echo "Copied: $(basename "$target")"
+
+  if [[ $(ffprobe -v error -select_streams v:0 -show_entries stream=codec_name -of default=nokey=1:noprint_wrappers=1 "$target") == "h264" ]] && \
+     [[ $(ffprobe -v error -select_streams a:0 -show_entries stream=codec_name -of default=nokey=1:noprint_wrappers=1 "$target") == "aac" ]]; then
+    echo "OK: H.264 / AAC です"
+  else
+    echo "NG: 別のコーデックが含まれています"
+    ffprobe -v error -show_entries stream=codec_type,codec_name -of csv=p=0 "$target"
+  fi
+}
+alias 264='_264aac'
+alias aac='_264aac'
+alias 246aac='_264aac'
 
 # -------------------------------------------------
 # fzf-powered shell launcher
@@ -96,10 +191,10 @@ ww() { _fzf_powered_shell_fd dir cd w }
 rr() { _fzf_powered_shell_fd dir cd r }
 
 # open with vim
-vimff() { _fzf_powered_shell_fd file vim . "$@" }
-vimdd() { _fzf_powered_shell_fd file vim d "$@" }
-vimww() { _fzf_powered_shell_fd file vim w "$@" }
-vimrr() { _fzf_powered_shell_fd file vim r "$@" }
+ffvim() { _fzf_powered_shell_fd file vim . "$@" }
+ddvim() { _fzf_powered_shell_fd file vim d "$@" }
+wwvim() { _fzf_powered_shell_fd file vim w "$@" }
+rrvim() { _fzf_powered_shell_fd file vim r "$@" }
 
 _fzf_show_relative_to() {
     local root="$1"
