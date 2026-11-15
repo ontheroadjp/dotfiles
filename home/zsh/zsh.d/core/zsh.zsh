@@ -60,7 +60,7 @@ zstyle ':completion:*' cache-path ${ZSH_HOME}/zsh/.zcompcache
 #-------------------------------------------------
 setopt share_history
 setopt hist_ignore_dups
-setopt hist_space_ignore
+setopt hist_ignore_space
 setopt extended_history
 setopt append_history
 
