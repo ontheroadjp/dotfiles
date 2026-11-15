@@ -1,8 +1,15 @@
 # alias
 alias open='xdg-open'
 
+# sleep
 alias sleepoff="sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target"
 alias sleepon="sudo systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target"
+alias sleepstatus="systemctl status sleep.target"
+
+# usage: nosleep datat -d 5
+# usage: nosleep watch -n 5 date
+# usage: nosleep sleep infinity
+alias nosleep='systemd-inhibit --what=sleep:idle --why="Prevent sleep"'
 
 alias md="marktext"
 
@@ -40,7 +47,7 @@ video() {
 }
 
 # gocryptfs
-alias neymaron="mkdir -p ~/Documents/neymar && gocryptfs ~/Documents/neymar.enc ~/Documents/neymar"
+alias neymaron="mkdir -p ~/Documents/neymar && gocryptfs -allow_other ~/Documents/neymar.enc ~/Documents/neymar"
 alias neymaroff="fusermount -u ~/Documents/neymar && rm -rf ~/Documents/neymar"
 
 # rclone for Google Drive
