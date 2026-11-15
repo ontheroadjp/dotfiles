@@ -1,0 +1,12 @@
+{
+  "exclusionRules": [
+    {
+      "passKeys": "",
+      "pattern": "https?://mail.google.com/*"
+    }
+  ],
+  "keyMappings": "map h goBack\nmap l goForward\nmap H previousTab\nmap L nextTab\nmap i LinkHints.activateMode\nmap I LinkHints.activateModeToOpenInNewTab",
+  "linkHintCharacters": "yuophjklnm",
+  "scrollStepSize": 120,
+  "settingsVersion": "2.4.2"
+}
