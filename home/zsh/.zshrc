@@ -57,6 +57,8 @@ zdefer_source ${ZSH_HOME}/zsh.d/dev/dev.zsh
 zdefer_source ${ZSH_HOME}/zsh.d/dev/antigravity.zsh
 zdefer_source ${ZSH_HOME}/zsh.d/dev/codex.zsh
 zdefer_source ${ZSH_HOME}/zsh.d/dev/claude_code.zsh
+zdefer_source ${ZSH_HOME}/zsh.d/dev/ollama.zsh
+
 # zdefer_source ${ZSH_HOME}/zsh.d/dev/go.zsh
 # zdefer_source ${ZSH_HOME}/zsh.d/dev/php.zsh
 # zdefer_source ${ZSH_HOME}/zsh.d/dev/ruby.zsh

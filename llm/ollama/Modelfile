@@ -1,0 +1,9 @@
+FROM qwen3.5:4b
+
+# T480s向けにコンテキスト長とスレッド数を最適化
+PARAMETER num_ctx 4096
+PARAMETER num_thread 4
+PARAMETER temperature 0.5
+
+# デフォルトで簡潔に日本語で答えるよう指示
+SYSTEM """あなたは優秀なAIアシスタントです。ユーザーの質問に対して、前置きや冗長な表現を省き、日本語で簡潔かつ分かりやすく回答してください。"""
