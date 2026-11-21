@@ -4,7 +4,7 @@
 
 `home/zsh/.zshenv` defines repository paths, XDG locations, unique PATH handling, compilation helpers, and loads `zsh-defer` (`home/zsh/.zshenv:9-114`). `.zshrc` configures history, aliases, prompt loading, deferred core modules, and Node/Python integration (`home/zsh/.zshrc:1-91`).
 
-Core behavior under `home/zsh/zsh.d/core/` includes navigation, Git, Docker, fuzzy finding, AI CLI wrappers, and OS-specific settings. Most modules are deferred (`home/zsh/.zshrc:53-76`). Node activation uses mise (`home/zsh/zsh.d/dev/node.zsh:32-33`).
+Core behavior under `home/zsh/zsh.d/core/` includes navigation, Git, Docker, fuzzy finding, AI CLI wrappers, and OS-specific settings. The fzf history widget supports current-process and shared-history searches, with a terminal-specific binding needed for Ctrl+Shift+h. Most modules are deferred (`home/zsh/.zshrc:53-76`). Node activation uses mise (`home/zsh/zsh.d/dev/node.zsh:32-33`).
 
 ## Vim And tmux
 
