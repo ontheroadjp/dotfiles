@@ -337,10 +337,11 @@ _history_selection_fzf() {
     local selected
 
     selected=$(
-        fc -rln 1 |
+        fc "$@" -rln 1 |
         grep -v '^git commit -m' |
         awk '!seen[$0]++' |
-        fzf --no-sort --nth=1 --reverse --height=40% --query="$BUFFER"
+        fzf --no-sort --nth=1 --reverse --height=40% --query="$BUFFER" \
+            --bind=ctrl-h:abort,ctrl-alt-h:abort
     )
 
     [[ -z "$selected" ]] && {
@@ -354,8 +355,17 @@ _history_selection_fzf() {
     zle reset-prompt
 }
 
+_local_history_selection_fzf() {
+    _history_selection_fzf -IL
+}
+
 zle -N history-selection-fzf _history_selection_fzf
-bindkey -M viins '^H' history-selection-fzf
+zle -N local-history-selection-fzf _local_history_selection_fzf
+bindkey -M viins '^H' local-history-selection-fzf
+bindkey -M viins '^[^H' history-selection-fzf
+# CSI-u: Ctrl+Shift+h (lowercase key code with Shift, or uppercase with Ctrl).
+bindkey -M viins '^[[104;6u' history-selection-fzf
+bindkey -M viins '^[[72;5u' history-selection-fzf
 
 #-------------------------------------------------
 # Memo
